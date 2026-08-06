@@ -7,6 +7,8 @@ import { DynamicIcon } from "./DynamicIcon";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useTranslation } from "@/lib/i18n";
 import { getSectionTitle } from "@/lib/section-title";
+import { signOut } from "@/lib/supabase/auth";
+import { useRouter } from "next/navigation";
 
 function YoutubeIcon({ className }: { className?: string }) {
   return (
@@ -143,13 +145,13 @@ export function Header({ siteMetadata, sections, buttons, showExportButtons = fa
 
   const generateTranscript = (sectionsData: any[]) => {
     let transcript = `# ${siteMetadata.title}\n\n${siteMetadata.description}\n\n`;
-    
+
     sectionsData.forEach(section => {
       transcript += `## ${getSectionTitle(section)}\n\n`;
       if (section.timestamp) {
         transcript += `*${section.timestamp}*\n\n`;
       }
-      
+
       section.questions.forEach((question: any) => {
         transcript += `### ${question.number}. ${question.text}\n\n`;
         if (question.answer) {
@@ -158,8 +160,17 @@ export function Header({ siteMetadata, sections, buttons, showExportButtons = fa
         transcript += `---\n\n`;
       });
     });
-    
+
     return transcript;
+  };
+
+  const handleLogout = async () => {
+    try {
+      await signOut();
+      router.push('/login');
+    } catch (error) {
+      console.error('Failed to sign out:', error);
+    }
   };
 
   const downloadFile = (content: string, filename: string, mimeType: string) => {
@@ -180,6 +191,12 @@ export function Header({ siteMetadata, sections, buttons, showExportButtons = fa
         <div className="mb-5 flex items-center justify-end gap-3">
           <LanguageSwitcher />
           <ThemeToggle />
+          <button
+            onClick={handleLogout}
+            className="ml-2 flex h-9 items-center justify-center rounded-md border border-border px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-secondary/50"
+          >
+            Uitloggen
+          </button>
         </div>
       )}
 

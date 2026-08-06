@@ -7,11 +7,12 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { signUp, isUsernameAvailable } from '@/lib/supabase/auth';
 import { useRedirectIfAuthenticated } from '@/hooks/useAuth';
+import { Eye, EyeOff } from 'lucide-react';
 
 export default function RegisterPage() {
   useRedirectIfAuthenticated();
@@ -27,10 +28,22 @@ export default function RegisterPage() {
       confirmPassword: draftPassword,
       username: '',
       fullName: '',
+      showPassword: false,
+      showConfirmPassword: false,
     };
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    if (success) {
+      const timer = setTimeout(() => {
+        router.push('/');
+      }, 2000); // Redirect after 2 seconds
+      return () => clearTimeout(timer);
+    }
+  }, [success, router]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -111,35 +124,10 @@ export default function RegisterPage() {
       sessionStorage.removeItem('auth_draft_password');
     }
 
-    // Immediately redirect to dashboard
-    window.location.href = '/';
+    // Set success to true to show success message
+    setSuccess(true);
   };
 
-  if (success) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-background px-4 py-12">
-        <div className="w-full max-w-md text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/20">
-            <svg
-              className="h-8 w-8 text-green-600 dark:text-green-400"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path d="M5 13l4 4L19 7" />
-            </svg>
-          </div>
-          <h1 className="font-display text-3xl font-semibold">Account aangemaakt!</h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Je wordt doorgestuurd naar het dashboard...
-          </p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4 py-12">
@@ -230,18 +218,32 @@ export default function RegisterPage() {
               >
                 Wachtwoord *
               </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-                autoComplete="new-password"
-                className="mt-1 block w-full rounded-md border border-border bg-background px-3 py-2 text-foreground shadow-sm placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                placeholder="••••••••"
-                minLength={6}
-              />
+              <div className="relative">
+                <input
+                  id="password"
+                  name="password"
+                  type={formData.showPassword ? "text" : "password"}
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                  autoComplete="new-password"
+                  className="mt-1 block w-full rounded-md border border-border bg-background px-3 py-2 text-foreground shadow-sm placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 pr-10"
+                  placeholder="••••••••"
+                  minLength={6}
+                />
+                <button
+                  type="button"
+                  onClick={() => setFormData(prev => ({ ...prev, showPassword: !prev.showPassword }))}
+                  className="absolute right-2 top-0 mt-2.5 h-6 w-6 flex items-center justify-center text-sm rounded-md hover:bg-secondary/50"
+                  aria-label={formData.showPassword ? "Verberg wachtwoord" : "Toon wachtwoord"}
+                >
+                  {formData.showPassword ? (
+                    <EyeOff className="h-4 w-4 text-muted-foreground" />
+                  ) : (
+                    <Eye className="h-4 w-4 text-muted-foreground" />
+                  )}
+                </button>
+              </div>
               <p className="mt-1 text-xs text-muted-foreground">
                 Minimaal 6 tekens
               </p>
@@ -254,17 +256,31 @@ export default function RegisterPage() {
               >
                 Bevestig wachtwoord *
               </label>
-              <input
-                id="confirmPassword"
-                name="confirmPassword"
-                type="password"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                required
-                autoComplete="new-password"
-                className="mt-1 block w-full rounded-md border border-border bg-background px-3 py-2 text-foreground shadow-sm placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                placeholder="••••••••"
-              />
+              <div className="relative">
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type={formData.showConfirmPassword ? "text" : "password"}
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  required
+                  autoComplete="new-password"
+                  className="mt-1 block w-full rounded-md border border-border bg-background px-3 py-2 text-foreground shadow-sm placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 pr-10"
+                  placeholder="••••••••"
+                />
+                <button
+                  type="button"
+                  onClick={() => setFormData(prev => ({ ...prev, showConfirmPassword: !prev.showConfirmPassword }))}
+                  className="absolute right-2 top-0 mt-2.5 h-6 w-6 flex items-center justify-center text-sm rounded-md hover:bg-secondary/50"
+                  aria-label={formData.showConfirmPassword ? "Verberg wachtwoord" : "Toon wachtwoord"}
+                >
+                  {formData.showConfirmPassword ? (
+                    <EyeOff className="h-4 w-4 text-muted-foreground" />
+                  ) : (
+                    <Eye className="h-4 w-4 text-muted-foreground" />
+                  )}
+                </button>
+              </div>
             </div>
           </div>
 

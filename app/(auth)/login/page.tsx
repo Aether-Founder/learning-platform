@@ -12,6 +12,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { signIn } from '@/lib/supabase/auth';
 import { useRedirectIfAuthenticated } from '@/hooks/useAuth';
+import { Eye, EyeOff } from 'lucide-react';
 
 function LoginPageContent() {
   useRedirectIfAuthenticated();
@@ -34,6 +35,7 @@ function LoginPageContent() {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleEmailChange = (val: string) => {
     setEmail(val);
@@ -69,7 +71,7 @@ function LoginPageContent() {
     }
 
     // Redirect to dashboard
-    window.location.href = redirectTo;
+    router.push(redirectTo);
   };
 
   return (
@@ -116,16 +118,30 @@ function LoginPageContent() {
               >
                 Wachtwoord
               </label>
-              <input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => handlePasswordChange(e.target.value)}
-                required
-                autoComplete="current-password"
-                className="mt-1 block w-full rounded-md border border-border bg-background px-3 py-2 text-foreground shadow-sm placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                placeholder="••••••••"
-              />
+              <div className="relative">
+                <input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => handlePasswordChange(e.target.value)}
+                  required
+                  autoComplete="current-password"
+                  className="mt-1 block w-full rounded-md border border-border bg-background px-3 py-2 text-foreground shadow-sm placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 pr-10"
+                  placeholder="••••••••"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-2 top-0 mt-2.5 h-6 w-6 flex items-center justify-center text-sm rounded-md hover:bg-secondary/50"
+                  aria-label={showPassword ? "Verberg wachtwoord" : "Toon wachtwoord"}
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-4 w-4 text-muted-foreground" />
+                  ) : (
+                    <Eye className="h-4 w-4 text-muted-foreground" />
+                  )}
+                </button>
+              </div>
             </div>
           </div>
 
