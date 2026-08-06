@@ -13,7 +13,7 @@ export default function CopyContentPage({ params }: { params: { page: string } }
 
   const loadContent = async () => {
     try {
-      const response = await fetch(`/api/content/${page}/txt`);
+      const response = await fetch(`/api/content/page/${page}/txt`);
       if (!response.ok) {
         throw new Error("Content not found");
       }

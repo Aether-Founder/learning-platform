@@ -1,25 +1,60 @@
 // Core data types for the comprehensive learning platform
 
-export type MasteryStatus = 'unstudied' | 'learning' | 'mastered';
+export type MasteryStatus = 'unstudied' | 'learning' | 'review' | 'due' | 'mastered' | 'suspended';
 
 export type QuestionType = 'multiple-choice' | 'written' | 'true-false' | 'flashcard';
 
-export type LearningMode = 'flashcard' | 'learn' | 'learn-image' | 'test' | 'multiple-choice-only' | 'writing-only' | 'match' | 'blast' | 'blocks' | 'sprint' | 'type-rush' | 'samenvatting';
+export type LearningMode = 'review' | 'flashcard' | 'learn' | 'learn-image' | 'test' | 'multiple-choice-only' | 'writing-only' | 'match' | 'blast' | 'blocks' | 'sprint' | 'type-rush' | 'gravity' | 'samenvatting';
 
 /** Learning activity chosen in session settings (Leren flow) */
 export type LerenActivity = 'flashcard' | 'learn' | 'multiple-choice-only' | 'writing-only';
+
+export type CardType = "basic" | "reverse" | "cloze" | "image-occlusion";
+
+export type ReviewGrade = "again" | "hard" | "good" | "easy";
+
+export type SrsAlgorithm = "sm2" | "fsrs";
+
+export type ReviewMode = "due" | "new" | "mix" | "mistakes" | "starred";
+
+export interface ImageOcclusion {
+  id: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  label?: string;
+}
 
 // Term/Definition pair with progress tracking
 export interface Term {
   id: string;
   term: string;
   definition: string;
+  front?: string;
+  back?: string;
+  cardType?: CardType;
+  tags?: string[];
+  clozeText?: string;
+  audio?: string;
+  occlusions?: ImageOcclusion[];
+  suspended?: boolean;
+  buriedUntil?: Date;
   learningSetId?: string;
   learningSetTitle?: string;
   isStarred: boolean;
   masteryStatus: MasteryStatus;
   consecutiveCorrectCount: number;
   lastStudied?: Date;
+  nextReviewAt?: Date;
+  intervalDays?: number;
+  easeFactor?: number;
+  difficulty?: number;
+  stability?: number;
+  retrievability?: number;
+  reviewCount?: number;
+  lapseCount?: number;
+  dueState?: ReviewMode | "review" | "mastered";
   createdAt: Date;
   image?: string;
 }
@@ -52,6 +87,17 @@ export interface UserTermProgress {
   totalAttempts: number;
   correctAttempts: number;
   lastAttemptDate?: Date;
+  nextReviewAt?: Date;
+  intervalDays: number;
+  easeFactor: number;
+  difficulty: number;
+  stability: number;
+  retrievability: number;
+  reviewCount: number;
+  lapseCount: number;
+  lastGrade?: ReviewGrade;
+  suspended: boolean;
+  buriedUntil?: Date;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -79,6 +125,7 @@ export interface TermResult {
   correctAnswer: string;
   isCorrect: boolean;
   wasOverridden: boolean; // User clicked "I was right"
+  reviewGrade?: ReviewGrade;
   timeSpent: number; // milliseconds
   timestamp: Date;
 }
@@ -93,6 +140,16 @@ export interface StudySettings {
   shuffleTerms: boolean;
   smartGrading: boolean;
   retypeAnswers: boolean;
+  reviewMode: ReviewMode;
+  dailyNewLimit: number;
+  dailyReviewLimit: number;
+  srsAlgorithm: SrsAlgorithm;
+  gradingIgnoreAccents: boolean;
+  gradingIgnoreCase: boolean;
+  gradingIgnorePunctuation: boolean;
+  gradingTypoTolerance: number;
+  testFeedbackMode: 'exam' | 'instant';
+  retryIncorrect: boolean;
   // Test mode specific
   testQuestionDistribution?: {
     'true-false': number; // percentage

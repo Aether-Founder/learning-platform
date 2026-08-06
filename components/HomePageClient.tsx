@@ -2,9 +2,12 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { CalendarDays, ChevronRight } from "lucide-react";
+import { ChevronRight, Plus, BookOpen } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 import { AuthModal } from "@/components/AuthModal";
+import { TestWeekWizard } from "@/components/TestWeekWizard";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 interface ContentFile {
   pageName: string;
@@ -36,24 +39,57 @@ function TitleWithFlatDash({ title }: { title: string }) {
 export function HomePageClient({ contentFiles }: { contentFiles: ContentFile[] }) {
   const { t } = useTranslation();
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showTestWeekWizard, setShowTestWeekWizard] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const planningPage = contentFiles.find((content) => content.pageName === "toetsweekplanning");
-  const subjectPages = contentFiles.filter((content) => content.pageName !== "toetsweekplanning");
+  const [testWeeks, setTestWeeks] = useState<any[]>([]);
+  const [activeTestWeek, setActiveTestWeek] = useState<any>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    // Check if user has already logged in
-    const userData = localStorage.getItem('user_data');
-    if (!userData) {
-      // Show auth modal on first visit if no user data
-      // DISABLED: Auth modal will never be shown
-      // setShowAuthModal(true);
+    // Check if user is logged in
+    const token = localStorage.getItem('access_token');
+    const userId = localStorage.getItem('user_id');
+    if (token && userId) {
+      setIsLoggedIn(true);
+      loadTestWeeks();
     }
   }, []);
 
-  const handleAuthComplete = (userData: any) => {
-    // User completed auth (either logged in or skipped)
+  const loadTestWeeks = async () => {
+    try {
+      const token = localStorage.getItem('access_token');
+      if (!token) return;
+
+      const response = await fetch('/api/testweeks', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setTestWeeks(data.testWeeks);
+        setActiveTestWeek(data.activeTestWeek);
+      }
+    } catch (error) {
+      console.error('Failed to load test weeks:', error);
+    }
+  };
+
+  const handleAuthSuccess = (user: any, tokens: any) => {
+    setIsLoggedIn(true);
     setShowAuthModal(false);
+    loadTestWeeks();
+  };
+
+  const handleGuestMode = () => {
+    setShowAuthModal(false);
+  };
+
+  const handleTestWeekComplete = (testWeek: any) => {
+    setShowTestWeekWizard(false);
+    loadTestWeeks();
   };
 
   return (
@@ -61,56 +97,106 @@ export function HomePageClient({ contentFiles }: { contentFiles: ContentFile[] }
       <AuthModal
         isOpen={showAuthModal}
         onClose={() => setShowAuthModal(false)}
-        onComplete={handleAuthComplete}
+        onAuthSuccess={handleAuthSuccess}
+        onGuestMode={handleGuestMode}
       />
-      <div className="max-w-4xl mx-auto px-5 py-10 md:py-14">
+      <TestWeekWizard
+        isOpen={showTestWeekWizard}
+        onClose={() => setShowTestWeekWizard(false)}
+        onComplete={handleTestWeekComplete}
+      />
+      <div className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-14">
         <header className="mb-12">
-          <h1 className="text-4xl font-serif text-foreground font-medium text-center mb-4">
+          <h1 className="text-5xl md:text-6xl font-serif text-foreground font-medium text-center mb-4">
             {mounted ? t("home_title", "Toetsweekvoorbereiding") : "Toetsweekvoorbereiding"}
           </h1>
-          <p className="text-muted-foreground text-center text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-center text-lg max-w-3xl mx-auto">
             {mounted
               ? t("home_subtitle", "Kies hieronder een vak om te oefenen voor de toetsweek.")
               : "Kies hieronder een vak om te oefenen voor de toetsweek."}
           </p>
         </header>
 
-        {planningPage && (
-          <div className="mb-8">
-            <Link
-              href={`/${planningPage.pageName}`}
-              className="flex flex-col gap-4 rounded-lg border border-border bg-gradient-to-br from-card to-secondary/40 p-6 shadow-sm transition-colors hover:bg-secondary/50 sm:flex-row sm:items-center"
-            >
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-border bg-background text-foreground shadow-sm">
-                <CalendarDays className="h-6 w-6" />
-              </span>
-              <span className="min-w-0 flex-1">
-                <span className="block text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                  Planning
-                </span>
-                <span className="mt-1 block text-2xl font-serif font-semibold text-foreground">
-                  {planningPage.title}
-                </span>
-                <span className="mt-1 block text-sm leading-relaxed text-muted-foreground">
-                  Bekijk wanneer je toetsen zijn en welke stof daarbij hoort.
-                </span>
-              </span>
-              <ChevronRight className="hidden h-5 w-5 shrink-0 text-muted-foreground sm:block" />
-            </Link>
+        {isLoggedIn && (
+          <div className="mb-8 p-6 border border-border rounded-lg bg-card">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-semibold">Toetsweek</h2>
+              <Button
+                size="sm"
+                onClick={() => setShowTestWeekWizard(true)}
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                Nieuwe toetsweek
+              </Button>
+            </div>
+            
+            {activeTestWeek ? (
+              <div>
+                <Link
+                  href={`/testweek/${activeTestWeek.id}`}
+                  className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-secondary/50 transition-colors"
+                >
+                  <div>
+                    <h3 className="font-semibold text-lg">{activeTestWeek.name}</h3>
+                    <p className="text-sm text-muted-foreground">
+                      {new Date(activeTestWeek.startDate).toLocaleDateString('nl-NL')} - {new Date(activeTestWeek.endDate).toLocaleDateString('nl-NL')}
+                    </p>
+                    <div className="flex items-center gap-2 mt-2">
+                      <Badge variant="secondary">
+                        {activeTestWeek.subjects.length} vakken
+                      </Badge>
+                    </div>
+                  </div>
+                  <ChevronRight className="w-5 h-5 text-muted-foreground" />
+                </Link>
+                
+                {testWeeks.length > 1 && (
+                  <div className="mt-4">
+                    <p className="text-sm text-muted-foreground mb-2">Andere toetsweken:</p>
+                    <div className="space-y-2">
+                      {testWeeks
+                        .filter(tw => tw.id !== activeTestWeek.id)
+                        .slice(0, 3)
+                        .map(tw => (
+                          <Link
+                            key={tw.id}
+                            href={`/testweek/${tw.id}`}
+                            className="block p-3 border border-border rounded hover:bg-secondary/50 transition-colors text-sm"
+                          >
+                            {tw.name}
+                          </Link>
+                        ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="text-center py-8">
+                <BookOpen className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
+                <p className="text-muted-foreground mb-4">
+                  Nog geen toetsweek geselecteerd
+                </p>
+                <Button onClick={() => setShowTestWeekWizard(true)}>
+                  <Plus className="w-4 h-4 mr-2" />
+                  Maak uw eerste toetsweek
+                </Button>
+              </div>
+            )}
           </div>
         )}
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {subjectPages.map((content) => (
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          {contentFiles.map((content) => (
             <Link
               key={content.pageName}
-              href={`/${content.pageName}`}
-              className="block p-6 border border-border rounded-lg transition-colors hover:bg-secondary/50"
+              href={`/toetsweekvoorbereiding/${content.pageName}`}
+              className="block min-h-[190px] p-6 border border-border rounded-lg transition-colors hover:bg-secondary/50"
             >
               <div className="flex items-start justify-between mb-3">
                 <h2 className="text-xl font-semibold text-foreground mb-2 font-serif">
                   <TitleWithFlatDash title={content.title} />
                 </h2>
+                <ChevronRight className="mt-1 h-5 w-5 text-muted-foreground" />
               </div>
               <p className="text-muted-foreground text-sm leading-relaxed">
                 {content.description}

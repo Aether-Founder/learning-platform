@@ -1,92 +1,119 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { X } from "lucide-react";
+import { X, Loader2 } from "lucide-react";
 
-interface UserData {
-  name: string;
+interface User {
+  id: string;
   email: string;
-  password: string;
+  displayName: string;
+  avatar?: string;
+}
+
+interface AuthTokens {
+  accessToken: string;
+  refreshToken: string;
 }
 
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onComplete: (userData: UserData | null) => void;
+  onAuthSuccess: (user: User, tokens: AuthTokens) => void;
+  onGuestMode: () => void;
 }
 
-export function AuthModal({ isOpen, onClose, onComplete }: AuthModalProps) {
+export function AuthModal({ isOpen, onClose, onAuthSuccess, onGuestMode }: AuthModalProps) {
+  const [mode, setMode] = useState<'login' | 'register'>('login');
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
     if (isOpen) {
-      // Disable scrolling when modal is open
       document.body.style.overflow = "hidden";
       
-      // Load saved credentials if remember me was checked
-      const savedCredentials = localStorage.getItem("user_credentials");
+      // Load saved credentials
+      const savedCredentials = localStorage.getItem("auth_credentials");
       if (savedCredentials) {
         const credentials = JSON.parse(savedCredentials);
-        if (credentials.rememberMe) {
-          setName(credentials.name || "");
-          setEmail(credentials.email || "");
-          setPassword(credentials.password || "");
-          setRememberMe(true);
-        }
+        setEmail(credentials.email || "");
       }
     } else {
-      // Re-enable scrolling when modal is closed
       document.body.style.overflow = "unset";
     }
 
-    // Cleanup on unmount
     return () => {
       document.body.style.overflow = "unset";
     };
   }, [isOpen]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
-    if (!name.trim()) {
-      setError("Naam is verplicht");
-      return;
+    try {
+      if (mode === 'register') {
+        // Registration
+        const response = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password, displayName: name }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || 'Registratie mislukt');
+        }
+
+        // Save credentials
+        localStorage.setItem('auth_credentials', JSON.stringify({ email }));
+        
+        // Save tokens
+        localStorage.setItem('access_token', data.tokens.accessToken);
+        localStorage.setItem('refresh_token', data.tokens.refreshToken);
+        localStorage.setItem('user_id', data.user.id);
+
+        onAuthSuccess(data.user, data.tokens);
+      } else {
+        // Login
+        const response = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || 'Inloggen mislukt');
+        }
+
+        // Save credentials
+        localStorage.setItem('auth_credentials', JSON.stringify({ email }));
+        
+        // Save tokens
+        localStorage.setItem('access_token', data.tokens.accessToken);
+        localStorage.setItem('refresh_token', data.tokens.refreshToken);
+        localStorage.setItem('user_id', data.user.id);
+
+        onAuthSuccess(data.user, data.tokens);
+      }
+
+      onClose();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Er is een fout opgetreden');
+    } finally {
+      setLoading(false);
     }
-
-    if (!email.trim()) {
-      setError("E-mail is verplicht");
-      return;
-    }
-
-    if (!password.trim()) {
-      setError("Wachtwoord is verplicht");
-      return;
-    }
-
-    // Save credentials locally if remember me is checked
-    if (rememberMe) {
-      localStorage.setItem(
-        "user_credentials",
-        JSON.stringify({ name, email, password, rememberMe })
-      );
-    } else {
-      localStorage.removeItem("user_credentials");
-    }
-
-    // Save user data for analytics
-    localStorage.setItem("user_data", JSON.stringify({ name, email }));
-
-    onComplete({ name, email, password });
-    onClose();
   };
 
-  const handleSkip = () => {
-    onComplete(null);
+  const handleGuestMode = () => {
+    localStorage.setItem('guest_mode', 'true');
+    onGuestMode();
     onClose();
   };
 
@@ -96,7 +123,6 @@ export function AuthModal({ isOpen, onClose, onComplete }: AuthModalProps) {
     <div 
       className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
       onClick={(e) => {
-        // Only close if clicking directly on the backdrop, not the modal
         if (e.target === e.currentTarget) {
           onClose();
         }
@@ -104,7 +130,9 @@ export function AuthModal({ isOpen, onClose, onComplete }: AuthModalProps) {
     >
       <div className="bg-card border border-border rounded-lg shadow-lg w-full max-w-md">
         <div className="flex items-center justify-between p-6 border-b border-border">
-          <h2 className="text-xl font-semibold text-foreground">Welkom</h2>
+          <h2 className="text-xl font-semibold text-foreground">
+            {mode === 'login' ? 'Inloggen' : 'Registreren'}
+          </h2>
           <button
             onClick={onClose}
             title="Sluiten"
@@ -115,20 +143,22 @@ export function AuthModal({ isOpen, onClose, onComplete }: AuthModalProps) {
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
-              Naam
-            </label>
-            <input
-              type="text"
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full px-4 py-2 bg-background border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
-              placeholder="Voer uw naam in"
-              required
-            />
-          </div>
+          {mode === 'register' && (
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
+                Naam
+              </label>
+              <input
+                type="text"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full px-4 py-2 bg-background border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
+                placeholder="Voer uw naam in"
+                required
+              />
+            </div>
+          )}
 
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
@@ -155,22 +185,10 @@ export function AuthModal({ isOpen, onClose, onComplete }: AuthModalProps) {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-2 bg-background border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
-              placeholder="Maak een wachtwoord aan"
+              placeholder={mode === 'login' ? 'Voer uw wachtwoord in' : 'Maak een wachtwoord aan'}
               required
+              minLength={6}
             />
-          </div>
-
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              id="remember"
-              checked={rememberMe}
-              onChange={(e) => setRememberMe(e.target.checked)}
-              className="w-4 h-4 border border-border rounded focus:ring-2 focus:ring-primary"
-            />
-            <label htmlFor="remember" className="ml-2 text-sm text-muted-foreground">
-              Onthoud mij
-            </label>
           </div>
 
           {error && (
@@ -179,10 +197,33 @@ export function AuthModal({ isOpen, onClose, onComplete }: AuthModalProps) {
 
           <button
             type="submit"
-            className="w-full px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
+            disabled={loading}
+            className="w-full px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
-            Doorgaan
+            {loading ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                {mode === 'login' ? 'Inloggen...' : 'Registreren...'}
+              </>
+            ) : (
+              mode === 'login' ? 'Inloggen' : 'Registreren'
+            )}
           </button>
+
+          <div className="text-center text-sm">
+            <button
+              type="button"
+              onClick={() => {
+                setMode(mode === 'login' ? 'register' : 'login');
+                setError("");
+              }}
+              className="text-primary hover:underline"
+            >
+              {mode === 'login' 
+                ? 'Nog geen account? Registreer hier' 
+                : 'Heb je al een account? Log hier in'}
+            </button>
+          </div>
 
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
@@ -195,10 +236,10 @@ export function AuthModal({ isOpen, onClose, onComplete }: AuthModalProps) {
 
           <button
             type="button"
-            onClick={handleSkip}
-            className="w-full px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
+            onClick={handleGuestMode}
+            className="w-full px-4 py-2 bg-secondary text-secondary-foreground rounded-md hover:bg-secondary/90 transition-colors"
           >
-            Sla over en ga door als gast
+            Doorgaan als gast
           </button>
         </form>
       </div>

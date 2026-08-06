@@ -52,7 +52,7 @@ export default async function RawContentPage({ params }: { params: { page: strin
         
         <div className="mt-4 flex gap-4">
           <a
-            href={`/api/content/${page}/raw`}
+            href={`/api/content/page/${page}/raw`}
             target="_blank"
             rel="noopener noreferrer"
             className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"

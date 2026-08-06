@@ -1,99 +1,24 @@
 {
-  "3abab317-88ae-4da2-bcc5-8a009b7c6450": {
-    "id": "3abab317-88ae-4da2-bcc5-8a009b7c6450",
-    "userId": "ba9710ba-93c2-455b-8433-16935ac82404",
-    "startTime": 1780389479213,
-    "endTime": null,
-    "duration": 0,
+  "534c5b5d-c0df-4d56-9bbb-a6cbb0cc023c": {
+    "id": "534c5b5d-c0df-4d56-9bbb-a6cbb0cc023c",
+    "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
+    "startTime": 1785419531202,
+    "endTime": 1785419541903,
+    "duration": 13397,
     "events": [
       {
-        "eventType": "session_start",
-        "timestamp": 1780389479213,
-        "data": {
-          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
-          "language": "en",
-          "screenResolution": "1280x800"
-        }
-      },
-      {
         "eventType": "mode_switch",
-        "timestamp": 1780389493252,
+        "timestamp": 1785419531202,
         "data": {
           "from": "simple",
-          "to": "samenvatting"
-        }
-      },
-      {
-        "eventType": "mode_switch",
-        "timestamp": 1780389546911,
-        "data": {
-          "from": "samenvatting",
-          "to": "alles-leren-2-dagen"
-        }
-      },
-      {
-        "eventType": "mode_switch",
-        "timestamp": 1780389547745,
-        "data": {
-          "from": "alles-leren-2-dagen",
-          "to": "complete-oefentoets"
-        }
-      }
-    ]
-  },
-  "cb28d583-f434-499e-8379-4aaa2e8f06ea": {
-    "id": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
-    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
-    "startTime": 1780389628521,
-    "endTime": 1780389656951,
-    "duration": 24799,
-    "events": [
-      {
-        "eventType": "session_end",
-        "timestamp": 1780389628521,
-        "data": {
-          "duration": 238568
-        }
-      },
-      {
-        "eventType": "session_start",
-        "timestamp": 1780389632152,
-        "data": {
-          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
-          "language": "en",
-          "screenResolution": "1280x800"
-        }
-      },
-      {
-        "eventType": "mode_switch",
-        "timestamp": 1780389655212,
-        "data": {
-          "from": "simple",
-          "to": "samenvatting"
+          "to": "study"
         }
       },
       {
         "eventType": "session_end",
-        "timestamp": 1780389656951,
+        "timestamp": 1785419541903,
         "data": {
-          "duration": 24799
-        }
-      },
-      {
-        "eventType": "session_start",
-        "timestamp": 1780389660557,
-        "data": {
-          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
-          "language": "en",
-          "screenResolution": "1280x800"
-        }
-      },
-      {
-        "eventType": "mode_switch",
-        "timestamp": 1780389663271,
-        "data": {
-          "from": "study",
-          "to": "simple"
+          "duration": 13397
         }
       }
     ]

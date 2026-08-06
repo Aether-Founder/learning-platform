@@ -1,0 +1,166 @@
+id,text
+sections,Abschnitte
+bookmarks,Lesezeichen
+clear_bookmarks,Alle löschen
+no_bookmarks,Noch keine Lesezeichen
+click_to_add,Klicken Sie auf einen Absatz, um ein Lesezeichen hinzuzufügen
+study_mode,Lernen
+book_mode,Buchmodus
+simple_mode,Erklärung
+loading,Laden...
+export,Exportieren
+copy,Kopieren
+watch_on_youtube,Auf YouTube ansehen
+read_on_substack,Auf Substack lesen
+back_to_main,Zurück zur Hauptseite
+table_of_contents,Inhaltsverzeichnis
+section,Abschnitt
+paragraph,Absatz
+question,Frage
+answer,Antwort
+difficulty,Schwierigkeit
+bookmark_added,Lesezeichen hinzugefügt
+bookmark_removed,Lesezeichen entfernt
+all_bookmarks_cleared,Alle Lesezeichen gelöscht
+export_anki,In Anki exportieren
+export_flashcards,Flashcards exportieren
+export_transcript,Transkript exportieren
+copy_transcript,Transkript kopieren
+click_to_flip,Klicken zum Umdrehen
+space_to_flip,Leertaste zum Umdrehen
+arrow_keys,Pfeiltasten zur Navigation verwenden
+scroll_to_section,Zum Abschnitt scrollen
+active_section,Aktiver Abschnitt
+sub_section,Unterabschnitt
+part,Teil
+chapter,Kapitel
+unit,Einheit
+lesson,Lektion
+topic,Thema
+content,Inhalt
+navigation,Navigation
+settings,Einstellungen
+language,Sprache
+theme,Design
+dark_mode,Dunkler Modus
+light_mode,Heller Modus
+search,Suchen
+search_placeholder,Inhalt suchen...
+no_results,Keine Ergebnisse gefunden
+show_timestamps,Zeitstempel anzeigen
+hide_timestamps,Zeitstempel ausblenden
+view_mode,Ansichtsmodus
+change_mode,Ansichtsmodus ändern
+reading_progress,Lesefortschritt
+completed,Abgeschlossen
+remaining,Verbleibend
+of,von
+page,Seite
+pages,Seiten
+word,Wort
+words,Wörter
+minute,Minute
+minutes,Minuten
+read_time,Lesezeit
+estimated_time,Geschätzte Lesezeit
+bookmark_this,Lesezeichen für diesen Absatz hinzufügen
+remove_bookmark,Lesezeichen entfernen
+go_to_bookmark,Zum Lesezeichen gehen
+bookmarks_list,Lesezeichenliste
+empty_state_empty,Kein Inhalt verfügbar
+empty_state_loading,Inhalt wird geladen...
+error_loading,Fehler beim Laden des Inhalts
+retry,Wiederholen
+close,Schließen
+save,Speichern
+cancel,Abbrechen
+confirm,Bestätigen
+delete,Löschen
+edit,Bearbeiten
+add,Hinzufügen
+remove,Entfernen
+next,Nächste
+previous,Vorherige
+first,Erste
+last,Letzte
+beginning,Anfang
+end,Ende
+top,Oben
+bottom,Unten
+scroll_nach oben scrollen
+scroll_down,Nach unten scrollen
+jump_to,Springen zu
+select_language,Sprache auswählen
+english,Englisch
+dutch,Niederländisch
+german,Deutsch
+home_title,Prüfungsvorbereitung
+home_subtitle,Wählen Sie unten ein Fach aus, um für die Prüfungswoche zu üben.
+advanced_mode,Fortgeschritten
+advanced_mode_description,Lernmodi und SRS-Fortschritt
+advanced_home_description,Üben Sie mit fortgeschrittenen Lernmodi und lokalem Fortschritt.
+advanced_label,Fortgeschrittenes Lernen
+advanced_title,Lern-Dashboard
+advanced_due,Fällig
+advanced_reviewed,Wiederholt
+advanced_accuracy,Genauigkeit
+advanced_tab_study,Lernen
+advanced_tab_stats,Fortschritt
+advanced_mode_flashcard,Flashcards
+advanced_mode_multiple-choice,Multiple Choice
+advanced_mode_typing,Tippen
+advanced_mode_matching,Zuordnen
+advanced_card_progress,Karte
+advanced_quality_again,Nochmal
+advanced_quality_hard,Schwer
+advanced_quality_good,Gut
+advanced_quality_easy,Einfach
+advanced_flashcard_keys,Leertaste dreht um, 1-4 zeichnet nach Enthüllung auf.
+advanced_type_placeholder,Geben Sie Ihre Antwort ein
+advanced_similarity,Ähnlichkeit
+advanced_continue,Weiter
+advanced_check_answer,Antwort prüfen
+advanced_match_pairs,Paare zuordnen
+advanced_attempts,Versuche
+advanced_no_cards_due,Es sind derzeit keine Karten fällig.
+advanced_no_cards,Es sind keine Lernfragen für diese Seite verfügbar.
+advanced_session_complete,Sitzung abgeschlossen
+advanced_cards,Karten
+advanced_correct,Richtig
+advanced_time,Zeit
+advanced_study_again,Wiederholen
+advanced_sessions,Sitzungen
+advanced_forecast,7-Tage-Vorschau
+advanced_card_limit,Kartenlimit
+advanced_fuzzy_threshold,Fuzzy-Schwellenwert
+advanced_srs_algorithm,SRS-Algorithmus
+advanced_review_mix,Wiederholungsmix
+advanced_review_mix_all,Fällig und neu
+advanced_review_mix_due,Nur fällig
+advanced_review_mix_new,Nur neu
+book_mode_description,Mit Inline-Q&A lesen
+study_mode_description,Flashcard-Modus
+simple_mode_description,Vollständige Textansicht
+questions,Fragen
+questions_and_answers,Fragen und Antworten
+expand_all,Alle erweitern
+expand_all_qa,Alle Q&A erweitern
+collapse_all,Alle reduzieren
+difficulty_easy,Einfach
+difficulty_medium,Mittel
+difficulty_hard,Schwer
+no_paragraphs_available,Keine Absätze in diesem Abschnitt verfügbar.
+link_to_paragraph,Link zu diesem Absatz
+answer_not_provided,Antwort nicht bereitgestellt
+not_provided,Nicht bereitgestellt
+answer_not_provided_hint,Antwort nicht bereitgestellt. Verwenden Sie dies als Selbsttest-Aufforderung.
+show_question,Frage anzeigen
+show_answer,Antwort anzeigen
+previous_question,Vorherige Frage
+next_question,Nächste Frage
+shuffle,Mischen
+shuffled,Gemischt
+reset,Zurücksetzen
+keyboard_hint,Tastatur: Leertaste zum Umdrehen, Pfeiltasten zur Navigation
+copied,Kopiert
+untitled,Ohne Titel

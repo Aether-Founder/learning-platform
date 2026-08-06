@@ -62,5 +62,13 @@
     "lastSeen": 1780389663271,
     "sessionCount": 4,
     "totalDuration": 470981
+  },
+  "939f852c-dc55-46ee-a0f3-f1fcb81ffc32": {
+    "id": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
+    "name": "Anonymous",
+    "firstSeen": 1785419528507,
+    "lastSeen": 1785419541903,
+    "sessionCount": 2,
+    "totalDuration": 13397
   }
 }

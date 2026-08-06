@@ -1,0 +1,105 @@
+
+> flashcards-study-guide@0.1.0 dev
+> next dev -p 3000
+
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+
+ ✓ Starting...
+ ✓ Ready in 2.4s
+ ○ Compiling / ...
+ ✓ Compiled / in 5s (622 modules)
+ GET / 200 in 5373ms
+ ✓ Compiled in 410ms (272 modules)
+ GET / 200 in 64ms
+ GET / 200 in 46ms
+ GET / 200 in 64ms
+ ○ Compiling /profile ...
+ ✓ Compiled /profile in 4.9s (1901 modules)
+ GET / 200 in 5142ms
+ GET /calendar 200 in 5180ms
+ GET /profile 200 in 5182ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /toetsweekvoorbereiding in 6.5s (3509 modules)
+ GET /locales/de.csv 404 in 6598ms
+ GET /locales/fr.csv 404 in 6635ms
+ GET /analytics 200 in 6674ms
+ GET / 200 in 51ms
+ GET / 200 in 109ms
+ GET /profile 200 in 136ms
+ GET /calendar 200 in 139ms
+ GET /analytics 200 in 37ms
+ GET /locales/de.csv 404 in 55ms
+ GET /locales/fr.csv 404 in 57ms
+ GET /locales/fr.csv 404 in 41ms
+ GET /locales/de.csv 404 in 67ms
+ GET /locales/es.csv 404 in 64ms
+ GET /locales/tr.csv 404 in 64ms
+ ✓ Compiled /api/content/page/[page] in 431ms (1803 modules)
+ GET /api/content/page/toetsweekplanning 200 in 951ms
+ GET /api/content/page/toetsweekplanning 200 in 952ms
+ GET / 200 in 120ms
+ GET / 200 in 91ms
+ GET /calendar 200 in 124ms
+ GET /profile 200 in 125ms
+ GET /analytics 200 in 164ms
+ GET /locales/fr.csv 404 in 178ms
+ GET /locales/de.csv 404 in 179ms
+ GET /locales/fr.csv 404 in 52ms
+ GET /locales/de.csv 404 in 77ms
+ GET /locales/es.csv 404 in 76ms
+ GET /locales/tr.csv 404 in 77ms
+ GET / 200 in 72ms
+ GET / 200 in 64ms
+ GET /calendar 200 in 95ms
+ GET /profile 200 in 97ms
+ GET /locales/de.csv 404 in 30ms
+ GET /analytics 200 in 45ms
+ GET /locales/fr.csv 404 in 36ms
+ GET /locales/fr.csv 404 in 58ms
+ GET /locales/de.csv 404 in 58ms
+ GET /locales/es.csv 404 in 57ms
+ GET /locales/tr.csv 404 in 57ms
+ ○ Compiling /toetsweekvoorbereiding/[page] ...
+ ✓ Compiled /toetsweekvoorbereiding/[page] in 901ms (3557 modules)
+ GET /api/content/page/toetsweekplanning 200 in 41ms
+ GET /api/content/page/toetsweekplanning 200 in 74ms
+ GET / 200 in 96ms
+ GET / 200 in 60ms
+ GET /profile 200 in 88ms
+ GET /calendar 200 in 89ms
+ GET /locales/fr.csv 404 in 23ms
+ GET /analytics 200 in 32ms
+ GET /locales/de.csv 404 in 24ms
+ GET / 200 in 66ms
+ GET / 200 in 73ms
+ GET /calendar 200 in 102ms
+ GET /profile 200 in 106ms
+ GET /icon-192x192.png 200 in 147ms
+ GET /locales/fr.csv 404 in 30ms
+ GET /analytics 200 in 67ms
+ GET /locales/de.csv 404 in 27ms
+ GET / 200 in 52ms
+ GET /icon-192x192.png 200 in 76ms
+ GET /profile 200 in 101ms
+ GET /calendar 200 in 102ms
+ GET / 200 in 104ms
+ GET /locales/fr.csv 404 in 21ms
+ GET /analytics 200 in 29ms
+ GET / 200 in 45ms
+ GET /calendar 200 in 57ms
+ GET / 200 in 59ms
+ GET /profile 200 in 59ms
+ GET /analytics 200 in 34ms
+ GET /locales/fr.csv 404 in 28ms
+ GET / 200 in 49ms
+ GET / 200 in 56ms
+ GET /profile 200 in 83ms
+ GET /calendar 200 in 84ms
+ GET /locales/de.csv 404 in 23ms
+ GET /analytics 200 in 34ms
+ GET /locales/fr.csv 404 in 28ms
+ GET /locales/fr.csv 404 in 33ms
+ GET /locales/es.csv 404 in 32ms
+ GET /locales/tr.csv 404 in 30ms
+ GET /locales/de.csv 404 in 32ms

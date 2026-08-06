@@ -1,23 +1,30 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
-import "katex/dist/katex.min.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import PlatformBanner from "@/components/PlatformBanner";
+import { SupabaseProvider } from "@/components/providers/SupabaseProvider";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const inter = Inter({ 
+  subsets: ["latin"], 
+  variable: "--font-sans"
+});
+
 const cormorant = Cormorant_Garamond({ 
   subsets: ["latin"], 
-  variable: "--font-cormorant",
+  variable: "--font-display",
   weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Toetsweekvoorbereiding",
-  description: "Oefenmateriaal voor vakken tijdens de toetsweek.",
+  title: "Aether — Studeer slimmer, onthoud langer",
+  description: "Aether is het studieplatform voor VWO en HAVO: studiesets, lessen, agenda en oefenvoortgang per vak op één plek.",
   icons: {
-    icon: "/assets/favicon.png",
+    icon: "/favicon.ico",
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#1a1d2e",
 };
 
 export default function RootLayout({
@@ -26,14 +33,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${cormorant.variable} font-sans antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <PlatformBanner />
-          <div>
+    <html lang="nl" suppressHydrationWarning className="dark">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
+      <body className={`${inter.variable} ${cormorant.variable}`}>
+        <SupabaseProvider>
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
             {children}
-          </div>
-        </ThemeProvider>
+          </ThemeProvider>
+        </SupabaseProvider>
       </body>
     </html>
   );

@@ -21,6 +21,7 @@ export function getPromptAndAnswer(
 
 export function filterPlayableTerms(terms: Term[], settings: StudySettings): Term[] {
   let filtered = [...terms];
+  const now = Date.now();
 
   if (settings.selectedLearningSetIds && settings.selectedLearningSetIds.length > 0) {
     const selected = new Set(settings.selectedLearningSetIds);
@@ -30,6 +31,24 @@ export function filterPlayableTerms(terms: Term[], settings: StudySettings): Ter
   if (settings.studyStarredOnly) {
     filtered = filtered.filter((t) => t.isStarred);
   }
+
+  if (settings.reviewMode === "starred") {
+    filtered = filtered.filter((t) => t.isStarred);
+  } else if (settings.reviewMode === "due") {
+    filtered = filtered.filter((t) => !t.suspended && (!t.nextReviewAt || new Date(t.nextReviewAt).getTime() <= now));
+  } else if (settings.reviewMode === "new") {
+    filtered = filtered.filter((t) => (t.reviewCount ?? 0) === 0);
+  } else if (settings.reviewMode === "mistakes") {
+    filtered = filtered.filter((t) => (t.lapseCount ?? 0) > 0 || t.masteryStatus === "learning");
+  } else {
+    filtered = filtered.filter((t) => !t.suspended && (!t.buriedUntil || new Date(t.buriedUntil).getTime() <= now));
+  }
+
+  const newLimit = Math.max(0, settings.dailyNewLimit ?? 20);
+  const reviewLimit = Math.max(0, settings.dailyReviewLimit ?? 100);
+  const newTerms = filtered.filter((t) => (t.reviewCount ?? 0) === 0).slice(0, newLimit);
+  const reviewTerms = filtered.filter((t) => (t.reviewCount ?? 0) > 0).slice(0, reviewLimit);
+  filtered = settings.reviewMode === "new" ? newTerms : [...reviewTerms, ...newTerms];
 
   if (settings.shuffleTerms) {
     filtered = fisherYatesShuffle(filtered);

@@ -1,9 +1,19 @@
 import type { Question, QuestionType, StudySettings, Term } from "@/types/learning-platform";
-import { fisherYatesShuffle } from "./term-filters";
-import { getPromptAndAnswer } from "./term-filters";
+import { fisherYatesShuffle, getPromptAndAnswer } from "./term-filters";
 
 export function createId(prefix: string) {
   return `${prefix}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
+function uniqueByNormalized(values: string[]): string[] {
+  const seen = new Set<string>();
+  return values.filter((value) => {
+    const trimmed = value.trim();
+    const key = trimmed.toLowerCase();
+    if (!trimmed || seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 }
 
 export function pickDistractors(
@@ -13,20 +23,15 @@ export function pickDistractors(
   pickFrom: "term" | "definition"
 ): string[] {
   const field = pickFrom === "term" ? "term" : "definition";
-  const pool = allTerms
-    .filter((t) => t.id !== current.id && t[field].trim())
-    .map((t) => t[field]);
-  const unique = Array.from(new Set(pool));
-  const shuffled = fisherYatesShuffle(unique);
-  const distractors: string[] = [];
-  for (const item of shuffled) {
-    if (distractors.length >= count) break;
-    if (item !== current[field]) distractors.push(item);
-  }
-  while (distractors.length < count) {
-    distractors.push(`— ${distractors.length + 1}`);
-  }
-  return distractors.slice(0, count);
+  const correctValue = current[field].trim().toLowerCase();
+  const pool = uniqueByNormalized(
+    allTerms
+      .filter((t) => t.id !== current.id)
+      .map((t) => t[field])
+      .filter((value) => value.trim().toLowerCase() !== correctValue)
+  );
+
+  return fisherYatesShuffle(pool).slice(0, count);
 }
 
 export function buildMcqQuestion(
@@ -35,8 +40,13 @@ export function buildMcqQuestion(
   settings: StudySettings
 ): Question {
   const { prompt, answer } = getPromptAndAnswer(term, settings.questionFormat);
-  const distractors = pickDistractors(allTerms, term, 3, settings.questionFormat === "term-to-definition" ? "definition" : "term");
-  const options = fisherYatesShuffle([answer, ...distractors]);
+  const distractors = pickDistractors(
+    allTerms,
+    term,
+    3,
+    settings.questionFormat === "term-to-definition" ? "definition" : "term"
+  );
+  const options = fisherYatesShuffle(uniqueByNormalized([answer, ...distractors]));
   return {
     id: createId("q"),
     term,
@@ -67,13 +77,18 @@ export function buildTrueFalseQuestion(
   forceFalse = false
 ): Question {
   const { prompt, answer } = getPromptAndAnswer(term, settings.questionFormat);
-  const isTrue = forceFalse ? false : Math.random() < 0.5;
-  const displayedAnswer = isTrue
-    ? answer
-    : pickDistractors(allTerms, term, 1, settings.questionFormat === "term-to-definition" ? "definition" : "term")[0];
-  const statement = settings.questionFormat === "term-to-definition"
-    ? `${prompt} — ${displayedAnswer}`
-    : `${prompt} betekent: ${displayedAnswer}`;
+  const distractor = pickDistractors(
+    allTerms,
+    term,
+    1,
+    settings.questionFormat === "term-to-definition" ? "definition" : "term"
+  )[0];
+  const isTrue = !distractor ? true : forceFalse ? false : Math.random() < 0.5;
+  const displayedAnswer = isTrue ? answer : distractor ?? answer;
+  const statement =
+    settings.questionFormat === "term-to-definition"
+      ? `${prompt} - ${displayedAnswer}`
+      : `${prompt} betekent: ${displayedAnswer}`;
 
   return {
     id: createId("q"),
@@ -87,50 +102,45 @@ export function buildTrueFalseQuestion(
 }
 
 export function buildTestQuestions(terms: Term[], allTerms: Term[], settings: StudySettings): Question[] {
-  const dist = settings.testQuestionDistribution ?? {
+  const enabled = new Set(settings.enabledQuestionTypes);
+  type TestQuestionType = "true-false" | "multiple-choice" | "written";
+  const distribution = settings.testQuestionDistribution ?? {
     "true-false": 25,
     "multiple-choice": 50,
     written: 25,
   };
-  const total = terms.length;
-  const tfCount = Math.round((total * dist["true-false"]) / 100);
-  const mcqCount = Math.round((total * dist["multiple-choice"]) / 100);
-  const writtenCount = Math.max(0, total - tfCount - mcqCount);
+  const enabledTypes: TestQuestionType[] = (["true-false", "multiple-choice", "written"] as const).filter((type) =>
+    enabled.has(type)
+  );
+  const activeTypes: TestQuestionType[] = enabledTypes.length ? enabledTypes : ["multiple-choice"];
+  const totalWeight = activeTypes.reduce((sum, type) => sum + (distribution[type] || 0), 0) || activeTypes.length;
+  const quotas = new Map<TestQuestionType, number>();
+  let assigned = 0;
 
-  const shuffled = fisherYatesShuffle(terms);
-  const questions: Question[] = [];
-  let idx = 0;
+  activeTypes.forEach((type, index) => {
+    const rawWeight = totalWeight === activeTypes.length ? 1 : distribution[type] || 0;
+    const quota =
+      index === activeTypes.length - 1
+        ? terms.length - assigned
+        : Math.round((terms.length * rawWeight) / totalWeight);
+    quotas.set(type, quota);
+    assigned += quota;
+  });
 
-  const enabled = new Set(settings.enabledQuestionTypes);
+  const typeQueue = fisherYatesShuffle(
+    activeTypes.flatMap((type) => Array.from({ length: Math.max(0, quotas.get(type) ?? 0) }, () => type))
+  );
 
-  for (let i = 0; i < tfCount && idx < shuffled.length; i++, idx++) {
-    if (enabled.has("true-false")) {
-      questions.push(buildTrueFalseQuestion(shuffled[idx], allTerms, settings, i % 2 === 1));
-    }
-  }
-  for (let i = 0; i < mcqCount && idx < shuffled.length; i++, idx++) {
-    if (enabled.has("multiple-choice")) {
-      questions.push(buildMcqQuestion(shuffled[idx], allTerms, settings));
-    }
-  }
-  for (let i = 0; i < writtenCount && idx < shuffled.length; i++, idx++) {
-    if (enabled.has("written")) {
-      questions.push(buildWrittenQuestion(shuffled[idx], settings));
-    }
-  }
-
-  while (idx < shuffled.length) {
-    const t = shuffled[idx++];
-    if (enabled.has("multiple-choice")) questions.push(buildMcqQuestion(t, allTerms, settings));
-    else if (enabled.has("written")) questions.push(buildWrittenQuestion(t, settings));
-    else if (enabled.has("true-false")) questions.push(buildTrueFalseQuestion(t, allTerms, settings));
-  }
-
-  return fisherYatesShuffle(questions);
+  return fisherYatesShuffle(terms).map((term, index) => {
+    const type = typeQueue[index] ?? activeTypes[index % activeTypes.length];
+    if (type === "true-false") return buildTrueFalseQuestion(term, allTerms, settings, index % 2 === 1);
+    if (type === "written") return buildWrittenQuestion(term, settings);
+    return buildMcqQuestion(term, allTerms, settings);
+  });
 }
 
 export function learnQuestionTypeForTerm(
-  term: Term,
+  _term: Term,
   consecutiveCorrect: number
 ): QuestionType {
   if (consecutiveCorrect >= 2) return "written";

@@ -14,6 +14,7 @@ import {
   startSession,
 } from "@/lib/learning-platform/progress-store";
 import { filterPlayableTerms, prioritizeTermsForExam } from "@/lib/learning-platform/term-filters";
+import { defaultSrsProgress } from "@/lib/learning-platform/srs";
 import type {
   LearningMode,
   Question,
@@ -40,12 +41,15 @@ interface LearningPlatformState {
   updateSettings: (partial: Partial<StudySettings>) => void;
   saveSettingsToStorage: () => void;
   resetAllProgress: () => void;
+  addImportedTerms: (terms: Term[]) => void;
   refreshPlayableTerms: () => void;
   recordAnswer: (
     termId: string,
     result: Omit<TermResult, "termId" | "timestamp">
   ) => void;
   toggleStar: (termId: string) => void;
+  suspendTerm: (termId: string, suspended?: boolean) => void;
+  buryTerm: (termId: string) => void;
   setCurrentQuestionIndex: (index: number) => void;
   beginSession: (mode: LearningMode, totalQuestions: number) => void;
   endSession: (score?: number) => void;
@@ -118,6 +122,36 @@ export const useLearningPlatformStore = create<LearningPlatformState>((set, get)
     });
   },
 
+  addImportedTerms: (terms) => {
+    const { studySet, settings, progressMap } = get();
+    if (!studySet || terms.length === 0) return;
+    const existingIds = new Set(studySet.terms.map((term) => term.id));
+    const uniqueTerms = terms.map((term, index) => ({
+      ...term,
+      id: existingIds.has(term.id) ? `${term.id}-import-${Date.now()}-${index}` : term.id,
+      learningSetId: term.learningSetId || "imported",
+      learningSetTitle: term.learningSetTitle || "Geimporteerd",
+    }));
+    const nextSet = {
+      ...studySet,
+      terms: [...studySet.terms, ...uniqueTerms],
+      learningSets: [
+        ...studySet.learningSets.filter((set) => set.id !== "imported"),
+        {
+          id: "imported",
+          title: "Geimporteerd",
+          termCount: uniqueTerms.length + studySet.terms.filter((term) => term.learningSetId === "imported").length,
+        },
+      ],
+      updatedAt: new Date(),
+    };
+    const merged = mergeTermsWithProgress(nextSet.terms, progressMap);
+    set({
+      studySet: { ...nextSet, terms: merged },
+      playableTerms: filterPlayableTerms(prioritizeTermsForExam(merged, settings.examDate), settings),
+    });
+  },
+
   refreshPlayableTerms: () => {
     const { studySet, settings, progressMap } = get();
     if (!studySet) return;
@@ -134,7 +168,14 @@ export const useLearningPlatformStore = create<LearningPlatformState>((set, get)
     if (!studySet) return;
 
     const wasWritten = result.questionType === "written";
-    const updated = applyTermProgress(progressMap[termId], termId, result.isCorrect, wasWritten);
+    const updated = applyTermProgress(
+      progressMap[termId],
+      termId,
+      result.isCorrect,
+      wasWritten,
+      settings.srsAlgorithm,
+      result.reviewGrade
+    );
     const nextProgress = { ...progressMap, [termId]: updated };
     saveProgressForSet(studySet.id, nextProgress);
 
@@ -172,15 +213,8 @@ export const useLearningPlatformStore = create<LearningPlatformState>((set, get)
     const updated: UserTermProgress = existing
       ? { ...existing, isStarred: !existing.isStarred, updatedAt: now }
       : {
-          userId: "local-user",
-          termId,
-          status: "unstudied",
-          consecutiveCorrectCount: 0,
+          ...defaultSrsProgress(termId, now),
           isStarred: true,
-          totalAttempts: 0,
-          correctAttempts: 0,
-          createdAt: now,
-          updatedAt: now,
         };
     const nextProgress = { ...progressMap, [termId]: updated };
     saveProgressForSet(studySet.id, nextProgress);
@@ -189,6 +223,43 @@ export const useLearningPlatformStore = create<LearningPlatformState>((set, get)
       progressMap: nextProgress,
       studySet: { ...studySet, terms },
     });
+    get().refreshPlayableTerms();
+  },
+
+  suspendTerm: (termId, suspended) => {
+    const { progressMap, studySet } = get();
+    if (!studySet) return;
+    const now = new Date();
+    const existing = progressMap[termId] ?? defaultSrsProgress(termId, now);
+    const updated: UserTermProgress = {
+      ...existing,
+      suspended: suspended ?? !existing.suspended,
+      updatedAt: now,
+    };
+    const nextProgress = { ...progressMap, [termId]: updated };
+    saveProgressForSet(studySet.id, nextProgress);
+    const terms = mergeTermsWithProgress(studySet.terms, nextProgress);
+    set({ progressMap: nextProgress, studySet: { ...studySet, terms } });
+    get().refreshPlayableTerms();
+  },
+
+  buryTerm: (termId) => {
+    const { progressMap, studySet } = get();
+    if (!studySet) return;
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(4, 0, 0, 0);
+    const existing = progressMap[termId] ?? defaultSrsProgress(termId, now);
+    const updated: UserTermProgress = {
+      ...existing,
+      buriedUntil: tomorrow,
+      updatedAt: now,
+    };
+    const nextProgress = { ...progressMap, [termId]: updated };
+    saveProgressForSet(studySet.id, nextProgress);
+    const terms = mergeTermsWithProgress(studySet.terms, nextProgress);
+    set({ progressMap: nextProgress, studySet: { ...studySet, terms } });
     get().refreshPlayableTerms();
   },
 

@@ -6,6 +6,13 @@ import type {
   Term,
   UserTermProgress,
 } from "@/types/learning-platform";
+import {
+  computeSrsStatus,
+  defaultSrsProgress,
+  gradeFromCorrectness,
+  progressToTerm,
+  scheduleReview,
+} from "./srs";
 
 const PROGRESS_KEY = "learning-platform-progress-v1";
 const SESSIONS_KEY = "learning-platform-sessions-v1";
@@ -14,54 +21,26 @@ const SETTINGS_KEY = "learning-platform-settings-v1";
 const DEFAULT_USER_ID = "local-user";
 
 export function computeMasteryStatus(progress?: UserTermProgress): MasteryStatus {
-  if (!progress || progress.totalAttempts === 0) return "unstudied";
-  if (progress.consecutiveCorrectCount >= 2 && progress.status === "mastered") return "mastered";
-  if (progress.consecutiveCorrectCount >= 2) return "mastered";
-  return "learning";
+  return computeSrsStatus(progress);
 }
 
 export function applyTermProgress(
   progress: UserTermProgress | undefined,
   termId: string,
   isCorrect: boolean,
-  wasWritten = false
+  wasWritten = false,
+  algorithm: "sm2" | "fsrs" = "sm2",
+  grade = gradeFromCorrectness(isCorrect, wasWritten)
 ): UserTermProgress {
   const now = new Date();
-  const base: UserTermProgress = progress ?? {
-    userId: DEFAULT_USER_ID,
-    termId,
-    status: "unstudied",
-    consecutiveCorrectCount: 0,
-    isStarred: false,
-    totalAttempts: 0,
-    correctAttempts: 0,
-    createdAt: now,
-    updatedAt: now,
+  const base: UserTermProgress = {
+    ...defaultSrsProgress(termId, now),
+    ...progress,
+    nextReviewAt: progress?.nextReviewAt ? new Date(progress.nextReviewAt) : progress?.nextReviewAt,
+    buriedUntil: progress?.buriedUntil ? new Date(progress.buriedUntil) : undefined,
+    lastAttemptDate: progress?.lastAttemptDate ? new Date(progress.lastAttemptDate) : undefined,
   };
-
-  const consecutiveCorrectCount = isCorrect
-    ? base.consecutiveCorrectCount + 1
-    : 0;
-
-  let status: MasteryStatus = "learning";
-  if (base.totalAttempts + 1 === 0) status = "unstudied";
-  else if (wasWritten && consecutiveCorrectCount >= 2) status = "mastered";
-  else if (!isCorrect) status = "learning";
-  else if (consecutiveCorrectCount >= 2) status = "mastered";
-  else status = "learning";
-
-  if (base.totalAttempts === 0 && !isCorrect) status = "learning";
-  if (base.totalAttempts === 0 && isCorrect) status = "learning";
-
-  return {
-    ...base,
-    status,
-    consecutiveCorrectCount,
-    totalAttempts: base.totalAttempts + 1,
-    correctAttempts: base.correctAttempts + (isCorrect ? 1 : 0),
-    lastAttemptDate: now,
-    updatedAt: now,
-  };
+  return scheduleReview(base, grade, algorithm);
 }
 
 export function mergeTermsWithProgress(
@@ -70,15 +49,21 @@ export function mergeTermsWithProgress(
 ): Term[] {
   return terms.map((term) => {
     const p = progressMap[term.id];
-    if (!p) return term;
-    return {
-      ...term,
-      masteryStatus: computeMasteryStatus(p),
-      consecutiveCorrectCount: p.consecutiveCorrectCount,
-      isStarred: p.isStarred,
-      lastStudied: p.lastAttemptDate,
-    };
+    return progressToTerm(term, p);
   });
+}
+
+function reviveProgress(raw: UserTermProgress): UserTermProgress {
+  const progress = { ...defaultSrsProgress(raw.termId), ...raw };
+  return {
+    ...progress,
+    nextReviewAt: raw.nextReviewAt ? new Date(raw.nextReviewAt) : progress.nextReviewAt,
+    buriedUntil: raw.buriedUntil ? new Date(raw.buriedUntil) : undefined,
+    lastAttemptDate: raw.lastAttemptDate ? new Date(raw.lastAttemptDate) : undefined,
+    createdAt: raw.createdAt ? new Date(raw.createdAt) : new Date(),
+    updatedAt: raw.updatedAt ? new Date(raw.updatedAt) : new Date(),
+    status: computeSrsStatus(progress),
+  };
 }
 
 export interface ProgressStore {
@@ -99,7 +84,12 @@ export function loadProgressStore(studySetId: string): ProgressStore {
       string,
       StudySession[]
     >;
-    const progress = allProgress[studySetId] || {};
+    const progress = Object.fromEntries(
+      Object.entries(allProgress[studySetId] || {}).map(([termId, raw]) => [
+        termId,
+        reviveProgress(raw as UserTermProgress),
+      ])
+    );
     const sessions = (allSessions[studySetId] || []).map((s) => ({
       ...s,
       startTime: new Date(s.startTime),

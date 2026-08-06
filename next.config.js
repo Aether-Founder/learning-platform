@@ -1,5 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'aether-dub5.vercel.app',
+        port: '',
+        pathname: '/**',
+      },
+    ],
+  },
   async headers() {
     return [
       {
@@ -12,6 +22,14 @@ const nextConfig = {
         ],
       },
     ];
+  },
+  // Exclude UI-REFERENCE and magister-extension-project folders from build
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.tsx?$/,
+      exclude: [/UI-REFERENCE/, /magister-extension-project/],
+    });
+    return config;
   },
 }
 

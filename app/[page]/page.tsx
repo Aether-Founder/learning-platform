@@ -301,7 +301,7 @@ export default function Page({ params }: { params: { page: string } }) {
             );
           }
           // Still fetch fresh in background to keep cache up-to-date
-          fetch(`/api/content/${params.page}`, { cache: "no-store" })
+          fetch(`/api/content/page/${params.page}`, { cache: "no-store" })
             .then((r) => r.ok ? r.json() : null)
             .then((fresh) => {
               if (fresh && !cancelled) {
@@ -330,7 +330,7 @@ export default function Page({ params }: { params: { page: string } }) {
 
       // 2. No cache → fetch from API route
       try {
-        const res = await fetch(`/api/content/${params.page}`, { cache: "no-store" });
+        const res = await fetch(`/api/content/page/${params.page}`, { cache: "no-store" });
         if (!res.ok) {
           if (!cancelled) setLoadError(true);
           return;

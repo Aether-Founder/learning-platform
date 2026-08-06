@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magister Sync</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      width: 350px;
+      padding: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #333;
+    }
+    
+    .container {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    
+    h1 {
+      font-size: 20px;
+      margin-bottom: 8px;
+      color: #667eea;
+    }
+    
+    p {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+    
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 13px;
+    }
+    
+    .status.connected {
+      background: #d1fae5;
+      color: #065f46;
+    }
+    
+    .status.disconnected {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+    
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    
+    .status.connected .status-dot {
+      background: #10b981;
+    }
+    
+    .status.disconnected .status-dot {
+      background: #ef4444;
+    }
+    
+    .form-group {
+      margin-bottom: 16px;
+    }
+    
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #374151;
+    }
+    
+    input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 2px solid #e5e7eb;
+      border-radius: 6px;
+      font-size: 13px;
+      transition: border-color 0.2s;
+    }
+    
+    input:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+    
+    input::placeholder {
+      color: #9ca3af;
+    }
+    
+    .btn {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .btn-primary {
+      background: #667eea;
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: #5568d3;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+    
+    .btn-secondary {
+      background: #e5e7eb;
+      color: #374151;
+      margin-top: 8px;
+    }
+    
+    .btn-secondary:hover {
+      background: #d1d5db;
+    }
+    
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+    
+    .help-text {
+      font-size: 11px;
+      color: #6b7280;
+      margin-top: 4px;
+    }
+    
+    .success-message {
+      padding: 10px;
+      background: #d1fae5;
+      color: #065f46;
+      border-radius: 6px;
+      font-size: 12px;
+      margin-top: 12px;
+      display: none;
+    }
+    
+    .success-message.show {
+      display: block;
+      animation: fadeIn 0.3s;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .info-section {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #e5e7eb;
+    }
+    
+    .info-section h3 {
+      font-size: 14px;
+      margin-bottom: 8px;
+      color: #374151;
+    }
+    
+    .info-section ul {
+      font-size: 12px;
+      color: #6b7280;
+      padding-left: 20px;
+    }
+    
+    .info-section li {
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔄 Magister Sync</h1>
+    <p>Sync your Magister data to your learning platform</p>
+    
+    <div id="status" class="status disconnected">
+      <div class="status-dot"></div>
+      <span id="statusText">Not configured</span>
+    </div>
+    
+    <div class="form-group">
+      <label for="syncToken">Sync Token</label>
+      <input 
+        type="text" 
+        id="syncToken" 
+        placeholder="Enter your sync token"
+      >
+      <div class="help-text">Get this from your learning platform settings</div>
+    </div>
+    
+    <button id="saveBtn" class="btn btn-primary">Save Configuration</button>
+    <button id="clearBtn" class="btn btn-secondary">Clear Configuration</button>
+    
+    <div id="successMessage" class="success-message">
+      ✓ Configuration saved successfully!
+    </div>
+    
+    <div class="info-section">
+      <h3>How it works:</h3>
+      <ul>
+        <li>Navigate to magister.net and log in</li>
+        <li>Visit your agenda or grades page</li>
+        <li>Data will sync automatically</li>
+      </ul>
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>

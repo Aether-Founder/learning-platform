@@ -1,0 +1,158 @@
+{
+  "siteMetadata": {
+    "title": "Reverse Engineering Brawl Stars: Engine Architecture & Memory Layout",
+    "description": "A comprehensive deep-dive into the Supercell Titan/Edge engine, memory structures, and modding methodologies for iOS v67.264 and Android v36.218."
+  },
+  "summary": "### Executive Summary\n\nThis document provides a complete technical breakdown of the **Brawl Stars** game engine (Titan/Edge), focusing on the architectural differences between **Android v36.218** and **iOS v67.264**. \n\n**Key Concepts Covered:**\n- **Data-Driven Architecture:** How CSV files dictate game logic and stats.\n- **Deterministic Lockstep Networking:** The necessity of integer math on older Android builds vs. float physics on iOS.\n- **Entity Management:** The `LogicGameObjectManager` and how objects are categorized by Type IDs.\n- **Memory Offsets:** Exact coordinates for X, Y, Z across both platforms.\n- **Modding Methodologies:** How visual spoofing, aimbots, and dodgebots are constructed by hooking the main update loop.\n\n---\n\n### Core Engine Pillars\n1. **CSV Parsing:** Static data (HP, Damage, Speed) is loaded from `csv_logic` at runtime.\n2. **Entity Manager:** A central manager holds arrays of all active objects (players, projectiles, walls).\n3. **Physics Pipeline:** Coordinates are converted from logical space to isometric screen space.\n4. **Update Loop:** The `LogicBattleModeClient::update` function runs 30-60 times per second, driving all game logic.",
+  "contentFormat": "textbook",
+  "defaultViewMode": "reading",
+  "availableModes": [
+    "textbook",
+    "simple",
+    "study",
+    "samenvatting",
+    "flashcards",
+    "quiz",
+    "code"
+  ],
+  "showTimestamps": false,
+  "showExportButtons": false,
+  "showAnkiExport": false,
+  "showFlashcardsExport": false,
+  "showTranscriptExport": false,
+  "showCopyTranscript": false,
+  "buttons": [
+    {
+      "url": "https://frida.re",
+      "text": "Frida Documentation",
+      "icon": "external-link",
+      "iconType": "feather",
+      "variant": "secondary",
+      "enabled": true
+    },
+    {
+      "url": "https://ghidra-sre.org",
+      "text": "Ghidra SRE",
+      "icon": "code",
+      "iconType": "feather",
+      "variant": "secondary",
+      "enabled": true
+    }
+  ],
+  "sections": [
+    {
+      "id": "sec-1-architecture",
+      "title": "1. Engine Architecture & Networking",
+      "blocks": [
+        {
+          "id": "blk-1-1-text",
+          "type": "text",
+          "content": "### The Titan/Edge Engine\n\nBrawl Stars is built on Supercell's proprietary **Titan/Edge C++ engine**. The engine is heavily **data-driven**, meaning that static gameplay elements (like Brawler HP, damage, speed, and projectile logic) are not hardcoded into the binary. Instead, they are loaded at runtime from CSV files located in `csv_logic` and `csv_client`.\n\n### Deterministic Lockstep Networking\n\nTo ensure that all players in a match see the exact same game state without lag or desync, the game uses a **Deterministic Lockstep** networking model. \n\n- **Android (v36.218):** To prevent floating-point rounding differences between different ARM processors from causing desyncs, the core game logic uses **32-bit Integers** for all coordinate and physics calculations.\n- **iOS (v67.264):** The 64-bit ARM architecture and unified memory model allow the physics and rendering layers to utilize **32-bit Floats**, providing sub-pixel precision after the initial integer-based server tick is processed.\n\nThis architectural difference is the most critical factor when porting memory offsets between Android and iOS."
+        }
+      ]
+    },
+    {
+      "id": "sec-2-entity-management",
+      "title": "2. Entity Management & Memory Layout",
+      "blocks": [
+        {
+          "id": "blk-2-1-text",
+          "type": "text",
+          "content": "### The LogicGameObjectManager\n\nEvery object in the game (Brawlers, Projectiles, Walls, Pickups) is managed by a central singleton called `LogicGameObjectManager`. \n\nInstead of a single massive list, the manager sorts objects into specific arrays based on their **Type ID**. \n\n- **Type ID Offset:** The Type ID of any game object is stored at `Object_Pointer + 0x118`.\n- **Array Routing:** When an object is added via `addGameObject()`, the engine reads the Type ID and routes the object pointer to the corresponding array (e.g., Type 0 goes to `Manager + 0x20`, Type 1 to `Manager + 0x50`, etc.).\n\nThis structure is the foundation for any **Aimbot** or **Dodgebot**, as it allows the mod to iterate only through relevant entities (e.g., scanning only the projectile array instead of the entire game memory)."
+        },
+        {
+          "id": "blk-2-2-code",
+          "type": "text",
+          "content": "### Android v36.218: Integer Coordinate System\n\nIn the older Android build, the `LogicGameObjectClient` class stores coordinates as 32-bit integers. The decompiled C-code for setting and getting positions reveals the exact memory layout:\n\n```c\n// Android v36.218 - LogicGameObjectClient::setPosition\nvoid setPosition(int param_1, int param_2, int param_3, int param_4) {\n    // param_1 is the 'this' pointer (Object Base Address)\n    *(undefined4 *)(param_1 + 0x20) = param_2; // X Coordinate (Int)\n    *(undefined4 *)(param_1 + 0x24) = param_3; // Y Coordinate (Int)\n    *(undefined4 *)(param_1 + 0x28) = param_4; // Z Coordinate (Int)\n}\n\n// Android v36.218 - LogicGameObjectClient::getX\nint getX(int param_1) {\n    return *(int *)(param_1 + 0x20);\n}\n```\n\n*Note: Because these are integers, mods must use integer math for trajectory prediction to maintain the deterministic lockstep sync.*"
+        }
+      ]
+    },
+    {
+      "id": "sec-3-physics-pipeline",
+      "title": "3. The Physics Pipeline (iOS v67.264)",
+      "blocks": [
+        {
+          "id": "blk-3-1-text",
+          "type": "text",
+          "content": "### iOS v67.264: Float Physics & Isometric Projection\n\nOn the latest iOS binary, the coordinate system transitions into **32-bit Floats** during the physics and collision resolution phase. Furthermore, Brawl Stars uses a **2:1 Isometric Projection**. The engine converts logical coordinates into screen/render coordinates using a specific mathematical scaler.\n\n#### Collision & Hitbox Detection\n\nThe collision engine iterates through entity arrays to check for intersections. The exact hitbox radius for projectiles and melee attacks is hardcoded as a float comparison against `105.6`.\n\n```c\n// iOS v67.264 - Collision / Hitbox Check\n// lVar2 is the Entity Pointer\nfloat targetX = param_2; // Incoming projectile/attack X\nfloat targetY = param_3; // Incoming projectile/attack Y\n\nfloat entityX = *(float *)(lVar2 + 0x20); // Entity X (Float)\nfloat entityY = *(float *)(lVar2 + 0x24); // Entity Y (Float)\n\n// Calculate squared distance\nfloat dx = targetX - entityX;\nfloat dy = targetY - entityY;\nfloat distSq = (dx * dx) + (dy * dy);\n\n// Hitbox Radius Check\nif (SQRT(distSq) < 105.600006) {\n    // Collision Detected\n}\n```\n\n#### Isometric Scaler Function\n\nBefore rendering or applying certain physics, the game scales the coordinates:\n\n```c\n// iOS v67.264 - Isometric Coordinate Scaler\nvoid scaleCoordinates(float logicalX, float logicalY, float *outX, float *outY) {\n    *outX = logicalX * 48.0; // X scaling factor\n    float skew = (logicalY * -0.5) + logicalX; // Isometric Y skew\n    *outY = skew * 36.0; // Y scaling factor\n}\n```"
+        }
+      ]
+    },
+    {
+      "id": "sec-4-modding-methodologies",
+      "title": "4. Constructing Mod Features",
+      "blocks": [
+        {
+          "id": "blk-4-1-text",
+          "type": "text",
+          "content": "### Visual & UI Modifications (Local Spoofing)\n\nFeatures like **Local Gems**, **Unlocked Skins**, or **Empty Pins** do not require altering the core physics engine. \n\n1. **CSV Redirection:** Mods hook the game's file-loading functions (e.g., `File::read`). When the game requests `emotes.csv`, the mod intercepts the call and feeds it a modified CSV where the `Locked` column is set to `0`.\n2. **UI Hooking:** To display 99,999 gems locally, the mod hooks the UI text rendering function (e.g., `LogicResourcePopup`) and intercepts the integer value right before it is drawn to the screen, replacing it with a spoofed value. The server remains unaware.\n\n### Gameplay Modifications (Aimbot & Dodgebot)\n\nBuilding an Aimbot or Dodgebot requires hooking the main game loop and manipulating the Entity Manager.\n\n1. **The Update Loop:** The `LogicBattleModeClient::update` function (Offset `0x8FF870` in iOS v67.264) runs 30-60 times per second. This is the safest place to inject logic.\n2. **Target Acquisition (Aimbot):** \n   - Access the `LogicGameObjectManager`.\n   - Iterate through the player array.\n   - Filter by `Type ID` and check `isAlive()`.\n   - Read the enemy's X/Y floats (`+0x20`, `+0x24`).\n   - Calculate the vector, apply EMA (Exponential Moving Average) smoothing to prevent robotic snapping, and inject the movement.\n3. **Trajectory Prediction (Dodgebot):**\n   - Iterate through the projectile array.\n   - Read the projectile's current X/Y and its target vector.\n   - Use the `105.6` collision radius to predict if the projectile's path will intersect with the local player's coordinates.\n   - If an intersection is predicted, override the local player's movement input to dodge.\n\n### Anti-Tamper & Crash Suppression\n\nTo prevent the game from crashing when memory is manipulated, mods must neutralize Supercell's sanity checks. This involves hooking functions like `calculateV2SanityFlags` to bypass jailbreak/debugger detection, and intercepting POSIX crash handlers (`abort`, `sigaction`) to silently swallow memory violations caused by aggressive hooking."
+        }
+      ]
+    },
+    {
+      "id": "sec-5-quiz",
+      "title": "5. Knowledge Check",
+      "blocks": [
+        {
+          "id": "blk-5-1-questions",
+          "type": "questions",
+          "title": "Test Your Understanding",
+          "intro": "Answer the following questions to verify your understanding of the Brawl Stars engine architecture and memory layout.",
+          "questions": [
+            {
+              "id": "q-1",
+              "number": "1",
+              "text": "What networking model does Brawl Stars use to ensure all players see the exact same game state?"
+            },
+            {
+              "id": "q-2",
+              "number": "2",
+              "text": "Why does the Android v36.218 build use 32-bit Integers for coordinates instead of Floats?"
+            },
+            {
+              "id": "q-3",
+              "number": "3",
+              "text": "In the LogicGameObjectManager, what memory offset stores the Type ID of a game object?"
+            },
+            {
+              "id": "q-4",
+              "number": "4",
+              "text": "What are the exact memory offsets for the X and Y coordinates of an entity in both Android v36 and iOS v67?"
+            },
+            {
+              "id": "q-5",
+              "number": "5",
+              "text": "What is the hardcoded hitbox/collision radius used in the iOS v67.264 physics pipeline?"
+            },
+            {
+              "id": "q-6",
+              "number": "6",
+              "text": "How do mods typically implement 'Local Gems' or 'Unlocked Skins' without triggering server bans?"
+            },
+            {
+              "id": "q-7",
+              "number": "7",
+              "text": "What mathematical projection does the iOS engine use to convert logical coordinates to screen space?"
+            },
+            {
+              "id": "q-8",
+              "number": "8",
+              "text": "Which function is considered the 'Main Update Loop' where gameplay logic is executed 30-60 times per second?"
+            },
+            {
+              "id": "q-9",
+              "number": "9",
+              "text": "What technique is used to smooth out Aimbot movement to prevent robotic snapping?"
+            },
+            {
+              "id": "q-10",
+              "number": "10",
+              "text": "Name two POSIX crash handlers that mods must intercept to prevent the game from crashing during memory manipulation."
+            }
+          ]
+        }
+      ],
+      "answers": []
+    }
+  ]
+}

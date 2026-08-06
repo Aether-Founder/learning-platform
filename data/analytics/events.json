@@ -190,5 +190,34 @@
       "from": "study",
       "to": "simple"
     }
+  },
+  {
+    "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
+    "sessionId": "534c5b5d-c0df-4d56-9bbb-a6cbb0cc023c",
+    "eventType": "page_view",
+    "timestamp": 1785419528507,
+    "data": {
+      "path": "/toetsweekvoorbereiding/aardrijkskunde-h5",
+      "referrer": ""
+    }
+  },
+  {
+    "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
+    "sessionId": "534c5b5d-c0df-4d56-9bbb-a6cbb0cc023c",
+    "eventType": "mode_switch",
+    "timestamp": 1785419531202,
+    "data": {
+      "from": "simple",
+      "to": "study"
+    }
+  },
+  {
+    "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
+    "sessionId": "534c5b5d-c0df-4d56-9bbb-a6cbb0cc023c",
+    "eventType": "session_end",
+    "timestamp": 1785419541903,
+    "data": {
+      "duration": 13397
+    }
   }
 ]
