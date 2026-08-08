@@ -1,4 +1,4 @@
-import db from "./db";
+import db from './db';
 
 export interface StudyPlan {
   id: string;
@@ -37,7 +37,15 @@ export async function createStudyPlan(
     VALUES (?, ?, ?, ?, ?, ?, ?)
   `);
 
-  stmt.run(id, userId, testWeekId, name, startDate.toISOString(), endDate.toISOString(), now.toISOString());
+  stmt.run(
+    id,
+    userId,
+    testWeekId,
+    name,
+    startDate.toISOString(),
+    endDate.toISOString(),
+    now.toISOString()
+  );
 
   return {
     id,
@@ -51,7 +59,7 @@ export async function createStudyPlan(
 }
 
 export async function getStudyPlanById(id: string): Promise<StudyPlan | null> {
-  const stmt = db.prepare("SELECT * FROM study_plans WHERE id = ?");
+  const stmt = db.prepare('SELECT * FROM study_plans WHERE id = ?');
   const row = stmt.get(id) as any;
 
   if (!row) return null;
@@ -68,10 +76,10 @@ export async function getStudyPlanById(id: string): Promise<StudyPlan | null> {
 }
 
 export async function getStudyPlansByUser(userId: string): Promise<StudyPlan[]> {
-  const stmt = db.prepare("SELECT * FROM study_plans WHERE user_id = ? ORDER BY created_at DESC");
+  const stmt = db.prepare('SELECT * FROM study_plans WHERE user_id = ? ORDER BY created_at DESC');
   const rows = stmt.all(userId) as any[];
 
-  return rows.map(row => ({
+  return rows.map((row) => ({
     id: row.id,
     userId: row.user_id,
     testWeekId: row.test_week_id,
@@ -83,10 +91,12 @@ export async function getStudyPlansByUser(userId: string): Promise<StudyPlan[]> 
 }
 
 export async function getStudyPlansByTestWeek(testWeekId: string): Promise<StudyPlan[]> {
-  const stmt = db.prepare("SELECT * FROM study_plans WHERE test_week_id = ? ORDER BY created_at DESC");
+  const stmt = db.prepare(
+    'SELECT * FROM study_plans WHERE test_week_id = ? ORDER BY created_at DESC'
+  );
   const rows = stmt.all(testWeekId) as any[];
 
-  return rows.map(row => ({
+  return rows.map((row) => ({
     id: row.id,
     userId: row.user_id,
     testWeekId: row.test_week_id,
@@ -122,7 +132,7 @@ export async function updateStudyPlan(
 }
 
 export async function deleteStudyPlan(id: string): Promise<boolean> {
-  const stmt = db.prepare("DELETE FROM study_plans WHERE id = ?");
+  const stmt = db.prepare('DELETE FROM study_plans WHERE id = ?');
   const result = stmt.run(id);
   return result.changes > 0;
 }
@@ -142,7 +152,17 @@ export async function createStudySession(
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
 
-  stmt.run(id, studyPlanId, subjectId, scheduledDate.toISOString(), duration, JSON.stringify(topics || []), 0, null, now.toISOString());
+  stmt.run(
+    id,
+    studyPlanId,
+    subjectId,
+    scheduledDate.toISOString(),
+    duration,
+    JSON.stringify(topics || []),
+    0,
+    null,
+    now.toISOString()
+  );
 
   return {
     id,
@@ -158,7 +178,7 @@ export async function createStudySession(
 }
 
 export async function getStudySessionById(id: string): Promise<StudySession | null> {
-  const stmt = db.prepare("SELECT * FROM study_sessions WHERE id = ?");
+  const stmt = db.prepare('SELECT * FROM study_sessions WHERE id = ?');
   const row = stmt.get(id) as any;
 
   if (!row) return null;
@@ -177,10 +197,12 @@ export async function getStudySessionById(id: string): Promise<StudySession | nu
 }
 
 export async function getStudySessionsByPlan(studyPlanId: string): Promise<StudySession[]> {
-  const stmt = db.prepare("SELECT * FROM study_sessions WHERE study_plan_id = ? ORDER BY scheduled_date ASC");
+  const stmt = db.prepare(
+    'SELECT * FROM study_sessions WHERE study_plan_id = ? ORDER BY scheduled_date ASC'
+  );
   const rows = stmt.all(studyPlanId) as any[];
 
-  return rows.map(row => ({
+  return rows.map((row) => ({
     id: row.id,
     studyPlanId: row.study_plan_id,
     subjectId: row.subject_id,
@@ -205,17 +227,13 @@ export async function updateStudySession(
     WHERE id = ?
   `);
 
-  stmt.run(
-    completed !== undefined ? (completed ? 1 : 0) : null,
-    actualDuration || null,
-    id
-  );
+  stmt.run(completed !== undefined ? (completed ? 1 : 0) : null, actualDuration || null, id);
 
   return getStudySessionById(id);
 }
 
 export async function deleteStudySession(id: string): Promise<boolean> {
-  const stmt = db.prepare("DELETE FROM study_sessions WHERE id = ?");
+  const stmt = db.prepare('DELETE FROM study_sessions WHERE id = ?');
   const result = stmt.run(id);
   return result.changes > 0;
 }

@@ -1,21 +1,33 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Progress } from "@/components/ui/progress";
-import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Target, Plus, TrendingUp, CheckCircle2, Calendar, Clock } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Progress } from '@/components/ui/progress';
+import { Badge } from '@/components/ui/badge';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { Target, Plus, CheckCircle2, Calendar, Clock } from 'lucide-react';
 
 interface StudyGoal {
   id: string;
   title: string;
   description: string;
-  goalType: "daily" | "weekly" | "monthly" | "custom";
+  goalType: 'daily' | 'weekly' | 'monthly' | 'custom';
   targetValue: number;
   currentValue: number;
   unit: string;
@@ -32,14 +44,14 @@ export function StudyGoalTracking({ userId }: StudyGoalTrackingProps) {
   const [goals, setGoals] = useState<StudyGoal[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAddDialog, setShowAddDialog] = useState(false);
-  
+
   const [newGoal, setNewGoal] = useState({
-    title: "",
-    description: "",
-    goalType: "daily" as "daily" | "weekly" | "monthly" | "custom",
+    title: '',
+    description: '',
+    goalType: 'daily' as 'daily' | 'weekly' | 'monthly' | 'custom',
     targetValue: 0,
-    unit: "minuten",
-    deadline: "",
+    unit: 'minuten',
+    deadline: '',
   });
 
   useEffect(() => {
@@ -49,8 +61,8 @@ export function StudyGoalTracking({ userId }: StudyGoalTrackingProps) {
   const fetchGoals = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch("/api/study-goals", {
+      const token = localStorage.getItem('token');
+      const response = await fetch('/api/study-goals', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -61,7 +73,7 @@ export function StudyGoalTracking({ userId }: StudyGoalTrackingProps) {
         setGoals(data.goals || []);
       }
     } catch (error) {
-      console.error("Failed to fetch study goals:", error);
+      console.error('Failed to fetch study goals:', error);
     } finally {
       setLoading(false);
     }
@@ -69,11 +81,11 @@ export function StudyGoalTracking({ userId }: StudyGoalTrackingProps) {
 
   const handleAddGoal = async () => {
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch("/api/study-goals", {
-        method: "POST",
+      const token = localStorage.getItem('token');
+      const response = await fetch('/api/study-goals', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(newGoal),
@@ -82,27 +94,27 @@ export function StudyGoalTracking({ userId }: StudyGoalTrackingProps) {
       if (response.ok) {
         setShowAddDialog(false);
         setNewGoal({
-          title: "",
-          description: "",
-          goalType: "daily",
+          title: '',
+          description: '',
+          goalType: 'daily',
           targetValue: 0,
-          unit: "minuten",
-          deadline: "",
+          unit: 'minuten',
+          deadline: '',
         });
         fetchGoals();
       }
     } catch (error) {
-      console.error("Failed to add study goal:", error);
+      console.error('Failed to add study goal:', error);
     }
   };
 
   const handleUpdateProgress = async (goalId: string, value: number) => {
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       const response = await fetch(`/api/study-goals/${goalId}`, {
-        method: "PUT",
+        method: 'PUT',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ currentValue: value }),
@@ -112,15 +124,15 @@ export function StudyGoalTracking({ userId }: StudyGoalTrackingProps) {
         fetchGoals();
       }
     } catch (error) {
-      console.error("Failed to update goal progress:", error);
+      console.error('Failed to update goal progress:', error);
     }
   };
 
   const handleCompleteGoal = async (goalId: string) => {
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       const response = await fetch(`/api/study-goals/${goalId}/complete`, {
-        method: "POST",
+        method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -130,7 +142,7 @@ export function StudyGoalTracking({ userId }: StudyGoalTrackingProps) {
         fetchGoals();
       }
     } catch (error) {
-      console.error("Failed to complete goal:", error);
+      console.error('Failed to complete goal:', error);
     }
   };
 
@@ -140,14 +152,14 @@ export function StudyGoalTracking({ userId }: StudyGoalTrackingProps) {
 
   const getGoalTypeLabel = (type: string) => {
     switch (type) {
-      case "daily":
-        return "Dagelijks";
-      case "weekly":
-        return "Wekelijks";
-      case "monthly":
-        return "Maandelijks";
-      case "custom":
-        return "Aangepast";
+      case 'daily':
+        return 'Dagelijks';
+      case 'weekly':
+        return 'Wekelijks';
+      case 'monthly':
+        return 'Maandelijks';
+      case 'custom':
+        return 'Aangepast';
       default:
         return type;
     }
@@ -211,7 +223,12 @@ export function StudyGoalTracking({ userId }: StudyGoalTrackingProps) {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="goalType">Type</Label>
-                  <Select value={newGoal.goalType} onValueChange={(value: "daily" | "weekly" | "monthly" | "custom") => setNewGoal({ ...newGoal, goalType: value })}>
+                  <Select
+                    value={newGoal.goalType}
+                    onValueChange={(value: 'daily' | 'weekly' | 'monthly' | 'custom') =>
+                      setNewGoal({ ...newGoal, goalType: value })
+                    }
+                  >
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
@@ -225,7 +242,10 @@ export function StudyGoalTracking({ userId }: StudyGoalTrackingProps) {
                 </div>
                 <div>
                   <Label htmlFor="unit">Eenheid</Label>
-                  <Select value={newGoal.unit} onValueChange={(value) => setNewGoal({ ...newGoal, unit: value })}>
+                  <Select
+                    value={newGoal.unit}
+                    onValueChange={(value) => setNewGoal({ ...newGoal, unit: value })}
+                  >
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
@@ -246,7 +266,9 @@ export function StudyGoalTracking({ userId }: StudyGoalTrackingProps) {
                     id="targetValue"
                     type="number"
                     value={newGoal.targetValue}
-                    onChange={(e) => setNewGoal({ ...newGoal, targetValue: parseInt(e.target.value) || 0 })}
+                    onChange={(e) =>
+                      setNewGoal({ ...newGoal, targetValue: parseInt(e.target.value) || 0 })
+                    }
                     placeholder="30"
                   />
                 </div>
@@ -286,10 +308,11 @@ export function StudyGoalTracking({ userId }: StudyGoalTrackingProps) {
         <div className="space-y-4">
           {goals.map((goal) => {
             const progress = getProgressPercentage(goal.currentValue, goal.targetValue);
-            const isOverdue = goal.deadline && new Date(goal.deadline) < new Date() && !goal.completed;
-            
+            const isOverdue =
+              goal.deadline && new Date(goal.deadline) < new Date() && !goal.completed;
+
             return (
-              <Card key={goal.id} className={goal.completed ? "opacity-60" : ""}>
+              <Card key={goal.id} className={goal.completed ? 'opacity-60' : ''}>
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
@@ -335,7 +358,7 @@ export function StudyGoalTracking({ userId }: StudyGoalTrackingProps) {
                       {goal.deadline && (
                         <div className="flex items-center gap-1">
                           <Calendar className="w-3 h-3" />
-                          <span className={isOverdue ? "text-red-500" : ""}>
+                          <span className={isOverdue ? 'text-red-500' : ''}>
                             {formatDate(goal.deadline)}
                           </span>
                         </div>

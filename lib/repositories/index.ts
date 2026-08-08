@@ -1,5 +1,19 @@
-import { LegacyUserRepository, LegacyStudySetRepository, LegacyCardRepository, LegacyCalendarRepository, LegacyTestWeekRepository, LegacyHomeworkRepository } from './legacy-adapter';
-import { IUserRepository, IStudySetRepository, ICardRepository, ICalendarRepository, ITestWeekRepository, IHomeworkRepository } from './types';
+import {
+  LegacyUserRepository,
+  LegacyStudySetRepository,
+  LegacyCardRepository,
+  LegacyCalendarRepository,
+  LegacyTestWeekRepository,
+  LegacyHomeworkRepository,
+} from './legacy-adapter';
+import {
+  IUserRepository,
+  IStudySetRepository,
+  ICardRepository,
+  ICalendarRepository,
+  ITestWeekRepository,
+  IHomeworkRepository,
+} from './types';
 
 export * from './types';
 

@@ -1,42 +1,14 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { ArrowLeft } from "lucide-react";
-import { ThemeToggle } from "./theme-toggle";
-import { DynamicIcon } from "./DynamicIcon";
-import { LanguageSwitcher } from "./LanguageSwitcher";
-import { useTranslation } from "@/lib/i18n";
-import { getSectionTitle } from "@/lib/section-title";
-import { signOut } from "@/lib/supabase/auth";
-import { useRouter } from "next/navigation";
-
-function YoutubeIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-    </svg>
-  );
-}
-
-function SubstackIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <rect x="3" y="3" width="18" height="4" rx="0.5" />
-      <rect x="3" y="9" width="18" height="4" rx="0.5" />
-      <path d="M3 15h18v6L12 17l-9 4v-6z" />
-    </svg>
-  );
-}
+import { useState } from 'react';
+import { ArrowLeft } from 'lucide-react';
+import { ThemeToggle } from './theme-toggle';
+import { DynamicIcon } from './DynamicIcon';
+import { LanguageSwitcher } from './LanguageSwitcher';
+import { useTranslation } from '@/lib/i18n';
+import { getSectionTitle } from '@/lib/section-title';
+import { signOut } from '@/lib/supabase/auth';
+import { useRouter } from 'next/navigation';
 
 function DownloadIcon({ className }: { className?: string }) {
   return (
@@ -76,8 +48,8 @@ interface ButtonConfig {
   url: string;
   text: string;
   icon: string;
-  iconType?: "name" | "url";
-  variant?: "primary" | "secondary";
+  iconType?: 'name' | 'url';
+  variant?: 'primary' | 'secondary';
   enabled?: boolean;
 }
 
@@ -96,11 +68,23 @@ interface HeaderProps {
   showLanguageSwitcher?: boolean;
 }
 
-export function Header({ siteMetadata, sections, buttons, showExportButtons = false, showAnkiExport = false, showFlashcardsExport = false, showTranscriptExport = false, showCopyTranscript = false, showLanguageSwitcher = false }: HeaderProps) {
+export function Header({
+  siteMetadata,
+  sections,
+  buttons,
+  showExportButtons = false,
+  showAnkiExport = false,
+  showFlashcardsExport = false,
+  showTranscriptExport = false,
+  showCopyTranscript = false,
+  showLanguageSwitcher = false,
+}: HeaderProps) {
   const [copied, setCopied] = useState(false);
+  const router = useRouter();
   const { t } = useTranslation();
   const hasExportActions =
-    showExportButtons && (showAnkiExport || showFlashcardsExport || showTranscriptExport || showCopyTranscript);
+    showExportButtons &&
+    (showAnkiExport || showFlashcardsExport || showTranscriptExport || showCopyTranscript);
 
   const handleCopyTranscript = async () => {
     try {
@@ -109,44 +93,44 @@ export function Header({ siteMetadata, sections, buttons, showExportButtons = fa
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      console.error("Failed to copy:", err);
+      console.error('Failed to copy:', err);
     }
   };
 
   const generateAnkiDeck = () => {
     if (!sections) return '';
-    
+
     let ankiContent = '';
-    sections.forEach(section => {
+    sections.forEach((section) => {
       section.questions.forEach((question: any) => {
         const front = question.text;
         const back = question.answer || t('answer_not_provided', 'Answer not provided');
         ankiContent += `${front}\t${back}\n`;
       });
     });
-    
+
     return ankiContent;
   };
 
   const generateFlashcards = () => {
     if (!sections) return '';
-    
+
     let flashcardContent = '# Flashcards\n\n';
-    sections.forEach(section => {
+    sections.forEach((section) => {
       flashcardContent += `## ${getSectionTitle(section)}\n\n`;
       section.questions.forEach((question: any, index: number) => {
         flashcardContent += `### Q${index + 1}: ${question.text}\n\n`;
         flashcardContent += `**${t('answer')}:** ${question.answer || t('not_provided', 'Not provided')}\n\n---\n\n`;
       });
     });
-    
+
     return flashcardContent;
   };
 
   const generateTranscript = (sectionsData: any[]) => {
     let transcript = `# ${siteMetadata.title}\n\n${siteMetadata.description}\n\n`;
 
-    sectionsData.forEach(section => {
+    sectionsData.forEach((section) => {
       transcript += `## ${getSectionTitle(section)}\n\n`;
       if (section.timestamp) {
         transcript += `*${section.timestamp}*\n\n`;
@@ -203,7 +187,7 @@ export function Header({ siteMetadata, sections, buttons, showExportButtons = fa
       <div className="w-full">
         <div className="mb-6 flex items-start gap-4">
           <button
-            onClick={() => window.location.href = '/'}
+            onClick={() => (window.location.href = '/')}
             className="mt-2 p-2 text-sm text-muted-foreground hover:text-foreground transition-colors border border-border rounded-md hover:bg-secondary/50 flex-shrink-0"
             title={t('back_to_main')}
             aria-label={t('back_to_main')}
@@ -220,29 +204,32 @@ export function Header({ siteMetadata, sections, buttons, showExportButtons = fa
           </div>
         </div>
         <div className="flex flex-nowrap gap-2.5 mb-7 overflow-x-auto pb-1">
-          {buttons && buttons.filter(button => button.enabled !== false).map((button, index) => {
-            const isPrimary = button.variant === "primary";
-            return (
-              <a
-                key={index}
-                href={button.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`inline-flex items-center gap-2 px-3.5 py-2 text-[13px] rounded-[3px] transition-colors font-medium ${
-                  isPrimary
-                    ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                    : "border border-border bg-background text-foreground hover:bg-secondary"
-                }`}
-              >
-                <DynamicIcon 
-                  icon={button.icon} 
-                  iconType={button.iconType} 
-                  className="w-4 h-4" 
-                />
-                {button.text}
-              </a>
-            );
-          })}
+          {buttons &&
+            buttons
+              .filter((button) => button.enabled !== false)
+              .map((button, index) => {
+                const isPrimary = button.variant === 'primary';
+                return (
+                  <a
+                    key={index}
+                    href={button.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`inline-flex items-center gap-2 px-3.5 py-2 text-[13px] rounded-[3px] transition-colors font-medium ${
+                      isPrimary
+                        ? 'bg-primary text-primary-foreground hover:bg-primary/90'
+                        : 'border border-border bg-background text-foreground hover:bg-secondary'
+                    }`}
+                  >
+                    <DynamicIcon
+                      icon={button.icon}
+                      iconType={button.iconType}
+                      className="w-4 h-4"
+                    />
+                    {button.text}
+                  </a>
+                );
+              })}
         </div>
       </div>
 
@@ -271,7 +258,9 @@ export function Header({ siteMetadata, sections, buttons, showExportButtons = fa
           )}
           {showTranscriptExport && (
             <button
-              onClick={() => downloadFile(generateTranscript(sections || []), 'transcript.md', 'text/markdown')}
+              onClick={() =>
+                downloadFile(generateTranscript(sections || []), 'transcript.md', 'text/markdown')
+              }
               className="text-foreground hover:text-muted-foreground transition-colors inline-flex items-center gap-1.5"
             >
               <DownloadIcon className="w-3.5 h-3.5" />

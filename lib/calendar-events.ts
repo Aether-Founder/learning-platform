@@ -28,7 +28,7 @@ export function createCalendarEvent(
 ): CalendarEvent {
   const eventId = generateId();
   const now = new Date().toISOString();
-  
+
   const stmt = db.prepare(`
     INSERT INTO calendar_events (
       id, user_id, title, description, start_date, end_date, 
@@ -37,7 +37,7 @@ export function createCalendarEvent(
     )
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
-  
+
   stmt.run(
     eventId,
     userId,
@@ -55,7 +55,7 @@ export function createCalendarEvent(
     now,
     now
   );
-  
+
   return getCalendarEventById(eventId)!;
 }
 
@@ -65,9 +65,9 @@ export function createCalendarEvent(
 export function getCalendarEventById(eventId: string): CalendarEvent | null {
   const stmt = db.prepare('SELECT * FROM calendar_events WHERE id = ?');
   const row = stmt.get(eventId) as any;
-  
+
   if (!row) return null;
-  
+
   return {
     id: row.id,
     userId: row.user_id,
@@ -102,10 +102,10 @@ export function getCalendarEventsByDateRange(
     AND end_date <= ?
     ORDER BY start_date ASC
   `);
-  
+
   const rows = stmt.all(userId, startDate, endDate) as any[];
-  
-  return rows.map(row => ({
+
+  return rows.map((row) => ({
     id: row.id,
     userId: row.user_id,
     title: row.title,
@@ -133,10 +133,10 @@ export function getCalendarEventsByUserId(userId: string): CalendarEvent[] {
     WHERE user_id = ? 
     ORDER BY start_date ASC
   `);
-  
+
   const rows = stmt.all(userId) as any[];
-  
-  return rows.map(row => ({
+
+  return rows.map((row) => ({
     id: row.id,
     userId: row.user_id,
     title: row.title,
@@ -164,7 +164,7 @@ export function updateCalendarEvent(
 ): CalendarEvent | null {
   const fields: string[] = [];
   const values: any[] = [];
-  
+
   if (updates.title !== undefined) {
     fields.push('title = ?');
     values.push(updates.title);
@@ -209,17 +209,17 @@ export function updateCalendarEvent(
     fields.push('subject_id = ?');
     values.push(updates.subjectId);
   }
-  
+
   fields.push('updated_at = ?');
   values.push(new Date().toISOString());
   values.push(eventId);
-  
+
   const stmt = db.prepare(`
     UPDATE calendar_events
     SET ${fields.join(', ')}
     WHERE id = ?
   `);
-  
+
   stmt.run(...values);
   return getCalendarEventById(eventId);
 }
@@ -242,10 +242,10 @@ export function getEventsByTestWeek(testWeekId: string): CalendarEvent[] {
     WHERE test_week_id = ? 
     ORDER BY start_date ASC
   `);
-  
+
   const rows = stmt.all(testWeekId) as any[];
-  
-  return rows.map(row => ({
+
+  return rows.map((row) => ({
     id: row.id,
     userId: row.user_id,
     title: row.title,

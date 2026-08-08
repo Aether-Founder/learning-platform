@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import { evaluateAnswer } from "@/lib/learning-platform/grading";
-import { getPromptAndAnswer } from "@/lib/learning-platform/term-filters";
-import type { GameShellProps } from "@/lib/learning-platform/game-registry";
-import { useLearningPlatformStore } from "@/store/useLearningPlatformStore";
-import type { FallingItem } from "@/types/learning-platform";
-import { createId } from "@/lib/learning-platform/question-generator";
-import { useTranslation } from "@/lib/i18n";
-import { GameShell } from "../GameShell";
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { evaluateAnswer } from '@/lib/learning-platform/grading';
+import { getPromptAndAnswer } from '@/lib/learning-platform/term-filters';
+import type { GameShellProps } from '@/lib/learning-platform/game-registry';
+import { useLearningPlatformStore } from '@/store/useLearningPlatformStore';
+import type { FallingItem } from '@/types/learning-platform';
+import { createId } from '@/lib/learning-platform/question-generator';
+import { useTranslation } from '@/lib/i18n';
+import { GameShell } from '../GameShell';
 
 function getCanvasTextColor() {
-  if (typeof document === "undefined") return "#1a1a1a";
-  return document.documentElement.classList.contains("dark") ? "#f4f4f5" : "#18181b";
+  if (typeof document === 'undefined') return '#1a1a1a';
+  return document.documentElement.classList.contains('dark') ? '#f4f4f5' : '#18181b';
 }
 
 export function BlastGame({ onQuit }: GameShellProps) {
@@ -21,7 +21,7 @@ export function BlastGame({ onQuit }: GameShellProps) {
     useLearningPlatformStore();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [items, setItems] = useState<FallingItem[]>([]);
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
   const [lives, setLives] = useState(3);
   const [gameOver, setGameOver] = useState(false);
   const speedRef = useRef(1);
@@ -34,7 +34,7 @@ export function BlastGame({ onQuit }: GameShellProps) {
   itemsRef.current = items;
 
   useEffect(() => {
-    beginSession("blast", playableTerms.length);
+    beginSession('blast', playableTerms.length);
   }, [playableTerms, beginSession]);
 
   useEffect(() => {
@@ -50,12 +50,14 @@ export function BlastGame({ onQuit }: GameShellProps) {
     if (!terms.length) return;
     const activeIds = new Set(itemsRef.current.map((item) => item.term.id));
     const pool = terms.filter((term) => !activeIds.has(term.id));
-    const term = (pool.length ? pool : terms)[Math.floor(Math.random() * (pool.length || terms.length))];
+    const term = (pool.length ? pool : terms)[
+      Math.floor(Math.random() * (pool.length || terms.length))
+    ];
     const { prompt, answer } = getPromptAndAnswer(term, settings.questionFormat);
     setItems((prev) => [
       ...prev,
       {
-        id: createId("fall"),
+        id: createId('fall'),
         term,
         content: prompt.slice(0, 120),
         correctAnswer: answer,
@@ -102,7 +104,7 @@ export function BlastGame({ onQuit }: GameShellProps) {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     if (!ctx) return;
     const rect = canvas.getBoundingClientRect();
     const dpr = window.devicePixelRatio || 1;
@@ -113,7 +115,7 @@ export function BlastGame({ onQuit }: GameShellProps) {
     const h = rect.height;
     ctx.clearRect(0, 0, w, h);
     ctx.fillStyle = getCanvasTextColor();
-    ctx.font = "600 15px var(--font-inter), system-ui, sans-serif";
+    ctx.font = '600 15px var(--font-inter), system-ui, sans-serif';
     items.forEach((item) => {
       const x = (item.xPosition / 100) * w;
       const y = (item.yPosition / 100) * h;
@@ -124,10 +126,7 @@ export function BlastGame({ onQuit }: GameShellProps) {
     });
   }, [items]);
 
-  const submit = (
-    e: React.FormEvent,
-    setScore: React.Dispatch<React.SetStateAction<number>>
-  ) => {
+  const submit = (e: React.FormEvent, setScore: React.Dispatch<React.SetStateAction<number>>) => {
     e.preventDefault();
     if (!input.trim() || gameOver) return;
     const match = items.find((item) => {
@@ -140,7 +139,7 @@ export function BlastGame({ onQuit }: GameShellProps) {
       setScore(scoreRef.current);
       speedRef.current = 1 + Math.floor(scoreRef.current / 5) * 0.15;
       recordAnswer(match.term.id, {
-        questionType: "written",
+        questionType: 'written',
         userAnswer: input,
         correctAnswer: match.correctAnswer,
         isCorrect: true,
@@ -148,7 +147,7 @@ export function BlastGame({ onQuit }: GameShellProps) {
         timeSpent: 0,
       });
     }
-    setInput("");
+    setInput('');
   };
 
   return (
@@ -160,9 +159,7 @@ export function BlastGame({ onQuit }: GameShellProps) {
           return (
             <div className="text-center py-12">
               <h3 className="text-xl font-serif">Game over</h3>
-              <p className="text-muted-foreground">
-                Score: {scoreRef.current}
-              </p>
+              <p className="text-muted-foreground">Score: {scoreRef.current}</p>
             </div>
           );
         }
@@ -171,7 +168,7 @@ export function BlastGame({ onQuit }: GameShellProps) {
           <div className="space-y-4 rounded-2xl border border-border bg-gradient-to-br from-card to-secondary/40 p-5">
             <div className="flex justify-end text-sm text-muted-foreground">
               <span>
-                {t("study_lives", "Levens")}: {lives}
+                {t('study_lives', 'Levens')}: {lives}
               </span>
             </div>
             <canvas
@@ -179,17 +176,14 @@ export function BlastGame({ onQuit }: GameShellProps) {
               className="w-full h-72 rounded-xl border border-border bg-background shadow-inner"
             />
             <p className="text-xs text-center text-muted-foreground">
-              {t(
-                "study_blast_hint",
-                "Typ het begrip dat bij de vallende definitie hoort"
-              )}
+              {t('study_blast_hint', 'Typ het begrip dat bij de vallende definitie hoort')}
             </p>
             <form onSubmit={(e) => submit(e, setScore)}>
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 className="w-full rounded-lg border border-border px-4 py-3 bg-background text-foreground"
-                placeholder={t("study_type_answer", "Typ je antwoord…")}
+                placeholder={t('study_type_answer', 'Typ je antwoord…')}
                 autoFocus
               />
             </form>

@@ -6,15 +6,7 @@
   "summary": "### Executive Summary\n\nThis document provides a complete technical breakdown of the **Brawl Stars** game engine (Titan/Edge), focusing on the architectural differences between **Android v36.218** and **iOS v67.264**. \n\n**Key Concepts Covered:**\n- **Data-Driven Architecture:** How CSV files dictate game logic and stats.\n- **Deterministic Lockstep Networking:** The necessity of integer math on older Android builds vs. float physics on iOS.\n- **Entity Management:** The `LogicGameObjectManager` and how objects are categorized by Type IDs.\n- **Memory Offsets:** Exact coordinates for X, Y, Z across both platforms.\n- **Modding Methodologies:** How visual spoofing, aimbots, and dodgebots are constructed by hooking the main update loop.\n\n---\n\n### Core Engine Pillars\n1. **CSV Parsing:** Static data (HP, Damage, Speed) is loaded from `csv_logic` at runtime.\n2. **Entity Manager:** A central manager holds arrays of all active objects (players, projectiles, walls).\n3. **Physics Pipeline:** Coordinates are converted from logical space to isometric screen space.\n4. **Update Loop:** The `LogicBattleModeClient::update` function runs 30-60 times per second, driving all game logic.",
   "contentFormat": "textbook",
   "defaultViewMode": "reading",
-  "availableModes": [
-    "textbook",
-    "simple",
-    "study",
-    "samenvatting",
-    "flashcards",
-    "quiz",
-    "code"
-  ],
+  "availableModes": ["textbook", "simple", "study", "samenvatting", "flashcards", "quiz", "code"],
   "showTimestamps": false,
   "showExportButtons": false,
   "showAnkiExport": false,

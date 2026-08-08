@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { AppShell, PageHeader } from "@/components/AppShell";
-import { Field, Panel, inputClass } from "@/components/ui-kit";
+import { AppShell, PageHeader } from '@/components/AppShell';
+import { Field, Panel, inputClass } from '@/components/ui-kit';
 
 export default function InstellingenPage() {
   return (

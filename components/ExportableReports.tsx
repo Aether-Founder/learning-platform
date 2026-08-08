@@ -1,36 +1,47 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Download, FileText, BarChart3, Calendar, TrendingUp } from "lucide-react";
+import { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Download, FileText, BarChart3, Calendar, TrendingUp } from 'lucide-react';
 
 interface ExportableReportsProps {
   userId: string;
 }
 
-export function ExportableReports({ userId }: ExportableReportsProps) {
-  const [reportType, setReportType] = useState<"analytics" | "progress" | "achievements" | "homework">("analytics");
-  const [format, setFormat] = useState<"pdf" | "csv" | "json">("pdf");
-  const [timeRange, setTimeRange] = useState<"week" | "month" | "all">("month");
+export function ExportableReports({ userId: _userId }: ExportableReportsProps) {
+  const [reportType, setReportType] = useState<
+    'analytics' | 'progress' | 'achievements' | 'homework'
+  >('analytics');
+  const [format, setFormat] = useState<'pdf' | 'csv' | 'json'>('pdf');
+  const [timeRange, setTimeRange] = useState<'week' | 'month' | 'all'>('month');
   const [exporting, setExporting] = useState(false);
 
   const handleExport = async () => {
     setExporting(true);
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch(`/api/reports/export?type=${reportType}&format=${format}&timeRange=${timeRange}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const token = localStorage.getItem('token');
+      const response = await fetch(
+        `/api/reports/export?type=${reportType}&format=${format}&timeRange=${timeRange}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (response.ok) {
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
+        const a = document.createElement('a');
         a.href = url;
         a.download = `${reportType}-report-${timeRange}.${format}`;
         document.body.appendChild(a);
@@ -39,17 +50,18 @@ export function ExportableReports({ userId }: ExportableReportsProps) {
         document.body.removeChild(a);
       }
     } catch (error) {
-      console.error("Failed to export report:", error);
+      console.error('Failed to export report:', error);
     } finally {
       setExporting(false);
     }
   };
 
   const reportDescriptions = {
-    analytics: "Volledige overzicht van je studie statistieken, inclusief tijd besteed, kaarten bestudeerd, en prestaties",
-    progress: "Gedetailleerde voortgangsrapport per vak en onderwerp",
-    achievements: "Overzicht van alle behaalde prestaties en mijlpalen",
-    homework: "Huiswerk statistieken en voltooiingspercentages",
+    analytics:
+      'Volledige overzicht van je studie statistieken, inclusief tijd besteed, kaarten bestudeerd, en prestaties',
+    progress: 'Gedetailleerde voortgangsrapport per vak en onderwerp',
+    achievements: 'Overzicht van alle behaalde prestaties en mijlpalen',
+    homework: 'Huiswerk statistieken en voltooiingspercentages',
   };
 
   return (
@@ -64,7 +76,12 @@ export function ExportableReports({ userId }: ExportableReportsProps) {
         <div className="space-y-4">
           <div className="space-y-2">
             <label className="text-sm font-medium">Rapport Type</label>
-            <Select value={reportType} onValueChange={(value: "analytics" | "progress" | "achievements" | "homework") => setReportType(value)}>
+            <Select
+              value={reportType}
+              onValueChange={(value: 'analytics' | 'progress' | 'achievements' | 'homework') =>
+                setReportType(value)
+              }
+            >
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
@@ -100,7 +117,10 @@ export function ExportableReports({ userId }: ExportableReportsProps) {
 
           <div className="space-y-2">
             <label className="text-sm font-medium">Tijdperiode</label>
-            <Select value={timeRange} onValueChange={(value: "week" | "month" | "all") => setTimeRange(value)}>
+            <Select
+              value={timeRange}
+              onValueChange={(value: 'week' | 'month' | 'all') => setTimeRange(value)}
+            >
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
@@ -114,7 +134,10 @@ export function ExportableReports({ userId }: ExportableReportsProps) {
 
           <div className="space-y-2">
             <label className="text-sm font-medium">Formaat</label>
-            <Select value={format} onValueChange={(value: "pdf" | "csv" | "json") => setFormat(value)}>
+            <Select
+              value={format}
+              onValueChange={(value: 'pdf' | 'csv' | 'json') => setFormat(value)}
+            >
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { signOut } from '@/lib/supabase/auth';
 
 export default function LogoutPage() {
+  const router = useRouter();
   useEffect(() => {
     const logout = async () => {
       try {
@@ -17,7 +18,7 @@ export default function LogoutPage() {
     };
 
     logout();
-  }, []);
+  }, [router]);
 
   return null;
 }

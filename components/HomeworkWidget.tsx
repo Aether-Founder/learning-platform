@@ -1,19 +1,24 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Calendar, Clock, AlertCircle, CheckCircle2, MoreHorizontal, ArrowUpDown } from "lucide-react";
+import { useState, useEffect, useCallback } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Checkbox } from '@/components/ui/checkbox';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Calendar, AlertCircle, CheckCircle2, ArrowUpDown } from 'lucide-react';
 
 interface Homework {
   id: string;
   title: string;
   subject: string;
   dueDate: string;
-  priority: "low" | "medium" | "high";
+  priority: 'low' | 'medium' | 'high';
   completed: boolean;
   testWeekId?: string;
 }
@@ -23,22 +28,18 @@ interface HomeworkWidgetProps {
   testWeekId?: string;
 }
 
-export function HomeworkWidget({ userId, testWeekId }: HomeworkWidgetProps) {
+export function HomeworkWidget({ userId: _userId, testWeekId }: HomeworkWidgetProps) {
   const [homework, setHomework] = useState<Homework[]>([]);
   const [loading, setLoading] = useState(true);
-  const [sortBy, setSortBy] = useState<"priority" | "dueDate" | "subject">("priority");
+  const [sortBy, setSortBy] = useState<'priority' | 'dueDate' | 'subject'>('priority');
 
-  useEffect(() => {
-    fetchHomework();
-  }, [userId, testWeekId]);
-
-  const fetchHomework = async () => {
+  const fetchHomework = useCallback(async () => {
     try {
-      const token = localStorage.getItem("token");
-      const url = testWeekId 
+      const token = localStorage.getItem('token');
+      const url = testWeekId
         ? `/api/homework?testWeekId=${testWeekId}`
         : `/api/homework?status=pending`;
-      
+
       const response = await fetch(url, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -50,55 +51,57 @@ export function HomeworkWidget({ userId, testWeekId }: HomeworkWidgetProps) {
         setHomework(data.homework || []);
       }
     } catch (error) {
-      console.error("Failed to fetch homework:", error);
+      console.error('Failed to fetch homework:', error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [testWeekId]);
+
+  useEffect(() => {
+    fetchHomework();
+  }, [fetchHomework]);
 
   const toggleComplete = async (homeworkId: string, completed: boolean) => {
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       const response = await fetch(`/api/homework/${homeworkId}`, {
-        method: "PUT",
+        method: 'PUT',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ completed }),
       });
 
       if (response.ok) {
-        setHomework(homework.map((hw) => 
-          hw.id === homeworkId ? { ...hw, completed } : hw
-        ));
+        setHomework(homework.map((hw) => (hw.id === homeworkId ? { ...hw, completed } : hw)));
       }
     } catch (error) {
-      console.error("Failed to update homework:", error);
+      console.error('Failed to update homework:', error);
     }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case "high":
-        return "bg-red-500";
-      case "medium":
-        return "bg-yellow-500";
-      case "low":
-        return "bg-green-500";
+      case 'high':
+        return 'bg-red-500';
+      case 'medium':
+        return 'bg-yellow-500';
+      case 'low':
+        return 'bg-green-500';
       default:
-        return "bg-gray-500";
+        return 'bg-gray-500';
     }
   };
 
   const getPriorityLabel = (priority: string) => {
     switch (priority) {
-      case "high":
-        return "Hoog";
-      case "medium":
-        return "Middel";
-      case "low":
-        return "Laag";
+      case 'high':
+        return 'Hoog';
+      case 'medium':
+        return 'Middel';
+      case 'low':
+        return 'Laag';
       default:
         return priority;
     }
@@ -122,12 +125,12 @@ export function HomeworkWidget({ userId, testWeekId }: HomeworkWidgetProps) {
   const sortHomework = (items: Homework[]) => {
     const sorted = [...items];
     sorted.sort((a, b) => {
-      if (sortBy === "priority") {
+      if (sortBy === 'priority') {
         const priorityOrder = { high: 0, medium: 1, low: 2 };
         return priorityOrder[a.priority] - priorityOrder[b.priority];
-      } else if (sortBy === "dueDate") {
+      } else if (sortBy === 'dueDate') {
         return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
-      } else if (sortBy === "subject") {
+      } else if (sortBy === 'subject') {
         return a.subject.localeCompare(b.subject);
       }
       return 0;
@@ -135,7 +138,6 @@ export function HomeworkWidget({ userId, testWeekId }: HomeworkWidgetProps) {
     return sorted;
   };
 
-  const sortedPending = sortHomework(pendingHomework);
   const sortedCompleted = sortHomework(completedHomework);
 
   if (loading) {
@@ -157,10 +159,11 @@ export function HomeworkWidget({ userId, testWeekId }: HomeworkWidgetProps) {
         <div className="flex items-center justify-between">
           <CardTitle>Huiswerk</CardTitle>
           <div className="flex items-center gap-2">
-            <Badge variant="secondary">
-              {pendingHomework.length} openstaand
-            </Badge>
-            <Select value={sortBy} onValueChange={(value: "priority" | "dueDate" | "subject") => setSortBy(value)}>
+            <Badge variant="secondary">{pendingHomework.length} openstaand</Badge>
+            <Select
+              value={sortBy}
+              onValueChange={(value: 'priority' | 'dueDate' | 'subject') => setSortBy(value)}
+            >
               <SelectTrigger className="w-32 h-8">
                 <ArrowUpDown className="w-3 h-3 mr-2" />
                 <SelectValue />
@@ -176,9 +179,7 @@ export function HomeworkWidget({ userId, testWeekId }: HomeworkWidgetProps) {
       </CardHeader>
       <CardContent>
         {homework.length === 0 ? (
-          <div className="text-center text-muted-foreground py-8">
-            Geen huiswerk gevonden
-          </div>
+          <div className="text-center text-muted-foreground py-8">Geen huiswerk gevonden</div>
         ) : (
           <div className="space-y-3">
             {pendingHomework.map((hw) => (
@@ -210,13 +211,11 @@ export function HomeworkWidget({ userId, testWeekId }: HomeworkWidgetProps) {
                       </div>
                     )}
                   </div>
-                  <div className="text-sm text-muted-foreground mt-1">
-                    {hw.subject}
-                  </div>
+                  <div className="text-sm text-muted-foreground mt-1">{hw.subject}</div>
                 </div>
               </div>
             ))}
-            
+
             {completedHomework.length > 0 && (
               <>
                 <div className="border-t my-3" />

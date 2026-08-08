@@ -1,12 +1,17 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Progress } from "@/components/ui/progress";
-import { Users, TrendingUp, TrendingDown, BookOpen, Clock, Target, Award } from "lucide-react";
+import { useState, useEffect, useCallback } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Progress } from '@/components/ui/progress';
+import { Users, TrendingUp, TrendingDown, BookOpen, Clock, Target } from 'lucide-react';
 
 interface ClassAnalytics {
   classId: string;
@@ -48,16 +53,12 @@ interface ClassAnalyticsProps {
 export function ClassAnalytics({ classId }: ClassAnalyticsProps) {
   const [analytics, setAnalytics] = useState<ClassAnalytics | null>(null);
   const [loading, setLoading] = useState(true);
-  const [timeRange, setTimeRange] = useState<"week" | "month" | "all">("week");
+  const [timeRange, setTimeRange] = useState<'week' | 'month' | 'all'>('week');
 
-  useEffect(() => {
-    fetchAnalytics();
-  }, [classId, timeRange]);
-
-  const fetchAnalytics = async () => {
+  const fetchAnalytics = useCallback(async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       const response = await fetch(`/api/classes/${classId}/analytics?timeRange=${timeRange}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -69,11 +70,15 @@ export function ClassAnalytics({ classId }: ClassAnalyticsProps) {
         setAnalytics(data.analytics);
       }
     } catch (error) {
-      console.error("Failed to fetch class analytics:", error);
+      console.error('Failed to fetch class analytics:', error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [classId, timeRange]);
+
+  useEffect(() => {
+    fetchAnalytics();
+  }, [fetchAnalytics]);
 
   if (loading) {
     return (
@@ -120,7 +125,10 @@ export function ClassAnalytics({ classId }: ClassAnalyticsProps) {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold">{analytics.className} - Analyse</h2>
-        <Select value={timeRange} onValueChange={(value: "week" | "month" | "all") => setTimeRange(value)}>
+        <Select
+          value={timeRange}
+          onValueChange={(value: 'week' | 'month' | 'all') => setTimeRange(value)}
+        >
           <SelectTrigger className="w-32">
             <SelectValue />
           </SelectTrigger>
@@ -214,18 +222,29 @@ export function ClassAnalytics({ classId }: ClassAnalyticsProps) {
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm">Gemiddelde Voltooiingstijd</span>
-              <Badge variant="outline">{formatTime(analytics.assignmentStats.averageCompletionTime)}</Badge>
+              <Badge variant="outline">
+                {formatTime(analytics.assignmentStats.averageCompletionTime)}
+              </Badge>
             </div>
             <div>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm font-medium">Voltooiingspercentage</span>
                 <span className="text-sm font-bold">
-                  {Math.round((analytics.assignmentStats.completedAssignments / analytics.assignmentStats.totalAssignments) * 100)}%
+                  {Math.round(
+                    (analytics.assignmentStats.completedAssignments /
+                      analytics.assignmentStats.totalAssignments) *
+                      100
+                  )}
+                  %
                 </span>
               </div>
-              <Progress 
-                value={(analytics.assignmentStats.completedAssignments / analytics.assignmentStats.totalAssignments) * 100} 
-                className="h-2" 
+              <Progress
+                value={
+                  (analytics.assignmentStats.completedAssignments /
+                    analytics.assignmentStats.totalAssignments) *
+                  100
+                }
+                className="h-2"
               />
             </div>
           </CardContent>
@@ -271,11 +290,18 @@ export function ClassAnalytics({ classId }: ClassAnalyticsProps) {
           <div className="space-y-3">
             {analytics.weeklyProgress.map((week, index) => {
               const prevWeek = analytics.weeklyProgress[index - 1];
-              const scoreTrend = prevWeek ? getTrendIcon(week.averageScore, prevWeek.averageScore) : null;
-              const activityTrend = prevWeek ? getTrendIcon(week.activeStudents, prevWeek.activeStudents) : null;
-              
+              const scoreTrend = prevWeek
+                ? getTrendIcon(week.averageScore, prevWeek.averageScore)
+                : null;
+              const activityTrend = prevWeek
+                ? getTrendIcon(week.activeStudents, prevWeek.activeStudents)
+                : null;
+
               return (
-                <div key={week.week} className="flex items-center justify-between p-3 rounded-lg border">
+                <div
+                  key={week.week}
+                  className="flex items-center justify-between p-3 rounded-lg border"
+                >
                   <div className="flex items-center gap-4">
                     <span className="text-sm font-medium w-20">{week.week}</span>
                     <div className="flex items-center gap-2">
@@ -287,9 +313,7 @@ export function ClassAnalytics({ classId }: ClassAnalyticsProps) {
                       <span className="text-sm">{week.activeStudents} actief</span>
                     </div>
                   </div>
-                  <div className="text-sm text-muted-foreground">
-                    {formatTime(week.studyTime)}
-                  </div>
+                  <div className="text-sm text-muted-foreground">{formatTime(week.studyTime)}</div>
                 </div>
               );
             })}

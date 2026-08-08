@@ -1,6 +1,6 @@
 /**
  * Supabase Provider Component
- * 
+ *
  * Wraps the app to provide Supabase context to all components
  * This ensures proper session handling and auth state management
  */
@@ -19,23 +19,44 @@ type SupabaseContext = {
 
 const Context = createContext<SupabaseContext | undefined>(undefined);
 
-export function SupabaseProvider({ children }: { children: React.ReactNode }) {
-  const [supabase] = useState(() => {
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+function getBrowserConfig() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-    if (!url || !anonKey) {
-      throw new Error('Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY');
+  if (!url || !anonKey) {
+    return null;
+  }
+
+  return { url, anonKey };
+}
+
+export function SupabaseProvider({ children }: { children: React.ReactNode }) {
+  const [supabase] = useState<SupabaseClient<Database> | null>(() => {
+    const config = getBrowserConfig();
+
+    if (!config) {
+      // NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY are not set.
+      // This happens on a fresh clone or in CI before env vars are configured.
+      // We render children without a Supabase client instead of crashing the
+      // whole app (and the build's prerendering) at module load time.
+      if (typeof window !== 'undefined') {
+        console.warn(
+          '[SupabaseProvider] NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY are not configured. Supabase features are disabled.'
+        );
+      }
+      return null;
     }
 
-    return createBrowserClient<Database>(url, anonKey);
+    return createBrowserClient<Database>(config.url, config.anonKey);
   });
   const router = useRouter();
 
   useEffect(() => {
+    if (!supabase) return;
+
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
+    } = supabase.auth.onAuthStateChange((event) => {
       if (event === 'SIGNED_IN') {
         // Refresh the page to load user data
         router.refresh();
@@ -55,11 +76,7 @@ export function SupabaseProvider({ children }: { children: React.ReactNode }) {
     };
   }, [supabase, router]);
 
-  return (
-    <Context.Provider value={{ supabase }}>
-      {children}
-    </Context.Provider>
-  );
+  return <Context.Provider value={{ supabase } as SupabaseContext}>{children}</Context.Provider>;
 }
 
 export const useSupabase = () => {

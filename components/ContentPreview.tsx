@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Eye, Calendar, Tag, User, Lock, Globe } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Eye, Calendar, Tag, Lock, Globe } from 'lucide-react';
 
 interface ContentPreviewProps {
   content: {
@@ -66,15 +66,9 @@ export function ContentPreview({ content, onEdit, onDelete, currentUserId }: Con
           <div className="flex-1">
             <CardTitle className="text-xl mb-2">{content.title}</CardTitle>
             <div className="flex items-center gap-2 flex-wrap">
-              <Badge className={getTypeColor(content.type)}>
-                {getTypeLabel(content.type)}
-              </Badge>
+              <Badge className={getTypeColor(content.type)}>{getTypeLabel(content.type)}</Badge>
               <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                {content.isPublic ? (
-                  <Globe className="w-4 h-4" />
-                ) : (
-                  <Lock className="w-4 h-4" />
-                )}
+                {content.isPublic ? <Globe className="w-4 h-4" /> : <Lock className="w-4 h-4" />}
                 <span>{content.isPublic ? 'Publiek' : 'Privé'}</span>
               </div>
             </div>
@@ -82,20 +76,12 @@ export function ContentPreview({ content, onEdit, onDelete, currentUserId }: Con
           {isOwner && (
             <div className="flex gap-2">
               {onEdit && (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => onEdit(content.id)}
-                >
+                <Button variant="outline" size="sm" onClick={() => onEdit(content.id)}>
                   Bewerken
                 </Button>
               )}
               {onDelete && (
-                <Button
-                  variant="destructive"
-                  size="sm"
-                  onClick={() => onDelete(content.id)}
-                >
+                <Button variant="destructive" size="sm" onClick={() => onDelete(content.id)}>
                   Verwijderen
                 </Button>
               )}

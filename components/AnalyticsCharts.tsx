@@ -1,7 +1,19 @@
-"use client";
+'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { BarChart, Bar, LineChart, Line, PieChart, Pie, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from "recharts";
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  BarChart,
+  Bar,
+  PieChart,
+  Pie,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  Cell,
+} from 'recharts';
 
 interface WeeklyActivity {
   date: string;
@@ -19,18 +31,18 @@ interface AnalyticsChartsProps {
   subjectBreakdown: SubjectBreakdown[];
 }
 
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884D8", "#82CA9D"];
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8', '#82CA9D'];
 
 export function AnalyticsCharts({ weeklyActivity, subjectBreakdown }: AnalyticsChartsProps) {
   const formatActivityData = () => {
-    return weeklyActivity.map(day => ({
-      day: new Date(day.date).toLocaleDateString("nl-NL", { weekday: "short" }),
+    return weeklyActivity.map((day) => ({
+      day: new Date(day.date).toLocaleDateString('nl-NL', { weekday: 'short' }),
       activity: day.activity,
     }));
   };
 
   const formatSubjectData = () => {
-    return subjectBreakdown.map(subject => ({
+    return subjectBreakdown.map((subject) => ({
       name: subject.subject,
       cards: subject.cardsStudied,
       time: subject.timeSpent,

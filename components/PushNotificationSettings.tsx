@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Switch } from "@/components/ui/switch";
-import { Bell, BellOff, CheckCircle2, AlertTriangle } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Switch } from '@/components/ui/switch';
+import { Bell, BellOff, CheckCircle2, AlertTriangle } from 'lucide-react';
 
 interface PushNotificationSettingsProps {
   userId: string;
 }
 
-export function PushNotificationSettings({ userId }: PushNotificationSettingsProps) {
-  const [permission, setPermission] = useState<NotificationPermission>("default");
+export function PushNotificationSettings({ userId: _userId }: PushNotificationSettingsProps) {
+  const [permission, setPermission] = useState<NotificationPermission>('default');
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [studyReminders, setStudyReminders] = useState(true);
   const [achievementAlerts, setAchievementAlerts] = useState(true);
@@ -20,39 +20,39 @@ export function PushNotificationSettings({ userId }: PushNotificationSettingsPro
   const [classUpdates, setClassUpdates] = useState(true);
 
   useEffect(() => {
-    if ("Notification" in window) {
+    if ('Notification' in window) {
       setPermission(Notification.permission);
-      setNotificationsEnabled(Notification.permission === "granted");
+      setNotificationsEnabled(Notification.permission === 'granted');
     }
   }, []);
 
   const requestPermission = async () => {
-    if ("Notification" in window) {
+    if ('Notification' in window) {
       const result = await Notification.requestPermission();
       setPermission(result);
-      setNotificationsEnabled(result === "granted");
+      setNotificationsEnabled(result === 'granted');
     }
   };
 
   const sendTestNotification = () => {
     if (notificationsEnabled) {
-      new Notification("Test Notificatie", {
-        body: "Dit is een test notificatie van het leerplatform",
-        icon: "/icon-192.png",
+      new Notification('Test Notificatie', {
+        body: 'Dit is een test notificatie van het leerplatform',
+        icon: '/icon-192.png',
       });
     }
   };
 
   const getPermissionStatus = () => {
     switch (permission) {
-      case "granted":
+      case 'granted':
         return (
           <Badge variant="default" className="bg-green-500">
             <CheckCircle2 className="w-3 h-3 mr-1" />
             Ingeschakeld
           </Badge>
         );
-      case "denied":
+      case 'denied':
         return (
           <Badge variant="destructive">
             <BellOff className="w-3 h-3 mr-1" />
@@ -84,7 +84,7 @@ export function PushNotificationSettings({ userId }: PushNotificationSettingsPro
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          {permission === "default" && (
+          {permission === 'default' && (
             <div className="flex items-center justify-between p-4 rounded-lg bg-muted/50">
               <div>
                 <p className="font-medium">Schakel notificaties in</p>
@@ -99,7 +99,7 @@ export function PushNotificationSettings({ userId }: PushNotificationSettingsPro
             </div>
           )}
 
-          {permission === "granted" && (
+          {permission === 'granted' && (
             <div className="space-y-4">
               <div className="flex items-center justify-between p-4 rounded-lg bg-green-500/10 border border-green-500/30">
                 <div className="flex items-center gap-3">
@@ -126,10 +126,7 @@ export function PushNotificationSettings({ userId }: PushNotificationSettingsPro
                       Herinneringen voor studie sessies en deadlines
                     </p>
                   </div>
-                  <Switch
-                    checked={studyReminders}
-                    onCheckedChange={setStudyReminders}
-                  />
+                  <Switch checked={studyReminders} onCheckedChange={setStudyReminders} />
                 </div>
 
                 <div className="flex items-center justify-between p-3 rounded-lg border">
@@ -139,10 +136,7 @@ export function PushNotificationSettings({ userId }: PushNotificationSettingsPro
                       Notificaties bij behaalde prestaties
                     </p>
                   </div>
-                  <Switch
-                    checked={achievementAlerts}
-                    onCheckedChange={setAchievementAlerts}
-                  />
+                  <Switch checked={achievementAlerts} onCheckedChange={setAchievementAlerts} />
                 </div>
 
                 <div className="flex items-center justify-between p-3 rounded-lg border">
@@ -152,10 +146,7 @@ export function PushNotificationSettings({ userId }: PushNotificationSettingsPro
                       Herinneringen voor huiswerk deadlines
                     </p>
                   </div>
-                  <Switch
-                    checked={homeworkAlerts}
-                    onCheckedChange={setHomeworkAlerts}
-                  />
+                  <Switch checked={homeworkAlerts} onCheckedChange={setHomeworkAlerts} />
                 </div>
 
                 <div className="flex items-center justify-between p-3 rounded-lg border">
@@ -165,24 +156,21 @@ export function PushNotificationSettings({ userId }: PushNotificationSettingsPro
                       Notificaties voor klas activiteiten
                     </p>
                   </div>
-                  <Switch
-                    checked={classUpdates}
-                    onCheckedChange={setClassUpdates}
-                  />
+                  <Switch checked={classUpdates} onCheckedChange={setClassUpdates} />
                 </div>
               </div>
             </div>
           )}
 
-          {permission === "denied" && (
+          {permission === 'denied' && (
             <div className="p-4 rounded-lg bg-red-500/10 border border-red-500/30">
               <div className="flex items-start gap-3">
                 <BellOff className="w-5 h-5 text-red-500 mt-0.5" />
                 <div>
                   <p className="font-medium">Notificaties geblokkeerd</p>
                   <p className="text-sm text-muted-foreground">
-                    Je hebt notificaties geblokkeerd in je browser instellingen.
-                    Ga naar je browser instellingen om dit te wijzigen.
+                    Je hebt notificaties geblokkeerd in je browser instellingen. Ga naar je browser
+                    instellingen om dit te wijzigen.
                   </p>
                 </div>
               </div>

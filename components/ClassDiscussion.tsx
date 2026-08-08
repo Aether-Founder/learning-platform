@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useRef } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Send, MessageSquare, Pin, Search, MoreHorizontal } from "lucide-react";
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Badge } from '@/components/ui/badge';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Send, MessageSquare, Pin, Search, MoreHorizontal } from 'lucide-react';
 
 interface DiscussionMessage {
   id: string;
@@ -34,24 +34,14 @@ interface ClassDiscussionProps {
 export function ClassDiscussion({ classId, userId, isTeacher }: ClassDiscussionProps) {
   const [messages, setMessages] = useState<DiscussionMessage[]>([]);
   const [loading, setLoading] = useState(true);
-  const [newMessage, setNewMessage] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [newMessage, setNewMessage] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
   const [replyTo, setReplyTo] = useState<DiscussionMessage | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    fetchMessages();
-    const interval = setInterval(fetchMessages, 10000); // Poll every 10 seconds
-    return () => clearInterval(interval);
-  }, [classId]);
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
-  const fetchMessages = async () => {
+  const fetchMessages = useCallback(async () => {
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       const response = await fetch(`/api/classes/${classId}/discussions`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -63,25 +53,35 @@ export function ClassDiscussion({ classId, userId, isTeacher }: ClassDiscussionP
         setMessages(data.messages || []);
       }
     } catch (error) {
-      console.error("Failed to fetch discussions:", error);
+      console.error('Failed to fetch discussions:', error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [classId]);
+
+  useEffect(() => {
+    fetchMessages();
+    const interval = setInterval(fetchMessages, 10000); // Poll every 10 seconds
+    return () => clearInterval(interval);
+  }, [fetchMessages]);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const handleSendMessage = async () => {
     if (!newMessage.trim()) return;
 
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       const response = await fetch(`/api/classes/${classId}/discussions`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
@@ -91,20 +91,20 @@ export function ClassDiscussion({ classId, userId, isTeacher }: ClassDiscussionP
       });
 
       if (response.ok) {
-        setNewMessage("");
+        setNewMessage('');
         setReplyTo(null);
         fetchMessages();
       }
     } catch (error) {
-      console.error("Failed to send message:", error);
+      console.error('Failed to send message:', error);
     }
   };
 
   const handlePinMessage = async (messageId: string) => {
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       const response = await fetch(`/api/classes/${classId}/discussions/${messageId}/pin`, {
-        method: "POST",
+        method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -114,15 +114,15 @@ export function ClassDiscussion({ classId, userId, isTeacher }: ClassDiscussionP
         fetchMessages();
       }
     } catch (error) {
-      console.error("Failed to pin message:", error);
+      console.error('Failed to pin message:', error);
     }
   };
 
   const handleDeleteMessage = async (messageId: string) => {
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       const response = await fetch(`/api/classes/${classId}/discussions/${messageId}`, {
-        method: "DELETE",
+        method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -132,13 +132,14 @@ export function ClassDiscussion({ classId, userId, isTeacher }: ClassDiscussionP
         fetchMessages();
       }
     } catch (error) {
-      console.error("Failed to delete message:", error);
+      console.error('Failed to delete message:', error);
     }
   };
 
-  const filteredMessages = messages.filter((msg) =>
-    msg.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    msg.authorName.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredMessages = messages.filter(
+    (msg) =>
+      msg.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      msg.authorName.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const pinnedMessages = filteredMessages.filter((msg) => msg.isPinned);
@@ -152,7 +153,7 @@ export function ClassDiscussion({ classId, userId, isTeacher }: ClassDiscussionP
     const diffHours = Math.floor(diffMs / 3600000);
     const diffDays = Math.floor(diffMs / 86400000);
 
-    if (diffMins < 1) return "Nu";
+    if (diffMins < 1) return 'Nu';
     if (diffMins < 60) return `${diffMins}m geleden`;
     if (diffHours < 24) return `${diffHours}u geleden`;
     if (diffDays < 7) return `${diffDays}d geleden`;
@@ -245,11 +246,7 @@ export function ClassDiscussion({ classId, userId, isTeacher }: ClassDiscussionP
           <CardContent className="p-3">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-medium">Reageert op {replyTo.authorName}</span>
-              <Button
-                size="sm"
-                variant="ghost"
-                onClick={() => setReplyTo(null)}
-              >
+              <Button size="sm" variant="ghost" onClick={() => setReplyTo(null)}>
                 Annuleren
               </Button>
             </div>
@@ -268,18 +265,14 @@ export function ClassDiscussion({ classId, userId, isTeacher }: ClassDiscussionP
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
               onKeyDown={(e) => {
-                if (e.key === "Enter" && !e.shiftKey) {
+                if (e.key === 'Enter' && !e.shiftKey) {
                   e.preventDefault();
                   handleSendMessage();
                 }
               }}
               className="min-h-[80px] resize-none"
             />
-            <Button
-              onClick={handleSendMessage}
-              disabled={!newMessage.trim()}
-              className="self-end"
-            >
+            <Button onClick={handleSendMessage} disabled={!newMessage.trim()} className="self-end">
               <Send className="w-4 h-4" />
             </Button>
           </div>
@@ -299,12 +292,20 @@ interface MessageCardProps {
   formatTime: (date: string) => string;
 }
 
-function MessageCard({ message, isTeacher, userId, onReply, onPin, onDelete, formatTime }: MessageCardProps) {
+function MessageCard({
+  message,
+  isTeacher,
+  userId,
+  onReply,
+  onPin,
+  onDelete,
+  formatTime,
+}: MessageCardProps) {
   const isOwnMessage = message.authorId === userId;
   const canModerate = isTeacher;
 
   return (
-    <Card className={`${isOwnMessage ? "bg-primary/5" : ""}`}>
+    <Card className={`${isOwnMessage ? 'bg-primary/5' : ''}`}>
       <CardContent className="p-4">
         <div className="flex items-start gap-3">
           <Avatar className="w-8 h-8">
@@ -315,44 +316,35 @@ function MessageCard({ message, isTeacher, userId, onReply, onPin, onDelete, for
             <div className="flex items-center gap-2 mb-1">
               <span className="font-medium">{message.authorName}</span>
               {message.isTeacher && (
-                <Badge variant="secondary" className="text-xs">Docent</Badge>
+                <Badge variant="secondary" className="text-xs">
+                  Docent
+                </Badge>
               )}
-              {message.isPinned && (
-                <Pin className="w-3 h-3 text-muted-foreground" />
-              )}
+              {message.isPinned && <Pin className="w-3 h-3 text-muted-foreground" />}
               <span className="text-xs text-muted-foreground">{formatTime(message.createdAt)}</span>
               {canModerate && (
                 <div className="flex items-center gap-1 ml-auto">
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    className="h-6 w-6 p-0"
-                    onClick={onPin}
-                  >
+                  <Button size="sm" variant="ghost" className="h-6 w-6 p-0" onClick={onPin}>
                     <Pin className="w-3 h-3" />
                   </Button>
                   {(isOwnMessage || canModerate) && (
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      className="h-6 w-6 p-0"
-                      onClick={onDelete}
-                    >
+                    <Button size="sm" variant="ghost" className="h-6 w-6 p-0" onClick={onDelete}>
                       <MoreHorizontal className="w-3 h-3" />
                     </Button>
                   )}
                 </div>
               )}
             </div>
-            
+
             {message.replyTo && (
               <div className="text-sm text-muted-foreground mb-2 p-2 rounded bg-muted/50">
-                <span className="font-medium">{message.replyTo.authorName}:</span> {message.replyTo.content}
+                <span className="font-medium">{message.replyTo.authorName}:</span>{' '}
+                {message.replyTo.content}
               </div>
             )}
-            
+
             <p className="text-sm whitespace-pre-wrap">{message.content}</p>
-            
+
             <div className="flex items-center gap-2 mt-2">
               <Button
                 size="sm"

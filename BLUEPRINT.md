@@ -11,6 +11,7 @@ Transform the flashcard application into a comprehensive paragraph-based learnin
 ### 1.1 Functional Requirements
 
 #### Content Structure
+
 - **FR1.1**: Support paragraph-based content organization
 - **FR1.2**: Each paragraph must contain: title, content (explanation text), and questions
 - **FR1.3**: Questions must be displayable inline or as separate sections
@@ -18,6 +19,7 @@ Transform the flashcard application into a comprehensive paragraph-based learnin
 - **FR1.5**: Support mathematical notation (KaTeX) in paragraphs
 
 #### Viewing Modes
+
 - **FR2.1**: **Book Mode**: Continuous scrolling with expandable inline questions
 - **FR2.2**: **Study Mode**: Traditional flashcard-style Q&A presentation
 - **FR2.3**: **Simple Mode**: lp-lw style single-page continuous text view
@@ -25,6 +27,7 @@ Transform the flashcard application into a comprehensive paragraph-based learnin
 - **FR2.5**: Mode preference persisted in localStorage
 
 #### Navigation & Progress
+
 - **FR3.1**: Paragraph-level navigation in sidebar
 - **FR3.2**: Reading progress tracking (percentage, visual indicators)
 - **FR3.3**: Bookmark specific paragraphs
@@ -34,12 +37,14 @@ Transform the flashcard application into a comprehensive paragraph-based learnin
 ### 1.2 Non-Functional Requirements
 
 #### Performance
+
 - **NFR1**: Initial load time < 2 seconds for files up to 500KB
 - **NFR2**: Smooth scrolling with 60fps
 - **NFR3**: React.memo and useMemo optimizations
 - **NFR4**: Lazy load paragraph content when needed
 
 #### Compatibility
+
 - **NFR5**: Backward compatible with existing JSON structure
 - **NFR6**: Graceful fallback for missing paragraph data
 - **NFR7**: Mobile responsive (320px to 2560px width)
@@ -51,6 +56,7 @@ Transform the flashcard application into a comprehensive paragraph-based learnin
 ### 2.1 Data Models
 
 #### Enhanced Section Interface
+
 ```typescript
 interface Paragraph {
   id: string;
@@ -66,8 +72,8 @@ interface ParagraphQuestion {
   number: string;
   question: string;
   answer: string;
-  type: "inline" | "section";
-  difficulty?: "easy" | "medium" | "hard";
+  type: 'inline' | 'section';
+  difficulty?: 'easy' | 'medium' | 'hard';
 }
 
 interface ParagraphSection {
@@ -82,6 +88,7 @@ interface ParagraphSection {
 ```
 
 #### Content JSON Structure
+
 ```json
 {
   "siteMetadata": { "title": "...", "description": "..." },
@@ -141,7 +148,7 @@ app/[page]/page.tsx
 
 ```typescript
 // View mode state
-const [viewMode, setViewMode] = useState<"book" | "study" | "simple">("book");
+const [viewMode, setViewMode] = useState<'book' | 'study' | 'simple'>('book');
 
 // Reading progress
 const [readingProgress, setReadingProgress] = useState<{
@@ -156,7 +163,7 @@ const [bookmarks, setBookmarks] = useState<Set<string>>(new Set());
 const [expandedQuestions, setExpandedQuestions] = useState<Set<string>>(new Set());
 
 // Search
-const [searchQuery, setSearchQuery] = useState("");
+const [searchQuery, setSearchQuery] = useState('');
 const [searchResults, setSearchResults] = useState<SearchResult[]>();
 ```
 
@@ -167,12 +174,14 @@ const [searchResults, setSearchResults] = useState<SearchResult[]>();
 ### Phase 1: Foundation (Day 1)
 
 #### Task 1.1: Update TypeScript Interfaces
+
 - [ ] Modify `content.d.ts` to include Paragraph interfaces
 - [ ] Update FlashcardSection interface for backward compatibility
 - [ ] Add type definitions for view modes
 - [ ] Estimated time: 1 hour
 
 #### Task 1.2: Create Base Components
+
 - [ ] Create `ModeSwitcher.tsx` with toggle UI
 - [ ] Create `ParagraphSection.tsx` skeleton
 - [ ] Create `SimpleMode.tsx` skeleton
@@ -181,6 +190,7 @@ const [searchResults, setSearchResults] = useState<SearchResult[]>();
 ### Phase 2: Core Features (Day 2)
 
 #### Task 2.1: Implement Book Mode
+
 - [ ] Create `ParagraphCard` component
 - [ ] Implement markdown rendering with KaTeX
 - [ ] Add inline question accordion
@@ -188,6 +198,7 @@ const [searchResults, setSearchResults] = useState<SearchResult[]>();
 - [ ] Estimated time: 4 hours
 
 #### Task 2.2: Implement Study Mode
+
 - [ ] Create `FlashcardGrid` component
 - [ ] Extract all questions from paragraphs
 - [ ] Implement card flip animation
@@ -195,6 +206,7 @@ const [searchResults, setSearchResults] = useState<SearchResult[]>();
 - [ ] Estimated time: 3 hours
 
 #### Task 2.3: Implement Simple Mode
+
 - [ ] Create `ContinuousText` component
 - [ ] Render all paragraphs as single document
 - [ ] Add paragraph anchors for linking
@@ -204,18 +216,21 @@ const [searchResults, setSearchResults] = useState<SearchResult[]>();
 ### Phase 3: Navigation & UX (Day 3)
 
 #### Task 3.1: Enhanced Sidebar
+
 - [ ] Add paragraph-level navigation items
 - [ ] Implement search in sidebar
 - [ ] Add reading progress indicator
 - [ ] Estimated time: 3 hours
 
 #### Task 3.2: Progress Tracking
+
 - [ ] Implement IntersectionObserver for paragraph visibility
 - [ ] Calculate reading percentage
 - [ ] Persist progress to localStorage
 - [ ] Estimated time: 2 hours
 
 #### Task 3.3: Bookmarks
+
 - [ ] Add bookmark button to paragraphs
 - [ ] Create bookmarks sidebar section
 - [ ] Implement bookmark persistence
@@ -224,18 +239,21 @@ const [searchResults, setSearchResults] = useState<SearchResult[]>();
 ### Phase 4: Polish & Integration (Day 4)
 
 #### Task 4.1: Update Page Integration
+
 - [ ] Modify `page.tsx` to support new data structure
 - [ ] Add mode persistence on route change
 - [ ] Handle legacy JSON fallback
 - [ ] Estimated time: 2 hours
 
 #### Task 4.2: Create Example Content
+
 - [ ] Create `math-paragraphs.json` with full content
 - [ ] Include 10+ paragraphs with questions
 - [ ] Add mathematical notation examples
 - [ ] Estimated time: 3 hours
 
 #### Task 4.3: Testing & Optimization
+
 - [ ] Test all three modes
 - [ ] Verify mobile responsiveness
 - [ ] Performance profiling
@@ -249,6 +267,7 @@ const [searchResults, setSearchResults] = useState<SearchResult[]>();
 ### 4.1 Visual Design
 
 #### Book Mode
+
 - **Layout**: Single column, max-width 720px, centered
 - **Paragraph Card**: White/light card with subtle shadow
 - **Typography**: 18px body text, 1.7 line height
@@ -256,12 +275,14 @@ const [searchResults, setSearchResults] = useState<SearchResult[]>();
 - **Spacing**: 32px between paragraphs
 
 #### Study Mode
+
 - **Layout**: Grid layout, 2 columns on desktop, 1 on mobile
 - **Flashcard**: Fixed aspect ratio, flip animation
 - **Typography**: Large question text (20px), answer on flip
 - **Spacing**: 24px gap between cards
 
 #### Simple Mode (lp-lw style)
+
 - **Layout**: Full width, max-width 900px
 - **Typography**: 17px body, GitHub-style markdown
 - **Headings**: Anchor links for navigation
@@ -270,6 +291,7 @@ const [searchResults, setSearchResults] = useState<SearchResult[]>();
 ### 4.2 Color Scheme
 
 #### Light Mode
+
 - Background: `hsl(222.2, 84%, 95.1%)` (very light blue)
 - Card Background: `hsl(222.2, 84%, 97%)`
 - Text: `hsl(222.2, 84%, 4.9%)`
@@ -277,6 +299,7 @@ const [searchResults, setSearchResults] = useState<SearchResult[]>();
 - Border: `hsl(222.2, 84%, 85%)`
 
 #### Dark Mode
+
 - Background: `hsl(222.2, 84%, 4.9%)`
 - Card Background: `hsl(222.2, 84%, 8%)`
 - Text: `hsl(222.2, 84%, 95.1%)`
@@ -286,12 +309,14 @@ const [searchResults, setSearchResults] = useState<SearchResult[]>();
 ### 4.3 Animations
 
 #### Transitions
+
 - Mode switch: 300ms ease-in-out
 - Card flip: 400ms cubic-bezier(0.4, 0, 0.2, 1)
 - Accordion expand: 200ms ease-out
 - Scroll to paragraph: 400ms smooth scroll
 
 #### Hover States
+
 - Paragraph card: `translateY(-2px)` + shadow increase
 - Buttons: Background color transition 150ms
 - Links: Underline animation
@@ -301,6 +326,7 @@ const [searchResults, setSearchResults] = useState<SearchResult[]>();
 ## 5. API & Data Flow
 
 ### 5.1 Data Loading
+
 ```typescript
 // Dynamic import with error handling
 const loadContent = async (page: string) => {
@@ -325,6 +351,7 @@ const normalizeContent = (data: any) => {
 ```
 
 ### 5.2 Progress Tracking
+
 ```typescript
 // IntersectionObserver for paragraph visibility
 useEffect(() => {
@@ -338,7 +365,7 @@ useEffect(() => {
     },
     { threshold: 0.5 }
   );
-  
+
   paragraphRefs.current.forEach((ref) => observer.observe(ref));
   return () => observer.disconnect();
 }, []);
@@ -349,18 +376,21 @@ useEffect(() => {
 ## 6. Testing Strategy
 
 ### 6.1 Unit Tests
+
 - Component rendering with different props
 - Mode switching logic
 - Progress calculation
 - Search functionality
 
 ### 6.2 Integration Tests
+
 - Full page load with different JSON structures
 - Mode persistence across navigation
 - Bookmark save/load
 - Search across paragraphs
 
 ### 6.3 Manual Testing
+
 - All three modes on desktop and mobile
 - Large content files (>500KB)
 - Keyboard navigation in Study Mode
@@ -386,12 +416,14 @@ useEffect(() => {
 ## 8. Future Enhancements
 
 ### 8.1 Version 2.0
+
 - Audio narration for paragraphs
 - Highlight and annotate text
 - Export to PDF/EPUB
 - Collaborative bookmarks
 
 ### 8.2 Version 2.1
+
 - Spaced repetition integration
 - Quiz generation from questions
 - Progress analytics dashboard
@@ -402,6 +434,7 @@ useEffect(() => {
 ## Appendix
 
 ### A. File Structure
+
 ```
 components/
 ├── ModeSwitcher.tsx         # Mode toggle UI
@@ -425,6 +458,7 @@ hooks/
 ```
 
 ### B. Dependencies to Add
+
 ```json
 {
   "react-intersection-observer": "^9.5.0",

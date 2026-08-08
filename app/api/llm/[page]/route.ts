@@ -34,33 +34,27 @@ function jsonToPlainText(data: any, indent = 0): string {
   return String(data);
 }
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { page: string } }
-) {
+export async function GET(request: NextRequest, { params }: { params: { page: string } }) {
   try {
     const { page } = params;
-    
+
     // Construct the file path
     const filePath = path.join(CONTENT_DIR, `${page}.json`);
-    
+
     // Check if file exists
     try {
       await fs.access(filePath);
     } catch {
-      return NextResponse.json(
-        { error: 'Content file not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Content file not found' }, { status: 404 });
     }
-    
+
     // Read the JSON file
     const fileContent = await fs.readFile(filePath, 'utf-8');
     const jsonData = JSON.parse(fileContent);
-    
+
     // Convert to structured plain text for AI
     const plainText = jsonToPlainText(jsonData);
-    
+
     // Return as plain text with proper headers for AI accessibility
     return new NextResponse(plainText, {
       headers: {
@@ -72,9 +66,6 @@ export async function GET(
     });
   } catch (error) {
     console.error('Error serving LLM content:', error);
-    return NextResponse.json(
-      { error: 'Failed to load content' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to load content' }, { status: 500 });
   }
 }

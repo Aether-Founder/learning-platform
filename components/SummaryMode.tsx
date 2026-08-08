@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { MarkdownRenderer } from "./MarkdownRenderer";
+import { MarkdownRenderer } from './MarkdownRenderer';
 
 interface SummaryModeProps {
   summary?: string;

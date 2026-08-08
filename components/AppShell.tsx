@@ -1,44 +1,44 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { Bell, ChevronDown, Search } from "lucide-react";
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import { NOTIFICATIONS } from "@/lib/os-data";
+import Link from 'next/link';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import { Bell, ChevronDown, Search } from 'lucide-react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { NOTIFICATIONS } from '@/lib/os-data';
 
 const NAV = [
-  { href: "/", label: "Overzicht" },
-  { href: "/vakken", label: "Vakken" },
-  { href: "/agenda", label: "Agenda" },
-  { href: "/cijfers", label: "Cijfers" },
-  { href: "/planner", label: "Planner" },
-  { href: "/notities", label: "Notities" },
+  { href: '/', label: 'Overzicht' },
+  { href: '/vakken', label: 'Vakken' },
+  { href: '/agenda', label: 'Agenda' },
+  { href: '/cijfers', label: 'Cijfers' },
+  { href: '/planner', label: 'Planner' },
+  { href: '/notities', label: 'Notities' },
 ] as const;
 
 const MORE = [
-  { href: "/decks", label: "Decks & review" },
-  { href: "/lessen", label: "Lessen" },
-  { href: "/groepen", label: "Groepen" },
-  { href: "/statistieken", label: "Statistieken" },
-  { href: "/instellingen", label: "Instellingen" },
+  { href: '/decks', label: 'Decks & review' },
+  { href: '/lessen', label: 'Lessen' },
+  { href: '/groepen', label: 'Groepen' },
+  { href: '/statistieken', label: 'Statistieken' },
+  { href: '/instellingen', label: 'Instellingen' },
 ] as const;
 
 export function SearchField({
   value,
   onChange,
-  placeholder = "Zoek in sets en lessen",
-  className = "",
+  placeholder = 'Zoek in sets en lessen',
+  className = '',
 }: {
   value?: string;
   onChange?: (v: string) => void;
   placeholder?: string;
   className?: string;
 }) {
-  const [inner, setInner] = useState("");
+  const [inner, setInner] = useState('');
   const val = value ?? inner;
   return (
-    <div className={"relative " + className}>
+    <div className={'relative ' + className}>
       <Search
         aria-hidden="true"
         className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
@@ -60,8 +60,8 @@ function useOutside<T extends HTMLElement>(onClose: () => void) {
     const handler = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) onClose();
     };
-    window.addEventListener("mousedown", handler);
-    return () => window.removeEventListener("mousedown", handler);
+    window.addEventListener('mousedown', handler);
+    return () => window.removeEventListener('mousedown', handler);
   }, [onClose]);
   return ref;
 }
@@ -70,7 +70,7 @@ function MoreMenu() {
   const [open, setOpen] = useState(false);
   const ref = useOutside<HTMLDivElement>(() => setOpen(false));
   const pathname = usePathname();
-  
+
   return (
     <div className="relative" ref={ref}>
       <button
@@ -89,7 +89,7 @@ function MoreMenu() {
               href={m.href}
               onClick={() => setOpen(false)}
               className={`block rounded-[6px] px-3 py-2 text-xs transition-colors hover:bg-secondary hover:text-foreground ${
-                pathname === m.href ? "text-foreground" : "text-muted-foreground"
+                pathname === m.href ? 'text-foreground' : 'text-muted-foreground'
               }`}
             >
               {m.label}
@@ -153,78 +153,19 @@ function NotificationBell() {
   );
 }
 
-import { signOut } from "@/lib/supabase/auth";
-import { useUserProfile } from "@/hooks/useAuth";
-
-function UserAvatarMenu() {
-  const [open, setOpen] = useState(false);
-  const ref = useOutside<HTMLDivElement>(() => setOpen(false));
-  const { profile } = useUserProfile();
-
-  const handleSignOut = async () => {
-    await signOut();
-    if (typeof window !== "undefined") {
-      sessionStorage.clear();
-    }
-    window.location.href = "/login";
-  };
-
-  const displayName = profile?.full_name || profile?.username || "Gebruiker";
-  const initial = displayName.charAt(0).toUpperCase();
-
-  return (
-    <div className="relative" ref={ref}>
-      <button
-        type="button"
-        onClick={() => setOpen((o) => !o)}
-        aria-label="Gebruikersmenu"
-        className="grid h-9 w-9 place-items-center rounded-full border border-border text-sm font-medium transition-colors hover:bg-secondary"
-      >
-        {initial}
-      </button>
-
-      {open && (
-        <div className="absolute right-0 top-full z-40 mt-2 w-56 rounded-md border border-border bg-background p-2 shadow-xl">
-          <div className="border-b border-border px-3 py-2">
-            <p className="truncate text-xs font-semibold text-foreground">{displayName}</p>
-            {profile?.username && (
-              <p className="truncate text-[11px] text-muted-foreground">@{profile.username}</p>
-            )}
-          </div>
-          <div className="py-1">
-            <Link
-              href="/profile"
-              onClick={() => setOpen(false)}
-              className="block rounded-md px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-            >
-              Mijn profiel
-            </Link>
-            <Link
-              href="/instellingen"
-              onClick={() => setOpen(false)}
-              className="block rounded-md px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-            >
-              Instellingen
-            </Link>
-          </div>
-          <div className="border-t border-border pt-1">
-            <button
-              type="button"
-              onClick={handleSignOut}
-              className="w-full rounded-md px-3 py-1.5 text-left text-xs font-medium text-red-600 transition-colors hover:bg-red-50 dark:hover:bg-red-950/30"
-            >
-              Uitloggen
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
+export function AppShell({
+  children,
+  search,
+  onSearch,
+}: {
+  children: ReactNode;
+  search?: string;
+  onSearch?: (value: string) => void;
+}) {
   const pathname = usePathname();
-  
+
   const isActive = (href: string) => {
-    if (href === "/") return pathname === "/";
+    if (href === '/') return pathname === '/';
     return pathname.startsWith(href);
   };
 
@@ -233,12 +174,12 @@ function UserAvatarMenu() {
       <header className="sticky top-0 z-30 border-b border-border bg-background/90 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-6xl items-center gap-4 px-6">
           <Link href="/" className="flex items-center gap-2.5">
-            <Image 
-              src="/aether-logo.png" 
-              alt="Aether logo" 
-              width={28} 
-              height={28} 
-              className="h-7 w-7 rounded-md object-contain" 
+            <Image
+              src="/aether-logo.png"
+              alt="Aether logo"
+              width={28}
+              height={28}
+              className="h-7 w-7 rounded-md object-contain"
             />
             <span className="font-display text-2xl font-semibold tracking-tight">Aether</span>
           </Link>
@@ -250,8 +191,8 @@ function UserAvatarMenu() {
                 href={item.href}
                 className={`relative px-3 py-2 text-sm font-medium transition-colors hover:text-foreground ${
                   isActive(item.href)
-                    ? "text-foreground after:absolute after:inset-x-3 after:-bottom-[21px] after:h-px after:bg-foreground"
-                    : "text-muted-foreground"
+                    ? 'text-foreground after:absolute after:inset-x-3 after:-bottom-[21px] after:h-px after:bg-foreground'
+                    : 'text-muted-foreground'
                 }`}
               >
                 {item.label}
@@ -283,9 +224,7 @@ function UserAvatarMenu() {
                 key={item.href}
                 href={item.href}
                 className={`whitespace-nowrap rounded-md px-2.5 py-1.5 text-xs font-medium transition-colors hover:bg-secondary hover:text-foreground ${
-                  isActive(item.href)
-                    ? "bg-secondary text-foreground"
-                    : "text-muted-foreground"
+                  isActive(item.href) ? 'bg-secondary text-foreground' : 'text-muted-foreground'
                 }`}
               >
                 {item.label}
@@ -300,13 +239,13 @@ function UserAvatarMenu() {
       <footer className="border-t border-border">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-6 py-8 text-xs text-muted-foreground">
           <span className="flex items-center gap-2 font-display text-base font-semibold text-foreground">
-            <Image 
-              src="/aether-logo.png" 
-              alt="" 
-              width={20} 
-              height={20} 
-              className="h-5 w-5 rounded object-contain" 
-              aria-hidden="true" 
+            <Image
+              src="/aether-logo.png"
+              alt=""
+              width={20}
+              height={20}
+              className="h-5 w-5 rounded object-contain"
+              aria-hidden="true"
             />
             Aether
           </span>
@@ -344,13 +283,7 @@ export function PageHeader({
   );
 }
 
-export function SectionTitle({
-  children,
-  action,
-}: {
-  children: ReactNode;
-  action?: ReactNode;
-}) {
+export function SectionTitle({ children, action }: { children: ReactNode; action?: ReactNode }) {
   return (
     <div className="mb-4 flex items-end justify-between gap-4 border-b border-border pb-3">
       <h2 className="font-display text-2xl font-semibold">{children}</h2>

@@ -1,14 +1,20 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
-import { ChevronLeft, ChevronRight, Users, BookOpen, Settings, Check } from "lucide-react";
+import { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Checkbox } from '@/components/ui/checkbox';
+import { ChevronLeft, ChevronRight, Users, Settings, Check } from 'lucide-react';
 
 interface ClassCreationWizardProps {
   userId: string;
@@ -16,25 +22,25 @@ interface ClassCreationWizardProps {
   onCancel?: () => void;
 }
 
-export function ClassCreationWizard({ userId, onComplete, onCancel }: ClassCreationWizardProps) {
+export function ClassCreationWizard({ onComplete, onCancel }: ClassCreationWizardProps) {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
-  
+
   const [classData, setClassData] = useState({
-    name: "",
-    description: "",
-    subject: "",
-    grade: "",
-    schoolYear: "",
+    name: '',
+    description: '',
+    subject: '',
+    grade: '',
+    schoolYear: '',
     isPublic: false,
     allowStudentJoin: true,
     requireApproval: false,
   });
 
   const steps = [
-    { number: 1, title: "Basis Info", icon: Users },
-    { number: 2, title: "Instellingen", icon: Settings },
-    { number: 3, title: "Overzicht", icon: Check },
+    { number: 1, title: 'Basis Info', icon: Users },
+    { number: 2, title: 'Instellingen', icon: Settings },
+    { number: 3, title: 'Overzicht', icon: Check },
   ];
 
   const handleNext = () => {
@@ -52,11 +58,11 @@ export function ClassCreationWizard({ userId, onComplete, onCancel }: ClassCreat
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch("/api/classes", {
-        method: "POST",
+      const token = localStorage.getItem('token');
+      const response = await fetch('/api/classes', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
@@ -76,7 +82,7 @@ export function ClassCreationWizard({ userId, onComplete, onCancel }: ClassCreat
         onComplete?.(data.class.id);
       }
     } catch (error) {
-      console.error("Failed to create class:", error);
+      console.error('Failed to create class:', error);
     } finally {
       setLoading(false);
     }
@@ -93,7 +99,7 @@ export function ClassCreationWizard({ userId, onComplete, onCancel }: ClassCreat
           placeholder="Bijv. Wiskunde 5VWO"
         />
       </div>
-      
+
       <div>
         <Label htmlFor="description">Beschrijving</Label>
         <Textarea
@@ -107,7 +113,10 @@ export function ClassCreationWizard({ userId, onComplete, onCancel }: ClassCreat
 
       <div>
         <Label htmlFor="subject">Vak *</Label>
-        <Select value={classData.subject} onValueChange={(value) => setClassData({ ...classData, subject: value })}>
+        <Select
+          value={classData.subject}
+          onValueChange={(value) => setClassData({ ...classData, subject: value })}
+        >
           <SelectTrigger>
             <SelectValue placeholder="Selecteer een vak" />
           </SelectTrigger>
@@ -131,7 +140,10 @@ export function ClassCreationWizard({ userId, onComplete, onCancel }: ClassCreat
       <div className="grid grid-cols-2 gap-4">
         <div>
           <Label htmlFor="grade">Klas</Label>
-          <Select value={classData.grade} onValueChange={(value) => setClassData({ ...classData, grade: value })}>
+          <Select
+            value={classData.grade}
+            onValueChange={(value) => setClassData({ ...classData, grade: value })}
+          >
             <SelectTrigger>
               <SelectValue placeholder="Selecteer klas" />
             </SelectTrigger>
@@ -147,7 +159,10 @@ export function ClassCreationWizard({ userId, onComplete, onCancel }: ClassCreat
         </div>
         <div>
           <Label htmlFor="schoolYear">Schooljaar</Label>
-          <Select value={classData.schoolYear} onValueChange={(value) => setClassData({ ...classData, schoolYear: value })}>
+          <Select
+            value={classData.schoolYear}
+            onValueChange={(value) => setClassData({ ...classData, schoolYear: value })}
+          >
             <SelectTrigger>
               <SelectValue placeholder="Schooljaar" />
             </SelectTrigger>
@@ -169,7 +184,9 @@ export function ClassCreationWizard({ userId, onComplete, onCancel }: ClassCreat
           <Checkbox
             id="isPublic"
             checked={classData.isPublic}
-            onCheckedChange={(checked: boolean) => setClassData({ ...classData, isPublic: checked })}
+            onCheckedChange={(checked: boolean) =>
+              setClassData({ ...classData, isPublic: checked })
+            }
           />
           <Label htmlFor="isPublic" className="cursor-pointer">
             Maak klas openbaar (zoekbaar voor anderen)
@@ -180,7 +197,9 @@ export function ClassCreationWizard({ userId, onComplete, onCancel }: ClassCreat
           <Checkbox
             id="allowStudentJoin"
             checked={classData.allowStudentJoin}
-            onCheckedChange={(checked: boolean) => setClassData({ ...classData, allowStudentJoin: checked })}
+            onCheckedChange={(checked: boolean) =>
+              setClassData({ ...classData, allowStudentJoin: checked })
+            }
           />
           <Label htmlFor="allowStudentJoin" className="cursor-pointer">
             Sta leerlingen toe om zich aan te melden
@@ -191,7 +210,9 @@ export function ClassCreationWizard({ userId, onComplete, onCancel }: ClassCreat
           <Checkbox
             id="requireApproval"
             checked={classData.requireApproval}
-            onCheckedChange={(checked: boolean) => setClassData({ ...classData, requireApproval: checked })}
+            onCheckedChange={(checked: boolean) =>
+              setClassData({ ...classData, requireApproval: checked })
+            }
             disabled={!classData.allowStudentJoin}
           />
           <Label htmlFor="requireApproval" className="cursor-pointer">
@@ -216,14 +237,33 @@ export function ClassCreationWizard({ userId, onComplete, onCancel }: ClassCreat
       <div className="bg-muted/50 p-4 rounded-lg">
         <h3 className="font-semibold mb-3">Overzicht</h3>
         <div className="space-y-2 text-sm">
-          <div><span className="font-medium">Naam:</span> {classData.name}</div>
-          <div><span className="font-medium">Beschrijving:</span> {classData.description || "Geen"}</div>
-          <div><span className="font-medium">Vak:</span> {classData.subject}</div>
-          <div><span className="font-medium">Klas:</span> {classData.grade || "Niet geselecteerd"}</div>
-          <div><span className="font-medium">Schooljaar:</span> {classData.schoolYear || "Niet geselecteerd"}</div>
-          <div><span className="font-medium">Openbaar:</span> {classData.isPublic ? "Ja" : "Nee"}</div>
-          <div><span className="font-medium">Leerlingen toegestaan:</span> {classData.allowStudentJoin ? "Ja" : "Nee"}</div>
-          <div><span className="font-medium">Goedkeuring vereist:</span> {classData.requireApproval ? "Ja" : "Nee"}</div>
+          <div>
+            <span className="font-medium">Naam:</span> {classData.name}
+          </div>
+          <div>
+            <span className="font-medium">Beschrijving:</span> {classData.description || 'Geen'}
+          </div>
+          <div>
+            <span className="font-medium">Vak:</span> {classData.subject}
+          </div>
+          <div>
+            <span className="font-medium">Klas:</span> {classData.grade || 'Niet geselecteerd'}
+          </div>
+          <div>
+            <span className="font-medium">Schooljaar:</span>{' '}
+            {classData.schoolYear || 'Niet geselecteerd'}
+          </div>
+          <div>
+            <span className="font-medium">Openbaar:</span> {classData.isPublic ? 'Ja' : 'Nee'}
+          </div>
+          <div>
+            <span className="font-medium">Leerlingen toegestaan:</span>{' '}
+            {classData.allowStudentJoin ? 'Ja' : 'Nee'}
+          </div>
+          <div>
+            <span className="font-medium">Goedkeuring vereist:</span>{' '}
+            {classData.requireApproval ? 'Ja' : 'Nee'}
+          </div>
         </div>
       </div>
     </div>
@@ -242,17 +282,15 @@ export function ClassCreationWizard({ userId, onComplete, onCancel }: ClassCreat
                 <div
                   className={`flex items-center justify-center w-10 h-10 rounded-full border-2 ${
                     step >= s.number
-                      ? "border-primary bg-primary text-primary-foreground"
-                      : "border-muted"
+                      ? 'border-primary bg-primary text-primary-foreground'
+                      : 'border-muted'
                   }`}
                 >
                   <s.icon className="w-5 h-5" />
                 </div>
                 {s.number < steps.length && (
                   <div
-                    className={`w-16 h-0.5 mx-2 ${
-                      step > s.number ? "bg-primary" : "bg-muted"
-                    }`}
+                    className={`w-16 h-0.5 mx-2 ${step > s.number ? 'bg-primary' : 'bg-muted'}`}
                   />
                 )}
               </div>
@@ -260,7 +298,7 @@ export function ClassCreationWizard({ userId, onComplete, onCancel }: ClassCreat
           </div>
           <div className="flex justify-between mt-2 text-xs text-muted-foreground">
             {steps.map((s) => (
-              <span key={s.number} className={step >= s.number ? "text-primary font-medium" : ""}>
+              <span key={s.number} className={step >= s.number ? 'text-primary font-medium' : ''}>
                 {s.title}
               </span>
             ))}
@@ -287,7 +325,7 @@ export function ClassCreationWizard({ userId, onComplete, onCancel }: ClassCreat
               </Button>
             )}
           </div>
-          
+
           {step < steps.length ? (
             <Button onClick={handleNext} disabled={!classData.name || !classData.subject}>
               Volgende
@@ -295,7 +333,7 @@ export function ClassCreationWizard({ userId, onComplete, onCancel }: ClassCreat
             </Button>
           ) : (
             <Button onClick={handleSubmit} disabled={loading}>
-              {loading ? "Maken..." : "Klas Maken"}
+              {loading ? 'Maken...' : 'Klas Maken'}
               <Check className="w-4 h-4 ml-2" />
             </Button>
           )}

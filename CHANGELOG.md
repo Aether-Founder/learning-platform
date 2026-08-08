@@ -5,6 +5,7 @@
 ### Added
 
 #### Core Features
+
 - **Paragraph-Based Content Structure**: New content organization with paragraphs containing explanations and integrated Q&A
 - **Three Viewing Modes**:
   - **Book Mode**: Continuous reading experience with inline expandable questions
@@ -12,12 +13,14 @@
   - **Simple Mode**: lp-lw style - single page with all content as continuous text
 
 #### Content Structure
+
 - `ParagraphSection` interface with nested paragraphs and questions
 - `content` field for detailed paragraph explanations
 - `questions` array within each paragraph for contextual Q&A
 - Support for both inline and section-level question display
 
 #### Components
+
 - `ParagraphSection.tsx`: Renders paragraphs with integrated Q&A
 - `SimpleMode.tsx`: lp-lw style continuous text view
 - `ModeSwitcher.tsx`: Toggle between Book/Study/Simple modes
@@ -25,6 +28,7 @@
 - Enhanced `NestedSection.tsx` with paragraph support
 
 #### User Experience
+
 - **Progress Tracking**: Visual indicators for reading completion
 - **Bookmarks**: Save and return to specific paragraphs
 - **Search**: Full-text search across all paragraphs
@@ -37,6 +41,7 @@
   - Active section highlighting
 
 #### Data & Performance
+
 - Updated TypeScript interfaces for type safety
 - React.memo and useMemo optimizations
 - Support for large content files
@@ -49,12 +54,14 @@
 - Example `math-paragraphs.json` with complete content
 
 ### Changed
+
 - Enhanced JSON structure to support paragraph-based organization
 - Modified sidebar navigation to show paragraph-level items
 - Updated hover states to use `bg-secondary` consistently
 - Improved mobile responsiveness for all viewing modes
 
 ### Technical Details
+
 - Added `useMemo` for expensive calculations
 - Implemented `React.memo` for component optimization
 - Enhanced scroll spy for paragraph-level highlighting
@@ -62,6 +69,7 @@
 - Added `processNewlines()` helper to convert `\\n` to actual newlines in JSON content
 
 ### Fixed
+
 - **LaTeX/Math Rendering**: Added KaTeX CSS import to `layout.tsx` for proper math formula display
 - **Flashcard Flip Animation**: Fixed CSS 3D transform using inline styles instead of Tailwind classes
 - **Spacebar in Study Mode**: Added keyboard event handler that prevents page scroll and flips card
@@ -70,6 +78,7 @@
 - **Inline Math Support**: Added explicit `singleDollarTextMath: true` configuration for `$...$` inline math support in MarkdownRenderer
 
 ### Migration Notes
+
 - Existing JSON files remain compatible
 - New paragraph structure is optional - falls back to existing structure
 - Can gradually migrate content to new format
@@ -77,12 +86,14 @@
 ## [Previous] - Nested Sections Implementation
 
 ### Added
+
 - Nested sections structure (sections within sections)
 - `NestedSection.tsx` component for hierarchical content
 - Math subject example with 2 units and 10 subsections
 - Performance optimizations with memoization
 
 ### Fixed
+
 - Theme toggle button visibility
 - Hover colors for sections and buttons
 - Mobile responsiveness issues
@@ -90,6 +101,7 @@
 ## [Previous] - Initial Release
 
 ### Added
+
 - Basic flashcard functionality
 - Dark/Light mode toggle
 - Section navigation sidebar

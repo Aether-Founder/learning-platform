@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { BarChart3, Clock, Users, BookOpen, Activity, Lock } from "lucide-react";
+import { useState } from 'react';
+import { Clock, Users, BookOpen, Activity, Lock } from 'lucide-react';
 
 interface DashboardData {
   summary: {
@@ -40,18 +40,18 @@ interface DashboardData {
 
 export default function AnalyticsDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState('');
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setError("");
+    setError('');
 
     try {
-      const response = await fetch("/api/analytics/dashboard", {
+      const response = await fetch('/api/analytics/dashboard', {
         headers: {
           Authorization: `Bearer ${password}`,
         },
@@ -62,10 +62,10 @@ export default function AnalyticsDashboard() {
         setData(dashboardData);
         setIsAuthenticated(true);
       } else {
-        setError("Invalid password");
+        setError('Invalid password');
       }
-    } catch (err) {
-      setError("Failed to fetch data");
+    } catch {
+      setError('Failed to fetch data');
     } finally {
       setLoading(false);
     }
@@ -90,7 +90,10 @@ export default function AnalyticsDashboard() {
             </div>
             <form onSubmit={handleLogin} className="space-y-4">
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-foreground mb-2">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-foreground mb-2"
+                >
                   Password
                 </label>
                 <input
@@ -103,15 +106,13 @@ export default function AnalyticsDashboard() {
                   required
                 />
               </div>
-              {error && (
-                <p className="text-sm text-red-500">{error}</p>
-              )}
+              {error && <p className="text-sm text-red-500">{error}</p>}
               <button
                 type="submit"
                 disabled={loading}
                 className="w-full px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors disabled:opacity-50"
               >
-                {loading ? "Loading..." : "Login"}
+                {loading ? 'Loading...' : 'Login'}
               </button>
             </form>
           </div>
@@ -144,7 +145,9 @@ export default function AnalyticsDashboard() {
               <span className="text-sm text-muted-foreground">Total Users</span>
             </div>
             <div className="text-3xl font-bold text-foreground">{data.summary.totalUsers}</div>
-            <div className="text-sm text-muted-foreground mt-1">{data.summary.activeUsers} active (7d)</div>
+            <div className="text-sm text-muted-foreground mt-1">
+              {data.summary.activeUsers} active (7d)
+            </div>
           </div>
 
           <div className="bg-card border border-border rounded-lg p-6">
@@ -152,8 +155,12 @@ export default function AnalyticsDashboard() {
               <Clock className="w-8 h-8 text-primary" />
               <span className="text-sm text-muted-foreground">Total Hours</span>
             </div>
-            <div className="text-3xl font-bold text-foreground">{formatHours(data.summary.totalHours)}</div>
-            <div className="text-sm text-muted-foreground mt-1">{data.summary.totalSessions} sessions</div>
+            <div className="text-3xl font-bold text-foreground">
+              {formatHours(data.summary.totalHours)}
+            </div>
+            <div className="text-sm text-muted-foreground mt-1">
+              {data.summary.totalSessions} sessions
+            </div>
           </div>
 
           <div className="bg-card border border-border rounded-lg p-6">
@@ -162,7 +169,9 @@ export default function AnalyticsDashboard() {
               <span className="text-sm text-muted-foreground">Flashcard Flips</span>
             </div>
             <div className="text-3xl font-bold text-foreground">{data.summary.flashcardFlips}</div>
-            <div className="text-sm text-muted-foreground mt-1">{data.summary.flashcardAnswers} answers</div>
+            <div className="text-sm text-muted-foreground mt-1">
+              {data.summary.flashcardAnswers} answers
+            </div>
           </div>
 
           <div className="bg-card border border-border rounded-lg p-6">
@@ -195,23 +204,41 @@ export default function AnalyticsDashboard() {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-border">
-                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Name</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Email</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Hours</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Sessions</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">First Seen</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Last Seen</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">
+                    Name
+                  </th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">
+                    Email
+                  </th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">
+                    Hours
+                  </th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">
+                    Sessions
+                  </th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">
+                    First Seen
+                  </th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">
+                    Last Seen
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {data.users.slice(0, 20).map((user) => (
                   <tr key={user.id} className="border-b border-border/50">
                     <td className="py-3 px-4 text-sm text-foreground">{user.name}</td>
-                    <td className="py-3 px-4 text-sm text-muted-foreground">{user.email || 'N/A'}</td>
+                    <td className="py-3 px-4 text-sm text-muted-foreground">
+                      {user.email || 'N/A'}
+                    </td>
                     <td className="py-3 px-4 text-sm text-foreground">{formatHours(user.hours)}</td>
                     <td className="py-3 px-4 text-sm text-foreground">{user.sessionCount}</td>
-                    <td className="py-3 px-4 text-sm text-muted-foreground">{formatDate(user.firstSeen)}</td>
-                    <td className="py-3 px-4 text-sm text-muted-foreground">{formatDate(user.lastSeen)}</td>
+                    <td className="py-3 px-4 text-sm text-muted-foreground">
+                      {formatDate(user.firstSeen)}
+                    </td>
+                    <td className="py-3 px-4 text-sm text-muted-foreground">
+                      {formatDate(user.lastSeen)}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -221,15 +248,25 @@ export default function AnalyticsDashboard() {
 
         {/* Daily Stats */}
         <div className="bg-card border border-border rounded-lg p-6 mb-8">
-          <h2 className="text-xl font-semibold text-foreground mb-4">Daily Activity (Last 30 Days)</h2>
+          <h2 className="text-xl font-semibold text-foreground mb-4">
+            Daily Activity (Last 30 Days)
+          </h2>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-border">
-                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Date</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Events</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Sessions</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Unique Users</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">
+                    Date
+                  </th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">
+                    Events
+                  </th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">
+                    Sessions
+                  </th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">
+                    Unique Users
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -254,7 +291,9 @@ export default function AnalyticsDashboard() {
               <div key={index} className="bg-secondary/30 rounded-lg p-3">
                 <div className="flex items-center justify-between mb-1">
                   <span className="text-sm font-medium text-foreground">{event.eventType}</span>
-                  <span className="text-xs text-muted-foreground">{formatDate(event.timestamp)}</span>
+                  <span className="text-xs text-muted-foreground">
+                    {formatDate(event.timestamp)}
+                  </span>
                 </div>
                 <div className="text-xs text-muted-foreground font-mono">
                   User: {event.userId.slice(0, 8)}... | Session: {event.sessionId.slice(0, 8)}...

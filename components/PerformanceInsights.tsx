@@ -1,15 +1,21 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Brain, TrendingUp, TrendingDown, AlertTriangle, CheckCircle2, Target, Clock } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Brain, TrendingDown, AlertTriangle, CheckCircle2, Target } from 'lucide-react';
 
 interface Insight {
   id: string;
-  type: "strength" | "weakness" | "opportunity" | "warning";
+  type: 'strength' | 'weakness' | 'opportunity' | 'warning';
   title: string;
   description: string;
   subject: string;
@@ -24,7 +30,9 @@ interface PerformanceInsightsProps {
 export function PerformanceInsights({ userId }: PerformanceInsightsProps) {
   const [insights, setInsights] = useState<Insight[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState<"all" | "strength" | "weakness" | "opportunity" | "warning">("all");
+  const [filter, setFilter] = useState<'all' | 'strength' | 'weakness' | 'opportunity' | 'warning'>(
+    'all'
+  );
 
   useEffect(() => {
     fetchInsights();
@@ -33,8 +41,8 @@ export function PerformanceInsights({ userId }: PerformanceInsightsProps) {
   const fetchInsights = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch("/api/analytics/insights", {
+      const token = localStorage.getItem('token');
+      const response = await fetch('/api/analytics/insights', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -45,7 +53,7 @@ export function PerformanceInsights({ userId }: PerformanceInsightsProps) {
         setInsights(data.insights || []);
       }
     } catch (error) {
-      console.error("Failed to fetch insights:", error);
+      console.error('Failed to fetch insights:', error);
     } finally {
       setLoading(false);
     }
@@ -53,13 +61,13 @@ export function PerformanceInsights({ userId }: PerformanceInsightsProps) {
 
   const getInsightIcon = (type: string) => {
     switch (type) {
-      case "strength":
+      case 'strength':
         return <CheckCircle2 className="w-5 h-5 text-green-500" />;
-      case "weakness":
+      case 'weakness':
         return <TrendingDown className="w-5 h-5 text-red-500" />;
-      case "opportunity":
+      case 'opportunity':
         return <Target className="w-5 h-5 text-blue-500" />;
-      case "warning":
+      case 'warning':
         return <AlertTriangle className="w-5 h-5 text-yellow-500" />;
       default:
         return <Brain className="w-5 h-5" />;
@@ -68,40 +76,52 @@ export function PerformanceInsights({ userId }: PerformanceInsightsProps) {
 
   const getInsightColor = (type: string) => {
     switch (type) {
-      case "strength":
-        return "border-green-500/50 bg-green-500/10";
-      case "weakness":
-        return "border-red-500/50 bg-red-500/10";
-      case "opportunity":
-        return "border-blue-500/50 bg-blue-500/10";
-      case "warning":
-        return "border-yellow-500/50 bg-yellow-500/10";
+      case 'strength':
+        return 'border-green-500/50 bg-green-500/10';
+      case 'weakness':
+        return 'border-red-500/50 bg-red-500/10';
+      case 'opportunity':
+        return 'border-blue-500/50 bg-blue-500/10';
+      case 'warning':
+        return 'border-yellow-500/50 bg-yellow-500/10';
       default:
-        return "border-border";
+        return 'border-border';
     }
   };
 
   const getInsightBadge = (type: string) => {
     switch (type) {
-      case "strength":
-        return <Badge variant="default" className="bg-green-500">Sterkte</Badge>;
-      case "weakness":
+      case 'strength':
+        return (
+          <Badge variant="default" className="bg-green-500">
+            Sterkte
+          </Badge>
+        );
+      case 'weakness':
         return <Badge variant="destructive">Zwakte</Badge>;
-      case "opportunity":
-        return <Badge variant="secondary" className="bg-blue-500 text-white">Kans</Badge>;
-      case "warning":
-        return <Badge variant="outline" className="border-yellow-500 text-yellow-500">Waarschuwing</Badge>;
+      case 'opportunity':
+        return (
+          <Badge variant="secondary" className="bg-blue-500 text-white">
+            Kans
+          </Badge>
+        );
+      case 'warning':
+        return (
+          <Badge variant="outline" className="border-yellow-500 text-yellow-500">
+            Waarschuwing
+          </Badge>
+        );
       default:
         return <Badge variant="secondary">Info</Badge>;
     }
   };
 
-  const filteredInsights = filter === "all" ? insights : insights.filter((i) => i.type === filter);
+  const filteredInsights = filter === 'all' ? insights : insights.filter((i) => i.type === filter);
 
-  const strengthCount = insights.filter((i) => i.type === "strength").length;
-  const weaknessCount = insights.filter((i) => i.type === "weakness").length;
-  const opportunityCount = insights.filter((i) => i.type === "opportunity").length;
-  const warningCount = insights.filter((i) => i.type === "warning").length;
+  const strengthCount = insights.filter((i) => i.type === 'strength').length;
+  const weaknessCount = insights.filter((i) => i.type === 'weakness').length;
+  const opportunityCount = insights.filter((i) => i.type === 'opportunity').length;
+  const warningCount = insights.filter((i) => i.type === 'warning').length;
 
   if (loading) {
     return (
@@ -120,7 +140,12 @@ export function PerformanceInsights({ userId }: PerformanceInsightsProps) {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold">Prestatie Inzichten</h2>
-        <Select value={filter} onValueChange={(value: "all" | "strength" | "weakness" | "opportunity" | "warning") => setFilter(value)}>
+        <Select
+          value={filter}
+          onValueChange={(value: 'all' | 'strength' | 'weakness' | 'opportunity' | 'warning') =>
+            setFilter(value)
+          }
+        >
           <SelectTrigger className="w-40">
             <SelectValue />
           </SelectTrigger>

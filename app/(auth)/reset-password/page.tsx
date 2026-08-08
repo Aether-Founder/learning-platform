@@ -1,6 +1,6 @@
 /**
  * Password Reset Request Page
- * 
+ *
  * User can request a password reset email
  */
 
@@ -84,9 +84,7 @@ export default function ResetPasswordPage() {
     <div className="flex min-h-screen items-center justify-center bg-background px-4 py-12">
       <div className="w-full max-w-md">
         <div className="text-center">
-          <h1 className="font-display text-4xl font-semibold">
-            Wachtwoord vergeten?
-          </h1>
+          <h1 className="font-display text-4xl font-semibold">Wachtwoord vergeten?</h1>
           <p className="mt-2 text-sm text-muted-foreground">
             Geen probleem. Vul je e-mailadres in en we sturen je een reset link.
           </p>
@@ -100,10 +98,7 @@ export default function ResetPasswordPage() {
           )}
 
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-foreground"
-            >
+            <label htmlFor="email" className="block text-sm font-medium text-foreground">
               E-mailadres
             </label>
             <input
@@ -127,10 +122,7 @@ export default function ResetPasswordPage() {
           </button>
 
           <div className="text-center">
-            <Link
-              href="/login"
-              className="text-sm text-muted-foreground hover:text-foreground"
-            >
+            <Link href="/login" className="text-sm text-muted-foreground hover:text-foreground">
               ← Terug naar inloggen
             </Link>
           </div>

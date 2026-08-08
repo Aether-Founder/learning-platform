@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { AppShell, PageHeader } from "@/components/AppShell";
-import { BarChart, Panel } from "@/components/ui-kit";
-import { MINUTES_PER_DAY } from "@/lib/os-data";
+import { AppShell, PageHeader } from '@/components/AppShell';
+import { BarChart, Panel } from '@/components/ui-kit';
+import { MINUTES_PER_DAY } from '@/lib/os-data';
 
 export default function StatistiekenPage() {
   return (
@@ -17,12 +17,10 @@ export default function StatistiekenPage() {
         <Panel title="Studietijd deze week">
           <BarChart
             values={MINUTES_PER_DAY}
-            labels={["ma", "di", "wo", "do", "vr", "za", "zo"]}
+            labels={['ma', 'di', 'wo', 'do', 'vr', 'za', 'zo']}
             height={160}
           />
-          <p className="mt-4 text-xs text-muted-foreground">
-            Gemiddeld 24 minuten per dag
-          </p>
+          <p className="mt-4 text-xs text-muted-foreground">Gemiddeld 24 minuten per dag</p>
         </Panel>
 
         <Panel title="Overzicht">

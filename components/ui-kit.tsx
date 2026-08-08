@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from 'react';
 
 /* Small presentational primitives shared across the Aether Student OS.
    Styling stays inside the existing token palette. */
@@ -7,7 +7,7 @@ export function Panel({
   title,
   action,
   children,
-  className = "",
+  className = '',
 }: {
   title?: string;
   action?: ReactNode;
@@ -15,7 +15,7 @@ export function Panel({
   className?: string;
 }) {
   return (
-    <section className={"rounded-lg border border-border " + className}>
+    <section className={'rounded-lg border border-border ' + className}>
       {(title || action) && (
         <header className="flex items-center justify-between gap-4 border-b border-border px-5 py-3.5">
           {title && <h3 className="font-display text-lg font-semibold leading-none">{title}</h3>}
@@ -29,18 +29,18 @@ export function Panel({
 
 export function Badge({
   children,
-  tone = "muted",
+  tone = 'muted',
 }: {
   children: ReactNode;
-  tone?: "muted" | "success" | "warning" | "streak" | "solid" | "outline";
+  tone?: 'muted' | 'success' | 'warning' | 'streak' | 'solid' | 'outline';
 }) {
   const tones: Record<string, string> = {
-    muted: "bg-secondary text-muted-foreground",
-    success: "tint-success",
-    warning: "tint-warning",
-    streak: "tint-streak",
-    solid: "bg-foreground text-background",
-    outline: "border border-border text-muted-foreground",
+    muted: 'bg-secondary text-muted-foreground',
+    success: 'tint-success',
+    warning: 'tint-warning',
+    streak: 'tint-streak',
+    solid: 'bg-foreground text-background',
+    outline: 'border border-border text-muted-foreground',
   };
   return (
     <span
@@ -65,10 +65,10 @@ export function Chip({
       type="button"
       onClick={onClick}
       className={
-        "rounded-full border px-3.5 py-1.5 text-[13px] font-medium transition-colors " +
+        'rounded-full border px-3.5 py-1.5 text-[13px] font-medium transition-colors ' +
         (active
-          ? "border-foreground bg-foreground text-background"
-          : "border-border text-muted-foreground hover:border-foreground/40 hover:text-foreground")
+          ? 'border-foreground bg-foreground text-background'
+          : 'border-border text-muted-foreground hover:border-foreground/40 hover:text-foreground')
       }
     >
       {children}
@@ -80,12 +80,12 @@ export function Tabs<T extends string>({
   tabs,
   value,
   onChange,
-  size = "md",
+  size = 'md',
 }: {
   tabs: readonly { value: T; label: string }[];
   value: T;
   onChange: (v: T) => void;
-  size?: "sm" | "md";
+  size?: 'sm' | 'md';
 }) {
   return (
     <div className="flex flex-wrap items-center gap-1 rounded-md border border-border p-1">
@@ -95,11 +95,11 @@ export function Tabs<T extends string>({
           type="button"
           onClick={() => onChange(t.value)}
           className={
-            (size === "sm" ? "h-7 px-2.5 text-[12px] " : "h-8 px-3 text-[13px] ") +
-            "rounded-[6px] font-medium transition-colors " +
+            (size === 'sm' ? 'h-7 px-2.5 text-[12px] ' : 'h-8 px-3 text-[13px] ') +
+            'rounded-[6px] font-medium transition-colors ' +
             (value === t.value
-              ? "bg-foreground text-background"
-              : "text-muted-foreground hover:bg-secondary hover:text-foreground")
+              ? 'bg-foreground text-background'
+              : 'text-muted-foreground hover:bg-secondary hover:text-foreground')
           }
         >
           {t.label}
@@ -117,7 +117,7 @@ export function GhostButton({
   children,
   onClick,
   active,
-  className = "",
+  className = '',
 }: {
   children: ReactNode;
   onClick?: () => void;
@@ -129,11 +129,11 @@ export function GhostButton({
       type="button"
       onClick={onClick}
       className={
-        "inline-flex h-8 items-center gap-1.5 rounded-md border px-3 text-xs font-medium transition-colors " +
+        'inline-flex h-8 items-center gap-1.5 rounded-md border px-3 text-xs font-medium transition-colors ' +
         (active
-          ? "border-foreground bg-foreground text-background"
-          : "border-border text-foreground hover:bg-secondary") +
-        " " +
+          ? 'border-foreground bg-foreground text-background'
+          : 'border-border text-foreground hover:bg-secondary') +
+        ' ' +
         className
       }
     >
@@ -145,7 +145,7 @@ export function GhostButton({
 export function PrimaryButton({
   children,
   onClick,
-  className = "",
+  className = '',
 }: {
   children: ReactNode;
   onClick?: () => void;
@@ -156,7 +156,7 @@ export function PrimaryButton({
       type="button"
       onClick={onClick}
       className={
-        "inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 " +
+        'inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 ' +
         className
       }
     >
@@ -182,9 +182,9 @@ export function Modal({
 }) {
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
   }, [open, onClose]);
 
   if (!open) return null;
@@ -203,7 +203,9 @@ export function Modal({
         </header>
         <div className="px-6 py-5">{children}</div>
         {footer && (
-          <footer className="flex justify-end gap-2 border-t border-border px-6 py-4">{footer}</footer>
+          <footer className="flex justify-end gap-2 border-t border-border px-6 py-4">
+            {footer}
+          </footer>
         )}
       </div>
     </div>
@@ -229,7 +231,7 @@ export function Field({
 }
 
 export const inputClass =
-  "h-9 w-full rounded-md border border-border bg-background px-3 text-sm outline-none placeholder:text-muted-foreground focus:border-foreground/40";
+  'h-9 w-full rounded-md border border-border bg-background px-3 text-sm outline-none placeholder:text-muted-foreground focus:border-foreground/40';
 
 export function EmptyState({
   title,
@@ -249,8 +251,8 @@ export function EmptyState({
   );
 }
 
-export function Skeleton({ className = "" }: { className?: string }) {
-  return <div className={"animate-pulse rounded-md bg-secondary " + className} />;
+export function Skeleton({ className = '' }: { className?: string }) {
+  return <div className={'animate-pulse rounded-md bg-secondary ' + className} />;
 }
 
 export function useSimulatedLoad(ms = 550) {
@@ -298,7 +300,7 @@ export function LineChart({ values, height = 120 }: { values: number[]; height?:
   const span = max - min || 1;
   const pts = values
     .map((v, i) => `${(i / (values.length - 1)) * 100},${100 - ((v - min) / span) * 90 - 5}`)
-    .join(" ");
+    .join(' ');
   return (
     <svg viewBox="0 0 100 100" preserveAspectRatio="none" style={{ height }} className="w-full">
       <polyline
@@ -352,7 +354,9 @@ export function Donut({ value, label }: { value: number; label: string }) {
       </svg>
       <div className="absolute text-center">
         <p className="font-display text-2xl font-semibold leading-none">{value}%</p>
-        <p className="mt-1 text-[10px] uppercase tracking-[0.14em] text-muted-foreground">{label}</p>
+        <p className="mt-1 text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+          {label}
+        </p>
       </div>
     </div>
   );
@@ -373,22 +377,16 @@ export function KeyValue({ items }: { items: [string, ReactNode][] }) {
 
 /* ------------------------------ context menu ------------------------------ */
 
-export function ContextMenu({
-  items,
-  children,
-}: {
-  items: string[];
-  children: ReactNode;
-}) {
+export function ContextMenu({ items, children }: { items: string[]; children: ReactNode }) {
   const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
   useEffect(() => {
     if (!pos) return;
     const close = () => setPos(null);
-    window.addEventListener("click", close);
-    window.addEventListener("scroll", close, true);
+    window.addEventListener('click', close);
+    window.addEventListener('scroll', close, true);
     return () => {
-      window.removeEventListener("click", close);
-      window.removeEventListener("scroll", close, true);
+      window.removeEventListener('click', close);
+      window.removeEventListener('scroll', close, true);
     };
   }, [pos]);
 
@@ -422,13 +420,13 @@ export function ContextMenu({
   );
 }
 
-export function gradeTone(v: number | null): "success" | "warning" | "muted" {
-  if (v === null) return "muted";
-  if (v >= 7) return "success";
-  if (v >= 5.5) return "muted";
-  return "warning";
+export function gradeTone(v: number | null): 'success' | 'warning' | 'muted' {
+  if (v === null) return 'muted';
+  if (v >= 7) return 'success';
+  if (v >= 5.5) return 'muted';
+  return 'warning';
 }
 
 export function fmt(v: number | null, digits = 1) {
-  return v === null ? "—" : v.toFixed(digits).replace(".", ",");
+  return v === null ? '—' : v.toFixed(digits).replace('.', ',');
 }

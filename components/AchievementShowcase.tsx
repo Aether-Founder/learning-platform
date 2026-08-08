@@ -1,12 +1,27 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Award, Search, Trophy, Star, Flame, Target, BookOpen, Calendar, Clock } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import {
+  Award,
+  Search,
+  Trophy,
+  Star,
+  Flame,
+  Target,
+  BookOpen,
+  Calendar,
+  Clock,
+} from 'lucide-react';
 
 interface Achievement {
   id: string;
@@ -14,7 +29,7 @@ interface Achievement {
   description: string;
   icon: string;
   category: string;
-  rarity: "common" | "rare" | "epic" | "legendary";
+  rarity: 'common' | 'rare' | 'epic' | 'legendary';
   unlockedAt: string;
   progress?: number;
   maxProgress?: number;
@@ -27,9 +42,9 @@ interface AchievementShowcaseProps {
 export function AchievementShowcase({ userId }: AchievementShowcaseProps) {
   const [achievements, setAchievements] = useState<Achievement[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState<"all" | "unlocked" | "locked">("all");
-  const [categoryFilter, setCategoryFilter] = useState<string>("all");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [filter, setFilter] = useState<'all' | 'unlocked' | 'locked'>('all');
+  const [categoryFilter, setCategoryFilter] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     fetchAchievements();
@@ -38,8 +53,8 @@ export function AchievementShowcase({ userId }: AchievementShowcaseProps) {
   const fetchAchievements = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch("/api/achievements", {
+      const token = localStorage.getItem('token');
+      const response = await fetch('/api/achievements', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -50,7 +65,7 @@ export function AchievementShowcase({ userId }: AchievementShowcaseProps) {
         setAchievements(data.achievements || []);
       }
     } catch (error) {
-      console.error("Failed to fetch achievements:", error);
+      console.error('Failed to fetch achievements:', error);
     } finally {
       setLoading(false);
     }
@@ -58,41 +73,41 @@ export function AchievementShowcase({ userId }: AchievementShowcaseProps) {
 
   const getRarityColor = (rarity: string) => {
     switch (rarity) {
-      case "legendary":
-        return "bg-gradient-to-r from-yellow-500 to-orange-500 text-white";
-      case "epic":
-        return "bg-gradient-to-r from-purple-500 to-pink-500 text-white";
-      case "rare":
-        return "bg-gradient-to-r from-blue-500 to-cyan-500 text-white";
+      case 'legendary':
+        return 'bg-gradient-to-r from-yellow-500 to-orange-500 text-white';
+      case 'epic':
+        return 'bg-gradient-to-r from-purple-500 to-pink-500 text-white';
+      case 'rare':
+        return 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white';
       default:
-        return "bg-gradient-to-r from-gray-500 to-gray-600 text-white";
+        return 'bg-gradient-to-r from-gray-500 to-gray-600 text-white';
     }
   };
 
   const getRarityBorder = (rarity: string) => {
     switch (rarity) {
-      case "legendary":
-        return "border-yellow-500/50";
-      case "epic":
-        return "border-purple-500/50";
-      case "rare":
-        return "border-blue-500/50";
+      case 'legendary':
+        return 'border-yellow-500/50';
+      case 'epic':
+        return 'border-purple-500/50';
+      case 'rare':
+        return 'border-blue-500/50';
       default:
-        return "border-gray-500/30";
+        return 'border-gray-500/30';
     }
   };
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case "streak":
+      case 'streak':
         return <Flame className="w-5 h-5" />;
-      case "study":
+      case 'study':
         return <BookOpen className="w-5 h-5" />;
-      case "time":
+      case 'time':
         return <Clock className="w-5 h-5" />;
-      case "score":
+      case 'score':
         return <Target className="w-5 h-5" />;
-      case "social":
+      case 'social':
         return <Calendar className="w-5 h-5" />;
       default:
         return <Star className="w-5 h-5" />;
@@ -101,15 +116,14 @@ export function AchievementShowcase({ userId }: AchievementShowcaseProps) {
 
   const filteredAchievements = achievements.filter((achievement) => {
     const matchesFilter =
-      filter === "all" ||
-      (filter === "unlocked" && achievement.unlockedAt) ||
-      (filter === "locked" && !achievement.unlockedAt);
+      filter === 'all' ||
+      (filter === 'unlocked' && achievement.unlockedAt) ||
+      (filter === 'locked' && !achievement.unlockedAt);
 
-    const matchesCategory =
-      categoryFilter === "all" || achievement.category === categoryFilter;
+    const matchesCategory = categoryFilter === 'all' || achievement.category === categoryFilter;
 
     const matchesSearch =
-      searchQuery === "" ||
+      searchQuery === '' ||
       achievement.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       achievement.description.toLowerCase().includes(searchQuery.toLowerCase());
 
@@ -172,7 +186,10 @@ export function AchievementShowcase({ userId }: AchievementShowcaseProps) {
             className="pl-10"
           />
         </div>
-        <Select value={filter} onValueChange={(value: "all" | "unlocked" | "locked") => setFilter(value)}>
+        <Select
+          value={filter}
+          onValueChange={(value: 'all' | 'unlocked' | 'locked') => setFilter(value)}
+        >
           <SelectTrigger className="w-40">
             <SelectValue />
           </SelectTrigger>
@@ -200,20 +217,23 @@ export function AchievementShowcase({ userId }: AchievementShowcaseProps) {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {filteredAchievements.map((achievement) => {
           const isUnlocked = !!achievement.unlockedAt;
-          const progress = achievement.progress && achievement.maxProgress
-            ? Math.round((achievement.progress / achievement.maxProgress) * 100)
-            : 0;
+          const progress =
+            achievement.progress && achievement.maxProgress
+              ? Math.round((achievement.progress / achievement.maxProgress) * 100)
+              : 0;
 
           return (
             <Card
               key={achievement.id}
               className={`${getRarityBorder(achievement.rarity)} ${
-                isUnlocked ? "opacity-100" : "opacity-60 grayscale"
+                isUnlocked ? 'opacity-100' : 'opacity-60 grayscale'
               } hover:scale-105 transition-transform cursor-pointer`}
             >
               <CardContent className="p-4">
                 <div className="flex items-start justify-between mb-3">
-                  <div className={`w-12 h-12 rounded-full ${getRarityColor(achievement.rarity)} flex items-center justify-center`}>
+                  <div
+                    className={`w-12 h-12 rounded-full ${getRarityColor(achievement.rarity)} flex items-center justify-center`}
+                  >
                     {getCategoryIcon(achievement.category)}
                   </div>
                   <Badge variant="secondary" className="text-xs">
@@ -222,7 +242,7 @@ export function AchievementShowcase({ userId }: AchievementShowcaseProps) {
                 </div>
                 <h3 className="font-semibold mb-1">{achievement.name}</h3>
                 <p className="text-sm text-muted-foreground mb-3">{achievement.description}</p>
-                
+
                 {!isUnlocked && progress > 0 && (
                   <div className="space-y-1">
                     <div className="flex items-center justify-between text-xs">
@@ -255,9 +275,9 @@ export function AchievementShowcase({ userId }: AchievementShowcaseProps) {
             <Award className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
             <h3 className="text-lg font-semibold mb-2">Geen Prestaties</h3>
             <p className="text-sm text-muted-foreground">
-              {searchQuery || categoryFilter !== "all" || filter !== "all"
-                ? "Probeer andere filters"
-                : "Begin met studeren om prestaties te ontgrendelen!"}
+              {searchQuery || categoryFilter !== 'all' || filter !== 'all'
+                ? 'Probeer andere filters'
+                : 'Begin met studeren om prestaties te ontgrendelen!'}
             </p>
           </CardContent>
         </Card>

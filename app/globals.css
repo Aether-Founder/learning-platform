@@ -87,7 +87,9 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  h1, h2, h3 {
+  h1,
+  h2,
+  h3 {
     font-family: var(--font-display);
     letter-spacing: -0.01em;
   }
@@ -137,39 +139,39 @@
 
 /* KaTeX dark mode styles */
 .dark .katex {
-  color: #F9FAFB;
+  color: #f9fafb;
 }
 
 .dark .katex .mord {
-  color: #F9FAFB;
+  color: #f9fafb;
 }
 
 .dark .katex .mop {
-  color: #F9FAFB;
+  color: #f9fafb;
 }
 
 .dark .katex .mrel {
-  color: #F9FAFB;
+  color: #f9fafb;
 }
 
 .dark .katex .mbin {
-  color: #F9FAFB;
+  color: #f9fafb;
 }
 
 .dark .katex .mspace {
-  color: #F9FAFB;
+  color: #f9fafb;
 }
 
 .dark .katex .mtext {
-  color: #F9FAFB;
+  color: #f9fafb;
 }
 
 .dark .katex .mathdefault {
-  color: #F9FAFB;
+  color: #f9fafb;
 }
 
 .dark .katex .mainit {
-  color: #F9FAFB;
+  color: #f9fafb;
 }
 
 @layer utilities {
@@ -231,37 +233,37 @@
 
 /* KaTeX dark mode styles */
 .dark .katex {
-  color: #F9FAFB;
+  color: #f9fafb;
 }
 
 .dark .katex .mord {
-  color: #F9FAFB;
+  color: #f9fafb;
 }
 
 .dark .katex .mop {
-  color: #F9FAFB;
+  color: #f9fafb;
 }
 
 .dark .katex .mrel {
-  color: #F9FAFB;
+  color: #f9fafb;
 }
 
 .dark .katex .mbin {
-  color: #F9FAFB;
+  color: #f9fafb;
 }
 
 .dark .katex .mspace {
-  color: #F9FAFB;
+  color: #f9fafb;
 }
 
 .dark .katex .mtext {
-  color: #F9FAFB;
+  color: #f9fafb;
 }
 
 .dark .katex .mathdefault {
-  color: #F9FAFB;
+  color: #f9fafb;
 }
 
 .dark .katex .mainit {
-  color: #F9FAFB;
+  color: #f9fafb;
 }

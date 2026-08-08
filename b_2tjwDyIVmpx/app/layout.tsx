@@ -1,24 +1,24 @@
-import type { Metadata } from 'next'
-import { Source_Serif_4, Inter } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
-import { ThemeProvider } from '../components/theme-provider'
-import './globals.css'
+import type { Metadata } from 'next';
+import { Source_Serif_4, Inter } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
+import { ThemeProvider } from '../components/theme-provider';
+import './globals.css';
 
-const sourceSerif = Source_Serif_4({ 
-  subsets: ["latin"],
+const sourceSerif = Source_Serif_4({
+  subsets: ['latin'],
   variable: '--font-serif',
   display: 'swap',
 });
 
-const inter = Inter({ 
-  subsets: ["latin"],
+const inter = Inter({
+  subsets: ['latin'],
   variable: '--font-sans',
   display: 'swap',
 });
 
 export const metadata: Metadata = {
   title: 'Flashcards for Reiner Pope on Dwarkesh Podcast',
-  description: 'Practice problems to help retain Reiner\'s blackboard lecture',
+  description: "Practice problems to help retain Reiner's blackboard lecture",
   generator: 'v0.app',
   icons: {
     icon: [
@@ -37,15 +37,19 @@ export const metadata: Metadata = {
     ],
     apple: '/apple-icon.png',
   },
-}
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${sourceSerif.variable} ${inter.variable}`} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${sourceSerif.variable} ${inter.variable}`}
+      suppressHydrationWarning
+    >
       <body className="font-sans antialiased bg-background">
         <ThemeProvider
           attribute="class"
@@ -58,5 +62,5 @@ export default function RootLayout({
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
-  )
+  );
 }

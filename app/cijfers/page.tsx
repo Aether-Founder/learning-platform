@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useMemo, useState } from "react";
-import { AppShell, Meter, PageHeader } from "@/components/AppShell";
-import { Badge, GhostButton, Panel, Tabs, fmt, gradeTone } from "@/components/ui-kit";
-import { GRADEBOOK, OVERALL_AVERAGE, averageOf } from "@/lib/os-data";
+import Link from 'next/link';
+import { useMemo, useState } from 'react';
+import { AppShell, Meter, PageHeader } from '@/components/AppShell';
+import { Badge, GhostButton, Panel, Tabs, fmt, gradeTone } from '@/components/ui-kit';
+import { GRADEBOOK, OVERALL_AVERAGE, averageOf } from '@/lib/os-data';
 
 const VIEWS = [
-  { value: "vakken", label: "Per vak" },
-  { value: "matrix", label: "Alle cijfers" },
-  { value: "periodes", label: "Periodes" },
+  { value: 'vakken', label: 'Per vak' },
+  { value: 'matrix', label: 'Alle cijfers' },
+  { value: 'periodes', label: 'Periodes' },
 ] as const;
-type View = (typeof VIEWS)[number]["value"];
+type View = (typeof VIEWS)[number]['value'];
 
 const MAX_TOETSEN = Math.max(...GRADEBOOK.map((s) => s.grades.length));
 
 export default function CijfersPage() {
-  const [view, setView] = useState<View>("vakken");
+  const [view, setView] = useState<View>('vakken');
   const [period, setPeriod] = useState<0 | 1 | 2 | 3 | 4>(0);
 
   const rows = useMemo(
@@ -25,7 +25,7 @@ export default function CijfersPage() {
         const grades = period === 0 ? s.grades : s.grades.filter((g) => g.period === period);
         return { ...s, grades, avg: averageOf(grades) };
       }),
-    [period],
+    [period]
   );
 
   const scored = rows.filter((r) => r.avg !== null);
@@ -59,7 +59,7 @@ export default function CijfersPage() {
           </span>
           {([0, 1, 2, 3, 4] as const).map((p) => (
             <GhostButton key={p} active={period === p} onClick={() => setPeriod(p)}>
-              {p === 0 ? "Alles" : `P${p}`}
+              {p === 0 ? 'Alles' : `P${p}`}
             </GhostButton>
           ))}
         </div>
@@ -72,12 +72,16 @@ export default function CijfersPage() {
         </Panel>
         <Panel>
           <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">Hoogste</p>
-          <p className="mt-1 font-display text-3xl font-semibold tabular-nums">{fmt(best?.avg ?? null)}</p>
+          <p className="mt-1 font-display text-3xl font-semibold tabular-nums">
+            {fmt(best?.avg ?? null)}
+          </p>
           <p className="mt-1 text-xs text-muted-foreground">{best?.name}</p>
         </Panel>
         <Panel>
           <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">Laagste</p>
-          <p className="mt-1 font-display text-3xl font-semibold tabular-nums">{fmt(worst?.avg ?? null)}</p>
+          <p className="mt-1 font-display text-3xl font-semibold tabular-nums">
+            {fmt(worst?.avg ?? null)}
+          </p>
           <p className="mt-1 text-xs text-muted-foreground">{worst?.name}</p>
         </Panel>
         <Panel>
@@ -90,7 +94,7 @@ export default function CijfersPage() {
       </div>
 
       <div className="pt-8">
-        {view === "vakken" && (
+        {view === 'vakken' && (
           <div className="overflow-x-auto rounded-lg border border-border">
             <table className="w-full min-w-[760px] text-sm">
               <thead>
@@ -136,7 +140,7 @@ export default function CijfersPage() {
           </div>
         )}
 
-        {view === "matrix" && (
+        {view === 'matrix' && (
           <div className="overflow-x-auto rounded-lg border border-border">
             <table className="w-full min-w-[860px] text-sm">
               <thead>
@@ -153,7 +157,9 @@ export default function CijfersPage() {
               <tbody className="divide-y divide-border">
                 {rows.map((s) => (
                   <tr key={s.slug} className="transition-colors hover:bg-secondary/40">
-                    <td className="sticky left-0 bg-background px-5 py-4 font-semibold">{s.name}</td>
+                    <td className="sticky left-0 bg-background px-5 py-4 font-semibold">
+                      {s.name}
+                    </td>
                     {Array.from({ length: MAX_TOETSEN }, (_, i) => {
                       const g = s.grades[i];
                       return (
@@ -162,12 +168,12 @@ export default function CijfersPage() {
                             <span
                               title={`${g.name} · weging ${g.weight}`}
                               className={
-                                "tabular-nums " +
+                                'tabular-nums ' +
                                 (g.grade === null
-                                  ? "text-muted-foreground"
+                                  ? 'text-muted-foreground'
                                   : g.grade < 5.5
-                                    ? "text-warning"
-                                    : "")
+                                    ? 'text-warning'
+                                    : '')
                               }
                             >
                               {fmt(g.grade)}
@@ -191,19 +197,24 @@ export default function CijfersPage() {
           </div>
         )}
 
-        {view === "periodes" && (
+        {view === 'periodes' && (
           <div className="grid gap-6 md:grid-cols-2">
             {GRADEBOOK.map((s) => (
-              <Panel 
-                key={s.slug} 
-                title={s.name} 
-                action={<Badge tone={gradeTone(averageOf(s.grades))}>{fmt(averageOf(s.grades))}</Badge>}
+              <Panel
+                key={s.slug}
+                title={s.name}
+                action={
+                  <Badge tone={gradeTone(averageOf(s.grades))}>{fmt(averageOf(s.grades))}</Badge>
+                }
               >
                 <dl className="divide-y divide-border">
                   {([1, 2, 3, 4] as const).map((p) => {
                     const list = s.grades.filter((g) => g.period === p);
                     return (
-                      <div key={p} className="flex items-center justify-between gap-4 py-2.5 text-sm">
+                      <div
+                        key={p}
+                        className="flex items-center justify-between gap-4 py-2.5 text-sm"
+                      >
                         <dt className="text-muted-foreground">Periode {p}</dt>
                         <dd className="font-medium tabular-nums">
                           {list.length ? (

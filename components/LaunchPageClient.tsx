@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { ChevronRight } from "lucide-react";
-import type { ContentFileSummary } from "@/lib/content-index";
+import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
+import type { ContentFileSummary } from '@/lib/content-index';
 
 interface LaunchPageClientProps {
   contentFiles: ContentFileSummary[];
@@ -10,34 +10,38 @@ interface LaunchPageClientProps {
 
 const collectionCards = [
   {
-    title: "Aether",
-    description: "Maak eigen studiesets, importeer JSON en leer met een Quizlet-achtige lokale omgeving.",
-    href: "/learning-platform",
+    title: 'Aether',
+    description:
+      'Maak eigen studiesets, importeer JSON en leer met een Quizlet-achtige lokale omgeving.',
+    href: '/learning-platform',
   },
   {
-    title: "Toetsweekvoorbereiding",
-    description: "Open alle vakken, begrippenlijsten, leerstanden, oefentoetsen en spelletjes voor de toetsweek.",
-    href: "/toetsweekvoorbereiding",
+    title: 'Toetsweekvoorbereiding',
+    description:
+      'Open alle vakken, begrippenlijsten, leerstanden, oefentoetsen en spelletjes voor de toetsweek.',
+    href: '/toetsweekvoorbereiding',
   },
   {
-    title: "Toetsweekplanning",
-    description: "Bekijk toetsen, deadlines en welke stof bij ieder moment hoort.",
-    href: "/toetsweekplanning",
+    title: 'Toetsweekplanning',
+    description: 'Bekijk toetsen, deadlines en welke stof bij ieder moment hoort.',
+    href: '/toetsweekplanning',
   },
   {
-    title: "Kalender",
-    description: "Plan huiswerk, toetsen en leersessies in een ruimer weekoverzicht.",
-    href: "/calendar",
+    title: 'Kalender',
+    description: 'Plan huiswerk, toetsen en leersessies in een ruimer weekoverzicht.',
+    href: '/calendar',
   },
   {
-    title: "Profiel en voortgang",
-    description: "Bekijk je profiel, voorkeuren en persoonlijke voortgang.",
-    href: "/profile",
+    title: 'Profiel en voortgang',
+    description: 'Bekijk je profiel, voorkeuren en persoonlijke voortgang.',
+    href: '/profile',
   },
 ];
 
 export function LaunchPageClient({ contentFiles }: LaunchPageClientProps) {
-  const subjectCount = contentFiles.filter((content) => content.pageName !== "toetsweekplanning").length;
+  const subjectCount = contentFiles.filter(
+    (content) => content.pageName !== 'toetsweekplanning'
+  ).length;
 
   return (
     <main className="min-h-screen bg-background">
@@ -49,12 +53,16 @@ export function LaunchPageClient({ contentFiles }: LaunchPageClientProps) {
               alt="Aether logo"
               className="h-14 w-14 rounded-2xl object-contain"
             />
-            <h1 className="text-5xl font-medium text-foreground md:text-6xl" style={{ fontFamily: "var(--font-cormorant)" }}>
+            <h1
+              className="text-5xl font-medium text-foreground md:text-6xl"
+              style={{ fontFamily: 'var(--font-cormorant)' }}
+            >
               Aether
             </h1>
           </div>
           <p className="mx-auto max-w-3xl text-center text-lg text-muted-foreground">
-            Kies hieronder een onderdeel om mee te starten. Toetsweekvoorbereiding bevat {subjectCount} vakken.
+            Kies hieronder een onderdeel om mee te starten. Toetsweekvoorbereiding bevat{' '}
+            {subjectCount} vakken.
           </p>
         </header>
 
@@ -72,9 +80,7 @@ export function LaunchPageClient({ contentFiles }: LaunchPageClientProps) {
                   </h2>
                   <ChevronRight className="mt-1 h-5 w-5 text-muted-foreground" />
                 </div>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  {card.description}
-                </p>
+                <p className="text-sm leading-relaxed text-muted-foreground">{card.description}</p>
               </Link>
             );
           })}

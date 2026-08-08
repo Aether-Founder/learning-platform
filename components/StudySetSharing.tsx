@@ -1,12 +1,16 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Share2, Link, Copy, Check, Users, Lock, Globe, Download, QrCode } from "lucide-react";
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { Share2, Link, Copy, Check, Users, Lock, Globe, Download, QrCode } from 'lucide-react';
 
 interface StudySetSharingProps {
   studySetId: string;
@@ -15,11 +19,11 @@ interface StudySetSharingProps {
   onTogglePublic: () => void;
 }
 
-export function StudySetSharing({ 
-  studySetId, 
-  studySetTitle, 
-  isPublic, 
-  onTogglePublic 
+export function StudySetSharing({
+  studySetId,
+  studySetTitle,
+  isPublic,
+  onTogglePublic,
 }: StudySetSharingProps) {
   const [copied, setCopied] = useState(false);
   const [showShareDialog, setShowShareDialog] = useState(false);
@@ -33,7 +37,7 @@ export function StudySetSharing({
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (error) {
-      console.error("Failed to copy link:", error);
+      console.error('Failed to copy link:', error);
     }
   };
 
@@ -43,7 +47,7 @@ export function StudySetSharing({
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (error) {
-      console.error("Failed to copy embed code:", error);
+      console.error('Failed to copy embed code:', error);
     }
   };
 
@@ -56,7 +60,7 @@ export function StudySetSharing({
           url: shareUrl,
         });
       } catch (error) {
-        console.error("Failed to share:", error);
+        console.error('Failed to share:', error);
       }
     } else {
       handleCopyLink();
@@ -89,18 +93,16 @@ export function StudySetSharing({
                   <Lock className="w-5 h-5 text-muted-foreground" />
                 )}
                 <div>
-                  <div className="font-medium">
-                    {isPublic ? "Openbaar" : "Privé"}
-                  </div>
+                  <div className="font-medium">{isPublic ? 'Openbaar' : 'Privé'}</div>
                   <div className="text-sm text-muted-foreground">
                     {isPublic
-                      ? "Iedereen kan deze studie set bekijken"
-                      : "Alleen jij kunt deze studie set zien"}
+                      ? 'Iedereen kan deze studie set bekijken'
+                      : 'Alleen jij kunt deze studie set zien'}
                   </div>
                 </div>
               </div>
               <Button onClick={onTogglePublic} variant="outline">
-                {isPublic ? "Maak Privé" : "Maak Openbaar"}
+                {isPublic ? 'Maak Privé' : 'Maak Openbaar'}
               </Button>
             </div>
           </div>
@@ -112,11 +114,7 @@ export function StudySetSharing({
                 <div className="flex gap-2">
                   <Input value={shareUrl} readOnly className="flex-1" />
                   <Button onClick={handleCopyLink} variant="outline">
-                    {copied ? (
-                      <Check className="w-4 h-4" />
-                    ) : (
-                      <Copy className="w-4 h-4" />
-                    )}
+                    {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                   </Button>
                 </div>
               </div>
@@ -126,11 +124,7 @@ export function StudySetSharing({
                 <div className="flex gap-2">
                   <Input value={embedCode} readOnly className="flex-1 font-mono text-xs" />
                   <Button onClick={handleCopyEmbed} variant="outline">
-                    {copied ? (
-                      <Check className="w-4 h-4" />
-                    ) : (
-                      <Copy className="w-4 h-4" />
-                    )}
+                    {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                   </Button>
                 </div>
               </div>
@@ -142,36 +136,28 @@ export function StudySetSharing({
                     <Share2 className="w-5 h-5 mr-2" />
                     <div className="text-left">
                       <div className="font-medium">Delen</div>
-                      <div className="text-xs text-muted-foreground">
-                        Via systeem share
-                      </div>
+                      <div className="text-xs text-muted-foreground">Via systeem share</div>
                     </div>
                   </Button>
                   <Button variant="outline" className="h-auto py-4">
                     <QrCode className="w-5 h-5 mr-2" />
                     <div className="text-left">
                       <div className="font-medium">QR Code</div>
-                      <div className="text-xs text-muted-foreground">
-                        Genereer QR code
-                      </div>
+                      <div className="text-xs text-muted-foreground">Genereer QR code</div>
                     </div>
                   </Button>
                   <Button variant="outline" className="h-auto py-4">
                     <Download className="w-5 h-5 mr-2" />
                     <div className="text-left">
                       <div className="font-medium">Download</div>
-                      <div className="text-xs text-muted-foreground">
-                        Als PDF/CSV
-                      </div>
+                      <div className="text-xs text-muted-foreground">Als PDF/CSV</div>
                     </div>
                   </Button>
                   <Button variant="outline" className="h-auto py-4">
                     <Users className="w-5 h-5 mr-2" />
                     <div className="text-left">
                       <div className="font-medium">Klas</div>
-                      <div className="text-xs text-muted-foreground">
-                        Deel met klas
-                      </div>
+                      <div className="text-xs text-muted-foreground">Deel met klas</div>
                     </div>
                   </Button>
                 </div>
@@ -185,7 +171,10 @@ export function StudySetSharing({
                     <ul className="text-muted-foreground space-y-1">
                       <li>• Openbare sets kunnen door iedereen worden gevonden en bekeken</li>
                       <li>• Gebruikers kunnen openbare sets kopiëren naar hun eigen account</li>
-                      <li>• Privé sets zijn alleen zichtbaar voor jou en mensen met wie je ze expliciet deelt</li>
+                      <li>
+                        • Privé sets zijn alleen zichtbaar voor jou en mensen met wie je ze
+                        expliciet deelt
+                      </li>
                       <li>• Je kunt de zichtbaarheid op elk moment wijzigen</li>
                     </ul>
                   </div>
@@ -201,7 +190,8 @@ export function StudySetSharing({
                 <div className="text-sm">
                   <div className="font-medium mb-1">Deel deze studie set</div>
                   <p className="text-muted-foreground">
-                    Maak de studie set openbaar om deze met anderen te delen via een link of embed code.
+                    Maak de studie set openbaar om deze met anderen te delen via een link of embed
+                    code.
                   </p>
                 </div>
               </div>

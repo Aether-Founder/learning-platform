@@ -1,4 +1,4 @@
 declare module '@radix-ui/*' {
-  const content: any
-  export = content
+  const content: any;
+  export = content;
 }

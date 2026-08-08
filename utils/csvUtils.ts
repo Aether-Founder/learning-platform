@@ -8,12 +8,9 @@ interface StudyCard {
  */
 export function cardsToCSV(cards: StudyCard[]): string {
   const headers = ['term', 'definition'];
-  const rows = cards.map(card => [
-    escapeCSVField(card.term),
-    escapeCSVField(card.definition),
-  ]);
-  
-  return [headers.join(','), ...rows.map(row => row.join(','))].join('\n');
+  const rows = cards.map((card) => [escapeCSVField(card.term), escapeCSVField(card.definition)]);
+
+  return [headers.join(','), ...rows.map((row) => row.join(','))].join('\n');
 }
 
 /**
@@ -22,14 +19,14 @@ export function cardsToCSV(cards: StudyCard[]): string {
 export function csvToCards(csv: string): StudyCard[] {
   const lines = csv.trim().split('\n');
   if (lines.length < 2) return [];
-  
+
   const headers = parseCSVLine(lines[0]);
-  const termIndex = headers.findIndex(h => h.toLowerCase() === 'term');
-  const definitionIndex = headers.findIndex(h => h.toLowerCase() === 'definition');
-  
+  const termIndex = headers.findIndex((h) => h.toLowerCase() === 'term');
+  const definitionIndex = headers.findIndex((h) => h.toLowerCase() === 'definition');
+
   if (termIndex === -1 || definitionIndex === -1) {
     // Assume first column is term, second is definition
-    return lines.slice(1).map(line => {
+    return lines.slice(1).map((line) => {
       const fields = parseCSVLine(line);
       return {
         term: fields[0] || '',
@@ -37,8 +34,8 @@ export function csvToCards(csv: string): StudyCard[] {
       };
     });
   }
-  
-  return lines.slice(1).map(line => {
+
+  return lines.slice(1).map((line) => {
     const fields = parseCSVLine(line);
     return {
       term: fields[termIndex] || '',
@@ -64,11 +61,11 @@ function parseCSVLine(line: string): string[] {
   const result: string[] = [];
   let current = '';
   let inQuotes = false;
-  
+
   for (let i = 0; i < line.length; i++) {
     const char = line[i];
     const nextChar = line[i + 1];
-    
+
     if (char === '"') {
       if (inQuotes && nextChar === '"') {
         current += '"';
@@ -83,7 +80,7 @@ function parseCSVLine(line: string): string[] {
       current += char;
     }
   }
-  
+
   result.push(current);
   return result;
 }
@@ -95,15 +92,15 @@ export function downloadCSV(csv: string, filename: string): void {
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
   const link = document.createElement('a');
   const url = URL.createObjectURL(blob);
-  
+
   link.setAttribute('href', url);
   link.setAttribute('download', filename);
   link.style.visibility = 'hidden';
-  
+
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
-  
+
   URL.revokeObjectURL(url);
 }
 
@@ -113,15 +110,15 @@ export function downloadCSV(csv: string, filename: string): void {
 export function readCSV(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
-    
+
     reader.onload = (e) => {
       resolve(e.target?.result as string);
     };
-    
-    reader.onerror = (e) => {
+
+    reader.onerror = () => {
       reject(new Error('Failed to read CSV file'));
     };
-    
+
     reader.readAsText(file);
   });
 }

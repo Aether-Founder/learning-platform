@@ -1,6 +1,6 @@
 /**
  * Auth Layout
- * 
+ *
  * Layout for authentication pages (login, register, reset password)
  * Simple, centered layout without navigation
  */
@@ -12,10 +12,6 @@ export const metadata: Metadata = {
   description: 'Log in of maak een account aan voor Aether Study Platform',
 };
 
-export default function AuthLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return children;
 }

@@ -1,108 +1,66 @@
-"use client";
+'use client';
 
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
-import { NestedSection } from "@/components/NestedSection";
-import { SimpleMode } from "@/components/SimpleMode";
-import { LearningPlatform } from "@/components/learning-platform/LearningPlatform";
-import { TextbookSection } from "@/components/TextbookSection";
-import { ModeSwitcher } from "@/components/ModeSwitcher";
-import { LoadingSpinner } from "@/components/LoadingSpinner";
-import { ThemeToggle } from "@/components/theme-toggle";
-import { ContentSkeleton, SidebarSkeleton } from "@/components/ContentSkeleton";
-import { Toetsweekplanning } from "@/components/Toetsweekplanning";
-import { ScrollToTop } from "@/components/ScrollToTop";
-import { SummaryMode } from "@/components/SummaryMode";
-import { QuizMode } from "@/components/QuizMode";
-import { MarkdownRenderer } from "@/components/MarkdownRenderer";
-import { useTranslation } from "@/lib/i18n";
-import { useBookmarks } from "@/hooks/useBookmarks";
-import { getSectionTitle } from "@/lib/section-title";
-import { useSearchParams } from "next/navigation";
-import { useEffect, useState, useRef, useMemo, useCallback } from "react";
-import { ChevronRight } from "lucide-react";
+import { Header } from '@/components/header';
+import { Footer } from '@/components/footer';
+import { NestedSection } from '@/components/NestedSection';
+import { SimpleMode } from '@/components/SimpleMode';
+import { LearningPlatform } from '@/components/learning-platform/LearningPlatform';
+import { TextbookSection } from '@/components/TextbookSection';
+import { ModeSwitcher } from '@/components/ModeSwitcher';
+import { LoadingSpinner } from '@/components/LoadingSpinner';
+import { ThemeToggle } from '@/components/theme-toggle';
+import { ContentSkeleton, SidebarSkeleton } from '@/components/ContentSkeleton';
+import { Toetsweekplanning } from '@/components/Toetsweekplanning';
+import { ScrollToTop } from '@/components/ScrollToTop';
+import { SummaryMode } from '@/components/SummaryMode';
+import { QuizMode } from '@/components/QuizMode';
+import { MarkdownRenderer } from '@/components/MarkdownRenderer';
+import { useTranslation } from '@/lib/i18n';
+import { useBookmarks } from '@/hooks/useBookmarks';
+import { getSectionTitle } from '@/lib/section-title';
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useState, useRef, useMemo, useCallback } from 'react';
+import { ChevronRight } from 'lucide-react';
 
-export type ViewMode = "book" | "study" | "simple" | "samenvatting" | "quiz" | "alles-leren-2-dagen" | "complete-oefentoets" | "alle-leerdoelen-opdrachten" | "vragenlijst";
+export type ViewMode =
+  | 'book'
+  | 'study'
+  | 'simple'
+  | 'samenvatting'
+  | 'quiz'
+  | 'alles-leren-2-dagen'
+  | 'complete-oefentoets'
+  | 'alle-leerdoelen-opdrachten'
+  | 'vragenlijst';
 
-interface Question {
-  id: string;
-  number: string;
-  text: string;
-}
-
-interface FlashcardSection {
-  id: string;
-  timestamp: string;
-  title: string | string[];
-  titles?: string[];
-  chapterTitles?: string[];
-  questions: Question[];
-}
-
-interface ButtonConfig {
-  url: string;
-  text: string;
-  icon: string;
-  iconType?: "name" | "url";
-  variant?: "primary" | "secondary";
-}
-
-interface ContentData {
-  siteMetadata: {
-    title: string;
-    description: string;
-  };
-  showTimestamps?: boolean;
-  sections: FlashcardSection[];
-  buttons?: ButtonConfig[];
-  showExportButtons?: boolean;
-  showAnkiExport?: boolean;
-  showFlashcardsExport?: boolean;
-  showTranscriptExport?: boolean;
-  showCopyTranscript?: boolean;
-  defaultViewMode?: ViewMode;
-  availableModes?: ViewMode[];
-  contentFormat?: string;
-  customComponent?: string;
-  toetsen?: any[];
-  summary?: string;
-  quiz?: {
-    title: string;
-    questions: Array<{
-      id: number;
-      question: string;
-      hint?: string;
-      options: string[];
-      answer: string;
-      rationale?: string;
-    }>;
-  };
-  enableImageLearning?: boolean;
-  learningSet?: {
-    title: string;
-    terms: Array<{
-      id: string;
-      term: string;
-      definition: string;
-      image?: string;
-    }>;
-  };
-  modeContent?: Array<{
-    id: string;
-    title: string;
-    content: string;
-  }>;
-}
-
-const SUPPORTED_MODES: ViewMode[] = ["book", "study", "simple", "samenvatting", "quiz", "alles-leren-2-dagen", "complete-oefentoets", "alle-leerdoelen-opdrachten", "vragenlijst"];
-const VISIBLE_MODES: ViewMode[] = ["simple", "study", "samenvatting", "quiz", "alles-leren-2-dagen", "complete-oefentoets", "alle-leerdoelen-opdrachten", "vragenlijst"];
+const SUPPORTED_MODES: ViewMode[] = [
+  'book',
+  'study',
+  'simple',
+  'samenvatting',
+  'quiz',
+  'alles-leren-2-dagen',
+  'complete-oefentoets',
+  'alle-leerdoelen-opdrachten',
+  'vragenlijst',
+];
+const VISIBLE_MODES: ViewMode[] = [
+  'simple',
+  'study',
+  'samenvatting',
+  'quiz',
+  'alles-leren-2-dagen',
+  'complete-oefentoets',
+  'alle-leerdoelen-opdrachten',
+  'vragenlijst',
+];
 // How many sections to reveal per progressive step
 const CHUNK_SIZE = 3;
 
 function normalizeAvailableModes(modes: any): ViewMode[] {
   if (!Array.isArray(modes) || modes.length === 0) return VISIBLE_MODES;
   const normalized = modes
-    .map((mode) => (mode === "book" ? "simple" : mode))
+    .map((mode) => (mode === 'book' ? 'simple' : mode))
     .filter((mode): mode is ViewMode => VISIBLE_MODES.includes(mode));
   return Array.from(new Set(normalized.length ? normalized : VISIBLE_MODES));
 }
@@ -114,7 +72,8 @@ function hasStudyMaterial(sections: any[], data: any): boolean {
   }
   return sections.some((section) => {
     const hasSectionSets =
-      section.learningSet?.terms?.length || section.learningSets?.some((set: any) => set.terms?.length);
+      section.learningSet?.terms?.length ||
+      section.learningSets?.some((set: any) => set.terms?.length);
     const hasParagraphSets = section.paragraphs?.some(
       (paragraph: any) =>
         paragraph.questions?.length ||
@@ -122,7 +81,7 @@ function hasStudyMaterial(sections: any[], data: any): boolean {
         paragraph.learningSets?.some((set: any) => set.terms?.length)
     );
     const hasQuestionBlocks = section.blocks?.some(
-      (block: any) => block.type === "questions" && block.questions?.length > 0
+      (block: any) => block.type === 'questions' && block.questions?.length > 0
     );
     return Boolean(hasSectionSets || hasParagraphSets || hasQuestionBlocks);
   });
@@ -195,25 +154,25 @@ function applyLoadedData(
   setIsParagraphContent(hasParagraphs);
 
   const hasTextbookBlocks =
-    loadedData.contentFormat === "textbook" ||
+    loadedData.contentFormat === 'textbook' ||
     loadedData.sections?.some((s: any) => s.blocks && s.blocks.length > 0);
   setIsTextbookContent(hasTextbookBlocks);
 
-  const hasCustomContent = loadedData.contentFormat === "custom" && loadedData.customComponent;
+  const hasCustomContent = loadedData.contentFormat === 'custom' && loadedData.customComponent;
   setIsCustomContent(hasCustomContent);
 
   const pageAvailableModes = normalizeAvailableModes(loadedData.availableModes);
   setAvailableModes(pageAvailableModes);
 
-  const normalizedQueryMode = queryMode === "book" ? "simple" : queryMode;
+  const normalizedQueryMode = queryMode === 'book' ? 'simple' : queryMode;
   const normalizedDefaultMode =
-    loadedData.defaultViewMode === "book" ? "simple" : loadedData.defaultViewMode;
+    loadedData.defaultViewMode === 'book' ? 'simple' : loadedData.defaultViewMode;
   const chosenMode =
     normalizedQueryMode && pageAvailableModes.includes(normalizedQueryMode)
       ? normalizedQueryMode
       : normalizedDefaultMode && pageAvailableModes.includes(normalizedDefaultMode)
-      ? normalizedDefaultMode
-      : "simple";
+        ? normalizedDefaultMode
+        : 'simple';
 
   setViewMode(chosenMode);
   setVisibleSections(initialChunk);
@@ -221,9 +180,9 @@ function applyLoadedData(
 }
 
 export default function Page({ params }: { params: { page: string } }) {
-  const [activeSection, setActiveSection] = useState<string>("");
+  const [activeSection, setActiveSection] = useState<string>('');
   const [data, setData] = useState<any>(null);
-  const [viewMode, setViewMode] = useState<ViewMode>("simple");
+  const [viewMode, setViewMode] = useState<ViewMode>('simple');
   const [availableModes, setAvailableModes] = useState<ViewMode[]>(VISIBLE_MODES);
   const [isParagraphContent, setIsParagraphContent] = useState<boolean>(false);
   const [isTextbookContent, setIsTextbookContent] = useState<boolean>(false);
@@ -243,11 +202,11 @@ export default function Page({ params }: { params: { page: string } }) {
   // ── Load view mode from localStorage / query param ──────────────────────────
   useEffect(() => {
     const savedMode = localStorage.getItem(`viewMode-${params.page}`) as ViewMode;
-    const queryMode = searchParams.get("mode") as ViewMode | null;
+    const queryMode = searchParams.get('mode') as ViewMode | null;
     if (queryMode && SUPPORTED_MODES.includes(queryMode)) {
-      setViewMode(queryMode === "book" ? "simple" : queryMode);
+      setViewMode(queryMode === 'book' ? 'simple' : queryMode);
     } else if (savedMode && SUPPORTED_MODES.includes(savedMode)) {
-      setViewMode(savedMode === "book" ? "simple" : savedMode);
+      setViewMode(savedMode === 'book' ? 'simple' : savedMode);
     }
   }, [params.page, searchParams]);
 
@@ -278,7 +237,7 @@ export default function Page({ params }: { params: { page: string } }) {
 
     const loadData = async () => {
       const cacheKey = `content-${params.page}`;
-      const queryMode = searchParams.get("mode") as ViewMode | null;
+      const queryMode = searchParams.get('mode') as ViewMode | null;
 
       // 1. Try localStorage cache → instant first paint
       try {
@@ -301,8 +260,8 @@ export default function Page({ params }: { params: { page: string } }) {
             );
           }
           // Still fetch fresh in background to keep cache up-to-date
-          fetch(`/api/content/page/${params.page}`, { cache: "no-store" })
-            .then((r) => r.ok ? r.json() : null)
+          fetch(`/api/content/page/${params.page}`, { cache: 'no-store' })
+            .then((r) => (r.ok ? r.json() : null))
             .then((fresh) => {
               if (fresh && !cancelled) {
                 try {
@@ -330,7 +289,7 @@ export default function Page({ params }: { params: { page: string } }) {
 
       // 2. No cache → fetch from API route
       try {
-        const res = await fetch(`/api/content/page/${params.page}`, { cache: "no-store" });
+        const res = await fetch(`/api/content/page/${params.page}`, { cache: 'no-store' });
         if (!res.ok) {
           if (!cancelled) setLoadError(true);
           return;
@@ -357,7 +316,7 @@ export default function Page({ params }: { params: { page: string } }) {
           CHUNK_SIZE
         );
       } catch (err) {
-        console.error("Error loading data:", err);
+        console.error('Error loading data:', err);
         if (!cancelled) {
           setLoadError(true);
           setIsLoading(false);
@@ -366,7 +325,9 @@ export default function Page({ params }: { params: { page: string } }) {
     };
 
     loadData();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [params.page, searchParams]);
 
   // ── Progressive rendering: reveal CHUNK_SIZE sections at a time ──────────────
@@ -399,8 +360,8 @@ export default function Page({ params }: { params: { page: string } }) {
       }
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [data?.sections, visibleSections, totalSections]);
 
   // ── Scroll spy ───────────────────────────────────────────────────────────────
@@ -409,7 +370,7 @@ export default function Page({ params }: { params: { page: string } }) {
 
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 100;
-      let activeId = "";
+      let activeId = '';
 
       const allElements: { id: string; offsetTop: number; endTop: number }[] = [];
 
@@ -424,7 +385,7 @@ export default function Page({ params }: { params: { page: string } }) {
         }
 
         section.blocks?.forEach((block: any) => {
-          if (block.type === "text" && block.content) {
+          if (block.type === 'text' && block.content) {
             const h3Matches = block.content.match(/\{#([a-z0-9-]+)\}/g);
             if (h3Matches) {
               h3Matches.forEach((match: string) => {
@@ -432,7 +393,7 @@ export default function Page({ params }: { params: { page: string } }) {
                 if (idMatch) {
                   const subElement = document.getElementById(idMatch[1]);
                   if (subElement) {
-                    const allHeadings = Array.from(document.querySelectorAll("h2[id], h3[id]"));
+                    const allHeadings = Array.from(document.querySelectorAll('h2[id], h3[id]'));
                     const currentIndex = allHeadings.findIndex((h) => h.id === idMatch[1]);
                     const nextHeading = currentIndex >= 0 ? allHeadings[currentIndex + 1] : null;
                     const endTop = nextHeading
@@ -467,9 +428,9 @@ export default function Page({ params }: { params: { page: string } }) {
       setActiveSection(activeId);
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [data?.sections]);
 
   const showSkeleton = isLoading || !data;
@@ -482,7 +443,7 @@ export default function Page({ params }: { params: { page: string } }) {
     );
   }
 
-  if (showSkeleton && params.page === "toetsweekplanning") {
+  if (showSkeleton && params.page === 'toetsweekplanning') {
     return <ToetsweekplanningSkeleton />;
   }
 
@@ -504,7 +465,10 @@ export default function Page({ params }: { params: { page: string } }) {
         </div>
 
         {/* Header — pushed down below the controls row */}
-        <div className="w-full px-4 sm:px-6 lg:px-8 pt-14 pb-2" style={{ paddingRight: "max(1rem, 280px)" }}>
+        <div
+          className="w-full px-4 sm:px-6 lg:px-8 pt-14 pb-2"
+          style={{ paddingRight: 'max(1rem, 280px)' }}
+        >
           {showSkeleton ? (
             <div className="space-y-3 animate-pulse">
               <div className="h-8 bg-secondary rounded w-1/3"></div>
@@ -533,34 +497,32 @@ export default function Page({ params }: { params: { page: string } }) {
           {/* Sidebar — independently scrollable, does not propagate wheel to page */}
           <aside
             className={`md:block flex-shrink-0 transition-all duration-300 ease-out ${
-              viewMode === "study" || isCustomContent
-                ? "w-0 max-w-0 basis-0 opacity-0 -translate-x-4 pointer-events-none overflow-hidden"
-                : "xl:w-[280px] lg:w-[250px] md:w-[220px] max-w-none basis-auto opacity-100 translate-x-0"
+              viewMode === 'study' || isCustomContent
+                ? 'w-0 max-w-0 basis-0 opacity-0 -translate-x-4 pointer-events-none overflow-hidden'
+                : 'xl:w-[280px] lg:w-[250px] md:w-[220px] max-w-none basis-auto opacity-100 translate-x-0'
             }`}
           >
             <div
               className="sticky top-5 flex flex-col"
-              style={{ height: "calc(100vh - 2.5rem)" }}
+              style={{ height: 'calc(100vh - 2.5rem)' }}
               onWheel={(e) => {
                 // Prevent the page from scrolling when the wheel is over the sidebar
                 e.stopPropagation();
               }}
             >
               <div className="p-5 pb-3 flex-shrink-0">
-                <h2 className="text-sm font-medium text-foreground mb-3">{t("table_of_contents", "Inhoudsopgave")}</h2>
+                <h2 className="text-sm font-medium text-foreground mb-3">
+                  {t('table_of_contents', 'Inhoudsopgave')}
+                </h2>
               </div>
 
               {/* Scrollable nav — takes all remaining height, scrollbar hidden */}
-              <nav
-                className="flex-1 overflow-y-auto overscroll-contain min-h-0"
-              >
+              <nav className="flex-1 overflow-y-auto overscroll-contain min-h-0">
                 <div className="space-y-1 px-2 pb-4">
                   {showSkeleton && <SidebarSkeleton />}
                   {!showSkeleton && data.sections && data.sections.length > 0 && (
                     <>
-                      <div
-                        className="w-full text-left px-3 py-2 rounded-md text-[13px] font-medium text-foreground select-none cursor-default"
-                      >
+                      <div className="w-full text-left px-3 py-2 rounded-md text-[13px] font-medium text-foreground select-none cursor-default">
                         <span className="inline">
                           {data.siteMetadata?.title || getSectionTitle(data.sections[0])}
                         </span>
@@ -573,37 +535,41 @@ export default function Page({ params }: { params: { page: string } }) {
                               onClick={() => toggleSection(section.id)}
                               className={`w-full text-left px-2 py-1.5 rounded text-[12px] font-medium transition-colors hover:bg-secondary/50 flex items-center gap-2 ${
                                 activeSection === section.id
-                                  ? "bg-secondary/50 text-foreground"
-                                  : "text-muted-foreground"
+                                  ? 'bg-secondary/50 text-foreground'
+                                  : 'text-muted-foreground'
                               }`}
                             >
                               <ChevronRight
                                 className={`w-4 h-4 transition-transform ${
-                                  expandedSections.has(section.id) ? "rotate-90" : ""
+                                  expandedSections.has(section.id) ? 'rotate-90' : ''
                                 }`}
                               />
                               <span className="inline">{getSectionTitle(section)}</span>
                             </button>
-                            {expandedSections.has(section.id) && section.blocks?.map((block: any) => {
-                              const title = block.title || block.content?.match(/^#+\s+(.+)$/m)?.[1] || (block.type === 'questions' ? 'Opdrachten' : block.id);
-                              return (
-                                <button
-                                  key={block.id}
-                                  onClick={() => {
-                                    document
-                                      .getElementById(block.id)
-                                      ?.scrollIntoView({ behavior: "smooth", block: "start" });
-                                  }}
-                                  className={`w-full text-left px-4 py-1 rounded text-[11px] transition-colors hover:bg-secondary/50 ml-6 ${
-                                    activeSection === block.id
-                                      ? "bg-secondary/50 text-foreground"
-                                      : "text-muted-foreground"
-                                  }`}
-                                >
-                                  <span className="inline">{title}</span>
-                                </button>
-                              );
-                            })}
+                            {expandedSections.has(section.id) &&
+                              section.blocks?.map((block: any) => {
+                                const title =
+                                  block.title ||
+                                  block.content?.match(/^#+\s+(.+)$/m)?.[1] ||
+                                  (block.type === 'questions' ? 'Opdrachten' : block.id);
+                                return (
+                                  <button
+                                    key={block.id}
+                                    onClick={() => {
+                                      document
+                                        .getElementById(block.id)
+                                        ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                    }}
+                                    className={`w-full text-left px-4 py-1 rounded text-[11px] transition-colors hover:bg-secondary/50 ml-6 ${
+                                      activeSection === block.id
+                                        ? 'bg-secondary/50 text-foreground'
+                                        : 'text-muted-foreground'
+                                    }`}
+                                  >
+                                    <span className="inline">{title}</span>
+                                  </button>
+                                );
+                              })}
                           </div>
                         ))}
                       </div>
@@ -611,7 +577,6 @@ export default function Page({ params }: { params: { page: string } }) {
                   )}
                 </div>
               </nav>
-
             </div>
           </aside>
 
@@ -621,19 +586,28 @@ export default function Page({ params }: { params: { page: string } }) {
               {showSkeleton ? (
                 <ContentSkeleton />
               ) : isCustomContent ? (
-                data.customComponent === "Toetsweekplanning" && data.toetsen ? (
+                data.customComponent === 'Toetsweekplanning' && data.toetsen ? (
                   <Toetsweekplanning toetsen={data.toetsen} />
                 ) : null
-              ) : viewMode === "quiz" ? (
+              ) : viewMode === 'quiz' ? (
                 <QuizMode quiz={data.quiz} />
-              ) : viewMode === "samenvatting" ? (
+              ) : viewMode === 'samenvatting' ? (
                 <SummaryMode summary={data.summary} />
-              ) : data.modeContent && ["alles-leren-2-dagen", "complete-oefentoets", "alle-leerdoelen-opdrachten", "vragenlijst"].includes(viewMode) ? (
+              ) : data.modeContent &&
+                [
+                  'alles-leren-2-dagen',
+                  'complete-oefentoets',
+                  'alle-leerdoelen-opdrachten',
+                  'vragenlijst',
+                ].includes(viewMode) ? (
                 (() => {
                   const modeData = data.modeContent?.find((m: any) => m.id === viewMode);
                   if (!modeData) return null;
                   // Ensure content is a string and replace any [object Object] with newlines
-                  let contentString = typeof modeData.content === 'string' ? modeData.content : String(modeData.content);
+                  let contentString =
+                    typeof modeData.content === 'string'
+                      ? modeData.content
+                      : String(modeData.content);
                   contentString = contentString.replace(/\[object Object\]/g, '\n');
                   return (
                     <div className="prose prose-slate dark:prose-invert max-w-none">
@@ -647,7 +621,7 @@ export default function Page({ params }: { params: { page: string } }) {
               ) : isTextbookContent ? (
                 <>
                   {data.sections.slice(0, visibleSections).map((section: any, index: number) => {
-                    if (viewMode === "study") {
+                    if (viewMode === 'study') {
                       if (!hasStudyMaterial(data.sections, data)) return null;
                       return index === 0 ? (
                         <LearningPlatform
@@ -678,7 +652,7 @@ export default function Page({ params }: { params: { page: string } }) {
                 </>
               ) : isParagraphContent ? (
                 data.sections.slice(0, visibleSections).map((section: any, index: number) => {
-                  if (viewMode === "study") {
+                  if (viewMode === 'study') {
                     if (!hasStudyMaterial(data.sections, data)) return null;
                     return index === 0 ? (
                       <LearningPlatform
@@ -691,13 +665,15 @@ export default function Page({ params }: { params: { page: string } }) {
                   return <SimpleMode key={section.id} section={section} />;
                 })
               ) : (
-                data.sections.slice(0, visibleSections).map((section: any) => (
-                  <NestedSection
-                    key={section.id}
-                    section={section}
-                    showTimestamps={data.showTimestamps}
-                  />
-                ))
+                data.sections
+                  .slice(0, visibleSections)
+                  .map((section: any) => (
+                    <NestedSection
+                      key={section.id}
+                      section={section}
+                      showTimestamps={data.showTimestamps}
+                    />
+                  ))
               )}
 
               {/* Subtle progress indicator while more chunks are loading */}

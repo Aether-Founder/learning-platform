@@ -30,7 +30,7 @@ export async function migrateLocalStorageToAccount(userId: string): Promise<void
 
     // Get all localStorage data
     const localStorageData: LocalStorageData = {};
-    
+
     // Get specific keys that we want to migrate
     const keysToMigrate = [
       'readingProgress',
@@ -40,7 +40,7 @@ export async function migrateLocalStorageToAccount(userId: string): Promise<void
       'analytics',
     ];
 
-    keysToMigrate.forEach(key => {
+    keysToMigrate.forEach((key) => {
       try {
         const value = localStorage.getItem(key);
         if (value) {
@@ -78,10 +78,10 @@ export async function exportUserData(userId: string): Promise<Record<string, any
   const rows = stmt.all(userId) as any[];
 
   const userData: Record<string, any> = {};
-  rows.forEach(row => {
+  rows.forEach((row) => {
     try {
       userData[row.data_key] = JSON.parse(row.data_value);
-    } catch (error) {
+    } catch {
       userData[row.data_key] = row.data_value;
     }
   });
@@ -123,7 +123,7 @@ export function clearLocalStorageData(): void {
     'user_data',
   ];
 
-  keysToClear.forEach(key => {
+  keysToClear.forEach((key) => {
     try {
       localStorage.removeItem(key);
     } catch (error) {

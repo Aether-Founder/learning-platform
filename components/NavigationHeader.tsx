@@ -1,4 +1,4 @@
-import DarkModeToggle from "./DarkModeToggle";
+import DarkModeToggle from './DarkModeToggle';
 
 interface NavigationHeaderProps {
   title: string;
@@ -6,14 +6,20 @@ interface NavigationHeaderProps {
   substackUrl?: string;
 }
 
-export default function NavigationHeader({ title, youtubeUrl, substackUrl }: NavigationHeaderProps) {
+export default function NavigationHeader({
+  title,
+  youtubeUrl,
+  substackUrl,
+}: NavigationHeaderProps) {
   return (
     <header className="w-full bg-background">
       <div className="mx-auto max-w-5xl px-6 py-12">
         <div className="flex justify-between items-start">
           <div className="flex-1">
             <h1 className="mb-4 text-4xl font-bold text-foreground font-serif">{title}</h1>
-            <p className="mb-8 text-lg text-muted-foreground font-serif">A technical breakdown of complex systems.</p>
+            <p className="mb-8 text-lg text-muted-foreground font-serif">
+              A technical breakdown of complex systems.
+            </p>
             <div className="flex gap-4">
               {youtubeUrl && (
                 <a

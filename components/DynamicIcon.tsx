@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { 
-  Youtube, 
-  FileText, 
-  BookOpen, 
-  Video, 
+import {
+  Youtube,
+  FileText,
+  BookOpen,
+  Video,
   Link as LinkIcon,
   ExternalLink,
-  type LucideIcon
-} from "lucide-react";
+  type LucideIcon,
+} from 'lucide-react';
 
 const iconMap: Record<string, LucideIcon> = {
   youtube: Youtube,
@@ -21,24 +21,17 @@ const iconMap: Record<string, LucideIcon> = {
 
 interface DynamicIconProps {
   icon: string;
-  iconType?: "name" | "url";
+  iconType?: 'name' | 'url';
   className?: string;
 }
 
-export function DynamicIcon({ icon, iconType = "name", className = "w-4 h-4" }: DynamicIconProps) {
-  if (iconType === "url") {
-    return (
-      <img 
-        src={icon} 
-        alt="" 
-        className={className}
-        style={{ objectFit: "contain" }}
-      />
-    );
+export function DynamicIcon({ icon, iconType = 'name', className = 'w-4 h-4' }: DynamicIconProps) {
+  if (iconType === 'url') {
+    return <img src={icon} alt="" className={className} style={{ objectFit: 'contain' }} />;
   }
 
   const IconComponent = iconMap[icon.toLowerCase()];
-  
+
   if (!IconComponent) {
     // Fallback to a default link icon
     return <LinkIcon className={className} />;

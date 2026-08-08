@@ -7,6 +7,7 @@ Print this or keep it open while working through the setup!
 ## 📋 Part 1: Your Tasks (15 minutes)
 
 ### Step 1: Create Supabase Account
+
 - [ ] Go to https://supabase.com
 - [ ] Click "Start your project"
 - [ ] Sign in with GitHub, Google, or Email
@@ -17,6 +18,7 @@ Print this or keep it open while working through the setup!
 ---
 
 ### Step 2: Create New Project
+
 - [ ] Click "New Project" button
 - [ ] Choose or create an organization
 - [ ] Fill in project details:
@@ -31,10 +33,11 @@ Print this or keep it open while working through the setup!
 ---
 
 ### Step 3: Get API Keys
+
 - [ ] Project is fully loaded (green checkmark)
 - [ ] Click ⚙️ **Settings** in sidebar
 - [ ] Click **API** in settings menu
-- [ ] Copy **Project URL**: 
+- [ ] Copy **Project URL**:
   ```
   https://_________________.supabase.co
   ```
@@ -53,6 +56,7 @@ Print this or keep it open while working through the setup!
 ---
 
 ### Step 4: Run Database Schema
+
 - [ ] Click 📝 **SQL Editor** in sidebar
 - [ ] Click **+ New query** button
 - [ ] Open file: `supabase-schema.sql` from project folder
@@ -67,6 +71,7 @@ Print this or keep it open while working through the setup!
 ---
 
 ### Step 5: Verify Tables Created
+
 - [ ] Click 🗂️ **Table Editor** in sidebar
 - [ ] You should see these 11 tables:
   - [ ] users
@@ -86,6 +91,7 @@ Print this or keep it open while working through the setup!
 ---
 
 ### Step 6: Configure Authentication
+
 - [ ] Click 🔐 **Authentication** in sidebar
 - [ ] Click **Providers** tab
 - [ ] Find **Email** provider
@@ -98,6 +104,7 @@ Print this or keep it open while working through the setup!
 ---
 
 ### Step 7: Send Information to Developer
+
 - [ ] Fill out this form and send:
 
 ```
@@ -106,10 +113,10 @@ SUPABASE CREDENTIALS
 
 Project URL: https://_________________.supabase.co
 
-Anon Key: 
+Anon Key:
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9._________________
 
-Service Role Key: 
+Service Role Key:
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9._________________
 
 Authentication Methods:
@@ -130,6 +137,7 @@ _________________________________________________
 ## 🎯 Part 2: Developer Tasks (3-4 hours)
 
 ### Phase 1: Setup & Configuration
+
 - [ ] Receive credentials from you
 - [ ] Install Supabase packages
 - [ ] Create `.env.local` file with credentials
@@ -141,6 +149,7 @@ _________________________________________________
 ---
 
 ### Phase 2: Authentication Migration
+
 - [ ] Remove custom JWT authentication
 - [ ] Replace with Supabase Auth
 - [ ] Update `/app/api/auth/login` route
@@ -155,6 +164,7 @@ _________________________________________________
 ---
 
 ### Phase 3: Database Migration
+
 - [ ] Remove SQLite (`better-sqlite3`)
 - [ ] Remove `bcrypt` dependency
 - [ ] Remove `jsonwebtoken` dependency
@@ -169,6 +179,7 @@ _________________________________________________
 ---
 
 ### Phase 4: Data Import
+
 - [ ] Create import script for `content/*.json` files
 - [ ] Map JSON structure to database tables
 - [ ] Import all subjects
@@ -182,6 +193,7 @@ _________________________________________________
 ---
 
 ### Phase 5: Testing
+
 - [ ] Test locally with `npm run dev`
 - [ ] Test user registration
 - [ ] Test user login
@@ -199,6 +211,7 @@ _________________________________________________
 ---
 
 ### Phase 6: Deployment
+
 - [ ] Add environment variables to Vercel
 - [ ] Deploy to production
 - [ ] Test production build
@@ -230,28 +243,36 @@ Update this as you go! 🎯
 ## 🆘 Troubleshooting
 
 ### Problem: Can't create Supabase project
-**Solution**: 
+
+**Solution**:
+
 - Try different browser
 - Clear cache and cookies
 - Use incognito mode
 - Make sure you're signed in
 
 ### Problem: SQL script shows errors
-**Solution**: 
+
+**Solution**:
+
 - Make sure you copied the ENTIRE file
 - Check there are no missing characters
 - Try running in smaller chunks
 - Copy error message and send to developer
 
 ### Problem: Tables don't appear
-**Solution**: 
+
+**Solution**:
+
 - Refresh the page
 - Check SQL Editor for errors
 - Make sure script finished running
 - Look in "public" schema
 
 ### Problem: Lost database password
-**Solution**: 
+
+**Solution**:
+
 - Go to Settings → Database
 - Click "Reset database password"
 - Generate new password
@@ -260,16 +281,16 @@ Update this as you go! 🎯
 
 ## ⏰ Time Estimates
 
-| Task | Estimated Time | Actual Time |
-|------|---------------|-------------|
-| Create Supabase account | 2 minutes | _____ |
-| Create project | 3 minutes | _____ |
-| Get API keys | 2 minutes | _____ |
-| Run SQL schema | 3 minutes | _____ |
-| Verify tables | 2 minutes | _____ |
-| Configure auth | 3 minutes | _____ |
-| Send credentials | 1 minute | _____ |
-| **TOTAL (Your part)** | **~15 minutes** | **_____** |
+| Task                    | Estimated Time  | Actual Time |
+| ----------------------- | --------------- | ----------- |
+| Create Supabase account | 2 minutes       | _____       |
+| Create project          | 3 minutes       | _____       |
+| Get API keys            | 2 minutes       | _____       |
+| Run SQL schema          | 3 minutes       | _____       |
+| Verify tables           | 2 minutes       | _____       |
+| Configure auth          | 3 minutes       | _____       |
+| Send credentials        | 1 minute        | _____       |
+| **TOTAL (Your part)**   | **~15 minutes** | **\_____**  |
 
 ---
 
@@ -314,6 +335,7 @@ _________________________________________________
 **Status**: ⬜ Success | ⬜ Issues (describe below)
 
 **Issues/Feedback**:
+
 ```
 _________________________________________________
 _________________________________________________
@@ -325,6 +347,7 @@ _________________________________________________
 ## 🎉 Congratulations!
 
 Your study platform is now:
+
 - ☁️ Cloud-powered
 - 🔐 Secure
 - 📱 Multi-device

@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from 'react';
 
 interface ReadingProgress {
   paragraphId: string;
@@ -20,7 +20,7 @@ export function useReadingProgress(pageId: string) {
       try {
         setProgress(JSON.parse(saved));
       } catch {
-        console.error("Failed to parse reading progress");
+        console.error('Failed to parse reading progress');
       }
     }
   }, [storageKey]);

@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useParams } from "next/navigation";
-import { AppShell, PageHeader } from "@/components/AppShell";
-import { Badge } from "@/components/ui-kit";
-import { findSubject, countSets } from "@/lib/aether-data";
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import { AppShell, PageHeader } from '@/components/AppShell';
+import { Badge } from '@/components/ui-kit';
+import { findSubject, countSets } from '@/lib/aether-data';
 
 export default function SubjectPage() {
   const params = useParams();
@@ -39,8 +39,8 @@ export default function SubjectPage() {
         description={`${subject.children.length} hoofdstukmappen · ${countSets(subject.children)} studiesets · Docent: ${subject.teacher}`}
         action={
           <div className="flex flex-col gap-2">
-            <Badge tone={subject.due === 0 ? "success" : "warning"}>
-              {subject.due === 0 ? "Alles bij" : `${subject.due} te herhalen`}
+            <Badge tone={subject.due === 0 ? 'success' : 'warning'}>
+              {subject.due === 0 ? 'Alles bij' : `${subject.due} te herhalen`}
             </Badge>
             <p className="text-xs text-muted-foreground text-right">
               {subject.mastery}% beheersing
@@ -59,14 +59,11 @@ export default function SubjectPage() {
       ) : (
         <div className="mt-10 grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-2">
           {subject.children.map((folder) => (
-            <div
-              key={folder.slug}
-              className="bg-background p-6"
-            >
+            <div key={folder.slug} className="bg-background p-6">
               <div className="flex items-start justify-between gap-4">
                 <div className="min-w-0 flex-1">
                   <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-                    {folder.kind === "folder" ? "Map" : "Set"}
+                    {folder.kind === 'folder' ? 'Map' : 'Set'}
                   </p>
                   <h3 className="mt-2 font-display text-xl font-semibold">{folder.name}</h3>
                   {folder.description && (

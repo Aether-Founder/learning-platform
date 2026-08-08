@@ -1,12 +1,18 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Search, BookOpen, Users, Star, Download, Filter } from "lucide-react";
+import { useState, useEffect, useCallback } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Search, BookOpen, Users, Star, Download, Filter } from 'lucide-react';
 
 interface PublicStudySet {
   id: string;
@@ -31,16 +37,12 @@ interface PublicStudySetBrowserProps {
 export function PublicStudySetBrowser({ onStudySetClick }: PublicStudySetBrowserProps) {
   const [studySets, setStudySets] = useState<PublicStudySet[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [categoryFilter, setCategoryFilter] = useState<string>("all");
-  const [sortBy, setSortBy] = useState<"popular" | "recent" | "rating">("popular");
+  const [searchQuery, setSearchQuery] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState<string>('all');
+  const [sortBy, setSortBy] = useState<'popular' | 'recent' | 'rating'>('popular');
   const [showFilters, setShowFilters] = useState(false);
 
-  useEffect(() => {
-    fetchStudySets();
-  }, [categoryFilter, sortBy]);
-
-  const fetchStudySets = async () => {
+  const fetchStudySets = useCallback(async () => {
     setLoading(true);
     try {
       const response = await fetch(
@@ -52,16 +54,21 @@ export function PublicStudySetBrowser({ onStudySetClick }: PublicStudySetBrowser
         setStudySets(data.studySets || []);
       }
     } catch (error) {
-      console.error("Failed to fetch public study sets:", error);
+      console.error('Failed to fetch public study sets:', error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [categoryFilter, sortBy]);
 
-  const filteredStudySets = studySets.filter((studySet) =>
-    studySet.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    studySet.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    studySet.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+  useEffect(() => {
+    fetchStudySets();
+  }, [fetchStudySets]);
+
+  const filteredStudySets = studySets.filter(
+    (studySet) =>
+      studySet.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      studySet.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      studySet.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
   const categories = Array.from(new Set(studySets.map((s) => s.category)));
@@ -96,15 +103,14 @@ export function PublicStudySetBrowser({ onStudySetClick }: PublicStudySetBrowser
             className="pl-10"
           />
         </div>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => setShowFilters(!showFilters)}
-        >
+        <Button variant="outline" size="sm" onClick={() => setShowFilters(!showFilters)}>
           <Filter className="w-4 h-4 mr-2" />
           Filters
         </Button>
-        <Select value={sortBy} onValueChange={(value: "popular" | "recent" | "rating") => setSortBy(value)}>
+        <Select
+          value={sortBy}
+          onValueChange={(value: 'popular' | 'recent' | 'rating') => setSortBy(value)}
+        >
           <SelectTrigger className="w-40">
             <SelectValue />
           </SelectTrigger>
@@ -158,10 +164,8 @@ export function PublicStudySetBrowser({ onStudySetClick }: PublicStudySetBrowser
               </div>
             </CardHeader>
             <CardContent className="space-y-3">
-              <p className="text-sm text-muted-foreground line-clamp-2">
-                {studySet.description}
-              </p>
-              
+              <p className="text-sm text-muted-foreground line-clamp-2">{studySet.description}</p>
+
               <div className="flex flex-wrap gap-2">
                 {studySet.tags.slice(0, 3).map((tag) => (
                   <Badge key={tag} variant="secondary" className="text-xs">
@@ -199,9 +203,9 @@ export function PublicStudySetBrowser({ onStudySetClick }: PublicStudySetBrowser
             <BookOpen className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
             <h3 className="text-lg font-semibold mb-2">Geen Studie Sets</h3>
             <p className="text-sm text-muted-foreground">
-              {searchQuery || categoryFilter !== "all"
-                ? "Probeer andere filters"
-                : "Er zijn nog geen openbare studie sets beschikbaar"}
+              {searchQuery || categoryFilter !== 'all'
+                ? 'Probeer andere filters'
+                : 'Er zijn nog geen openbare studie sets beschikbaar'}
             </p>
           </CardContent>
         </Card>

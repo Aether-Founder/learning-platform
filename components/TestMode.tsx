@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
-import { ChevronLeft, RotateCcw, CheckCircle, XCircle } from "lucide-react";
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Progress } from '@/components/ui/progress';
+import { ChevronLeft, RotateCcw, CheckCircle, XCircle } from 'lucide-react';
 
 interface StudyCard {
   id: string;
@@ -13,22 +13,26 @@ interface StudyCard {
 }
 
 interface TestConfig {
-  questionType: "term" | "definition" | "both";
-  answerType: "multipleChoice" | "written";
+  questionType: 'term' | 'definition' | 'both';
+  answerType: 'multipleChoice' | 'written';
   shuffle: boolean;
   timeLimit?: number;
 }
 
 interface TestModeProps {
   cards: StudyCard[];
-  onComplete: (results: { correct: number; incorrect: number; answers: Array<{ cardId: string; correct: boolean }> }) => void;
+  onComplete: (results: {
+    correct: number;
+    incorrect: number;
+    answers: Array<{ cardId: string; correct: boolean }>;
+  }) => void;
   onExit: () => void;
 }
 
 export function TestMode({ cards, onComplete, onExit }: TestModeProps) {
   const [config, setConfig] = useState<TestConfig>({
-    questionType: "term",
-    answerType: "multipleChoice",
+    questionType: 'term',
+    answerType: 'multipleChoice',
     shuffle: false,
   });
   const [showConfig, setShowConfig] = useState(true);
@@ -39,35 +43,35 @@ export function TestMode({ cards, onComplete, onExit }: TestModeProps) {
   const [incorrect, setIncorrect] = useState(0);
   const [answers, setAnswers] = useState<Array<{ cardId: string; correct: boolean }>>([]);
 
-  const shuffledCards = config.shuffle 
-    ? [...cards].sort(() => Math.random() - 0.5)
-    : cards;
+  const shuffledCards = config.shuffle ? [...cards].sort(() => Math.random() - 0.5) : cards;
 
   const currentCard = shuffledCards[currentIndex];
   const progress = ((currentIndex + 1) / shuffledCards.length) * 100;
 
   const generateOptions = (correctAnswer: string): string[] => {
     const options = [correctAnswer];
-    const otherCards = cards.filter(c => c.id !== currentCard.id);
-    
+    const otherCards = cards.filter((c) => c.id !== currentCard.id);
+
     while (options.length < 4 && otherCards.length > 0) {
       const randomIndex = Math.floor(Math.random() * otherCards.length);
-      const wrongAnswer = config.questionType === "term" 
-        ? otherCards[randomIndex].term
-        : otherCards[randomIndex].definition;
-      
+      const wrongAnswer =
+        config.questionType === 'term'
+          ? otherCards[randomIndex].term
+          : otherCards[randomIndex].definition;
+
       if (!options.includes(wrongAnswer)) {
         options.push(wrongAnswer);
       }
       otherCards.splice(randomIndex, 1);
     }
-    
+
     return options.sort(() => Math.random() - 0.5);
   };
 
-  const options = config.answerType === "multipleChoice" && currentCard
-    ? generateOptions(config.questionType === "term" ? currentCard.definition : currentCard.term)
-    : [];
+  const options =
+    config.answerType === 'multipleChoice' && currentCard
+      ? generateOptions(config.questionType === 'term' ? currentCard.definition : currentCard.term)
+      : [];
 
   const handleStart = () => {
     setShowConfig(false);
@@ -77,9 +81,10 @@ export function TestMode({ cards, onComplete, onExit }: TestModeProps) {
     setSelectedAnswer(answer);
     setShowResult(true);
 
-    const isCorrect = config.questionType === "term"
-      ? answer === currentCard.definition
-      : answer === currentCard.term;
+    const isCorrect =
+      config.questionType === 'term'
+        ? answer === currentCard.definition
+        : answer === currentCard.term;
 
     if (isCorrect) {
       setCorrect(correct + 1);
@@ -157,7 +162,9 @@ export function TestMode({ cards, onComplete, onExit }: TestModeProps) {
               onChange={(e) => setConfig({ ...config, shuffle: e.target.checked })}
               className="w-4 h-4"
             />
-            <label htmlFor="shuffle" className="text-sm">Shuffle kaarten</label>
+            <label htmlFor="shuffle" className="text-sm">
+              Shuffle kaarten
+            </label>
           </div>
 
           <Button onClick={handleStart} className="w-full" size="lg">
@@ -177,13 +184,16 @@ export function TestMode({ cards, onComplete, onExit }: TestModeProps) {
     );
   }
 
-  const question = config.questionType === "definition" || (config.questionType === "both" && Math.random() > 0.5)
-    ? currentCard.definition
-    : currentCard.term;
+  const question =
+    config.questionType === 'definition' || (config.questionType === 'both' && Math.random() > 0.5)
+      ? currentCard.definition
+      : currentCard.term;
 
-  const correctAnswer = config.questionType === "definition" || (config.questionType === "both" && question === currentCard.definition)
-    ? currentCard.term
-    : currentCard.definition;
+  const correctAnswer =
+    config.questionType === 'definition' ||
+    (config.questionType === 'both' && question === currentCard.definition)
+      ? currentCard.term
+      : currentCard.definition;
 
   return (
     <div className="max-w-2xl mx-auto p-6">
@@ -219,15 +229,23 @@ export function TestMode({ cards, onComplete, onExit }: TestModeProps) {
           </div>
         )}
 
-        {config.answerType === "multipleChoice" ? (
+        {config.answerType === 'multipleChoice' ? (
           <div className="space-y-3">
             {options.map((option, index) => (
               <Button
                 key={index}
                 onClick={() => !showResult && handleAnswer(option)}
-                variant={showResult ? (option === correctAnswer ? "default" : selectedAnswer === option ? "destructive" : "outline") : "outline"}
+                variant={
+                  showResult
+                    ? option === correctAnswer
+                      ? 'default'
+                      : selectedAnswer === option
+                        ? 'destructive'
+                        : 'outline'
+                    : 'outline'
+                }
                 className={`w-full text-left justify-start ${
-                  showResult && option === correctAnswer ? "bg-green-600 hover:bg-green-700" : ""
+                  showResult && option === correctAnswer ? 'bg-green-600 hover:bg-green-700' : ''
                 }`}
                 disabled={showResult}
               >
@@ -242,11 +260,11 @@ export function TestMode({ cards, onComplete, onExit }: TestModeProps) {
               placeholder="Typ je antwoord..."
               className="w-full p-3 border border-border rounded-md"
               disabled={showResult}
-              value={selectedAnswer || ""}
+              value={selectedAnswer || ''}
               onChange={(e) => setSelectedAnswer(e.target.value)}
             />
             {!showResult && (
-              <Button onClick={() => handleAnswer(selectedAnswer || "")} className="w-full">
+              <Button onClick={() => handleAnswer(selectedAnswer || '')} className="w-full">
                 Submit
               </Button>
             )}
@@ -269,12 +287,10 @@ export function TestMode({ cards, onComplete, onExit }: TestModeProps) {
               )}
             </p>
             {selectedAnswer !== correctAnswer && (
-              <p className="text-sm text-muted-foreground">
-                Juist antwoord: {correctAnswer}
-              </p>
+              <p className="text-sm text-muted-foreground">Juist antwoord: {correctAnswer}</p>
             )}
             <Button onClick={handleNext} className="w-full mt-4">
-              {currentIndex < shuffledCards.length - 1 ? "Volgende" : "Bekijk resultaten"}
+              {currentIndex < shuffledCards.length - 1 ? 'Volgende' : 'Bekijk resultaten'}
             </Button>
           </div>
         )}

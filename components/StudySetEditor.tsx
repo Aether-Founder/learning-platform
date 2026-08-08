@@ -1,12 +1,11 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Plus, Trash2, Save, X } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Plus, Trash2, Save } from 'lucide-react';
 
 interface StudyCard {
   id: string;
@@ -31,8 +30,8 @@ interface StudySetEditorProps {
 }
 
 export function StudySetEditor({ isOpen, onClose, studySet, onSave }: StudySetEditorProps) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [isPublic, setIsPublic] = useState(false);
   const [cards, setCards] = useState<StudyCard[]>([]);
   const [saving, setSaving] = useState(false);
@@ -40,19 +39,19 @@ export function StudySetEditor({ isOpen, onClose, studySet, onSave }: StudySetEd
   useEffect(() => {
     if (studySet) {
       setTitle(studySet.title);
-      setDescription(studySet.description || "");
+      setDescription(studySet.description || '');
       setIsPublic(studySet.isPublic);
       setCards(studySet.cards || []);
     } else {
-      setTitle("");
-      setDescription("");
+      setTitle('');
+      setDescription('');
       setIsPublic(false);
-      setCards([{ id: crypto.randomUUID(), term: "", definition: "" }]);
+      setCards([{ id: crypto.randomUUID(), term: '', definition: '' }]);
     }
   }, [studySet, isOpen]);
 
   const addCard = () => {
-    setCards([...cards, { id: crypto.randomUUID(), term: "", definition: "" }]);
+    setCards([...cards, { id: crypto.randomUUID(), term: '', definition: '' }]);
   };
 
   const removeCard = (index: number) => {
@@ -70,7 +69,7 @@ export function StudySetEditor({ isOpen, onClose, studySet, onSave }: StudySetEd
   const handleSave = async () => {
     if (!title.trim()) return;
 
-    const validCards = cards.filter(card => card.term.trim() && card.definition.trim());
+    const validCards = cards.filter((card) => card.term.trim() && card.definition.trim());
     if (validCards.length === 0) return;
 
     setSaving(true);
@@ -83,7 +82,7 @@ export function StudySetEditor({ isOpen, onClose, studySet, onSave }: StudySetEd
       });
       onClose();
     } catch (error) {
-      console.error("Failed to save study set:", error);
+      console.error('Failed to save study set:', error);
     } finally {
       setSaving(false);
     }
@@ -93,7 +92,7 @@ export function StudySetEditor({ isOpen, onClose, studySet, onSave }: StudySetEd
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{studySet ? "Bewerk leerkaarten" : "Nieuwe leerkaarten"}</DialogTitle>
+          <DialogTitle>{studySet ? 'Bewerk leerkaarten' : 'Nieuwe leerkaarten'}</DialogTitle>
         </DialogHeader>
 
         <div className="space-y-6">
@@ -140,13 +139,11 @@ export function StudySetEditor({ isOpen, onClose, studySet, onSave }: StudySetEd
             {cards.map((card, index) => (
               <div key={card.id} className="p-4 border border-border rounded-lg space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-muted-foreground">Kaart {index + 1}</span>
+                  <span className="text-sm font-medium text-muted-foreground">
+                    Kaart {index + 1}
+                  </span>
                   {cards.length > 1 && (
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      onClick={() => removeCard(index)}
-                    >
+                    <Button size="sm" variant="ghost" onClick={() => removeCard(index)}>
                       <Trash2 className="w-4 h-4" />
                     </Button>
                   )}
@@ -157,7 +154,7 @@ export function StudySetEditor({ isOpen, onClose, studySet, onSave }: StudySetEd
                   <Input
                     id={`term-${index}`}
                     value={card.term}
-                    onChange={(e) => updateCard(index, "term", e.target.value)}
+                    onChange={(e) => updateCard(index, 'term', e.target.value)}
                     placeholder="Term of vraag"
                   />
                 </div>
@@ -167,7 +164,7 @@ export function StudySetEditor({ isOpen, onClose, studySet, onSave }: StudySetEd
                   <Input
                     id={`definition-${index}`}
                     value={card.definition}
-                    onChange={(e) => updateCard(index, "definition", e.target.value)}
+                    onChange={(e) => updateCard(index, 'definition', e.target.value)}
                     placeholder="Definitie of antwoord"
                   />
                 </div>
@@ -180,7 +177,7 @@ export function StudySetEditor({ isOpen, onClose, studySet, onSave }: StudySetEd
               Annuleren
             </Button>
             <Button onClick={handleSave} disabled={saving || !title.trim()}>
-              {saving ? "Opslaan..." : "Opslaan"}
+              {saving ? 'Opslaan...' : 'Opslaan'}
               <Save className="w-4 h-4 ml-2" />
             </Button>
           </div>

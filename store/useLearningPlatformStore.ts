@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { create } from "zustand";
-import { defaultStudySettings } from "@/lib/learning-platform/defaults";
+import { create } from 'zustand';
+import { defaultStudySettings } from '@/lib/learning-platform/defaults';
 import {
   applyTermProgress,
   loadProgressStore,
@@ -12,19 +12,18 @@ import {
   saveSettings,
   saveSession,
   startSession,
-} from "@/lib/learning-platform/progress-store";
-import { filterPlayableTerms, prioritizeTermsForExam } from "@/lib/learning-platform/term-filters";
-import { defaultSrsProgress } from "@/lib/learning-platform/srs";
+} from '@/lib/learning-platform/progress-store';
+import { filterPlayableTerms, prioritizeTermsForExam } from '@/lib/learning-platform/term-filters';
+import { defaultSrsProgress } from '@/lib/learning-platform/srs';
 import type {
   LearningMode,
-  Question,
   StudySession,
   StudySet,
   StudySettings,
   Term,
   TermResult,
   UserTermProgress,
-} from "@/types/learning-platform";
+} from '@/types/learning-platform';
 
 interface LearningPlatformState {
   studySet: StudySet | null;
@@ -43,10 +42,7 @@ interface LearningPlatformState {
   resetAllProgress: () => void;
   addImportedTerms: (terms: Term[]) => void;
   refreshPlayableTerms: () => void;
-  recordAnswer: (
-    termId: string,
-    result: Omit<TermResult, "termId" | "timestamp">
-  ) => void;
+  recordAnswer: (termId: string, result: Omit<TermResult, 'termId' | 'timestamp'>) => void;
   toggleStar: (termId: string) => void;
   suspendTerm: (termId: string, suspended?: boolean) => void;
   buryTerm: (termId: string) => void;
@@ -111,7 +107,7 @@ export const useLearningPlatformStore = create<LearningPlatformState>((set, get)
     resetProgressForSet(studySet.id);
     const terms = studySet.terms.map((t) => ({
       ...t,
-      masteryStatus: "unstudied" as const,
+      masteryStatus: 'unstudied' as const,
       consecutiveCorrectCount: 0,
       isStarred: false,
     }));
@@ -129,18 +125,20 @@ export const useLearningPlatformStore = create<LearningPlatformState>((set, get)
     const uniqueTerms = terms.map((term, index) => ({
       ...term,
       id: existingIds.has(term.id) ? `${term.id}-import-${Date.now()}-${index}` : term.id,
-      learningSetId: term.learningSetId || "imported",
-      learningSetTitle: term.learningSetTitle || "Geimporteerd",
+      learningSetId: term.learningSetId || 'imported',
+      learningSetTitle: term.learningSetTitle || 'Geimporteerd',
     }));
     const nextSet = {
       ...studySet,
       terms: [...studySet.terms, ...uniqueTerms],
       learningSets: [
-        ...studySet.learningSets.filter((set) => set.id !== "imported"),
+        ...studySet.learningSets.filter((set) => set.id !== 'imported'),
         {
-          id: "imported",
-          title: "Geimporteerd",
-          termCount: uniqueTerms.length + studySet.terms.filter((term) => term.learningSetId === "imported").length,
+          id: 'imported',
+          title: 'Geimporteerd',
+          termCount:
+            uniqueTerms.length +
+            studySet.terms.filter((term) => term.learningSetId === 'imported').length,
         },
       ],
       updatedAt: new Date(),
@@ -148,7 +146,10 @@ export const useLearningPlatformStore = create<LearningPlatformState>((set, get)
     const merged = mergeTermsWithProgress(nextSet.terms, progressMap);
     set({
       studySet: { ...nextSet, terms: merged },
-      playableTerms: filterPlayableTerms(prioritizeTermsForExam(merged, settings.examDate), settings),
+      playableTerms: filterPlayableTerms(
+        prioritizeTermsForExam(merged, settings.examDate),
+        settings
+      ),
     });
   },
 
@@ -167,7 +168,7 @@ export const useLearningPlatformStore = create<LearningPlatformState>((set, get)
     const { progressMap, studySet, currentSession, settings } = get();
     if (!studySet) return;
 
-    const wasWritten = result.questionType === "written";
+    const wasWritten = result.questionType === 'written';
     const updated = applyTermProgress(
       progressMap[termId],
       termId,

@@ -1,11 +1,20 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Users, BookOpen, TrendingUp, Plus, Settings, CheckCircle, Clock, AlertCircle } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import {
+  Users,
+  BookOpen,
+  TrendingUp,
+  Plus,
+  Settings,
+  CheckCircle,
+  Clock,
+  AlertCircle,
+} from 'lucide-react';
 
 interface TeacherDashboardProps {
   userId: string;
@@ -46,7 +55,7 @@ export function TeacherDashboard({ userId }: TeacherDashboardProps) {
   const [classes, setClasses] = useState<Class[]>([]);
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [studentProgress, setStudentProgress] = useState<StudentProgress[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
 
   useEffect(() => {
     fetchDashboardData();
@@ -55,16 +64,16 @@ export function TeacherDashboard({ userId }: TeacherDashboardProps) {
   const fetchDashboardData = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("token");
-      
+      const token = localStorage.getItem('token');
+
       const [classesRes, assignmentsRes, progressRes] = await Promise.all([
-        fetch("/api/classes?teacher=true", {
+        fetch('/api/classes?teacher=true', {
           headers: { Authorization: `Bearer ${token}` },
         }),
-        fetch("/api/assignments?teacher=true", {
+        fetch('/api/assignments?teacher=true', {
           headers: { Authorization: `Bearer ${token}` },
         }),
-        fetch("/api/analytics/student-progress", {
+        fetch('/api/analytics/student-progress', {
           headers: { Authorization: `Bearer ${token}` },
         }),
       ]);
@@ -84,7 +93,7 @@ export function TeacherDashboard({ userId }: TeacherDashboardProps) {
         setStudentProgress(progressData.students || []);
       }
     } catch (error) {
-      console.error("Failed to fetch dashboard data:", error);
+      console.error('Failed to fetch dashboard data:', error);
     } finally {
       setLoading(false);
     }
@@ -92,7 +101,7 @@ export function TeacherDashboard({ userId }: TeacherDashboardProps) {
 
   const totalStudents = classes.reduce((sum, cls) => sum + cls.memberCount, 0);
   const totalPendingRequests = classes.reduce((sum, cls) => sum + cls.pendingRequests, 0);
-  const activeAssignments = assignments.filter(a => new Date(a.dueDate) >= new Date()).length;
+  const activeAssignments = assignments.filter((a) => new Date(a.dueDate) >= new Date()).length;
 
   return (
     <div className="space-y-6">
@@ -208,7 +217,7 @@ export function TeacherDashboard({ userId }: TeacherDashboardProps) {
             {assignments.map((assignment) => {
               const isOverdue = new Date(assignment.dueDate) < new Date();
               const completionRate = (assignment.completedCount / assignment.totalCount) * 100;
-              
+
               return (
                 <Card key={assignment.id}>
                   <CardContent className="p-4">
@@ -216,15 +225,15 @@ export function TeacherDashboard({ userId }: TeacherDashboardProps) {
                       <div className="flex-1">
                         <div className="flex items-center gap-2">
                           <h3 className="font-semibold">{assignment.title}</h3>
-                          <Badge variant={isOverdue ? "destructive" : "secondary"}>
-                            {isOverdue ? "Verlopen" : "Actief"}
+                          <Badge variant={isOverdue ? 'destructive' : 'secondary'}>
+                            {isOverdue ? 'Verlopen' : 'Actief'}
                           </Badge>
                         </div>
                         <div className="flex items-center gap-4 mt-1 text-sm text-muted-foreground">
                           <span>{assignment.className}</span>
                           <span className="flex items-center gap-1">
                             <Clock className="w-3 h-3" />
-                            {new Date(assignment.dueDate).toLocaleDateString("nl-NL")}
+                            {new Date(assignment.dueDate).toLocaleDateString('nl-NL')}
                           </span>
                         </div>
                       </div>
@@ -246,8 +255,9 @@ export function TeacherDashboard({ userId }: TeacherDashboardProps) {
           <h2 className="text-xl font-semibold">Leerling Voortgang</h2>
           <div className="space-y-3">
             {studentProgress.map((student) => {
-              const assignmentRate = (student.completedAssignments / student.totalAssignments) * 100;
-              
+              const assignmentRate =
+                (student.completedAssignments / student.totalAssignments) * 100;
+
               return (
                 <Card key={student.studentId}>
                   <CardContent className="p-4">
@@ -268,9 +278,7 @@ export function TeacherDashboard({ userId }: TeacherDashboardProps) {
                       </div>
                       <div className="text-right">
                         <div className="text-2xl font-bold">{Math.round(assignmentRate)}%</div>
-                        <div className="text-xs text-muted-foreground">
-                          Opdrachten
-                        </div>
+                        <div className="text-xs text-muted-foreground">Opdrachten</div>
                       </div>
                     </div>
                   </CardContent>

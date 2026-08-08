@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useParams } from "next/navigation";
-import { AppShell, PageHeader } from "@/components/AppShell";
-import { Badge, Panel, fmt, gradeTone } from "@/components/ui-kit";
-import { GRADEBOOK, averageOf } from "@/lib/os-data";
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import { AppShell, PageHeader } from '@/components/AppShell';
+import { Badge, Panel, fmt, gradeTone } from '@/components/ui-kit';
+import { GRADEBOOK, averageOf } from '@/lib/os-data';
 
 export default function SubjectGradesPage() {
   const params = useParams();
@@ -71,10 +71,10 @@ export default function SubjectGradesPage() {
                     <td className="py-3 font-medium">{g.name}</td>
                     <td className="py-3 text-muted-foreground">{g.type}</td>
                     <td className="py-3 text-muted-foreground">
-                      {new Date(g.date).toLocaleDateString("nl-NL", {
-                        day: "numeric",
-                        month: "short",
-                        year: "numeric",
+                      {new Date(g.date).toLocaleDateString('nl-NL', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric',
                       })}
                     </td>
                     <td className="py-3 text-center tabular-nums text-muted-foreground">

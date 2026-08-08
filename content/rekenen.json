@@ -5,12 +5,7 @@
   },
   "contentFormat": "textbook",
   "defaultViewMode": "study",
-  "availableModes": [
-    "simple",
-    "uitleg",
-    "study",
-    "advanced"
-  ],
+  "availableModes": ["simple", "uitleg", "study", "advanced"],
   "showTimestamps": false,
   "showExportButtons": true,
   "showAnkiExport": true,

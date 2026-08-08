@@ -9,11 +9,13 @@ Welcome! This folder contains everything you need to transform your study platfo
 ## 🎯 Quick Navigation
 
 ### **Start Here:**
+
 1. 📖 **[QUICK_START.md](./QUICK_START.md)** - Step-by-step instructions (15 minutes)
 2. 🗄️ **[supabase-schema.sql](./supabase-schema.sql)** - Database schema to run in Supabase
 3. ❓ **[SUPABASE_FAQ.md](./SUPABASE_FAQ.md)** - Answers to all your questions
 
 ### **Deep Dives:**
+
 4. 📋 **[SUPABASE_SETUP_GUIDE.md](./SUPABASE_SETUP_GUIDE.md)** - Comprehensive setup guide
 5. 🏗️ **[ARCHITECTURE.md](./ARCHITECTURE.md)** - Before/after architecture comparison
 
@@ -38,6 +40,7 @@ Welcome! This folder contains everything you need to transform your study platfo
    - Click Run
 
 4. **Send Me This:**
+
    ```
    Project URL: https://_______.supabase.co
    Anon Key: eyJ_____________
@@ -59,24 +62,25 @@ Welcome! This folder contains everything you need to transform your study platfo
 
 ### Current State (SQLite) → Future State (Supabase)
 
-| Feature | Now | After Supabase |
-|---------|-----|----------------|
-| **Database** | Local SQLite | Cloud PostgreSQL |
-| **Users** | Single device | Multi-device sync |
-| **Authentication** | Custom JWT | Professional auth system |
-| **Security** | Manual | Automatic (Row Level Security) |
-| **Backups** | Manual | Automatic daily |
-| **Scalability** | 1 user | Unlimited users |
-| **Cost** | Free (but limited) | Free (500MB, 50K users) |
-| **Deployment** | Complex | Simple (Vercel + env vars) |
-| **Real-time** | ❌ | ✅ Optional |
-| **Analytics** | Basic | Advanced + real-time |
+| Feature            | Now                | After Supabase                 |
+| ------------------ | ------------------ | ------------------------------ |
+| **Database**       | Local SQLite       | Cloud PostgreSQL               |
+| **Users**          | Single device      | Multi-device sync              |
+| **Authentication** | Custom JWT         | Professional auth system       |
+| **Security**       | Manual             | Automatic (Row Level Security) |
+| **Backups**        | Manual             | Automatic daily                |
+| **Scalability**    | 1 user             | Unlimited users                |
+| **Cost**           | Free (but limited) | Free (500MB, 50K users)        |
+| **Deployment**     | Complex            | Simple (Vercel + env vars)     |
+| **Real-time**      | ❌                 | ✅ Optional                    |
+| **Analytics**      | Basic              | Advanced + real-time           |
 
 ---
 
 ## 🎓 What Will Work After Migration
 
 ### ✅ Authentication & Users
+
 - [x] User registration with email/password
 - [x] Secure login with session management
 - [x] Password reset functionality
@@ -85,6 +89,7 @@ Welcome! This folder contains everything you need to transform your study platfo
 - [x] Multi-device support
 
 ### ✅ Study Features
+
 - [x] Personal study sets (from content/*.json files)
 - [x] Flashcard practice mode
 - [x] Progress tracking per subject
@@ -95,6 +100,7 @@ Welcome! This folder contains everything you need to transform your study platfo
 - [x] Reading progress tracking
 
 ### ✅ Organization
+
 - [x] Subject management (Natuurkunde, Wiskunde, etc.)
 - [x] Calendar/agenda with events
 - [x] Custom event types (toets, examen, huiswerk)
@@ -102,11 +108,13 @@ Welcome! This folder contains everything you need to transform your study platfo
 - [x] Achievement system
 
 ### ✅ Sharing & Collaboration
+
 - [x] Public study sets (shareable)
 - [x] View other users' public sets
 - [x] Import community sets
 
 ### ✅ Analytics & Insights
+
 - [x] Study time tracking
 - [x] Accuracy percentages
 - [x] Progress over time charts
@@ -114,6 +122,7 @@ Welcome! This folder contains everything you need to transform your study platfo
 - [x] Admin dashboard (for teachers)
 
 ### ✅ Performance & UX
+
 - [x] Fast cloud queries (<100ms)
 - [x] Optimistic UI updates
 - [x] Offline-first caching (with React Query)
@@ -127,22 +136,26 @@ Welcome! This folder contains everything you need to transform your study platfo
 **11 tables** will be created:
 
 ### Core Tables
+
 1. **users** - User profiles (extends Supabase auth.users)
 2. **subjects** - School subjects (Natuurkunde, Wiskunde, etc.)
 3. **study_sets** - Collections of flashcards
 4. **flashcards** - Individual Q&A cards
 
 ### Study Tracking
+
 5. **study_sessions** - Track study time and performance
 6. **card_reviews** - Individual card review history (for spaced repetition)
 7. **reading_progress** - Track reading position in study materials
 
 ### Features
+
 8. **achievements** - Badges and milestones
 9. **calendar_events** - Agenda items (toets, examen, etc.)
 10. **bookmarks** - Saved study materials
 
 ### Analytics
+
 11. **analytics_events** - Track user interactions for insights
 
 **All tables** have Row Level Security (RLS) enabled - users automatically only see their own data!
@@ -152,6 +165,7 @@ Welcome! This folder contains everything you need to transform your study platfo
 ## 🔐 Security Features
 
 ### Automatic Protection
+
 - ✅ **Row Level Security (RLS)** - Users can only access their own data
 - ✅ **Encrypted at rest** - Database is encrypted (AES-256)
 - ✅ **Encrypted in transit** - All API calls use HTTPS/TLS
@@ -160,6 +174,7 @@ Welcome! This folder contains everything you need to transform your study platfo
 - ✅ **DDoS protection** - Built-in
 
 ### Authentication Security
+
 - ✅ **Secure password hashing** - Industry standard (bcrypt)
 - ✅ **JWT tokens** - With automatic refresh
 - ✅ **Session management** - Automatic expiry
@@ -171,6 +186,7 @@ Welcome! This folder contains everything you need to transform your study platfo
 ## 💰 Cost Breakdown
 
 ### Free Tier (What You Get)
+
 - ✅ **500MB database** - Enough for 100,000+ flashcards
 - ✅ **50,000 monthly active users** - Way more than you need
 - ✅ **5GB bandwidth** - ~100,000 page loads
@@ -180,11 +196,13 @@ Welcome! This folder contains everything you need to transform your study platfo
 - ✅ **Email support** - Even on free tier
 
 **Perfect for:**
+
 - Personal study app ✅
 - Class of 30 students ✅
 - Entire school (200 students) ✅
 
 ### When You'd Need Paid ($25/month)
+
 - More than 500MB database
 - More than 50,000 active users
 - More than 5GB bandwidth
@@ -196,6 +214,7 @@ Welcome! This folder contains everything you need to transform your study platfo
 ## 🛠️ Technology Stack
 
 ### Current
+
 ```
 Next.js 14
 ├── React 18.3
@@ -207,6 +226,7 @@ Next.js 14
 ```
 
 ### After Migration
+
 ```
 Next.js 14
 ├── React 18.3
@@ -225,18 +245,21 @@ Next.js 14
 ## 📈 Migration Timeline
 
 ### Phase 1: Setup (You + Me) - **15 minutes**
+
 - [x] You create Supabase account
 - [x] You create project and get keys
 - [x] You run SQL schema
 - [x] You send me credentials
 
 ### Phase 2: Infrastructure (Me) - **1 hour**
+
 - [x] Install Supabase packages
 - [x] Create `.env.local` with keys
 - [x] Setup Supabase client config
 - [x] Create database type definitions
 
 ### Phase 3: Authentication (Me) - **2 hours**
+
 - [x] Replace custom JWT with Supabase Auth
 - [x] Update login/register pages
 - [x] Setup protected route middleware
@@ -244,6 +267,7 @@ Next.js 14
 - [x] Test auth flow
 
 ### Phase 4: API Migration (Me) - **2 hours**
+
 - [x] Remove SQLite dependency
 - [x] Convert `/api/auth/*` to Supabase Auth
 - [x] Convert `/api/analytics/*` to Supabase queries
@@ -251,12 +275,14 @@ Next.js 14
 - [x] Update all frontend queries
 
 ### Phase 5: Data Import (Me) - **1 hour**
+
 - [x] Create data import script
 - [x] Import content from `content/*.json`
 - [x] Create demo user account
 - [x] Verify all data
 
 ### Phase 6: Testing (You + Me) - **1 hour**
+
 - [x] Test locally (`npm run dev`)
 - [x] Test authentication
 - [x] Test all pages
@@ -264,6 +290,7 @@ Next.js 14
 - [x] Verify analytics
 
 ### Phase 7: Deployment (Me) - **30 minutes**
+
 - [x] Add env vars to Vercel
 - [x] Deploy to production
 - [x] Test production build
@@ -294,6 +321,7 @@ Next.js 14
 ## 📖 Learning Resources
 
 ### Supabase Documentation
+
 - 📘 [Official Docs](https://supabase.com/docs)
 - 📘 [JavaScript Client](https://supabase.com/docs/reference/javascript/introduction)
 - 📘 [Auth Guide](https://supabase.com/docs/guides/auth)
@@ -301,10 +329,12 @@ Next.js 14
 - 📘 [Next.js Guide](https://supabase.com/docs/guides/getting-started/quickstarts/nextjs)
 
 ### Video Tutorials
+
 - 🎥 [Supabase Crash Course](https://www.youtube.com/watch?v=7uKQBl9uZ00) (Build an app in 30 mins)
 - 🎥 [Next.js + Supabase Auth](https://www.youtube.com/watch?v=oM_7g6LzGwY)
 
 ### Community
+
 - 💬 [Supabase Discord](https://discord.supabase.com) - Very active!
 - 💬 [GitHub Discussions](https://github.com/supabase/supabase/discussions)
 - 💬 [Reddit r/Supabase](https://reddit.com/r/Supabase)
@@ -314,7 +344,9 @@ Next.js 14
 ## 🤔 Common Concerns
 
 ### "Is this overkill for a school project?"
+
 Not at all! Supabase is perfect for school projects:
+
 - Free tier is generous
 - Easy to set up (15 minutes)
 - Professional portfolio piece
@@ -322,21 +354,27 @@ Not at all! Supabase is perfect for school projects:
 - Can scale if project grows
 
 ### "What if I don't understand PostgreSQL?"
+
 You don't need to! I'll provide:
+
 - Pre-written queries
 - TypeScript helper functions
 - Comments explaining everything
 - Examples for common operations
 
 ### "Can I still work on this locally?"
+
 Yes! Your development flow:
+
 ```bash
 npm run dev  # Runs locally on localhost:3000
 # But connects to Supabase cloud (like using Google Docs)
 ```
 
 ### "What happens when school year ends?"
+
 The app keeps running! Free tier doesn't expire. You can:
+
 - Keep using it indefinitely
 - Export all your data
 - Delete project if you want
@@ -349,28 +387,33 @@ The app keeps running! Free tier doesn't expire. You can:
 After migration, we can add:
 
 ### 🔔 Notifications
+
 - Email reminders for study sessions
 - Push notifications (web + mobile)
 - Toets/examen reminders
 
 ### 🤝 Collaboration
+
 - Share notes with classmates
 - Study groups
 - Leaderboards
 - Challenge friends
 
 ### 📱 Mobile App
+
 - React Native app using same Supabase backend
 - Offline-first with sync
 - Native iOS/Android experience
 
 ### 🎨 Advanced Analytics
+
 - Heatmaps of study times
 - Predict exam readiness
 - Personalized study recommendations
 - Teacher/parent dashboards
 
 ### 🌐 Internationalization
+
 - Multiple language support
 - Translate flashcards
 - Share across schools
@@ -431,4 +474,4 @@ Your study platform will go from a local prototype to a production-ready, cloud-
 ---
 
 **Created with ❤️ for Mohammed's Aether Study Platform**
-*Last updated: 2026-08-06*
+_Last updated: 2026-08-06_

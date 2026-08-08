@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { Check, X } from "lucide-react";
-import { useTranslation } from "@/lib/i18n";
+import { Check, X } from 'lucide-react';
+import { useTranslation } from '@/lib/i18n';
 
 interface GradingFeedbackProps {
   isCorrect: boolean;
@@ -27,9 +27,7 @@ export function GradingFeedback({
   return (
     <div
       className={`rounded-xl border p-4 ${
-        isCorrect
-          ? "border-green-500/40 bg-green-500/10"
-          : "border-red-500/40 bg-red-500/10"
+        isCorrect ? 'border-green-500/40 bg-green-500/10' : 'border-red-500/40 bg-red-500/10'
       }`}
     >
       <div className="flex items-center gap-2 font-medium">
@@ -41,14 +39,14 @@ export function GradingFeedback({
         <span>
           {isCorrect
             ? isTypo
-              ? t("grade_typo_ok", "Goed (typfout geaccepteerd)")
-              : t("grade_correct", "Goed!")
-            : t("grade_incorrect", "Fout")}
+              ? t('grade_typo_ok', 'Goed (typfout geaccepteerd)')
+              : t('grade_correct', 'Goed!')
+            : t('grade_incorrect', 'Fout')}
         </span>
       </div>
       {!isCorrect && correctAnswer && (
         <p className="mt-2 text-sm text-muted-foreground">
-          {t("grade_correct_answer", "Juiste antwoord")}:{" "}
+          {t('grade_correct_answer', 'Juiste antwoord')}:{' '}
           <span className="text-foreground font-medium">{correctAnswer}</span>
         </p>
       )}
@@ -59,7 +57,7 @@ export function GradingFeedback({
             onClick={onOverride}
             className="px-4 py-2 rounded-md text-sm border border-border bg-background hover:bg-secondary"
           >
-            {t("grade_override", "Ik had het goed")}
+            {t('grade_override', 'Ik had het goed')}
           </button>
         )}
         <button
@@ -67,7 +65,7 @@ export function GradingFeedback({
           onClick={onContinue}
           className="px-4 py-2 rounded-md text-sm bg-foreground text-background font-medium"
         >
-          {continueLabel ?? t("grade_continue", "Verder")}
+          {continueLabel ?? t('grade_continue', 'Verder')}
         </button>
       </div>
     </div>

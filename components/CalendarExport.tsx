@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Download, Calendar as CalendarIcon, FileText, ExternalLink } from "lucide-react";
+import { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Download, Calendar as CalendarIcon, FileText, ExternalLink } from 'lucide-react';
 
 interface Event {
   id: string;
@@ -32,15 +32,15 @@ METHOD:PUBLISH
 
     events.forEach((event) => {
       const startDate = new Date(event.date);
-      const [startHour, startMin] = event.startTime.split(":");
-      const [endHour, endMin] = event.endTime.split(":");
+      const [startHour, startMin] = event.startTime.split(':');
+      const [endHour, endMin] = event.endTime.split(':');
 
       startDate.setHours(parseInt(startHour), parseInt(startMin), 0, 0);
       const endDate = new Date(startDate);
       endDate.setHours(parseInt(endHour), parseInt(endMin), 0, 0);
 
       const formatDate = (date: Date) => {
-        return date.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+        return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
       };
 
       icalContent += `BEGIN:VEVENT
@@ -49,12 +49,12 @@ DTEND:${formatDate(endDate)}
 DTSTAMP:${formatDate(new Date())}
 UID:${event.id}@learningplatform.com
 SUMMARY:${event.title}
-${event.description ? `DESCRIPTION:${event.description}` : ""}
+${event.description ? `DESCRIPTION:${event.description}` : ''}
 END:VEVENT
 `;
     });
 
-    icalContent += "END:VCALENDAR";
+    icalContent += 'END:VCALENDAR';
     return icalContent;
   };
 
@@ -62,17 +62,17 @@ END:VEVENT
     setExporting(true);
     try {
       const icalContent = generateICal();
-      const blob = new Blob([icalContent], { type: "text/calendar" });
+      const blob = new Blob([icalContent], { type: 'text/calendar' });
       const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
+      const a = document.createElement('a');
       a.href = url;
-      a.download = "calendar.ics";
+      a.download = 'calendar.ics';
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
     } catch (error) {
-      console.error("Failed to download iCal:", error);
+      console.error('Failed to download iCal:', error);
     } finally {
       setExporting(false);
     }
@@ -83,20 +83,20 @@ END:VEVENT
     if (!event) return;
 
     const startDate = new Date(event.date);
-    const [startHour, startMin] = event.startTime.split(":");
-    const [endHour, endMin] = event.endTime.split(":");
+    const [startHour, startMin] = event.startTime.split(':');
+    const [endHour, endMin] = event.endTime.split(':');
 
     startDate.setHours(parseInt(startHour), parseInt(startMin), 0, 0);
     const endDate = new Date(startDate);
     endDate.setHours(parseInt(endHour), parseInt(endMin), 0, 0);
 
     const formatDate = (date: Date) => {
-      return date.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+      return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
     };
 
-    const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${formatDate(startDate)}/${formatDate(endDate)}${event.description ? `&details=${encodeURIComponent(event.description)}` : ""}`;
+    const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${formatDate(startDate)}/${formatDate(endDate)}${event.description ? `&details=${encodeURIComponent(event.description)}` : ''}`;
 
-    window.open(googleCalendarUrl, "_blank");
+    window.open(googleCalendarUrl, '_blank');
   };
 
   return (
@@ -115,7 +115,10 @@ END:VEVENT
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Card className="border-2 hover:border-primary transition-colors cursor-pointer" onClick={downloadICal}>
+            <Card
+              className="border-2 hover:border-primary transition-colors cursor-pointer"
+              onClick={downloadICal}
+            >
               <CardContent className="p-6">
                 <div className="flex items-start gap-4">
                   <div className="p-3 rounded-lg bg-blue-500/10">
@@ -124,7 +127,8 @@ END:VEVENT
                   <div className="flex-1">
                     <h3 className="font-semibold mb-1">iCal (.ics)</h3>
                     <p className="text-sm text-muted-foreground mb-3">
-                      Exporteer naar iCal formaat voor Apple Calendar, Outlook, en andere agenda-apps
+                      Exporteer naar iCal formaat voor Apple Calendar, Outlook, en andere
+                      agenda-apps
                     </p>
                     <Button disabled={exporting} size="sm">
                       {exporting ? (
@@ -144,7 +148,10 @@ END:VEVENT
               </CardContent>
             </Card>
 
-            <Card className="border-2 hover:border-primary transition-colors cursor-pointer" onClick={exportToGoogleCalendar}>
+            <Card
+              className="border-2 hover:border-primary transition-colors cursor-pointer"
+              onClick={exportToGoogleCalendar}
+            >
               <CardContent className="p-6">
                 <div className="flex items-start gap-4">
                   <div className="p-3 rounded-lg bg-red-500/10">

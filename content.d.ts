@@ -1,10 +1,10 @@
-declare module "@/content.json" {
+declare module '@/content.json' {
   interface ButtonConfig {
     url: string;
     text: string;
     icon: string;
-    iconType?: "name" | "url";
-    variant?: "primary" | "secondary";
+    iconType?: 'name' | 'url';
+    variant?: 'primary' | 'secondary';
     enabled?: boolean;
   }
 
@@ -25,8 +25,8 @@ declare module "@/content.json" {
     number: string;
     question: string;
     answer: string;
-    type: "inline" | "section";
-    difficulty?: "easy" | "medium" | "hard";
+    type: 'inline' | 'section';
+    difficulty?: 'easy' | 'medium' | 'hard';
   }
 
   interface Paragraph {
@@ -66,9 +66,9 @@ declare module "@/content.json" {
     showTranscriptExport?: boolean;
     showCopyTranscript?: boolean;
     // NEW: Default view mode
-    defaultViewMode?: "book" | "study" | "simple" | "advanced";
+    defaultViewMode?: 'book' | 'study' | 'simple' | 'advanced';
     // NEW: Available view modes on this page only
-    availableModes?: ("book" | "study" | "simple" | "advanced")[];
+    availableModes?: ('book' | 'study' | 'simple' | 'advanced')[];
     sections: EnhancedSection[];
   };
   export default content;

@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useCallback, useState } from "react";
-import { useLearningPlatformStore } from "@/store/useLearningPlatformStore";
-import { getGameById, type GameShellProps } from "@/lib/learning-platform/game-registry";
-import { getHighScore, saveHighScore, type GameScoreId } from "@/lib/learning-platform/game-scores";
-import type { LearningMode } from "@/types/learning-platform";
-import { useTranslation } from "@/lib/i18n";
-import { Confetti } from "./ui/Confetti";
+import { useCallback, useState } from 'react';
+import { useLearningPlatformStore } from '@/store/useLearningPlatformStore';
+import { getGameById } from '@/lib/learning-platform/game-registry';
+import { getHighScore, saveHighScore, type GameScoreId } from '@/lib/learning-platform/game-scores';
+import type { LearningMode } from '@/types/learning-platform';
+import { useTranslation } from '@/lib/i18n';
+import { Confetti } from './ui/Confetti';
 
 export function GameShell({
   gameId,
@@ -24,9 +24,9 @@ export function GameShell({
   }) => React.ReactNode;
 }) {
   const { t } = useTranslation();
-  const studySetId = useLearningPlatformStore((s) => s.studySet?.id ?? "");
+  const studySetId = useLearningPlatformStore((s) => s.studySet?.id ?? '');
   const game = getGameById(gameId);
-  const scoreId = (game?.scoreId ?? "blast") as GameScoreId;
+  const scoreId = (game?.scoreId ?? 'blast') as GameScoreId;
   const lowerIsBetter = game?.lowerScoreIsBetter ?? false;
 
   const [score, setScore] = useState(0);
@@ -59,19 +59,17 @@ export function GameShell({
           onClick={onQuit}
           className="text-sm text-muted-foreground hover:text-foreground px-3 py-1.5 rounded-md border border-border"
         >
-          {t("study_quit_game", "Stop spel")}
+          {t('study_quit_game', 'Stop spel')}
         </button>
         <div className="flex gap-4 text-sm">
           <span className="font-medium text-foreground">
-            {showHighScoreLabel
-              ? t("study_highscore", "Highscore!")
-              : t("study_score", "Score")}
-            : {score}
+            {showHighScoreLabel ? t('study_highscore', 'Highscore!') : t('study_score', 'Score')}:{' '}
+            {score}
           </span>
           {best !== null && (
             <span className="text-muted-foreground">
-              {t("study_best", "Beste")}: {best}
-              {lowerIsBetter ? "s" : ""}
+              {t('study_best', 'Beste')}: {best}
+              {lowerIsBetter ? 's' : ''}
             </span>
           )}
         </div>

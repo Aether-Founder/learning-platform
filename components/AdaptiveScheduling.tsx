@@ -1,19 +1,24 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Calendar, Clock, TrendingUp, Brain, Target, Zap } from "lucide-react";
+import { useState, useEffect, useCallback } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Calendar, Clock, TrendingUp, Brain, Target, Zap } from 'lucide-react';
 
 interface AdaptiveSchedule {
   id: string;
   subject: string;
   topic: string;
   recommendedTime: number;
-  difficulty: "easy" | "medium" | "hard";
+  difficulty: 'easy' | 'medium' | 'hard';
   confidence: number;
   priority: number;
   scheduledDate: string;
@@ -24,20 +29,19 @@ interface AdaptiveSchedulingProps {
   onScheduleSession?: (scheduleId: string) => void;
 }
 
-export function AdaptiveScheduling({ userId, onScheduleSession }: AdaptiveSchedulingProps) {
+export function AdaptiveScheduling({
+  userId: _userId,
+  onScheduleSession,
+}: AdaptiveSchedulingProps) {
   const [schedules, setSchedules] = useState<AdaptiveSchedule[]>([]);
   const [loading, setLoading] = useState(true);
-  const [timeRange, setTimeRange] = useState<"week" | "month">("week");
-  const [sortBy, setSortBy] = useState<"priority" | "difficulty" | "confidence">("priority");
+  const [timeRange, setTimeRange] = useState<'week' | 'month'>('week');
+  const [sortBy, setSortBy] = useState<'priority' | 'difficulty' | 'confidence'>('priority');
 
-  useEffect(() => {
-    fetchSchedules();
-  }, [userId, timeRange]);
-
-  const fetchSchedules = async () => {
+  const fetchSchedules = useCallback(async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       const response = await fetch(`/api/studyplans/adaptive?timeRange=${timeRange}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -49,34 +53,38 @@ export function AdaptiveScheduling({ userId, onScheduleSession }: AdaptiveSchedu
         setSchedules(data.schedules || []);
       }
     } catch (error) {
-      console.error("Failed to fetch adaptive schedules:", error);
+      console.error('Failed to fetch adaptive schedules:', error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [timeRange]);
+
+  useEffect(() => {
+    fetchSchedules();
+  }, [fetchSchedules]);
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case "easy":
-        return "bg-green-500";
-      case "medium":
-        return "bg-yellow-500";
-      case "hard":
-        return "bg-red-500";
+      case 'easy':
+        return 'bg-green-500';
+      case 'medium':
+        return 'bg-yellow-500';
+      case 'hard':
+        return 'bg-red-500';
       default:
-        return "bg-gray-500";
+        return 'bg-gray-500';
     }
   };
 
   const getSortedSchedules = () => {
     const sorted = [...schedules];
     switch (sortBy) {
-      case "priority":
+      case 'priority':
         return sorted.sort((a, b) => b.priority - a.priority);
-      case "difficulty":
+      case 'difficulty':
         const difficultyOrder = { hard: 3, medium: 2, easy: 1 };
         return sorted.sort((a, b) => difficultyOrder[b.difficulty] - difficultyOrder[a.difficulty]);
-      case "confidence":
+      case 'confidence':
         return sorted.sort((a, b) => a.confidence - b.confidence);
       default:
         return sorted;
@@ -84,9 +92,10 @@ export function AdaptiveScheduling({ userId, onScheduleSession }: AdaptiveSchedu
   };
 
   const totalStudyTime = schedules.reduce((sum, s) => sum + s.recommendedTime, 0);
-  const averageConfidence = schedules.length > 0
-    ? Math.round(schedules.reduce((sum, s) => sum + s.confidence, 0) / schedules.length)
-    : 0;
+  const averageConfidence =
+    schedules.length > 0
+      ? Math.round(schedules.reduce((sum, s) => sum + s.confidence, 0) / schedules.length)
+      : 0;
   const highPriorityCount = schedules.filter((s) => s.priority >= 8).length;
 
   if (loading) {
@@ -107,7 +116,10 @@ export function AdaptiveScheduling({ userId, onScheduleSession }: AdaptiveSchedu
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold">Adaptieve Planning</h2>
         <div className="flex items-center gap-2">
-          <Select value={timeRange} onValueChange={(value: "week" | "month") => setTimeRange(value)}>
+          <Select
+            value={timeRange}
+            onValueChange={(value: 'week' | 'month') => setTimeRange(value)}
+          >
             <SelectTrigger className="w-32">
               <SelectValue />
             </SelectTrigger>
@@ -116,7 +128,10 @@ export function AdaptiveScheduling({ userId, onScheduleSession }: AdaptiveSchedu
               <SelectItem value="month">Deze Maand</SelectItem>
             </SelectContent>
           </Select>
-          <Select value={sortBy} onValueChange={(value: "priority" | "difficulty" | "confidence") => setSortBy(value)}>
+          <Select
+            value={sortBy}
+            onValueChange={(value: 'priority' | 'difficulty' | 'confidence') => setSortBy(value)}
+          >
             <SelectTrigger className="w-40">
               <SelectValue />
             </SelectTrigger>
@@ -195,7 +210,9 @@ export function AdaptiveScheduling({ userId, onScheduleSession }: AdaptiveSchedu
                     </div>
                   </div>
                 </div>
-                <div className={`w-3 h-3 rounded-full ${getDifficultyColor(schedule.difficulty)}`} />
+                <div
+                  className={`w-3 h-3 rounded-full ${getDifficultyColor(schedule.difficulty)}`}
+                />
               </div>
 
               <div className="space-y-2">
@@ -217,14 +234,14 @@ export function AdaptiveScheduling({ userId, onScheduleSession }: AdaptiveSchedu
                   <TrendingUp className="w-3 h-3" />
                   <span>
                     {schedule.confidence < 50
-                      ? "Oefening aanbevolen"
+                      ? 'Oefening aanbevolen'
                       : schedule.confidence < 75
-                      ? "Versterking nodig"
-                      : "Klaar voor toets"}
+                        ? 'Versterking nodig'
+                        : 'Klaar voor toets'}
                   </span>
                 </div>
-                <Badge variant={schedule.priority >= 8 ? "default" : "outline"}>
-                  {schedule.priority >= 8 ? "Hoog" : schedule.priority >= 5 ? "Middel" : "Laag"}
+                <Badge variant={schedule.priority >= 8 ? 'default' : 'outline'}>
+                  {schedule.priority >= 8 ? 'Hoog' : schedule.priority >= 5 ? 'Middel' : 'Laag'}
                 </Badge>
               </div>
             </div>

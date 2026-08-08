@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState, useRef } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Calendar as CalendarIcon, Plus, Clock } from "lucide-react";
+import { useState, useRef } from 'react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Calendar as CalendarIcon, Plus } from 'lucide-react';
 
 interface Event {
   id: string;
@@ -14,7 +14,7 @@ interface Event {
 }
 
 interface DragDropCalendarProps {
-  onEventCreate?: (event: Omit<Event, "id">) => void;
+  onEventCreate?: (event: Omit<Event, 'id'>) => void;
   existingEvents?: Event[];
 }
 
@@ -23,7 +23,7 @@ export function DragDropCalendar({ onEventCreate, existingEvents = [] }: DragDro
   const [dragStartTime, setDragStartTime] = useState<number | null>(null);
   const calendarRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseDown = (e: React.MouseEvent, date: Date) => {
+  const handleMouseDown = (e: React.MouseEvent, _date: Date) => {
     if (e.button !== 0) return;
     setIsDragging(true);
     setDragStartTime(Date.now());
@@ -36,14 +36,13 @@ export function DragDropCalendar({ onEventCreate, existingEvents = [] }: DragDro
     if (dragDuration > 200) {
       const rect = calendarRef.current?.getBoundingClientRect();
       if (rect) {
-        const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
         const hour = Math.floor(y / 50);
         const startTime = `${hour.toString().padStart(2, '0')}:00`;
         const endTime = `${(hour + 1).toString().padStart(2, '0')}:00`;
 
         onEventCreate?.({
-          title: "Nieuw Event",
+          title: 'Nieuw Event',
           date,
           startTime,
           endTime,
@@ -72,9 +71,7 @@ export function DragDropCalendar({ onEventCreate, existingEvents = [] }: DragDro
   const hours = Array.from({ length: 12 }, (_, i) => i + 8);
 
   const getEventsForDay = (date: Date) => {
-    return existingEvents.filter(
-      (event) => event.date.toDateString() === date.toDateString()
-    );
+    return existingEvents.filter((event) => event.date.toDateString() === date.toDateString());
   };
 
   return (
@@ -96,11 +93,9 @@ export function DragDropCalendar({ onEventCreate, existingEvents = [] }: DragDro
                 {weekDays.map((day) => (
                   <div key={day.toISOString()} className="text-center">
                     <div className="text-sm font-medium">
-                      {day.toLocaleDateString("nl-NL", { weekday: "short" })}
+                      {day.toLocaleDateString('nl-NL', { weekday: 'short' })}
                     </div>
-                    <div className="text-xs text-muted-foreground">
-                      {day.getDate()}
-                    </div>
+                    <div className="text-xs text-muted-foreground">{day.getDate()}</div>
                   </div>
                 ))}
               </div>
@@ -119,7 +114,7 @@ export function DragDropCalendar({ onEventCreate, existingEvents = [] }: DragDro
                         onMouseUp={(e) => handleMouseUp(e, day)}
                       >
                         {getEventsForDay(day)
-                          .filter((event) => parseInt(event.startTime.split(":")[0]) === hour)
+                          .filter((event) => parseInt(event.startTime.split(':')[0]) === hour)
                           .map((event) => (
                             <div
                               key={event.id}

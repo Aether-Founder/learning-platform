@@ -4,7 +4,8 @@ import { createCalendarEventUpdate, serializeCalendarEvent } from '@/lib/supabas
 
 async function ownedEvent(request: NextRequest, id: string) {
   const auth = await getRequestUser(request);
-  if (auth.error || !auth.user) return { response: NextResponse.json({ error: 'Not authenticated' }, { status: 401 }) };
+  if (auth.error || !auth.user)
+    return { response: NextResponse.json({ error: 'Not authenticated' }, { status: 401 }) };
 
   const { data, error } = await auth.client
     .from('calendar_events')
@@ -13,7 +14,8 @@ async function ownedEvent(request: NextRequest, id: string) {
     .eq('user_id', auth.user.id)
     .single();
 
-  if (error || !data) return { response: NextResponse.json({ error: 'Event not found' }, { status: 404 }) };
+  if (error || !data)
+    return { response: NextResponse.json({ error: 'Event not found' }, { status: 404 }) };
   return { client: auth.client, event: data };
 }
 

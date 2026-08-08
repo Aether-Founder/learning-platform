@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { X, Loader2 } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { X, Loader2 } from 'lucide-react';
 
 interface User {
   id: string;
@@ -24,34 +24,34 @@ interface AuthModalProps {
 
 export function AuthModal({ isOpen, onClose, onAuthSuccess, onGuestMode }: AuthModalProps) {
   const [mode, setMode] = useState<'login' | 'register'>('login');
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = "hidden";
-      
+      document.body.style.overflow = 'hidden';
+
       // Load saved credentials
-      const savedCredentials = localStorage.getItem("auth_credentials");
+      const savedCredentials = localStorage.getItem('auth_credentials');
       if (savedCredentials) {
         const credentials = JSON.parse(savedCredentials);
-        setEmail(credentials.email || "");
+        setEmail(credentials.email || '');
       }
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = 'unset';
     }
 
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = 'unset';
     };
   }, [isOpen]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
+    setError('');
     setLoading(true);
 
     try {
@@ -71,7 +71,7 @@ export function AuthModal({ isOpen, onClose, onAuthSuccess, onGuestMode }: AuthM
 
         // Save credentials
         localStorage.setItem('auth_credentials', JSON.stringify({ email }));
-        
+
         // Save tokens
         localStorage.setItem('access_token', data.tokens.accessToken);
         localStorage.setItem('refresh_token', data.tokens.refreshToken);
@@ -94,7 +94,7 @@ export function AuthModal({ isOpen, onClose, onAuthSuccess, onGuestMode }: AuthM
 
         // Save credentials
         localStorage.setItem('auth_credentials', JSON.stringify({ email }));
-        
+
         // Save tokens
         localStorage.setItem('access_token', data.tokens.accessToken);
         localStorage.setItem('refresh_token', data.tokens.refreshToken);
@@ -120,7 +120,7 @@ export function AuthModal({ isOpen, onClose, onAuthSuccess, onGuestMode }: AuthM
   if (!isOpen) return null;
 
   return (
-    <div 
+    <div
       className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
       onClick={(e) => {
         if (e.target === e.currentTarget) {
@@ -191,9 +191,7 @@ export function AuthModal({ isOpen, onClose, onAuthSuccess, onGuestMode }: AuthM
             />
           </div>
 
-          {error && (
-            <p className="text-sm text-red-500">{error}</p>
-          )}
+          {error && <p className="text-sm text-red-500">{error}</p>}
 
           <button
             type="submit"
@@ -205,8 +203,10 @@ export function AuthModal({ isOpen, onClose, onAuthSuccess, onGuestMode }: AuthM
                 <Loader2 className="w-4 h-4 animate-spin" />
                 {mode === 'login' ? 'Inloggen...' : 'Registreren...'}
               </>
+            ) : mode === 'login' ? (
+              'Inloggen'
             ) : (
-              mode === 'login' ? 'Inloggen' : 'Registreren'
+              'Registreren'
             )}
           </button>
 
@@ -215,12 +215,12 @@ export function AuthModal({ isOpen, onClose, onAuthSuccess, onGuestMode }: AuthM
               type="button"
               onClick={() => {
                 setMode(mode === 'login' ? 'register' : 'login');
-                setError("");
+                setError('');
               }}
               className="text-primary hover:underline"
             >
-              {mode === 'login' 
-                ? 'Nog geen account? Registreer hier' 
+              {mode === 'login'
+                ? 'Nog geen account? Registreer hier'
                 : 'Heb je al een account? Log hier in'}
             </button>
           </div>

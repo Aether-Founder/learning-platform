@@ -1,6 +1,6 @@
 /**
  * Password Reset Confirmation Page
- * 
+ *
  * User lands here from email link to set new password
  */
 
@@ -47,7 +47,7 @@ export default function ResetPasswordConfirmPage() {
     }
 
     setSuccess(true);
-    
+
     // Redirect to dashboard after 2 seconds
     setTimeout(() => {
       router.push('/');
@@ -72,9 +72,7 @@ export default function ResetPasswordConfirmPage() {
               <path d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h1 className="font-display text-3xl font-semibold">
-            Wachtwoord aangepast!
-          </h1>
+          <h1 className="font-display text-3xl font-semibold">Wachtwoord aangepast!</h1>
           <p className="mt-2 text-sm text-muted-foreground">
             Je wachtwoord is succesvol gewijzigd. Je wordt doorgestuurd...
           </p>
@@ -87,9 +85,7 @@ export default function ResetPasswordConfirmPage() {
     <div className="flex min-h-screen items-center justify-center bg-background px-4 py-12">
       <div className="w-full max-w-md">
         <div className="text-center">
-          <h1 className="font-display text-4xl font-semibold">
-            Nieuw wachtwoord instellen
-          </h1>
+          <h1 className="font-display text-4xl font-semibold">Nieuw wachtwoord instellen</h1>
           <p className="mt-2 text-sm text-muted-foreground">
             Kies een sterk wachtwoord voor je account
           </p>
@@ -104,10 +100,7 @@ export default function ResetPasswordConfirmPage() {
 
           <div className="space-y-4">
             <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-foreground"
-              >
+              <label htmlFor="password" className="block text-sm font-medium text-foreground">
                 Nieuw wachtwoord
               </label>
               <input
@@ -121,9 +114,7 @@ export default function ResetPasswordConfirmPage() {
                 placeholder="••••••••"
                 minLength={6}
               />
-              <p className="mt-1 text-xs text-muted-foreground">
-                Minimaal 6 tekens
-              </p>
+              <p className="mt-1 text-xs text-muted-foreground">Minimaal 6 tekens</p>
             </div>
 
             <div>
@@ -155,10 +146,7 @@ export default function ResetPasswordConfirmPage() {
           </button>
 
           <div className="text-center">
-            <Link
-              href="/login"
-              className="text-sm text-muted-foreground hover:text-foreground"
-            >
+            <Link href="/login" className="text-sm text-muted-foreground hover:text-foreground">
               ← Terug naar inloggen
             </Link>
           </div>

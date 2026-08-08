@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { useLearningPlatformStore } from "@/store/useLearningPlatformStore";
-import { buildTestQuestions } from "@/lib/learning-platform/question-generator";
-import type { Question } from "@/types/learning-platform";
-import { McqQuestion } from "../questions/McqQuestion";
-import { WrittenQuestion } from "../questions/WrittenQuestion";
-import { TrueFalseQuestion } from "../questions/TrueFalseQuestion";
-import { MarkdownContent } from "../shared/MarkdownContent";
+import { useEffect, useState } from 'react';
+import { useLearningPlatformStore } from '@/store/useLearningPlatformStore';
+import { buildTestQuestions } from '@/lib/learning-platform/question-generator';
+import type { Question } from '@/types/learning-platform';
+import { McqQuestion } from '../questions/McqQuestion';
+import { WrittenQuestion } from '../questions/WrittenQuestion';
+import { TrueFalseQuestion } from '../questions/TrueFalseQuestion';
+import { MarkdownContent } from '../shared/MarkdownContent';
 
 export function TestMode() {
   const { playableTerms, studySet, settings, recordAnswer, beginSession, endSession } =
@@ -15,14 +15,14 @@ export function TestMode() {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, { answer: string; correct: boolean }>>({});
-  const [phase, setPhase] = useState<"active" | "results">("active");
+  const [phase, setPhase] = useState<'active' | 'results'>('active');
 
   useEffect(() => {
     const all = studySet?.terms ?? playableTerms;
     const qs = buildTestQuestions(playableTerms, all, settings);
     setQuestions(qs);
-    beginSession("test", qs.length);
-  }, []);
+    beginSession('test', qs.length);
+  }, [beginSession, playableTerms, settings, studySet?.terms]);
 
   const current = questions[index];
 
@@ -33,7 +33,7 @@ export function TestMode() {
       correctAnswer: q.correctAnswer,
       isCorrect: correct,
       wasOverridden: false,
-      reviewGrade: correct ? (q.type === "written" ? "good" : "hard") : "again",
+      reviewGrade: correct ? (q.type === 'written' ? 'good' : 'hard') : 'again',
       timeSpent: Date.now() - q.startTime.getTime(),
     });
     const nextAnswers = { ...answers, [q.id]: { answer, correct } };
@@ -42,7 +42,7 @@ export function TestMode() {
       const correctCount = Object.values(nextAnswers).filter((a) => a.correct).length;
       const score = Math.round((correctCount / questions.length) * 100);
       endSession(score);
-      setPhase("results");
+      setPhase('results');
     } else {
       setIndex((i) => i + 1);
     }
@@ -52,7 +52,7 @@ export function TestMode() {
     return <p className="text-center text-muted-foreground">No questions generated.</p>;
   }
 
-  if (phase === "results") {
+  if (phase === 'results') {
     const correctCount = Object.values(answers).filter((a) => a.correct).length;
     const score = Math.round((correctCount / questions.length) * 100);
     return (
@@ -71,13 +71,11 @@ export function TestMode() {
               <li
                 key={q.id}
                 className={`rounded-lg border p-4 ${
-                  a?.correct ? "border-green-500/30" : "border-red-500/30"
+                  a?.correct ? 'border-green-500/30' : 'border-red-500/30'
                 }`}
               >
                 <MarkdownContent className="text-sm mb-2">{q.prompt}</MarkdownContent>
-                <p className="text-xs text-muted-foreground">
-                  Your answer: {a?.answer ?? "—"}
-                </p>
+                <p className="text-xs text-muted-foreground">Your answer: {a?.answer ?? '—'}</p>
                 {!a?.correct && (
                   <p className="text-xs mt-1 text-green-700 dark:text-green-400">
                     Correct: {q.correctAnswer}
@@ -91,16 +89,18 @@ export function TestMode() {
           <button
             type="button"
             onClick={() => {
-              const retry = questions.filter((q) => !answers[q.id]?.correct).map((q) => ({
-                ...q,
-                id: `${q.id}-retry`,
-                startTime: new Date(),
-              }));
+              const retry = questions
+                .filter((q) => !answers[q.id]?.correct)
+                .map((q) => ({
+                  ...q,
+                  id: `${q.id}-retry`,
+                  startTime: new Date(),
+                }));
               setQuestions(retry);
               setAnswers({});
               setIndex(0);
-              setPhase("active");
-              beginSession("test", retry.length);
+              setPhase('active');
+              beginSession('test', retry.length);
             }}
             className="w-full rounded-xl border border-border bg-foreground px-4 py-3 text-sm font-medium text-background"
           >
@@ -118,20 +118,20 @@ export function TestMode() {
       <p className="text-sm text-muted-foreground text-center">
         Question {index + 1} of {questions.length} (no feedback until end)
       </p>
-      {current.type === "multiple-choice" && (
+      {current.type === 'multiple-choice' && (
         <McqQuestion
           question={current}
-          showFeedback={settings.testFeedbackMode === "instant"}
+          showFeedback={settings.testFeedbackMode === 'instant'}
           onAnswer={(answer, correct) => storeAnswer(current, answer, correct)}
         />
       )}
-      {current.type === "true-false" && (
+      {current.type === 'true-false' && (
         <TrueFalseQuestion
           question={current}
           onAnswer={(answer, correct) => storeAnswer(current, answer, correct)}
         />
       )}
-      {current.type === "written" && (
+      {current.type === 'written' && (
         <WrittenQuestion
           question={current}
           smartGrading={settings.smartGrading}

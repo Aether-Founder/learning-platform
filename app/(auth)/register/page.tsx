@@ -1,6 +1,6 @@
 /**
  * Register Page
- * 
+ *
  * New user registration with email/password
  * Creates user profile automatically via database trigger
  */
@@ -10,7 +10,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { signUp, isUsernameAvailable } from '@/lib/supabase/auth';
+import { signUp, signIn, isUsernameAvailable } from '@/lib/supabase/auth';
 import { useRedirectIfAuthenticated } from '@/hooks/useAuth';
 import { Eye, EyeOff } from 'lucide-react';
 
@@ -20,8 +20,10 @@ export default function RegisterPage() {
   const router = useRouter();
 
   const [formData, setFormData] = useState(() => {
-    const draftEmail = typeof window !== 'undefined' ? sessionStorage.getItem('auth_draft_email') || '' : '';
-    const draftPassword = typeof window !== 'undefined' ? sessionStorage.getItem('auth_draft_password') || '' : '';
+    const draftEmail =
+      typeof window !== 'undefined' ? sessionStorage.getItem('auth_draft_email') || '' : '';
+    const draftPassword =
+      typeof window !== 'undefined' ? sessionStorage.getItem('auth_draft_password') || '' : '';
     return {
       email: draftEmail,
       password: draftPassword,
@@ -128,15 +130,12 @@ export default function RegisterPage() {
     setSuccess(true);
   };
 
-
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4 py-12">
       <div className="w-full max-w-md">
         <div className="text-center">
           <h1 className="font-display text-4xl font-semibold">Maak een account</h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Begin met slimmer studeren
-          </p>
+          <p className="mt-2 text-sm text-muted-foreground">Begin met slimmer studeren</p>
         </div>
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-6">
@@ -148,10 +147,7 @@ export default function RegisterPage() {
 
           <div className="space-y-4">
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-foreground"
-              >
+              <label htmlFor="email" className="block text-sm font-medium text-foreground">
                 E-mailadres *
               </label>
               <input
@@ -168,10 +164,7 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label
-                htmlFor="username"
-                className="block text-sm font-medium text-foreground"
-              >
+              <label htmlFor="username" className="block text-sm font-medium text-foreground">
                 Gebruikersnaam *
               </label>
               <input
@@ -186,16 +179,11 @@ export default function RegisterPage() {
                 placeholder="gebruikersnaam"
                 minLength={3}
               />
-              <p className="mt-1 text-xs text-muted-foreground">
-                Minimaal 3 tekens, uniek
-              </p>
+              <p className="mt-1 text-xs text-muted-foreground">Minimaal 3 tekens, uniek</p>
             </div>
 
             <div>
-              <label
-                htmlFor="fullName"
-                className="block text-sm font-medium text-foreground"
-              >
+              <label htmlFor="fullName" className="block text-sm font-medium text-foreground">
                 Volledige naam *
               </label>
               <input
@@ -212,17 +200,14 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-foreground"
-              >
+              <label htmlFor="password" className="block text-sm font-medium text-foreground">
                 Wachtwoord *
               </label>
               <div className="relative">
                 <input
                   id="password"
                   name="password"
-                  type={formData.showPassword ? "text" : "password"}
+                  type={formData.showPassword ? 'text' : 'password'}
                   value={formData.password}
                   onChange={handleChange}
                   required
@@ -233,9 +218,11 @@ export default function RegisterPage() {
                 />
                 <button
                   type="button"
-                  onClick={() => setFormData(prev => ({ ...prev, showPassword: !prev.showPassword }))}
+                  onClick={() =>
+                    setFormData((prev) => ({ ...prev, showPassword: !prev.showPassword }))
+                  }
                   className="absolute right-2 top-0 mt-2.5 h-6 w-6 flex items-center justify-center text-sm rounded-md hover:bg-secondary/50"
-                  aria-label={formData.showPassword ? "Verberg wachtwoord" : "Toon wachtwoord"}
+                  aria-label={formData.showPassword ? 'Verberg wachtwoord' : 'Toon wachtwoord'}
                 >
                   {formData.showPassword ? (
                     <EyeOff className="h-4 w-4 text-muted-foreground" />
@@ -244,9 +231,7 @@ export default function RegisterPage() {
                   )}
                 </button>
               </div>
-              <p className="mt-1 text-xs text-muted-foreground">
-                Minimaal 6 tekens
-              </p>
+              <p className="mt-1 text-xs text-muted-foreground">Minimaal 6 tekens</p>
             </div>
 
             <div>
@@ -260,7 +245,7 @@ export default function RegisterPage() {
                 <input
                   id="confirmPassword"
                   name="confirmPassword"
-                  type={formData.showConfirmPassword ? "text" : "password"}
+                  type={formData.showConfirmPassword ? 'text' : 'password'}
                   value={formData.confirmPassword}
                   onChange={handleChange}
                   required
@@ -270,9 +255,16 @@ export default function RegisterPage() {
                 />
                 <button
                   type="button"
-                  onClick={() => setFormData(prev => ({ ...prev, showConfirmPassword: !prev.showConfirmPassword }))}
+                  onClick={() =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      showConfirmPassword: !prev.showConfirmPassword,
+                    }))
+                  }
                   className="absolute right-2 top-0 mt-2.5 h-6 w-6 flex items-center justify-center text-sm rounded-md hover:bg-secondary/50"
-                  aria-label={formData.showConfirmPassword ? "Verberg wachtwoord" : "Toon wachtwoord"}
+                  aria-label={
+                    formData.showConfirmPassword ? 'Verberg wachtwoord' : 'Toon wachtwoord'
+                  }
                 >
                   {formData.showConfirmPassword ? (
                     <EyeOff className="h-4 w-4 text-muted-foreground" />
@@ -297,19 +289,14 @@ export default function RegisterPage() {
               <div className="w-full border-t border-border" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-2 text-muted-foreground">
-                Of
-              </span>
+              <span className="bg-background px-2 text-muted-foreground">Of</span>
             </div>
           </div>
 
           <div className="text-center">
             <span className="text-sm text-muted-foreground">
               Heb je al een account?{' '}
-              <Link
-                href="/login"
-                className="font-medium text-primary hover:underline"
-              >
+              <Link href="/login" className="font-medium text-primary hover:underline">
                 Log in
               </Link>
             </span>

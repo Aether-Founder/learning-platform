@@ -1,18 +1,24 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useUser, useUserProfile } from "@/hooks/useAuth";
-import { supabase } from "@/lib/supabase/client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
-import { Loader2, Save, LogOut } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useUser, useUserProfile } from '@/hooks/useAuth';
+import { supabase } from '@/lib/supabase/client';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
+import { Loader2, Save, LogOut } from 'lucide-react';
 
 type UserPreferences = {
   language: 'nl' | 'en';
@@ -38,12 +44,19 @@ function readPreferences(value: unknown): UserPreferences {
   const preferences = value as Partial<UserPreferences>;
   return {
     language: preferences.language === 'en' ? 'en' : 'nl',
-    theme: preferences.theme === 'light' || preferences.theme === 'dark' ? preferences.theme : 'system',
-    defaultViewMode: preferences.defaultViewMode === 'study' || preferences.defaultViewMode === 'simple' || preferences.defaultViewMode === 'advanced'
-      ? preferences.defaultViewMode
-      : 'book',
-    studyReminderDays: Array.isArray(preferences.studyReminderDays) ? preferences.studyReminderDays : defaultPreferences.studyReminderDays,
-    timezone: typeof preferences.timezone === 'string' ? preferences.timezone : defaultPreferences.timezone,
+    theme:
+      preferences.theme === 'light' || preferences.theme === 'dark' ? preferences.theme : 'system',
+    defaultViewMode:
+      preferences.defaultViewMode === 'study' ||
+      preferences.defaultViewMode === 'simple' ||
+      preferences.defaultViewMode === 'advanced'
+        ? preferences.defaultViewMode
+        : 'book',
+    studyReminderDays: Array.isArray(preferences.studyReminderDays)
+      ? preferences.studyReminderDays
+      : defaultPreferences.studyReminderDays,
+    timezone:
+      typeof preferences.timezone === 'string' ? preferences.timezone : defaultPreferences.timezone,
   };
 }
 
@@ -61,7 +74,9 @@ export default function ProfilePage() {
   const handleSave = async () => {
     setSaving(true);
     try {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       if (!session) {
         router.push('/login?redirectTo=/profile');
         return;
@@ -70,7 +85,7 @@ export default function ProfilePage() {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${session.access_token}`,
+          Authorization: `Bearer ${session.access_token}`,
         },
         body: JSON.stringify({ preferences }),
       });
@@ -107,7 +122,8 @@ export default function ProfilePage() {
     );
   }
 
-  const displayName = profile?.full_name || user.user_metadata.full_name || user.email?.split('@')[0] || 'Gebruiker';
+  const displayName =
+    profile?.full_name || user.user_metadata.full_name || user.email?.split('@')[0] || 'Gebruiker';
   const avatarUrl = profile?.avatar_url || user.user_metadata.avatar_url;
   const createdAt = profile?.created_at || user.created_at;
 
@@ -148,41 +164,25 @@ export default function ProfilePage() {
               <div className="space-y-4">
                 <div>
                   <Label htmlFor="displayName">Naam</Label>
-                  <Input
-                    id="displayName"
-                    defaultValue={displayName}
-                    disabled
-                  />
+                  <Input id="displayName" defaultValue={displayName} disabled />
                 </div>
 
                 <div>
                   <Label htmlFor="email">E-mail</Label>
-                  <Input
-                    id="email"
-                    defaultValue={user.email}
-                    disabled
-                  />
+                  <Input id="email" defaultValue={user.email} disabled />
                 </div>
 
                 {profile?.track && (
                   <div>
                     <Label htmlFor="track">Profiel</Label>
-                    <Input
-                      id="track"
-                      defaultValue={profile.track}
-                      disabled
-                    />
+                    <Input id="track" defaultValue={profile.track} disabled />
                   </div>
                 )}
 
                 {profile?.grade_level && (
                   <div>
                     <Label htmlFor="gradeLevel">Klas</Label>
-                    <Input
-                      id="gradeLevel"
-                      defaultValue={profile.grade_level}
-                      disabled
-                    />
+                    <Input id="gradeLevel" defaultValue={profile.grade_level} disabled />
                   </div>
                 )}
               </div>
@@ -259,9 +259,7 @@ export default function ProfilePage() {
                   <Label htmlFor="timezone">Tijdzone</Label>
                   <Select
                     value={preferences.timezone}
-                    onValueChange={(value) =>
-                      setPreferences({ ...preferences, timezone: value })
-                    }
+                    onValueChange={(value) => setPreferences({ ...preferences, timezone: value })}
                   >
                     <SelectTrigger>
                       <SelectValue />
@@ -321,9 +319,7 @@ export default function ProfilePage() {
                 <div>
                   <Label>Abonnement</Label>
                   <p className="text-2xl font-bold">Aether basis</p>
-                  <p className="text-sm text-muted-foreground">
-                    Gratis account
-                  </p>
+                  <p className="text-sm text-muted-foreground">Gratis account</p>
                 </div>
 
                 <div>
@@ -336,15 +332,10 @@ export default function ProfilePage() {
                     })}
                   </p>
                 </div>
-
               </div>
 
               <div className="pt-4 border-t">
-                <Button
-                  variant="destructive"
-                  onClick={handleLogout}
-                  className="w-full"
-                >
+                <Button variant="destructive" onClick={handleLogout} className="w-full">
                   <LogOut className="w-4 h-4 mr-2" />
                   Uitloggen
                 </Button>

@@ -1,12 +1,18 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Target, TrendingUp, TrendingDown, Calendar, Clock, CheckCircle2, Circle } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Target, TrendingUp, Calendar, Clock, CheckCircle2, Circle } from 'lucide-react';
 
 interface Goal {
   id: string;
@@ -16,8 +22,8 @@ interface Goal {
   currentValue: number;
   unit: string;
   deadline: string;
-  category: "study" | "streak" | "score" | "time";
-  status: "active" | "completed" | "expired";
+  category: 'study' | 'streak' | 'score' | 'time';
+  status: 'active' | 'completed' | 'expired';
   createdAt: string;
 }
 
@@ -28,8 +34,8 @@ interface GoalProgressTrackingProps {
 export function GoalProgressTracking({ userId }: GoalProgressTrackingProps) {
   const [goals, setGoals] = useState<Goal[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState<"all" | "active" | "completed" | "expired">("all");
-  const [categoryFilter, setCategoryFilter] = useState<string>("all");
+  const [filter, setFilter] = useState<'all' | 'active' | 'completed' | 'expired'>('all');
+  const [categoryFilter, setCategoryFilter] = useState<string>('all');
 
   useEffect(() => {
     fetchGoals();
@@ -38,8 +44,8 @@ export function GoalProgressTracking({ userId }: GoalProgressTrackingProps) {
   const fetchGoals = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch("/api/goals", {
+      const token = localStorage.getItem('token');
+      const response = await fetch('/api/goals', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -50,7 +56,7 @@ export function GoalProgressTracking({ userId }: GoalProgressTrackingProps) {
         setGoals(data.goals || []);
       }
     } catch (error) {
-      console.error("Failed to fetch goals:", error);
+      console.error('Failed to fetch goals:', error);
     } finally {
       setLoading(false);
     }
@@ -58,9 +64,9 @@ export function GoalProgressTracking({ userId }: GoalProgressTrackingProps) {
 
   const handleCompleteGoal = async (goalId: string) => {
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       const response = await fetch(`/api/goals/${goalId}/complete`, {
-        method: "POST",
+        method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -70,7 +76,7 @@ export function GoalProgressTracking({ userId }: GoalProgressTrackingProps) {
         fetchGoals();
       }
     } catch (error) {
-      console.error("Failed to complete goal:", error);
+      console.error('Failed to complete goal:', error);
     }
   };
 
@@ -85,20 +91,20 @@ export function GoalProgressTracking({ userId }: GoalProgressTrackingProps) {
     const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
     const diffHours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 
-    if (diffMs <= 0) return "Verlopen";
+    if (diffMs <= 0) return 'Verlopen';
     if (diffDays > 0) return `${diffDays} dagen`;
     return `${diffHours} uur`;
   };
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case "study":
+      case 'study':
         return <Target className="w-4 h-4" />;
-      case "streak":
+      case 'streak':
         return <TrendingUp className="w-4 h-4" />;
-      case "score":
+      case 'score':
         return <CheckCircle2 className="w-4 h-4" />;
-      case "time":
+      case 'time':
         return <Clock className="w-4 h-4" />;
       default:
         return <Circle className="w-4 h-4" />;
@@ -107,32 +113,31 @@ export function GoalProgressTracking({ userId }: GoalProgressTrackingProps) {
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case "study":
-        return "bg-blue-500";
-      case "streak":
-        return "bg-orange-500";
-      case "score":
-        return "bg-green-500";
-      case "time":
-        return "bg-purple-500";
+      case 'study':
+        return 'bg-blue-500';
+      case 'streak':
+        return 'bg-orange-500';
+      case 'score':
+        return 'bg-green-500';
+      case 'time':
+        return 'bg-purple-500';
       default:
-        return "bg-gray-500";
+        return 'bg-gray-500';
     }
   };
 
   const filteredGoals = goals.filter((goal) => {
-    const matchesFilter =
-      filter === "all" || goal.status === filter;
-    const matchesCategory =
-      categoryFilter === "all" || goal.category === categoryFilter;
+    const matchesFilter = filter === 'all' || goal.status === filter;
+    const matchesCategory = categoryFilter === 'all' || goal.category === categoryFilter;
     return matchesFilter && matchesCategory;
   });
 
-  const activeGoals = goals.filter((g) => g.status === "active");
-  const completedGoals = goals.filter((g) => g.status === "completed");
-  const totalProgress = activeGoals.length > 0
-    ? Math.round(activeGoals.reduce((sum, g) => sum + getProgress(g), 0) / activeGoals.length)
-    : 0;
+  const activeGoals = goals.filter((g) => g.status === 'active');
+  const completedGoals = goals.filter((g) => g.status === 'completed');
+  const totalProgress =
+    activeGoals.length > 0
+      ? Math.round(activeGoals.reduce((sum, g) => sum + getProgress(g), 0) / activeGoals.length)
+      : 0;
 
   const categories = Array.from(new Set(goals.map((g) => g.category)));
 
@@ -154,7 +159,10 @@ export function GoalProgressTracking({ userId }: GoalProgressTrackingProps) {
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold">Doel Voortgang</h2>
         <div className="flex items-center gap-2">
-          <Select value={filter} onValueChange={(value: "all" | "active" | "completed" | "expired") => setFilter(value)}>
+          <Select
+            value={filter}
+            onValueChange={(value: 'all' | 'active' | 'completed' | 'expired') => setFilter(value)}
+          >
             <SelectTrigger className="w-32">
               <SelectValue />
             </SelectTrigger>
@@ -219,24 +227,28 @@ export function GoalProgressTracking({ userId }: GoalProgressTrackingProps) {
       <div className="space-y-4">
         {filteredGoals.map((goal) => {
           const progress = getProgress(goal);
-          const isCompleted = goal.status === "completed";
-          const isExpired = goal.status === "expired";
+          const isCompleted = goal.status === 'completed';
+          const isExpired = goal.status === 'expired';
           const timeRemaining = getTimeRemaining(goal.deadline);
 
           return (
             <Card
               key={goal.id}
-              className={`${isCompleted ? "bg-green-500/10 border-green-500/30" : isExpired ? "bg-red-500/10 border-red-500/30" : ""}`}
+              className={`${isCompleted ? 'bg-green-500/10 border-green-500/30' : isExpired ? 'bg-red-500/10 border-red-500/30' : ''}`}
             >
               <CardContent className="p-6">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
-                      <div className={`w-8 h-8 rounded-full ${getCategoryColor(goal.category)} flex items-center justify-center text-white`}>
+                      <div
+                        className={`w-8 h-8 rounded-full ${getCategoryColor(goal.category)} flex items-center justify-center text-white`}
+                      >
                         {getCategoryIcon(goal.category)}
                       </div>
                       <h3 className="font-semibold">{goal.title}</h3>
-                      <Badge variant={isCompleted ? "default" : isExpired ? "destructive" : "secondary"}>
+                      <Badge
+                        variant={isCompleted ? 'default' : isExpired ? 'destructive' : 'secondary'}
+                      >
                         {goal.status}
                       </Badge>
                     </div>
@@ -273,7 +285,7 @@ export function GoalProgressTracking({ userId }: GoalProgressTrackingProps) {
                     </div>
                     <div className="flex items-center gap-2">
                       <Clock className="w-4 h-4 text-muted-foreground" />
-                      <span className={isExpired ? "text-red-500 font-medium" : ""}>
+                      <span className={isExpired ? 'text-red-500 font-medium' : ''}>
                         {timeRemaining}
                       </span>
                     </div>
@@ -291,9 +303,9 @@ export function GoalProgressTracking({ userId }: GoalProgressTrackingProps) {
             <Target className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
             <h3 className="text-lg font-semibold mb-2">Geen Doelen</h3>
             <p className="text-sm text-muted-foreground">
-              {filter !== "all" || categoryFilter !== "all"
-                ? "Probeer andere filters"
-                : "Maak je eerste doel om te beginnen met het bijhouden van je voortgang!"}
+              {filter !== 'all' || categoryFilter !== 'all'
+                ? 'Probeer andere filters'
+                : 'Maak je eerste doel om te beginnen met het bijhouden van je voortgang!'}
             </p>
           </CardContent>
         </Card>

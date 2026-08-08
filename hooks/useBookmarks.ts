@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from 'react';
 
 interface Bookmark {
   paragraphId: string;
@@ -23,7 +23,7 @@ export function useBookmarks(pageId: string) {
         setBookmarkList(parsed);
         setBookmarks(new Set(parsed.map((b) => b.paragraphId)));
       } catch {
-        console.error("Failed to parse bookmarks");
+        console.error('Failed to parse bookmarks');
       }
     }
   }, [storageKey]);
@@ -38,23 +38,20 @@ export function useBookmarks(pageId: string) {
   }, [bookmarkList, storageKey]);
 
   // Add bookmark
-  const addBookmark = useCallback(
-    (paragraphId: string, title: string) => {
-      setBookmarks((prev) => new Set([...prev, paragraphId]));
-      setBookmarkList((prev) => {
-        const filtered = prev.filter((b) => b.paragraphId !== paragraphId);
-        return [
-          ...filtered,
-          {
-            paragraphId,
-            title,
-            timestamp: Date.now(),
-          },
-        ];
-      });
-    },
-    []
-  );
+  const addBookmark = useCallback((paragraphId: string, title: string) => {
+    setBookmarks((prev) => new Set([...prev, paragraphId]));
+    setBookmarkList((prev) => {
+      const filtered = prev.filter((b) => b.paragraphId !== paragraphId);
+      return [
+        ...filtered,
+        {
+          paragraphId,
+          title,
+          timestamp: Date.now(),
+        },
+      ];
+    });
+  }, []);
 
   // Remove bookmark
   const removeBookmark = useCallback((paragraphId: string) => {

@@ -5,12 +5,12 @@
 
 ## Verified Baseline
 
-| Check | Result |
-| --- | --- |
-| Type check (`npx tsc --noEmit`) | Passes |
-| Production build (`npm run build`) | Passes; 34 rendered pages and 33 dynamic API routes |
-| Reference Aether tokens under Tailwind v3 | Generated and verified |
-| Runtime dependencies required by legacy API routes | Declared and installed |
+| Check                                              | Result                                              |
+| -------------------------------------------------- | --------------------------------------------------- |
+| Type check (`npx tsc --noEmit`)                    | Passes                                              |
+| Production build (`npm run build`)                 | Passes; 34 rendered pages and 33 dynamic API routes |
+| Reference Aether tokens under Tailwind v3          | Generated and verified                              |
+| Runtime dependencies required by legacy API routes | Declared and installed                              |
 
 ## Inventory
 
@@ -22,28 +22,28 @@
 
 ### API contract groups
 
-| Group | Routes | Current storage/auth path |
-| --- | --- | --- |
-| Achievements, streaks, analytics | `/api/achievements`, `/api/streaks`, `/api/analytics/**` | Legacy JWT + SQLite-oriented libraries; analytics dashboard reads local JSON. |
-| Calendar, homework, plans, test weeks | `/api/calendar/**`, `/api/homework/**`, `/api/studyplans/**`, `/api/testweeks/**` | Legacy JWT + SQLite-oriented libraries. |
-| Study sets and content | `/api/studysets/**`, `/api/content/**` | Legacy JWT + SQLite-oriented libraries; JSON content loaders remain in use. |
-| Classes | `/api/classes/**` | Legacy JWT + SQLite-oriented libraries. |
-| LLM | `/api/llm/[page]` | Existing optional service route; out of scope until Phase 8. |
-| Supabase client layer | `lib/supabase/**`, auth pages/hooks, query helpers | Supabase Auth and PostgreSQL schema/types. |
+| Group                                 | Routes                                                                            | Current storage/auth path                                                     |
+| ------------------------------------- | --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| Achievements, streaks, analytics      | `/api/achievements`, `/api/streaks`, `/api/analytics/**`                          | Legacy JWT + SQLite-oriented libraries; analytics dashboard reads local JSON. |
+| Calendar, homework, plans, test weeks | `/api/calendar/**`, `/api/homework/**`, `/api/studyplans/**`, `/api/testweeks/**` | Legacy JWT + SQLite-oriented libraries.                                       |
+| Study sets and content                | `/api/studysets/**`, `/api/content/**`                                            | Legacy JWT + SQLite-oriented libraries; JSON content loaders remain in use.   |
+| Classes                               | `/api/classes/**`                                                                 | Legacy JWT + SQLite-oriented libraries.                                       |
+| LLM                                   | `/api/llm/[page]`                                                                 | Existing optional service route; out of scope until Phase 8.                  |
+| Supabase client layer                 | `lib/supabase/**`, auth pages/hooks, query helpers                                | Supabase Auth and PostgreSQL schema/types.                                    |
 
 There are currently 33 route handlers. The public API contract is therefore treated as frozen until the repository adapters planned in Phase 2 exist.
 
 ### Persistence inventory
 
-| Store | Current owner | Notes |
-| --- | --- | --- |
-| Supabase | `supabase/migrations/001_initial_schema.sql` | Profiles, subjects, study sets, flashcards, sessions, card reviews, achievements, calendar events, bookmarks, reading progress, analytics. |
-| Legacy local database | `lib/db.ts` and domain libraries | Users, sets/cards/progress/review logs, calendar, homework, test weeks, classes, plans, streaks, and achievements. |
-| Static content | `content/*.json` | Used by dynamic reading/content and learning-platform flows. |
-| Browser progress | `learning-platform-progress-v1` | Per-study-set progress cache in local storage. |
-| Browser sessions | `learning-platform-sessions-v1` | Last 50 sessions per study set in local storage. |
-| Browser settings | `learning-platform-settings-v1` | Per-study-set session settings including scheduling choice/exam date. |
-| Analytics files | `data/analytics/*.json` | Used by the administrator analytics dashboard. |
+| Store                 | Current owner                                | Notes                                                                                                                                      |
+| --------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| Supabase              | `supabase/migrations/001_initial_schema.sql` | Profiles, subjects, study sets, flashcards, sessions, card reviews, achievements, calendar events, bookmarks, reading progress, analytics. |
+| Legacy local database | `lib/db.ts` and domain libraries             | Users, sets/cards/progress/review logs, calendar, homework, test weeks, classes, plans, streaks, and achievements.                         |
+| Static content        | `content/*.json`                             | Used by dynamic reading/content and learning-platform flows.                                                                               |
+| Browser progress      | `learning-platform-progress-v1`              | Per-study-set progress cache in local storage.                                                                                             |
+| Browser sessions      | `learning-platform-sessions-v1`              | Last 50 sessions per study set in local storage.                                                                                           |
+| Browser settings      | `learning-platform-settings-v1`              | Per-study-set session settings including scheduling choice/exam date.                                                                      |
+| Analytics files       | `data/analytics/*.json`                      | Used by the administrator analytics dashboard.                                                                                             |
 
 ### Scheduler baseline
 
@@ -72,4 +72,3 @@ There are currently 33 route handlers. The public API contract is therefore trea
 - [x] Current persistence locations and browser keys are documented.
 - [x] The scheduler is identified as a protected compatibility boundary.
 - [x] The next phase can focus on visual comparison without masking platform build errors.
-

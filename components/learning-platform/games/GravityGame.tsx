@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useRef, useCallback } from "react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Trophy, Flame, Clock, Target, Star, ArrowLeft, ArrowRight } from "lucide-react";
-import type { GameShellProps } from "@/lib/learning-platform/game-registry";
-import { useLearningPlatformStore } from "@/store/useLearningPlatformStore";
-import { useTranslation } from "@/lib/i18n";
-import { MarkdownContent } from "../shared/MarkdownContent";
-import { GameShell } from "../GameShell";
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Trophy, Flame, Clock, Target, Star, ArrowLeft, ArrowRight } from 'lucide-react';
+import type { GameShellProps } from '@/lib/learning-platform/game-registry';
+import { useLearningPlatformStore } from '@/store/useLearningPlatformStore';
+import { useTranslation } from '@/lib/i18n';
+import { MarkdownContent } from '../shared/MarkdownContent';
+import { GameShell } from '../GameShell';
 
 interface FallingItem {
   id: string;
@@ -20,11 +20,17 @@ interface FallingItem {
   matched: boolean;
 }
 
+const difficultyConfigs = {
+  easy: { speed: 1, spawnRate: 2000, maxItems: 3 },
+  medium: { speed: 1.5, spawnRate: 1500, maxItems: 5 },
+  hard: { speed: 2, spawnRate: 1000, maxItems: 7 },
+};
+
 export function GravityGame({ onQuit }: GameShellProps) {
   const { t } = useTranslation();
   const { playableTerms, recordAnswer, beginSession, endSession } = useLearningPlatformStore();
   const [items, setItems] = useState<FallingItem[]>([]);
-  const [currentDefinition, setCurrentDefinition] = useState<string>("");
+  const [currentDefinition, setCurrentDefinition] = useState<string>('');
   const [score, setScore] = useState(0);
   const [lives, setLives] = useState(3);
   const [combo, setCombo] = useState(0);
@@ -32,18 +38,12 @@ export function GravityGame({ onQuit }: GameShellProps) {
   const [timeRemaining, setTimeRemaining] = useState(60);
   const [gameOver, setGameOver] = useState(false);
   const [started, setStarted] = useState(false);
-  const [difficulty, setDifficulty] = useState<"easy" | "medium" | "hard">("medium");
+  const [difficulty, setDifficulty] = useState<'easy' | 'medium' | 'hard'>('medium');
   const gameAreaRef = useRef<HTMLDivElement>(null);
   const playerXRef = useRef(50);
   const reportRef = useRef<(n: number) => void>(() => {});
   const reportedRef = useRef(false);
   const animationRef = useRef<number>();
-
-  const difficultyConfigs = {
-    easy: { speed: 1, spawnRate: 2000, maxItems: 3 },
-    medium: { speed: 1.5, spawnRate: 1500, maxItems: 5 },
-    hard: { speed: 2, spawnRate: 1000, maxItems: 7 },
-  };
 
   useEffect(() => {
     if (gameOver && !reportedRef.current) {
@@ -121,6 +121,11 @@ export function GravityGame({ onQuit }: GameShellProps) {
     });
   }, [started, gameOver, lives]);
 
+  const gameLoop = useCallback(() => {
+    updateItems();
+    animationRef.current = requestAnimationFrame(gameLoop);
+  }, [updateItems]);
+
   useEffect(() => {
     if (!started || gameOver) return;
     animationRef.current = requestAnimationFrame(gameLoop);
@@ -129,12 +134,7 @@ export function GravityGame({ onQuit }: GameShellProps) {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [started, gameOver, updateItems]);
-
-  const gameLoop = () => {
-    updateItems();
-    animationRef.current = requestAnimationFrame(gameLoop);
-  };
+  }, [started, gameOver, gameLoop]);
 
   const handleMatch = (item: FallingItem) => {
     if (item.definition === currentDefinition) {
@@ -145,7 +145,7 @@ export function GravityGame({ onQuit }: GameShellProps) {
       setMaxCombo((m) => Math.max(m, combo + 1));
 
       recordAnswer(item.id, {
-        questionType: "flashcard",
+        questionType: 'flashcard',
         userAnswer: item.term,
         correctAnswer: item.definition,
         isCorrect: true,
@@ -154,7 +154,7 @@ export function GravityGame({ onQuit }: GameShellProps) {
       });
 
       setItems((prev) => prev.filter((i) => i.id !== item.id));
-      setCurrentDefinition("");
+      setCurrentDefinition('');
     } else {
       setCombo(0);
       setLives((l) => l - 1);
@@ -164,24 +164,27 @@ export function GravityGame({ onQuit }: GameShellProps) {
     }
   };
 
-  const handleKeyPress = (e: KeyboardEvent) => {
-    if (!started || gameOver) return;
+  const handleKeyPress = useCallback(
+    (e: KeyboardEvent) => {
+      if (!started || gameOver) return;
 
-    const moveAmount = 5;
-    switch (e.key) {
-      case "ArrowLeft":
-        playerXRef.current = Math.max(0, playerXRef.current - moveAmount);
-        break;
-      case "ArrowRight":
-        playerXRef.current = Math.min(100, playerXRef.current + moveAmount);
-        break;
-    }
-  };
+      const moveAmount = 5;
+      switch (e.key) {
+        case 'ArrowLeft':
+          playerXRef.current = Math.max(0, playerXRef.current - moveAmount);
+          break;
+        case 'ArrowRight':
+          playerXRef.current = Math.min(100, playerXRef.current + moveAmount);
+          break;
+      }
+    },
+    [started, gameOver]
+  );
 
   useEffect(() => {
-    window.addEventListener("keydown", handleKeyPress);
-    return () => window.removeEventListener("keydown", handleKeyPress);
-  }, [started, gameOver]);
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [started, gameOver, handleKeyPress]);
 
   const resetGame = () => {
     setStarted(false);
@@ -192,12 +195,12 @@ export function GravityGame({ onQuit }: GameShellProps) {
     setMaxCombo(0);
     setTimeRemaining(60);
     setItems([]);
-    setCurrentDefinition("");
+    setCurrentDefinition('');
     playerXRef.current = 50;
     reportedRef.current = false;
 
     const config = difficultyConfigs[difficulty];
-    beginSession("gravity", config.maxItems);
+    beginSession('gravity', config.maxItems);
   };
 
   const formatTime = (seconds: number) => {
@@ -217,7 +220,9 @@ export function GravityGame({ onQuit }: GameShellProps) {
               <div className="flex justify-center gap-2">
                 <Trophy className="w-8 h-8 text-yellow-500" />
                 <h3 className="text-2xl font-serif">
-                  {lives <= 0 ? t("study_game_over", "Spel voorbij!") : t("study_time_up", "Tijd om!")}
+                  {lives <= 0
+                    ? t('study_game_over', 'Spel voorbij!')
+                    : t('study_time_up', 'Tijd om!')}
                 </h3>
               </div>
               <div className="flex justify-center gap-4">
@@ -231,21 +236,25 @@ export function GravityGame({ onQuit }: GameShellProps) {
                 </Badge>
               </div>
               <div className="text-sm text-muted-foreground space-y-1">
-                <p>{t("study_time", "Tijd")}: {formatTime(60 - timeRemaining)}</p>
-                <p>{t("study_score", "Score")}: {score}</p>
+                <p>
+                  {t('study_time', 'Tijd')}: {formatTime(60 - timeRemaining)}
+                </p>
+                <p>
+                  {t('study_score', 'Score')}: {score}
+                </p>
               </div>
               <div className="flex justify-center gap-2">
                 <Button onClick={resetGame} variant="outline">
-                  {t("study_play_again", "Speel opnieuw")}
+                  {t('study_play_again', 'Speel opnieuw')}
                 </Button>
-                <Button onClick={() => setDifficulty("easy")} variant="ghost" size="sm">
-                  {t("study_difficulty_easy", "Makkelijk")}
+                <Button onClick={() => setDifficulty('easy')} variant="ghost" size="sm">
+                  {t('study_difficulty_easy', 'Makkelijk')}
                 </Button>
-                <Button onClick={() => setDifficulty("medium")} variant="ghost" size="sm">
-                  {t("study_difficulty_medium", "Middel")}
+                <Button onClick={() => setDifficulty('medium')} variant="ghost" size="sm">
+                  {t('study_difficulty_medium', 'Middel')}
                 </Button>
-                <Button onClick={() => setDifficulty("hard")} variant="ghost" size="sm">
-                  {t("study_difficulty_hard", "Moeilijk")}
+                <Button onClick={() => setDifficulty('hard')} variant="ghost" size="sm">
+                  {t('study_difficulty_hard', 'Moeilijk')}
                 </Button>
               </div>
             </div>
@@ -266,7 +275,7 @@ export function GravityGame({ onQuit }: GameShellProps) {
                     {combo}x
                   </Badge>
                 )}
-                <Badge variant={lives <= 1 ? "destructive" : "secondary"}>
+                <Badge variant={lives <= 1 ? 'destructive' : 'secondary'}>
                   <Target className="w-3 h-3 mr-1" />
                   {lives} levens
                 </Badge>
@@ -274,7 +283,7 @@ export function GravityGame({ onQuit }: GameShellProps) {
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-1 text-sm">
                   <Clock className="w-4 h-4" />
-                  <span className={timeRemaining < 10 ? "text-red-500 font-bold" : ""}>
+                  <span className={timeRemaining < 10 ? 'text-red-500 font-bold' : ''}>
                     {formatTime(timeRemaining)}
                   </span>
                 </div>
@@ -284,10 +293,10 @@ export function GravityGame({ onQuit }: GameShellProps) {
             {!started && (
               <div className="text-center py-4">
                 <p className="text-sm text-muted-foreground mb-4">
-                  {t("study_gravity_hint", "Vang de vallende termen die bij de definitie passen")}
+                  {t('study_gravity_hint', 'Vang de vallende termen die bij de definitie passen')}
                 </p>
                 <Button onClick={resetGame} size="lg">
-                  {t("study_start_game", "Start Spel")}
+                  {t('study_start_game', 'Start Spel')}
                 </Button>
               </div>
             )}
@@ -295,9 +304,11 @@ export function GravityGame({ onQuit }: GameShellProps) {
             {started && (
               <>
                 <div className="text-center py-3 px-4 bg-muted/50 rounded-lg">
-                  <p className="text-sm font-medium mb-1">{t("study_match_definition", "Match de definitie")}:</p>
+                  <p className="text-sm font-medium mb-1">
+                    {t('study_match_definition', 'Match de definitie')}:
+                  </p>
                   <p className="text-lg font-semibold">
-                    {currentDefinition || t("study_waiting", "Wachten op item...")}
+                    {currentDefinition || t('study_waiting', 'Wachten op item...')}
                   </p>
                 </div>
 
@@ -313,16 +324,18 @@ export function GravityGame({ onQuit }: GameShellProps) {
                         handleMatch(item);
                       }}
                       className={`absolute cursor-pointer transition-all ${
-                        item.matched ? "opacity-0" : "opacity-100"
+                        item.matched ? 'opacity-0' : 'opacity-100'
                       }`}
                       style={{
                         left: `${item.x}%`,
                         top: `${item.y}%`,
-                        transform: "translate(-50%, -50%)",
+                        transform: 'translate(-50%, -50%)',
                       }}
                     >
                       <div className="bg-white p-3 rounded-lg shadow-md border-2 border-blue-500">
-                        <MarkdownContent className="text-sm font-medium">{item.term}</MarkdownContent>
+                        <MarkdownContent className="text-sm font-medium">
+                          {item.term}
+                        </MarkdownContent>
                       </div>
                     </div>
                   ))}
@@ -331,21 +344,21 @@ export function GravityGame({ onQuit }: GameShellProps) {
                     className="absolute bottom-0 w-16 h-4 bg-blue-600 rounded-t-lg"
                     style={{
                       left: `${playerXRef.current}%`,
-                      transform: "translateX(-50%)",
+                      transform: 'translateX(-50%)',
                     }}
                   />
                 </div>
 
                 <div className="flex justify-center gap-2">
                   <Button
-                    onClick={() => playerXRef.current = Math.max(0, playerXRef.current - 10)}
+                    onClick={() => (playerXRef.current = Math.max(0, playerXRef.current - 10))}
                     variant="outline"
                     size="sm"
                   >
                     <ArrowLeft className="w-4 h-4" />
                   </Button>
                   <Button
-                    onClick={() => playerXRef.current = Math.min(100, playerXRef.current + 10)}
+                    onClick={() => (playerXRef.current = Math.min(100, playerXRef.current + 10))}
                     variant="outline"
                     size="sm"
                   >

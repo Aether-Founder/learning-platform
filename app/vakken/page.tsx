@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { AppShell, Meter, PageHeader } from "@/components/AppShell";
-import { SUBJECTS, countSets } from "@/lib/aether-data";
+import Link from 'next/link';
+import { AppShell, Meter, PageHeader } from '@/components/AppShell';
+import { SUBJECTS, countSets } from '@/lib/aether-data';
 
 export default function VakkenIndex() {
   return (
@@ -20,7 +20,9 @@ export default function VakkenIndex() {
             href={`/vakken/${s.slug}`}
             className="bg-background p-6 transition-colors hover:bg-secondary/50"
           >
-            <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">{s.level}</p>
+            <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+              {s.level}
+            </p>
             <h2 className="mt-2 font-display text-2xl font-semibold">{s.name}</h2>
             <p className="mt-1 text-xs text-muted-foreground">
               {s.children.length} mappen · {countSets(s.children)} sets · {s.teacher}
@@ -35,7 +37,7 @@ export default function VakkenIndex() {
               <Meter value={s.mastery} />
             </div>
             <p className="mt-4 text-xs text-muted-foreground">
-              {s.due === 0 ? "Alles bij" : `${s.due} kaarten te herhalen`}
+              {s.due === 0 ? 'Alles bij' : `${s.due} kaarten te herhalen`}
             </p>
           </Link>
         ))}

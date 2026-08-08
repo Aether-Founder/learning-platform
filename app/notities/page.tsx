@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { AppShell, PageHeader } from "@/components/AppShell";
-import { EmptyState, PrimaryButton } from "@/components/ui-kit";
+import { AppShell, PageHeader } from '@/components/AppShell';
+import { EmptyState, PrimaryButton } from '@/components/ui-kit';
 
 export default function NotitiesPage() {
   return (
@@ -10,9 +10,7 @@ export default function NotitiesPage() {
         eyebrow="Kennisbank"
         title="Notities"
         description="Samenvattingen, aantekeningen en studieplanningen in een flexibele werkruimte met blokken."
-        action={
-          <PrimaryButton>Nieuwe pagina</PrimaryButton>
-        }
+        action={<PrimaryButton>Nieuwe pagina</PrimaryButton>}
       />
 
       <div className="mt-10">

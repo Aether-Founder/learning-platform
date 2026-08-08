@@ -15,6 +15,7 @@ The application supports three content formats:
 ## Textbook Format
 
 The textbook format is designed for educational content that includes:
+
 - Long reading text blocks (explanations, theory, examples)
 - Numbered questions (e.g., 1a, 1b, 2, 3a, 3b, 4, etc.)
 - Answers stored separately and displayed at the bottom of the page
@@ -22,6 +23,7 @@ The textbook format is designed for educational content that includes:
 ### Format Detection
 
 The application detects the textbook format when:
+
 - `"contentFormat": "textbook"` is present in the root, OR
 - Sections contain a `blocks` array with text/question blocks
 
@@ -80,6 +82,7 @@ The application detects the textbook format when:
 ### Block Types
 
 #### Text Block
+
 ```json
 {
   "id": "blk-1-1",
@@ -93,6 +96,7 @@ The application detects the textbook format when:
 - `content`: The reading content (supports Markdown and LaTeX)
 
 #### Questions Block
+
 ```json
 {
   "id": "blk-1-q",
@@ -114,6 +118,7 @@ The application detects the textbook format when:
 - `questions`: Array of question objects
 
 #### Answer Object
+
 ```json
 {
   "questionId": "q-1a",
@@ -138,6 +143,7 @@ The textbook format supports all four view modes:
 ### Complete Example
 
 See `content/example-textbook.json` for a complete example with:
+
 - Multiple sections
 - Text blocks with Markdown/LaTeX
 - Questions with numbered sub-questions (1a, 1b, 2, 3a, 3b, etc.)
@@ -147,6 +153,7 @@ See `content/example-textbook.json` for a complete example with:
 ### Question Numbering
 
 Questions can have any numbering scheme:
+
 - Simple: "1", "2", "3"
 - With letters: "1a", "1b", "1c"
 - Mixed: "1", "2a", "2b", "3", "4a", "4b", "4c"

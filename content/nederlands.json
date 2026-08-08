@@ -6,12 +6,7 @@
   "summary": "Dit hoofdstuk behandelt twee belangrijke onderwerpen binnen het vak Nederlands: reclame en samenvatten. Bij reclame leer je het onderscheid tussen commerciële en ideële reclame, en de functie van beeld en opmaak in reclameteksten. Ook leer je wat een column is. Bij samenvatten komen vier soorten samenvattingsopdrachten aan bod die je op het eindexamen kunt tegenkomen: het beoordelen van samenvattingen, het vaststellen van de hoofdgedachte, het samenvatten van de inhoud van een tekst of tekstdeel, en het samenvatten van informatie in een schema. Daarnaast leer je een strategie voor het beantwoorden van meerkeuzevragen.",
   "contentFormat": "textbook",
   "defaultViewMode": "simple",
-  "availableModes": [
-    "simple",
-    "uitleg",
-    "study",
-    "samenvatting"
-  ],
+  "availableModes": ["simple", "uitleg", "study", "samenvatting"],
   "showTimestamps": false,
   "showExportButtons": false,
   "showAnkiExport": false,

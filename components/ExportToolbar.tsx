@@ -14,7 +14,9 @@ export default function ExportToolbar({
   return (
     <div className="border-b border-border bg-background">
       <div className="mx-auto max-w-5xl px-6 py-4">
-        <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground font-sans">Export</h3>
+        <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground font-sans">
+          Export
+        </h3>
         <div className="flex flex-wrap gap-6">
           <button
             onClick={onExportAnki}

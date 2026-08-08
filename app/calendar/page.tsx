@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase/client";
-import { CalendarView } from "@/components/CalendarView";
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { useState, useEffect, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
+import { supabase } from '@/lib/supabase/client';
+import { CalendarView } from '@/components/CalendarView';
+import { Button } from '@/components/ui/button';
+import { Plus } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 interface CalendarEvent {
   id: string;
@@ -24,25 +24,23 @@ export default function CalendarPage() {
   const router = useRouter();
   const [events, setEvents] = useState<CalendarEvent[]>([]);
   const [showAddEvent, setShowAddEvent] = useState(false);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [, setSelectedDate] = useState<Date | null>(null);
   const [loading, setLoading] = useState(true);
 
   const [newEvent, setNewEvent] = useState({
-    title: "",
-    description: "",
-    startDate: "",
-    endDate: "",
+    title: '',
+    description: '',
+    startDate: '',
+    endDate: '',
     allDay: false,
-    color: "#3b82f6",
+    color: '#3b82f6',
   });
 
-  useEffect(() => {
-    loadEvents();
-  }, []);
-
-  const loadEvents = async () => {
+  const loadEvents = useCallback(async () => {
     try {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       if (!session) {
         router.push('/login?redirectTo=/calendar');
         return;
@@ -50,7 +48,7 @@ export default function CalendarPage() {
 
       const response = await fetch('/api/calendar', {
         headers: {
-          'Authorization': `Bearer ${session.access_token}`,
+          Authorization: `Bearer ${session.access_token}`,
         },
       });
 
@@ -72,24 +70,30 @@ export default function CalendarPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [router]);
+
+  useEffect(() => {
+    loadEvents();
+  }, [loadEvents]);
 
   const handleAddEvent = (date: Date) => {
     setSelectedDate(date);
     setNewEvent({
-      title: "",
-      description: "",
+      title: '',
+      description: '',
       startDate: date.toISOString().slice(0, 16),
       endDate: new Date(date.getTime() + 60 * 60 * 1000).toISOString().slice(0, 16),
       allDay: false,
-      color: "#3b82f6",
+      color: '#3b82f6',
     });
     setShowAddEvent(true);
   };
 
   const handleCreateEvent = async () => {
     try {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       if (!session) {
         router.push('/login?redirectTo=/calendar');
         return;
@@ -99,7 +103,7 @@ export default function CalendarPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${session.access_token}`,
+          Authorization: `Bearer ${session.access_token}`,
         },
         body: JSON.stringify({
           title: newEvent.title,
@@ -138,11 +142,7 @@ export default function CalendarPage() {
         </Button>
       </div>
 
-      <CalendarView
-        events={events}
-        onDateClick={handleAddEvent}
-        onAddEvent={handleAddEvent}
-      />
+      <CalendarView events={events} onDateClick={handleAddEvent} onAddEvent={handleAddEvent} />
 
       <Dialog open={showAddEvent} onOpenChange={setShowAddEvent}>
         <DialogContent>
@@ -190,11 +190,7 @@ export default function CalendarPage() {
               <Button onClick={handleCreateEvent} className="flex-1">
                 Aanmaken
               </Button>
-              <Button
-                variant="outline"
-                onClick={() => setShowAddEvent(false)}
-                className="flex-1"
-              >
+              <Button variant="outline" onClick={() => setShowAddEvent(false)} className="flex-1">
                 Annuleren
               </Button>
             </div>

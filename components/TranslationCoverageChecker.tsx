@@ -1,21 +1,11 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import { Languages, CheckCircle2, AlertTriangle, FileText } from "lucide-react";
-
-interface TranslationKey {
-  key: string;
-  nl: string;
-  en?: string;
-  fr?: string;
-  de?: string;
-  es?: string;
-  tr?: string;
-}
+import { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
+import { Languages, CheckCircle2, AlertTriangle, FileText } from 'lucide-react';
 
 interface LanguageCoverage {
   language: string;
@@ -32,7 +22,7 @@ interface TranslationCoverageCheckerProps {
 export function TranslationCoverageChecker({ onExportReport }: TranslationCoverageCheckerProps) {
   const [coverage, setCoverage] = useState<LanguageCoverage[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedLanguage, setSelectedLanguage] = useState<string>("all");
+  const [selectedLanguage, setSelectedLanguage] = useState<string>('all');
 
   useEffect(() => {
     fetchCoverage();
@@ -41,37 +31,47 @@ export function TranslationCoverageChecker({ onExportReport }: TranslationCovera
   const fetchCoverage = async () => {
     setLoading(true);
     try {
-      const response = await fetch("/api/translations/coverage");
+      const response = await fetch('/api/translations/coverage');
       if (response.ok) {
         const data = await response.json();
         setCoverage(data.coverage || []);
       }
     } catch (error) {
-      console.error("Failed to fetch translation coverage:", error);
+      console.error('Failed to fetch translation coverage:', error);
     } finally {
       setLoading(false);
     }
   };
 
   const getCoverageColor = (coverage: number) => {
-    if (coverage >= 90) return "text-green-500";
-    if (coverage >= 70) return "text-yellow-500";
-    return "text-red-500";
+    if (coverage >= 90) return 'text-green-500';
+    if (coverage >= 70) return 'text-yellow-500';
+    return 'text-red-500';
   };
 
   const getCoverageBadge = (coverage: number) => {
-    if (coverage >= 90) return <Badge variant="default" className="bg-green-500">Compleet</Badge>;
-    if (coverage >= 70) return <Badge variant="secondary" className="bg-yellow-500 text-white">Gedeeltelijk</Badge>;
+    if (coverage >= 90)
+      return (
+        <Badge variant="default" className="bg-green-500">
+          Compleet
+        </Badge>
+      );
+    if (coverage >= 70)
+      return (
+        <Badge variant="secondary" className="bg-yellow-500 text-white">
+          Gedeeltelijk
+        </Badge>
+      );
     return <Badge variant="destructive">Onvolledig</Badge>;
   };
 
-  const filteredCoverage = selectedLanguage === "all" 
-    ? coverage 
-    : coverage.filter((c) => c.language === selectedLanguage);
+  const filteredCoverage =
+    selectedLanguage === 'all' ? coverage : coverage.filter((c) => c.language === selectedLanguage);
 
-  const averageCoverage = coverage.length > 0
-    ? Math.round(coverage.reduce((sum, c) => sum + c.coverage, 0) / coverage.length)
-    : 0;
+  const averageCoverage =
+    coverage.length > 0
+      ? Math.round(coverage.reduce((sum, c) => sum + c.coverage, 0) / coverage.length)
+      : 0;
 
   if (loading) {
     return (
@@ -117,10 +117,10 @@ export function TranslationCoverageChecker({ onExportReport }: TranslationCovera
             <Progress value={averageCoverage} className="h-3" />
             <div className="text-xs text-muted-foreground">
               {averageCoverage >= 90
-                ? "Uitstekende vertalingsdekking"
+                ? 'Uitstekende vertalingsdekking'
                 : averageCoverage >= 70
-                ? "Goede vertalingsdekking met ruimte voor verbetering"
-                : "Vertalingsdekking moet worden verbeterd"}
+                  ? 'Goede vertalingsdekking met ruimte voor verbetering'
+                  : 'Vertalingsdekking moet worden verbeterd'}
             </div>
           </div>
         </CardContent>
@@ -223,8 +223,12 @@ export function TranslationCoverageChecker({ onExportReport }: TranslationCovera
               <h3 className="font-semibold mb-2">Over Vertalingsdekking</h3>
               <ul className="text-sm text-muted-foreground space-y-1">
                 <li>• Volledige dekking (90%+): Alle belangrijke teksten zijn vertaald</li>
-                <li>• Gedeeltelijke dekking (70-89%): Meeste teksten zijn vertaald, enkele ontbreken</li>
-                <li>• Onvolledige dekking (&lt;70%): Veel ontbrekende vertalingen, actie vereist</li>
+                <li>
+                  • Gedeeltelijke dekking (70-89%): Meeste teksten zijn vertaald, enkele ontbreken
+                </li>
+                <li>
+                  • Onvolledige dekking (&lt;70%): Veel ontbrekende vertalingen, actie vereist
+                </li>
                 <li>• Gebruik het export rapport om ontbrekende sleutels te identificeren</li>
               </ul>
             </div>

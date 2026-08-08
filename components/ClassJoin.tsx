@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Search, UserCheck, Clock, Users } from "lucide-react";
+import { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Search, UserCheck, Clock, Users } from 'lucide-react';
 
 interface ClassJoinProps {
   userId: string;
@@ -26,28 +26,28 @@ interface Class {
   joinCode?: string;
 }
 
-export function ClassJoin({ userId, onJoinSuccess }: ClassJoinProps) {
-  const [activeTab, setActiveTab] = useState("code");
-  const [joinCode, setJoinCode] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
+export function ClassJoin({ onJoinSuccess }: ClassJoinProps) {
+  const [activeTab, setActiveTab] = useState('code');
+  const [joinCode, setJoinCode] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [classes, setClasses] = useState<Class[]>([]);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   const handleJoinByCode = async () => {
     if (!joinCode.trim()) {
-      setError("Voer een klascode in");
+      setError('Voer een klascode in');
       return;
     }
 
     setLoading(true);
-    setError("");
+    setError('');
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch("/api/classes/join", {
-        method: "POST",
+      const token = localStorage.getItem('token');
+      const response = await fetch('/api/classes/join', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ joinCode: joinCode.trim() }),
@@ -58,11 +58,11 @@ export function ClassJoin({ userId, onJoinSuccess }: ClassJoinProps) {
       if (response.ok) {
         onJoinSuccess?.(data.class.id);
       } else {
-        setError(data.error || "Kon niet deelnemen aan de klas");
+        setError(data.error || 'Kon niet deelnemen aan de klas');
       }
     } catch (error) {
-      console.error("Failed to join class:", error);
-      setError("Er is een fout opgetreden");
+      console.error('Failed to join class:', error);
+      setError('Er is een fout opgetreden');
     } finally {
       setLoading(false);
     }
@@ -73,7 +73,7 @@ export function ClassJoin({ userId, onJoinSuccess }: ClassJoinProps) {
 
     setLoading(true);
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       const response = await fetch(`/api/classes/search?q=${encodeURIComponent(searchQuery)}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -85,7 +85,7 @@ export function ClassJoin({ userId, onJoinSuccess }: ClassJoinProps) {
         setClasses(data.classes || []);
       }
     } catch (error) {
-      console.error("Failed to search classes:", error);
+      console.error('Failed to search classes:', error);
     } finally {
       setLoading(false);
     }
@@ -94,9 +94,9 @@ export function ClassJoin({ userId, onJoinSuccess }: ClassJoinProps) {
   const handleJoinClass = async (classId: string) => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       const response = await fetch(`/api/classes/${classId}/join`, {
-        method: "POST",
+        method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -107,11 +107,11 @@ export function ClassJoin({ userId, onJoinSuccess }: ClassJoinProps) {
       if (response.ok) {
         onJoinSuccess?.(classId);
       } else {
-        setError(data.error || "Kon niet deelnemen aan de klas");
+        setError(data.error || 'Kon niet deelnemen aan de klas');
       }
     } catch (error) {
-      console.error("Failed to join class:", error);
-      setError("Er is een fout opgetreden");
+      console.error('Failed to join class:', error);
+      setError('Er is een fout opgetreden');
     } finally {
       setLoading(false);
     }
@@ -141,12 +141,10 @@ export function ClassJoin({ userId, onJoinSuccess }: ClassJoinProps) {
               />
             </div>
 
-            {error && (
-              <div className="text-sm text-red-500">{error}</div>
-            )}
+            {error && <div className="text-sm text-red-500">{error}</div>}
 
             <Button onClick={handleJoinByCode} disabled={loading} className="w-full">
-              {loading ? "Laden..." : "Deelnemen"}
+              {loading ? 'Laden...' : 'Deelnemen'}
             </Button>
 
             <div className="text-sm text-muted-foreground">
@@ -160,7 +158,7 @@ export function ClassJoin({ userId, onJoinSuccess }: ClassJoinProps) {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Zoek op vak, docent, of klasnaam"
-                onKeyDown={(e) => e.key === "Enter" && handleSearchClasses()}
+                onKeyDown={(e) => e.key === 'Enter' && handleSearchClasses()}
               />
               <Button onClick={handleSearchClasses} disabled={loading}>
                 <Search className="w-4 h-4" />
@@ -169,9 +167,7 @@ export function ClassJoin({ userId, onJoinSuccess }: ClassJoinProps) {
 
             <div className="space-y-3">
               {classes.length === 0 && searchQuery && !loading && (
-                <div className="text-center text-muted-foreground py-8">
-                  Geen klassen gevonden
-                </div>
+                <div className="text-center text-muted-foreground py-8">Geen klassen gevonden</div>
               )}
 
               {classes.map((cls) => (
@@ -207,15 +203,13 @@ export function ClassJoin({ userId, onJoinSuccess }: ClassJoinProps) {
                     variant="outline"
                     className="w-full"
                   >
-                    {cls.requiresApproval ? "Aanvraag versturen" : "Deelnemen"}
+                    {cls.requiresApproval ? 'Aanvraag versturen' : 'Deelnemen'}
                   </Button>
                 </div>
               ))}
             </div>
 
-            {error && (
-              <div className="text-sm text-red-500">{error}</div>
-            )}
+            {error && <div className="text-sm text-red-500">{error}</div>}
           </TabsContent>
         </Tabs>
       </CardContent>

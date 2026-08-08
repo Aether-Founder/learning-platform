@@ -1,15 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyToken } from '@/lib/auth';
-import {
-  getContentById,
-  updateContent,
-  deleteContent,
-} from '@/lib/content';
+import { getContentById, updateContent, deleteContent } from '@/lib/content';
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const content = getContentById(params.id);
     if (!content) {
@@ -30,10 +23,7 @@ export async function GET(
   }
 }
 
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const token = request.headers.get('authorization')?.replace('Bearer ', '');
     if (!token) {
@@ -60,10 +50,7 @@ export async function PUT(
   }
 }
 
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const token = request.headers.get('authorization')?.replace('Bearer ', '');
     if (!token) {

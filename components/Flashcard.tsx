@@ -1,9 +1,9 @@
-import { ChevronDown, ChevronRight } from "lucide-react";
-import { useState } from "react";
-import ReactMarkdown from "react-markdown";
-import remarkMath from "remark-math";
-import rehypeKatex from "rehype-katex";
-import "katex/dist/katex.min.css";
+import { ChevronDown, ChevronRight } from 'lucide-react';
+import { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
 
 interface FlashcardProps {
   id: string;
@@ -12,7 +12,7 @@ interface FlashcardProps {
   answer: string;
 }
 
-export default function Flashcard({ id, index, question, answer }: FlashcardProps) {
+export default function Flashcard({ id, question, answer }: FlashcardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
@@ -22,7 +22,7 @@ export default function Flashcard({ id, index, question, answer }: FlashcardProp
         tabIndex={0}
         onClick={() => setIsExpanded(!isExpanded)}
         onKeyDown={(event) => {
-          if (event.key === " " || event.key === "Enter") {
+          if (event.key === ' ' || event.key === 'Enter') {
             event.preventDefault();
             setIsExpanded((value) => !value);
           }
@@ -32,10 +32,7 @@ export default function Flashcard({ id, index, question, answer }: FlashcardProp
       >
         <div className="flex-1">
           <div className="font-serif text-lg leading-relaxed text-foreground">
-            <ReactMarkdown
-              remarkPlugins={[remarkMath]}
-              rehypePlugins={[rehypeKatex]}
-            >
+            <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>
               {question}
             </ReactMarkdown>
           </div>
@@ -49,10 +46,7 @@ export default function Flashcard({ id, index, question, answer }: FlashcardProp
       {isExpanded && (
         <div className="px-6 pb-6">
           <div className="font-serif text-base leading-relaxed text-muted-foreground">
-            <ReactMarkdown
-              remarkPlugins={[remarkMath]}
-              rehypePlugins={[rehypeKatex]}
-            >
+            <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>
               {answer}
             </ReactMarkdown>
           </div>

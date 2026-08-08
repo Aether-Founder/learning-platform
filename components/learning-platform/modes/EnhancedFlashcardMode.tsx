@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useCallback, useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useLearningPlatformStore } from "@/store/useLearningPlatformStore";
-import { getPromptAndAnswer } from "@/lib/learning-platform/term-filters";
-import { useTranslation } from "@/lib/i18n";
-import type { ReviewGrade } from "@/types/learning-platform";
-import { MarkdownContent } from "../shared/MarkdownContent";
+import { useCallback, useEffect, useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useLearningPlatformStore } from '@/store/useLearningPlatformStore';
+import { getPromptAndAnswer } from '@/lib/learning-platform/term-filters';
+import { useTranslation } from '@/lib/i18n';
+import type { ReviewGrade } from '@/types/learning-platform';
+import { MarkdownContent } from '../shared/MarkdownContent';
 
 export function EnhancedFlashcardMode() {
   const { t } = useTranslation();
@@ -22,7 +22,7 @@ export function EnhancedFlashcardMode() {
 
   useEffect(() => {
     if (!started && total > 0) {
-      beginSession("flashcard", total);
+      beginSession('flashcard', total);
       setStarted(true);
     }
   }, [started, total, beginSession]);
@@ -30,9 +30,9 @@ export function EnhancedFlashcardMode() {
   const advance = useCallback(
     (grade: ReviewGrade) => {
       if (!term) return;
-      const isCorrect = grade !== "again";
+      const isCorrect = grade !== 'again';
       recordAnswer(term.id, {
-        questionType: "flashcard",
+        questionType: 'flashcard',
         userAnswer: grade,
         correctAnswer: term.definition,
         isCorrect,
@@ -52,39 +52,37 @@ export function EnhancedFlashcardMode() {
     [term, index, total, recordAnswer, endSession, startedAt]
   );
 
-  const handlePrev = () => {
-    setFlipped(false);
-    setStartedAt(Date.now());
-    setIndex((i) => (i - 1 + total) % total);
-  };
-
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setFlipped(false);
     setStartedAt(Date.now());
     setIndex((i) => (i + 1) % total);
-  };
+  }, [total]);
+
+  const handlePrev = useCallback(() => {
+    setFlipped(false);
+    setStartedAt(Date.now());
+    setIndex((i) => (i - 1 + total) % total);
+  }, [total]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.code === "Space") {
+      if (e.code === 'Space') {
         e.preventDefault();
         setFlipped((f) => !f);
-      } else if (e.code === "ArrowLeft") {
+      } else if (e.code === 'ArrowLeft') {
         e.preventDefault();
         handlePrev();
-      } else if (e.code === "ArrowRight") {
+      } else if (e.code === 'ArrowRight') {
         e.preventDefault();
         handleNext();
       }
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [total]);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [total, handlePrev, handleNext]);
 
   if (!term) {
-    return (
-      <p className="text-center text-muted-foreground py-12">No terms to study.</p>
-    );
+    return <p className="text-center text-muted-foreground py-12">No terms to study.</p>;
   }
 
   const { prompt, answer } = getPromptAndAnswer(term, settings.questionFormat);
@@ -100,34 +98,32 @@ export function EnhancedFlashcardMode() {
         tabIndex={0}
         onClick={() => setFlipped((f) => !f)}
         onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
+          if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             setFlipped((f) => !f);
           }
         }}
         className="relative w-full aspect-[4/3] cursor-pointer"
-        style={{ perspective: "1000px" }}
+        style={{ perspective: '1000px' }}
       >
         <div
           className="relative w-full h-full transition-transform duration-[400ms]"
           style={{
-            transformStyle: "preserve-3d",
-            transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
+            transformStyle: 'preserve-3d',
+            transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
           }}
         >
           <div
             className="absolute inset-0 rounded-xl border border-border bg-card p-8 flex items-center justify-center shadow-sm"
-            style={{ backfaceVisibility: "hidden" }}
+            style={{ backfaceVisibility: 'hidden' }}
           >
-            <MarkdownContent className="text-xl text-center font-medium">
-              {prompt}
-            </MarkdownContent>
+            <MarkdownContent className="text-xl text-center font-medium">{prompt}</MarkdownContent>
           </div>
           <div
             className="absolute inset-0 rounded-xl border border-border bg-secondary p-8 flex items-center justify-center"
             style={{
-              backfaceVisibility: "hidden",
-              transform: "rotateY(180deg)",
+              backfaceVisibility: 'hidden',
+              transform: 'rotateY(180deg)',
             }}
           >
             <MarkdownContent className="text-lg text-center">{answer}</MarkdownContent>
@@ -135,9 +131,7 @@ export function EnhancedFlashcardMode() {
         </div>
       </div>
 
-      <p className="text-center text-xs text-muted-foreground">
-        Space to flip · ← → to navigate
-      </p>
+      <p className="text-center text-xs text-muted-foreground">Space to flip · ← → to navigate</p>
 
       <div className="flex justify-center gap-3">
         <button
@@ -152,7 +146,7 @@ export function EnhancedFlashcardMode() {
           onClick={() => setFlipped((f) => !f)}
           className="px-6 py-3 rounded-full bg-foreground text-background text-sm font-medium"
         >
-          {flipped ? t("flash_show_prompt", "Toon vraag") : t("flash_flip", "Draai om")}
+          {flipped ? t('flash_show_prompt', 'Toon vraag') : t('flash_flip', 'Draai om')}
         </button>
         <button
           type="button"
@@ -165,12 +159,26 @@ export function EnhancedFlashcardMode() {
 
       {flipped && (
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-          {([
-            ["again", "Opnieuw", "border-red-500/50 bg-red-500/10 text-red-700 dark:text-red-300"],
-            ["hard", "Moeilijk", "border-amber-500/50 bg-amber-500/10 text-amber-700 dark:text-amber-300"],
-            ["good", "Goed", "border-sky-500/50 bg-sky-500/10 text-sky-700 dark:text-sky-300"],
-            ["easy", "Makkelijk", "border-green-500/50 bg-green-500/10 text-green-700 dark:text-green-300"],
-          ] as [ReviewGrade, string, string][]).map(([grade, label, classes]) => (
+          {(
+            [
+              [
+                'again',
+                'Opnieuw',
+                'border-red-500/50 bg-red-500/10 text-red-700 dark:text-red-300',
+              ],
+              [
+                'hard',
+                'Moeilijk',
+                'border-amber-500/50 bg-amber-500/10 text-amber-700 dark:text-amber-300',
+              ],
+              ['good', 'Goed', 'border-sky-500/50 bg-sky-500/10 text-sky-700 dark:text-sky-300'],
+              [
+                'easy',
+                'Makkelijk',
+                'border-green-500/50 bg-green-500/10 text-green-700 dark:text-green-300',
+              ],
+            ] as [ReviewGrade, string, string][]
+          ).map(([grade, label, classes]) => (
             <button
               key={grade}
               type="button"

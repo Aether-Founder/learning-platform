@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import type { ComponentType } from "react";
-import { BookOpen, Gamepad2, Keyboard, Rocket, Sparkles } from "lucide-react";
-import type { LearningMode } from "@/types/learning-platform";
-import type { GameScoreId } from "./game-scores";
-import { MatchGame } from "@/components/learning-platform/games/MatchGame";
-import { BlastGame } from "@/components/learning-platform/games/BlastGame";
-import { BlocksGame } from "@/components/learning-platform/games/BlocksGame";
-import { QuizSprintGame } from "@/components/learning-platform/games/QuizSprintGame";
-import { TypeRushGame } from "@/components/learning-platform/games/TypeRushGame";
+import type { ComponentType } from 'react';
+import { BookOpen, Gamepad2, Keyboard, Rocket, Sparkles } from 'lucide-react';
+import type { LearningMode } from '@/types/learning-platform';
+import type { GameScoreId } from './game-scores';
+import { MatchGame } from '@/components/learning-platform/games/MatchGame';
+import { BlastGame } from '@/components/learning-platform/games/BlastGame';
+import { BlocksGame } from '@/components/learning-platform/games/BlocksGame';
+import { QuizSprintGame } from '@/components/learning-platform/games/QuizSprintGame';
+import { TypeRushGame } from '@/components/learning-platform/games/TypeRushGame';
 
 export interface GameShellProps {
   onQuit: () => void;
@@ -35,43 +35,43 @@ export interface StudyGameDefinition {
  */
 export const STUDY_GAMES: StudyGameDefinition[] = [
   {
-    id: "match",
-    scoreId: "match",
-    labelKey: "study_game_match",
-    fallback: "Koppelspel",
+    id: 'match',
+    scoreId: 'match',
+    labelKey: 'study_game_match',
+    fallback: 'Koppelspel',
     icon: Gamepad2,
     lowerScoreIsBetter: true,
     component: MatchGame,
   },
   {
-    id: "blast",
-    scoreId: "blast",
-    labelKey: "study_game_blast",
-    fallback: "Blast",
+    id: 'blast',
+    scoreId: 'blast',
+    labelKey: 'study_game_blast',
+    fallback: 'Blast',
     icon: Sparkles,
     component: BlastGame,
   },
   {
-    id: "blocks",
-    scoreId: "blocks",
-    labelKey: "study_game_blocks",
-    fallback: "Blokken",
+    id: 'blocks',
+    scoreId: 'blocks',
+    labelKey: 'study_game_blocks',
+    fallback: 'Blokken',
     icon: BookOpen,
     component: BlocksGame,
   },
   {
-    id: "sprint",
-    scoreId: "sprint",
-    labelKey: "study_game_sprint",
-    fallback: "Quiz sprint",
+    id: 'sprint',
+    scoreId: 'sprint',
+    labelKey: 'study_game_sprint',
+    fallback: 'Quiz sprint',
     icon: Rocket,
     component: QuizSprintGame,
   },
   {
-    id: "type-rush",
-    scoreId: "type-rush",
-    labelKey: "study_game_type_rush",
-    fallback: "Type rush",
+    id: 'type-rush',
+    scoreId: 'type-rush',
+    labelKey: 'study_game_type_rush',
+    fallback: 'Type rush',
     icon: Keyboard,
     component: TypeRushGame,
   },

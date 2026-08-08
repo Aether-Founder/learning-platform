@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
-import type { GameShellProps } from "@/lib/learning-platform/game-registry";
-import { buildMcqQuestion } from "@/lib/learning-platform/question-generator";
-import { fisherYatesShuffle } from "@/lib/learning-platform/term-filters";
-import { useLearningPlatformStore } from "@/store/useLearningPlatformStore";
-import type { Question, Term } from "@/types/learning-platform";
-import { McqQuestion } from "../questions/McqQuestion";
-import { GameShell } from "../GameShell";
+import { useEffect, useRef, useState } from 'react';
+import type { GameShellProps } from '@/lib/learning-platform/game-registry';
+import { buildMcqQuestion } from '@/lib/learning-platform/question-generator';
+import { fisherYatesShuffle } from '@/lib/learning-platform/term-filters';
+import { useLearningPlatformStore } from '@/store/useLearningPlatformStore';
+import type { Question, Term } from '@/types/learning-platform';
+import { McqQuestion } from '../questions/McqQuestion';
+import { GameShell } from '../GameShell';
 
 export function QuizSprintGame({ onQuit }: GameShellProps) {
   const { playableTerms, studySet, settings, recordAnswer, beginSession, endSession } =
@@ -26,11 +26,13 @@ export function QuizSprintGame({ onQuit }: GameShellProps) {
     const sessionTerms = fisherYatesShuffle(playableTerms).slice(0, 12);
     setTerms(sessionTerms);
     distractorTerms.current = studySet?.terms ?? sessionTerms;
-    beginSession("sprint", sessionTerms.length);
-  }, [beginSession, playableTerms]);
+    beginSession('sprint', sessionTerms.length);
+  }, [beginSession, playableTerms, studySet?.terms]);
 
   useEffect(() => {
-    setQuestion(terms[index] ? buildMcqQuestion(terms[index], distractorTerms.current, settings) : null);
+    setQuestion(
+      terms[index] ? buildMcqQuestion(terms[index], distractorTerms.current, settings) : null
+    );
   }, [index, terms, settings]);
 
   return (
@@ -40,7 +42,7 @@ export function QuizSprintGame({ onQuit }: GameShellProps) {
           if (!question) return;
           const nextCorrect = correct + (isCorrect ? 1 : 0);
           recordAnswer(question.term.id, {
-            questionType: "multiple-choice",
+            questionType: 'multiple-choice',
             userAnswer: value,
             correctAnswer: question.correctAnswer,
             isCorrect,
@@ -64,8 +66,12 @@ export function QuizSprintGame({ onQuit }: GameShellProps) {
           return (
             <div className="rounded-2xl border border-border bg-card p-8 text-center">
               <p className="text-sm text-muted-foreground">Sprint voltooid</p>
-              <h3 className="mt-2 text-3xl font-serif font-medium">{correct}/{terms.length}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">Probeer opnieuw voor een hogere score.</p>
+              <h3 className="mt-2 text-3xl font-serif font-medium">
+                {correct}/{terms.length}
+              </h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Probeer opnieuw voor een hogere score.
+              </p>
             </div>
           );
         }
@@ -76,7 +82,9 @@ export function QuizSprintGame({ onQuit }: GameShellProps) {
           <div className="space-y-5 rounded-2xl border border-border bg-gradient-to-br from-card to-secondary/40 p-5">
             <div className="flex items-center justify-between text-sm">
               <span className="font-medium">Quiz sprint</span>
-              <span className="text-muted-foreground">{index + 1}/{terms.length}</span>
+              <span className="text-muted-foreground">
+                {index + 1}/{terms.length}
+              </span>
             </div>
             <McqQuestion key={question.id} question={question} onAnswer={answer} />
           </div>

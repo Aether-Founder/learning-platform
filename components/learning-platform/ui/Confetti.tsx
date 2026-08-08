@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export function Confetti({ active, durationMs = 2800 }: { active: boolean; durationMs?: number }) {
   const [show, setShow] = useState(false);
@@ -24,8 +24,8 @@ export function Confetti({ active, durationMs = 2800 }: { active: boolean; durat
           className="absolute block w-2 h-3 rounded-sm animate-confetti-fall"
           style={{
             left: `${(i * 17) % 100}%`,
-            top: "-10px",
-            backgroundColor: ["#22c55e", "#3b82f6", "#eab308", "#a855f7", "#ef4444"][i % 5],
+            top: '-10px',
+            backgroundColor: ['#22c55e', '#3b82f6', '#eab308', '#a855f7', '#ef4444'][i % 5],
             animationDelay: `${(i % 10) * 0.08}s`,
             animationDuration: `${1.2 + (i % 5) * 0.2}s`,
           }}

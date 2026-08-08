@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { AppShell, PageHeader } from "@/components/AppShell";
-import { PrimaryButton } from "@/components/ui-kit";
-import { GROUPS } from "@/lib/aether-data";
+import { AppShell, PageHeader } from '@/components/AppShell';
+import { PrimaryButton } from '@/components/ui-kit';
+import { GROUPS } from '@/lib/aether-data';
 
 export default function GroepenPage() {
   return (

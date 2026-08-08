@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { AppShell, PageHeader } from "@/components/AppShell";
-import { EmptyState, PrimaryButton } from "@/components/ui-kit";
+import { AppShell, PageHeader } from '@/components/AppShell';
+import { EmptyState, PrimaryButton } from '@/components/ui-kit';
 
 export default function DecksPage() {
   return (

@@ -11,10 +11,10 @@ export async function generateMetadata({ params }: { params: { page: string } })
 
 export default async function RawContentPage({ params }: { params: { page: string } }) {
   const { page } = params;
-  
+
   // Construct the file path
   const filePath = path.join(CONTENT_DIR, `${page}.json`);
-  
+
   // Check if file exists
   try {
     await fs.access(filePath);
@@ -28,11 +28,11 @@ export default async function RawContentPage({ params }: { params: { page: strin
       </div>
     );
   }
-  
+
   // Read the JSON file
   const fileContent = await fs.readFile(filePath, 'utf-8');
   const jsonData = JSON.parse(fileContent);
-  
+
   // Return the raw JSON as a downloadable/accessible format
   return (
     <div className="min-h-screen bg-background p-4 sm:p-8">
@@ -43,13 +43,13 @@ export default async function RawContentPage({ params }: { params: { page: strin
             This page provides the raw JSON content for AI tools like ChatGPT.
           </p>
         </div>
-        
+
         <div className="bg-card border border-border rounded-lg p-4 overflow-x-auto">
           <pre className="text-sm text-foreground whitespace-pre-wrap break-words">
             {JSON.stringify(jsonData, null, 2)}
           </pre>
         </div>
-        
+
         <div className="mt-4 flex gap-4">
           <a
             href={`/api/content/page/${page}/raw`}
@@ -61,7 +61,9 @@ export default async function RawContentPage({ params }: { params: { page: strin
           </a>
           <button
             onClick={() => {
-              const blob = new Blob([JSON.stringify(jsonData, null, 2)], { type: 'application/json' });
+              const blob = new Blob([JSON.stringify(jsonData, null, 2)], {
+                type: 'application/json',
+              });
               const url = URL.createObjectURL(blob);
               const a = document.createElement('a');
               a.href = url;

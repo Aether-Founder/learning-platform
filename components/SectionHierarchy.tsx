@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { memo } from "react";
-import { FolderOpen } from "lucide-react";
-import { useTranslation } from "@/lib/i18n";
+import { memo } from 'react';
+import { FolderOpen } from 'lucide-react';
+import { useTranslation } from '@/lib/i18n';
 
 interface Paragraph {
   id: string;
@@ -39,7 +39,7 @@ export const SectionHierarchy = memo(function SectionHierarchy({
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
@@ -47,7 +47,7 @@ export const SectionHierarchy = memo(function SectionHierarchy({
     <nav className="bg-secondary/30 border border-border rounded-lg p-6 mb-8">
       <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-4 flex items-center gap-2">
         <FolderOpen className="w-4 h-4" />
-        {t("table_of_contents")}
+        {t('table_of_contents')}
       </h3>
       <div className="space-y-2">
         {sections.map((section, sectionIndex) => {
@@ -68,7 +68,7 @@ export const SectionHierarchy = memo(function SectionHierarchy({
               {hasSubItems && (
                 <div className="ml-4 space-y-1 border-l-2 border-border/50 pl-3">
                   {subItems.map((item, itemIndex) => {
-                    const itemTitle = item.title || `${t("part")} ${itemIndex + 1}`;
+                    const itemTitle = item.title || `${t('part')} ${itemIndex + 1}`;
                     const itemNumber = `${sectionIndex + 1}.${itemIndex + 1}`;
 
                     return (
@@ -78,9 +78,7 @@ export const SectionHierarchy = memo(function SectionHierarchy({
                         className="w-full text-left text-sm text-muted-foreground hover:text-foreground transition-colors block"
                       >
                         <span className="tabular-nums">{itemNumber}</span>
-                        {itemTitle && (
-                          <span className="ml-2">{itemTitle}</span>
-                        )}
+                        {itemTitle && <span className="ml-2">{itemTitle}</span>}
                       </button>
                     );
                   })}

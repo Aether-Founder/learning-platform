@@ -1,4 +1,4 @@
-import db from "./db";
+import db from './db';
 
 export interface Class {
   id: string;
@@ -14,7 +14,7 @@ export interface ClassMember {
   id: string;
   classId: string;
   userId: string;
-  role: "teacher" | "student";
+  role: 'teacher' | 'student';
   joinedAt: Date;
 }
 
@@ -46,7 +46,7 @@ export async function createClass(
   stmt.run(id, name, description || null, teacherId, code, now.toISOString(), now.toISOString());
 
   // Add teacher as member
-  await addClassMember(id, teacherId, "teacher");
+  await addClassMember(id, teacherId, 'teacher');
 
   return {
     id,
@@ -60,7 +60,7 @@ export async function createClass(
 }
 
 export async function getClassById(id: string): Promise<Class | null> {
-  const stmt = db.prepare("SELECT * FROM classes WHERE id = ?");
+  const stmt = db.prepare('SELECT * FROM classes WHERE id = ?');
   const row = stmt.get(id) as any;
 
   if (!row) return null;
@@ -77,7 +77,7 @@ export async function getClassById(id: string): Promise<Class | null> {
 }
 
 export async function getClassByCode(code: string): Promise<Class | null> {
-  const stmt = db.prepare("SELECT * FROM classes WHERE code = ?");
+  const stmt = db.prepare('SELECT * FROM classes WHERE code = ?');
   const row = stmt.get(code) as any;
 
   if (!row) return null;
@@ -94,10 +94,10 @@ export async function getClassByCode(code: string): Promise<Class | null> {
 }
 
 export async function getClassesByTeacher(teacherId: string): Promise<Class[]> {
-  const stmt = db.prepare("SELECT * FROM classes WHERE teacher_id = ? ORDER BY created_at DESC");
+  const stmt = db.prepare('SELECT * FROM classes WHERE teacher_id = ? ORDER BY created_at DESC');
   const rows = stmt.all(teacherId) as any[];
 
-  return rows.map(row => ({
+  return rows.map((row) => ({
     id: row.id,
     name: row.name,
     description: row.description || undefined,
@@ -117,7 +117,7 @@ export async function getClassesByStudent(userId: string): Promise<Class[]> {
   `);
   const rows = stmt.all(userId) as any[];
 
-  return rows.map(row => ({
+  return rows.map((row) => ({
     id: row.id,
     name: row.name,
     description: row.description || undefined,
@@ -149,7 +149,7 @@ export async function updateClass(
 }
 
 export async function deleteClass(id: string): Promise<boolean> {
-  const stmt = db.prepare("DELETE FROM classes WHERE id = ?");
+  const stmt = db.prepare('DELETE FROM classes WHERE id = ?');
   const result = stmt.run(id);
   return result.changes > 0;
 }
@@ -157,7 +157,7 @@ export async function deleteClass(id: string): Promise<boolean> {
 export async function addClassMember(
   classId: string,
   userId: string,
-  role: "teacher" | "student"
+  role: 'teacher' | 'student'
 ): Promise<ClassMember> {
   const id = crypto.randomUUID();
   const now = new Date();
@@ -179,10 +179,10 @@ export async function addClassMember(
 }
 
 export async function getClassMembers(classId: string): Promise<ClassMember[]> {
-  const stmt = db.prepare("SELECT * FROM class_members WHERE class_id = ? ORDER BY joined_at ASC");
+  const stmt = db.prepare('SELECT * FROM class_members WHERE class_id = ? ORDER BY joined_at ASC');
   const rows = stmt.all(classId) as any[];
 
-  return rows.map(row => ({
+  return rows.map((row) => ({
     id: row.id,
     classId: row.class_id,
     userId: row.user_id,
@@ -192,7 +192,7 @@ export async function getClassMembers(classId: string): Promise<ClassMember[]> {
 }
 
 export async function removeClassMember(classId: string, userId: string): Promise<boolean> {
-  const stmt = db.prepare("DELETE FROM class_members WHERE class_id = ? AND user_id = ?");
+  const stmt = db.prepare('DELETE FROM class_members WHERE class_id = ? AND user_id = ?');
   const result = stmt.run(classId, userId);
   return result.changes > 0;
 }
@@ -236,10 +236,10 @@ export async function createAssignment(
 }
 
 export async function getAssignmentsByClass(classId: string): Promise<Assignment[]> {
-  const stmt = db.prepare("SELECT * FROM assignments WHERE class_id = ? ORDER BY created_at DESC");
+  const stmt = db.prepare('SELECT * FROM assignments WHERE class_id = ? ORDER BY created_at DESC');
   const rows = stmt.all(classId) as any[];
 
-  return rows.map(row => ({
+  return rows.map((row) => ({
     id: row.id,
     classId: row.class_id,
     studySetId: row.study_set_id,
@@ -252,7 +252,7 @@ export async function getAssignmentsByClass(classId: string): Promise<Assignment
 }
 
 export async function getAssignmentById(id: string): Promise<Assignment | null> {
-  const stmt = db.prepare("SELECT * FROM assignments WHERE id = ?");
+  const stmt = db.prepare('SELECT * FROM assignments WHERE id = ?');
   const row = stmt.get(id) as any;
 
   if (!row) return null;
@@ -298,14 +298,14 @@ export async function updateAssignment(
 }
 
 export async function deleteAssignment(id: string): Promise<boolean> {
-  const stmt = db.prepare("DELETE FROM assignments WHERE id = ?");
+  const stmt = db.prepare('DELETE FROM assignments WHERE id = ?');
   const result = stmt.run(id);
   return result.changes > 0;
 }
 
 function generateClassCode(): string {
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  let code = "";
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let code = '';
   for (let i = 0; i < 6; i++) {
     code += chars.charAt(Math.floor(Math.random() * chars.length));
   }
