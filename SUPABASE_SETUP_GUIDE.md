@@ -3,6 +3,7 @@
 ## 🎯 Project Overview
 
 We're converting your study platform from SQLite to **Supabase** (PostgreSQL), enabling:
+
 - ✅ Real-time database with cloud hosting
 - ✅ Built-in authentication system
 - ✅ Row-level security (RLS)
@@ -17,16 +18,20 @@ We're converting your study platform from SQLite to **Supabase** (PostgreSQL), e
 Please provide the following information from your Supabase project:
 
 ### 1. **Supabase Project Details**
+
 - [ ] **Project URL**: `https://[your-project-ref].supabase.co`
 - [ ] **Anon/Public Key**: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`
 - [ ] **Service Role Key** (optional, for admin operations): `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`
 
 ### 2. **Project Configuration**
+
 - [ ] Region: (e.g., `eu-west-1`, `us-east-1`)
 - [ ] Database password: (if you need direct database access)
 
 ### 3. **Authentication Settings**
+
 Which authentication methods do you want to enable?
+
 - [ ] Email/Password (recommended ✅)
 - [ ] Magic Link (email)
 - [ ] Google OAuth
@@ -38,10 +43,13 @@ Which authentication methods do you want to enable?
 ## 🔍 How to Find Your Supabase Keys
 
 ### Step 1: Go to Supabase Dashboard
+
 Visit: https://supabase.com/dashboard
 
 ### Step 2: Select Your Project
+
 If you don't have a project yet:
+
 1. Click "New Project"
 2. Choose organization
 3. Name it (e.g., "aether-study-platform")
@@ -49,6 +57,7 @@ If you don't have a project yet:
 5. Select region (choose closest to Netherlands for best performance)
 
 ### Step 3: Get API Keys
+
 1. Click on your project
 2. Go to **Settings** (gear icon) → **API**
 3. Find these values:
@@ -57,6 +66,7 @@ If you don't have a project yet:
    - **service_role key**: Under "Project API keys" (keep this secret!)
 
 ### Step 4: Screenshot or Copy
+
 Take a screenshot or copy these values securely. We'll add them to `.env.local` file.
 
 ---
@@ -66,6 +76,7 @@ Take a screenshot or copy these values securely. We'll add them to `.env.local` 
 ### Tables
 
 #### 1. **users** (extends Supabase auth.users)
+
 ```sql
 - id (uuid, primary key, references auth.users)
 - username (text, unique)
@@ -78,6 +89,7 @@ Take a screenshot or copy these values securely. We'll add them to `.env.local` 
 ```
 
 #### 2. **subjects**
+
 ```sql
 - id (uuid, primary key)
 - user_id (uuid, references users)
@@ -95,6 +107,7 @@ Take a screenshot or copy these values securely. We'll add them to `.env.local` 
 ```
 
 #### 3. **study_sets**
+
 ```sql
 - id (uuid, primary key)
 - user_id (uuid, references users)
@@ -108,6 +121,7 @@ Take a screenshot or copy these values securely. We'll add them to `.env.local` 
 ```
 
 #### 4. **flashcards**
+
 ```sql
 - id (uuid, primary key)
 - study_set_id (uuid, references study_sets)
@@ -121,6 +135,7 @@ Take a screenshot or copy these values securely. We'll add them to `.env.local` 
 ```
 
 #### 5. **study_sessions**
+
 ```sql
 - id (uuid, primary key)
 - user_id (uuid, references users)
@@ -136,6 +151,7 @@ Take a screenshot or copy these values securely. We'll add them to `.env.local` 
 ```
 
 #### 6. **card_reviews**
+
 ```sql
 - id (uuid, primary key)
 - user_id (uuid, references users)
@@ -148,6 +164,7 @@ Take a screenshot or copy these values securely. We'll add them to `.env.local` 
 ```
 
 #### 7. **achievements**
+
 ```sql
 - id (uuid, primary key)
 - user_id (uuid, references users)
@@ -159,6 +176,7 @@ Take a screenshot or copy these values securely. We'll add them to `.env.local` 
 ```
 
 #### 8. **calendar_events**
+
 ```sql
 - id (uuid, primary key)
 - user_id (uuid, references users)
@@ -175,6 +193,7 @@ Take a screenshot or copy these values securely. We'll add them to `.env.local` 
 ```
 
 #### 9. **bookmarks**
+
 ```sql
 - id (uuid, primary key)
 - user_id (uuid, references users)
@@ -185,6 +204,7 @@ Take a screenshot or copy these values securely. We'll add them to `.env.local` 
 ```
 
 #### 10. **reading_progress**
+
 ```sql
 - id (uuid, primary key)
 - user_id (uuid, references users)
@@ -196,6 +216,7 @@ Take a screenshot or copy these values securely. We'll add them to `.env.local` 
 ```
 
 #### 11. **analytics_events**
+
 ```sql
 - id (uuid, primary key)
 - user_id (uuid, references users)
@@ -273,6 +294,7 @@ NEXT_PUBLIC_APP_NAME=Aether Study Platform
 ## 🚀 Implementation Plan
 
 ### Phase 1: Setup & Configuration (30 minutes)
+
 1. ✅ Get Supabase credentials from you
 2. ✅ Install Supabase dependencies
 3. ✅ Create `.env.local` with credentials
@@ -280,6 +302,7 @@ NEXT_PUBLIC_APP_NAME=Aether Study Platform
 5. ✅ Create database schema (tables + RLS policies)
 
 ### Phase 2: Authentication System (1-2 hours)
+
 1. ✅ Replace custom JWT auth with Supabase Auth
 2. ✅ Create login page with Supabase Auth UI
 3. ✅ Create registration page
@@ -288,6 +311,7 @@ NEXT_PUBLIC_APP_NAME=Aether Study Platform
 6. ✅ Implement logout functionality
 
 ### Phase 3: Database Layer (2-3 hours)
+
 1. ✅ Remove SQLite (`better-sqlite3`)
 2. ✅ Create Supabase database helpers
 3. ✅ Migrate all API routes to use Supabase:
@@ -299,11 +323,13 @@ NEXT_PUBLIC_APP_NAME=Aether Study Platform
 5. ✅ Setup real-time subscriptions (optional)
 
 ### Phase 4: Data Migration (1 hour)
+
 1. ✅ Import existing content JSON files to database
 2. ✅ Create seed data for testing
 3. ✅ Setup demo user account
 
 ### Phase 5: Testing & Validation (1 hour)
+
 1. ✅ Test authentication flow
 2. ✅ Test study session tracking
 3. ✅ Test analytics dashboard
@@ -311,6 +337,7 @@ NEXT_PUBLIC_APP_NAME=Aether Study Platform
 5. ✅ Verify RLS policies work correctly
 
 ### Phase 6: Deployment (30 minutes)
+
 1. ✅ Add Supabase env vars to Vercel
 2. ✅ Deploy to Vercel
 3. ✅ Test production build
@@ -339,6 +366,7 @@ Before we start coding:
 After completion, your platform will have:
 
 ### ✅ **Authentication**
+
 - Secure user registration and login
 - Email verification (optional)
 - Password reset functionality
@@ -346,6 +374,7 @@ After completion, your platform will have:
 - Protected routes
 
 ### ✅ **User Features**
+
 - Personal dashboard
 - Study progress tracking
 - Achievement system
@@ -354,6 +383,7 @@ After completion, your platform will have:
 - Custom study sets
 
 ### ✅ **Analytics**
+
 - Study session tracking
 - Time spent per subject
 - Card accuracy statistics
@@ -361,12 +391,14 @@ After completion, your platform will have:
 - Admin analytics dashboard
 
 ### ✅ **Content Management**
+
 - Create/edit/delete study sets
 - Import from JSON files
 - Share sets with other users (public sets)
 - Organize by subject and topic
 
 ### ✅ **Performance**
+
 - Fast real-time queries
 - Automatic caching
 - Optimistic UI updates
@@ -385,6 +417,7 @@ After completion, your platform will have:
 5. ✅ Any specific requirements or features you want
 
 **Once you provide these, I will:**
+
 1. Create all database tables and RLS policies in Supabase
 2. Update all code to use Supabase
 3. Migrate authentication system

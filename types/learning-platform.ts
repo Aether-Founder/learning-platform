@@ -4,18 +4,32 @@ export type MasteryStatus = 'unstudied' | 'learning' | 'review' | 'due' | 'maste
 
 export type QuestionType = 'multiple-choice' | 'written' | 'true-false' | 'flashcard';
 
-export type LearningMode = 'review' | 'flashcard' | 'learn' | 'learn-image' | 'test' | 'multiple-choice-only' | 'writing-only' | 'match' | 'blast' | 'blocks' | 'sprint' | 'type-rush' | 'gravity' | 'samenvatting';
+export type LearningMode =
+  | 'review'
+  | 'flashcard'
+  | 'learn'
+  | 'learn-image'
+  | 'test'
+  | 'multiple-choice-only'
+  | 'writing-only'
+  | 'match'
+  | 'blast'
+  | 'blocks'
+  | 'sprint'
+  | 'type-rush'
+  | 'gravity'
+  | 'samenvatting';
 
 /** Learning activity chosen in session settings (Leren flow) */
 export type LerenActivity = 'flashcard' | 'learn' | 'multiple-choice-only' | 'writing-only';
 
-export type CardType = "basic" | "reverse" | "cloze" | "image-occlusion";
+export type CardType = 'basic' | 'reverse' | 'cloze' | 'image-occlusion';
 
-export type ReviewGrade = "again" | "hard" | "good" | "easy";
+export type ReviewGrade = 'again' | 'hard' | 'good' | 'easy';
 
-export type SrsAlgorithm = "sm2" | "fsrs";
+export type SrsAlgorithm = 'sm2' | 'fsrs';
 
-export type ReviewMode = "due" | "new" | "mix" | "mistakes" | "starred";
+export type ReviewMode = 'due' | 'new' | 'mix' | 'mistakes' | 'starred';
 
 export interface ImageOcclusion {
   id: string;
@@ -54,7 +68,7 @@ export interface Term {
   retrievability?: number;
   reviewCount?: number;
   lapseCount?: number;
-  dueState?: ReviewMode | "review" | "mastered";
+  dueState?: ReviewMode | 'review' | 'mastered';
   createdAt: Date;
   image?: string;
 }
@@ -154,7 +168,7 @@ export interface StudySettings {
   testQuestionDistribution?: {
     'true-false': number; // percentage
     'multiple-choice': number;
-    'written': number;
+    written: number;
   };
   /** Which leren mode to run (set in session settings before start) */
   lerenActivity?: LerenActivity;

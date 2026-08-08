@@ -1,5 +1,5 @@
-import type { Question, QuestionType, StudySettings, Term } from "@/types/learning-platform";
-import { fisherYatesShuffle, getPromptAndAnswer } from "./term-filters";
+import type { Question, QuestionType, StudySettings, Term } from '@/types/learning-platform';
+import { fisherYatesShuffle, getPromptAndAnswer } from './term-filters';
 
 export function createId(prefix: string) {
   return `${prefix}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
@@ -20,9 +20,9 @@ export function pickDistractors(
   allTerms: Term[],
   current: Term,
   count: number,
-  pickFrom: "term" | "definition"
+  pickFrom: 'term' | 'definition'
 ): string[] {
-  const field = pickFrom === "term" ? "term" : "definition";
+  const field = pickFrom === 'term' ? 'term' : 'definition';
   const correctValue = current[field].trim().toLowerCase();
   const pool = uniqueByNormalized(
     allTerms
@@ -34,23 +34,19 @@ export function pickDistractors(
   return fisherYatesShuffle(pool).slice(0, count);
 }
 
-export function buildMcqQuestion(
-  term: Term,
-  allTerms: Term[],
-  settings: StudySettings
-): Question {
+export function buildMcqQuestion(term: Term, allTerms: Term[], settings: StudySettings): Question {
   const { prompt, answer } = getPromptAndAnswer(term, settings.questionFormat);
   const distractors = pickDistractors(
     allTerms,
     term,
     3,
-    settings.questionFormat === "term-to-definition" ? "definition" : "term"
+    settings.questionFormat === 'term-to-definition' ? 'definition' : 'term'
   );
   const options = fisherYatesShuffle(uniqueByNormalized([answer, ...distractors]));
   return {
-    id: createId("q"),
+    id: createId('q'),
     term,
-    type: "multiple-choice",
+    type: 'multiple-choice',
     prompt,
     correctAnswer: answer,
     options,
@@ -61,9 +57,9 @@ export function buildMcqQuestion(
 export function buildWrittenQuestion(term: Term, settings: StudySettings): Question {
   const { prompt, answer } = getPromptAndAnswer(term, settings.questionFormat);
   return {
-    id: createId("q"),
+    id: createId('q'),
     term,
-    type: "written",
+    type: 'written',
     prompt,
     correctAnswer: answer,
     startTime: new Date(),
@@ -81,39 +77,44 @@ export function buildTrueFalseQuestion(
     allTerms,
     term,
     1,
-    settings.questionFormat === "term-to-definition" ? "definition" : "term"
+    settings.questionFormat === 'term-to-definition' ? 'definition' : 'term'
   )[0];
   const isTrue = !distractor ? true : forceFalse ? false : Math.random() < 0.5;
-  const displayedAnswer = isTrue ? answer : distractor ?? answer;
+  const displayedAnswer = isTrue ? answer : (distractor ?? answer);
   const statement =
-    settings.questionFormat === "term-to-definition"
+    settings.questionFormat === 'term-to-definition'
       ? `${prompt} - ${displayedAnswer}`
       : `${prompt} betekent: ${displayedAnswer}`;
 
   return {
-    id: createId("q"),
+    id: createId('q'),
     term,
-    type: "true-false",
+    type: 'true-false',
     prompt: statement,
-    correctAnswer: isTrue ? "True" : "False",
-    options: ["True", "False"],
+    correctAnswer: isTrue ? 'True' : 'False',
+    options: ['True', 'False'],
     startTime: new Date(),
   };
 }
 
-export function buildTestQuestions(terms: Term[], allTerms: Term[], settings: StudySettings): Question[] {
+export function buildTestQuestions(
+  terms: Term[],
+  allTerms: Term[],
+  settings: StudySettings
+): Question[] {
   const enabled = new Set(settings.enabledQuestionTypes);
-  type TestQuestionType = "true-false" | "multiple-choice" | "written";
+  type TestQuestionType = 'true-false' | 'multiple-choice' | 'written';
   const distribution = settings.testQuestionDistribution ?? {
-    "true-false": 25,
-    "multiple-choice": 50,
+    'true-false': 25,
+    'multiple-choice': 50,
     written: 25,
   };
-  const enabledTypes: TestQuestionType[] = (["true-false", "multiple-choice", "written"] as const).filter((type) =>
-    enabled.has(type)
-  );
-  const activeTypes: TestQuestionType[] = enabledTypes.length ? enabledTypes : ["multiple-choice"];
-  const totalWeight = activeTypes.reduce((sum, type) => sum + (distribution[type] || 0), 0) || activeTypes.length;
+  const enabledTypes: TestQuestionType[] = (
+    ['true-false', 'multiple-choice', 'written'] as const
+  ).filter((type) => enabled.has(type));
+  const activeTypes: TestQuestionType[] = enabledTypes.length ? enabledTypes : ['multiple-choice'];
+  const totalWeight =
+    activeTypes.reduce((sum, type) => sum + (distribution[type] || 0), 0) || activeTypes.length;
   const quotas = new Map<TestQuestionType, number>();
   let assigned = 0;
 
@@ -128,23 +129,23 @@ export function buildTestQuestions(terms: Term[], allTerms: Term[], settings: St
   });
 
   const typeQueue = fisherYatesShuffle(
-    activeTypes.flatMap((type) => Array.from({ length: Math.max(0, quotas.get(type) ?? 0) }, () => type))
+    activeTypes.flatMap((type) =>
+      Array.from({ length: Math.max(0, quotas.get(type) ?? 0) }, () => type)
+    )
   );
 
   return fisherYatesShuffle(terms).map((term, index) => {
     const type = typeQueue[index] ?? activeTypes[index % activeTypes.length];
-    if (type === "true-false") return buildTrueFalseQuestion(term, allTerms, settings, index % 2 === 1);
-    if (type === "written") return buildWrittenQuestion(term, settings);
+    if (type === 'true-false')
+      return buildTrueFalseQuestion(term, allTerms, settings, index % 2 === 1);
+    if (type === 'written') return buildWrittenQuestion(term, settings);
     return buildMcqQuestion(term, allTerms, settings);
   });
 }
 
-export function learnQuestionTypeForTerm(
-  _term: Term,
-  consecutiveCorrect: number
-): QuestionType {
-  if (consecutiveCorrect >= 2) return "written";
-  return "multiple-choice";
+export function learnQuestionTypeForTerm(_term: Term, consecutiveCorrect: number): QuestionType {
+  if (consecutiveCorrect >= 2) return 'written';
+  return 'multiple-choice';
 }
 
 export function buildLearnQuestion(
@@ -154,6 +155,6 @@ export function buildLearnQuestion(
   consecutiveCorrect: number
 ): Question {
   const type = learnQuestionTypeForTerm(term, consecutiveCorrect);
-  if (type === "written") return buildWrittenQuestion(term, settings);
+  if (type === 'written') return buildWrittenQuestion(term, settings);
   return buildMcqQuestion(term, allTerms, settings);
 }

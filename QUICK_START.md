@@ -27,9 +27,9 @@
 📋 **Copy these three items** and paste them here or in a secure note:
 
 ```
-Project URL: 
-Anon Key: 
-Service Role Key: 
+Project URL:
+Anon Key:
+Service Role Key:
 ```
 
 ---
@@ -45,6 +45,7 @@ Service Role Key:
 7. You should see: ✅ Success message
 
 **Verify**: Click **Table Editor** in sidebar - you should see 11 tables:
+
 - users
 - subjects
 - study_sets
@@ -107,6 +108,7 @@ Once you provide the credentials, I will:
 If you're unsure where to find something, here's what to look for:
 
 ### Finding API Keys:
+
 ```
 Supabase Dashboard
 ├── Your Project Name
@@ -119,6 +121,7 @@ Supabase Dashboard
 ```
 
 ### Running SQL:
+
 ```
 Supabase Dashboard
 └── SQL Editor 📝
@@ -132,12 +135,15 @@ Supabase Dashboard
 ## ⚠️ Important Notes
 
 ### Security
+
 - ⚠️ **NEVER** share your `service_role` key publicly
 - ✅ The `anon` key is safe to use in frontend code
 - ✅ All data is protected by Row Level Security (RLS)
 
 ### Free Tier Limits
+
 Your free tier includes:
+
 - ✅ 500MB database storage (more than enough for thousands of flashcards)
 - ✅ 5GB bandwidth per month
 - ✅ 50,000 monthly active users
@@ -145,6 +151,7 @@ Your free tier includes:
 - ✅ 2GB file storage
 
 ### Testing
+
 - We'll first test everything on `localhost:3000`
 - Once confirmed working, we deploy to Vercel
 - Your existing content JSON files won't be deleted
@@ -154,19 +161,23 @@ Your free tier includes:
 ## 🆘 Troubleshooting
 
 ### Can't find Supabase dashboard?
+
 - Go to https://supabase.com and click "Sign in"
 - Log in with GitHub, Google, or email
 
 ### Project taking too long to create?
+
 - Usually takes 2-3 minutes
 - If stuck, try refreshing the page
 
 ### SQL query failed?
+
 - Make sure you copied the ENTIRE `supabase-schema.sql` file
 - Check if any red error messages appear
 - Share the error message with me
 
 ### Lost your database password?
+
 - You can reset it in Settings > Database > Database password
 
 ---

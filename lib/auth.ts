@@ -49,17 +49,9 @@ export async function verifyPassword(password: string, hash: string): Promise<bo
 
 // Generate JWT tokens
 export function generateTokens(userId: string): AuthTokens {
-  const accessToken = jwt.sign(
-    { userId },
-    JWT_SECRET,
-    { expiresIn: '15m' }
-  );
+  const accessToken = jwt.sign({ userId }, JWT_SECRET, { expiresIn: '15m' });
 
-  const refreshToken = jwt.sign(
-    { userId },
-    JWT_SECRET,
-    { expiresIn: '7d' }
-  );
+  const refreshToken = jwt.sign({ userId }, JWT_SECRET, { expiresIn: '7d' });
 
   return { accessToken, refreshToken };
 }
@@ -69,7 +61,7 @@ export function verifyToken(token: string): { userId: string } | null {
   try {
     const decoded = jwt.verify(token, JWT_SECRET) as { userId: string };
     return decoded;
-  } catch (error) {
+  } catch {
     return null;
   }
 }

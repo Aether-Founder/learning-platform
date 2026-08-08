@@ -5,10 +5,10 @@ import React, { useState, useEffect } from 'react';
 // ============================================================
 // CONFIGURABLE LOGO SIZES (change these values to adjust logos)
 // ============================================================
-const QUIZLET_LOGO_WIDTH = 120;   // px – width of the Quizlet logo image
-const QUIZLET_LOGO_HEIGHT = 48;   // px – height of the Quizlet logo image
-const STUDYGO_LOGO_WIDTH = 540;   // px – width of the StudyGo logo image
-const STUDYGO_LOGO_HEIGHT = 132;   // px – height of the StudyGo logo image
+const QUIZLET_LOGO_WIDTH = 120; // px – width of the Quizlet logo image
+const QUIZLET_LOGO_HEIGHT = 48; // px – height of the Quizlet logo image
+const STUDYGO_LOGO_WIDTH = 540; // px – width of the StudyGo logo image
+const STUDYGO_LOGO_HEIGHT = 132; // px – height of the StudyGo logo image
 // ============================================================
 
 const STORAGE_KEY = 'platformBanner_hidden';
@@ -78,11 +78,12 @@ export default function PlatformBanner() {
         <div className="fixed bottom-28 right-4 z-50 w-[320px] rounded-2xl border border-border bg-secondary text-foreground shadow-2xl p-4 text-sm leading-6 transition-opacity duration-500">
           <div className="flex items-start gap-3">
             <div className="flex-1">
-              <p className="text-sm font-semibold text-foreground mb-2">
-                Tip voor toetsweek
-              </p>
+              <p className="text-sm font-semibold text-foreground mb-2">Tip voor toetsweek</p>
               <p className="text-sm text-muted-foreground">
-                Klik op de <span className="font-semibold text-foreground">Quizlet</span> of <span className="font-semibold text-foreground">StudyGo</span> knop om direct naar de klas/groep te gaan met alle lijsten van termen en definities voor de komende toetsweek.
+                Klik op de <span className="font-semibold text-foreground">Quizlet</span> of{' '}
+                <span className="font-semibold text-foreground">StudyGo</span> knop om direct naar
+                de klas/groep te gaan met alle lijsten van termen en definities voor de komende
+                toetsweek.
               </p>
             </div>
             <button

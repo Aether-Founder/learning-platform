@@ -9,16 +9,19 @@ Your app now matches UI-REFERENCE-2 exactly (except background color as you requ
 ## What Was Fixed
 
 ### 1. Logo Issue ✅
+
 - **Before:** Colored div placeholder
 - **After:** Actual SVG logo displays in header and footer
 - **Location:** `/public/logo.svg`
 
 ### 2. Zoom/Scaling Issue ✅
+
 - **Before:** Content appeared zoomed in
 - **After:** Proper scaling matching UI-REFERENCE-2
 - **Fix:** Cleaned up duplicate CSS rules in `globals.css`
 
 ### 3. Font Issue ✅
+
 - **Before:** Wrong font for body text
 - **After:** Inter for body text, Cormorant Garamond for headings
 - **Fix:** Corrected CSS font-family declarations
@@ -28,12 +31,14 @@ Your app now matches UI-REFERENCE-2 exactly (except background color as you requ
 ## Current Setup
 
 ### Fonts
+
 ```
 Body text → Inter (--font-sans)
 Headings  → Cormorant Garamond (--font-display)
 ```
 
 ### Logo
+
 ```
 Header: 28x28px (h-7 w-7)
 Footer: 20x20px (h-5 w-5)
@@ -41,6 +46,7 @@ File: /public/logo.svg
 ```
 
 ### Dev Server
+
 ```
 URL: http://localhost:3001
 Status: ✅ Running
@@ -52,7 +58,7 @@ Status: ✅ Running
 
 1. **Open:** http://localhost:3001
 2. **Check Logo:** Should see blue logo icon in header
-3. **Check Fonts:** 
+3. **Check Fonts:**
    - "Aether" title → Cormorant Garamond (serif)
    - "Elk vak is een map..." → Inter (sans-serif)
 4. **Check Scaling:** Should match UI-REFERENCE-2 size
@@ -120,4 +126,3 @@ Use these in your components:
 - ✅ Scaling correct
 - ✅ Styling exact match
 - ✅ Background color different (as you wanted)
-

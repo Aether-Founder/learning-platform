@@ -1,4 +1,4 @@
-import db from "./db";
+import db from './db';
 
 export interface Homework {
   id: string;
@@ -7,8 +7,8 @@ export interface Homework {
   description?: string;
   subject: string;
   dueDate: Date;
-  priority: "low" | "medium" | "high";
-  status: "pending" | "in_progress" | "completed";
+  priority: 'low' | 'medium' | 'high';
+  status: 'pending' | 'in_progress' | 'completed';
   estimatedTime?: number;
   completedAt?: Date;
   testWeekId?: string;
@@ -22,7 +22,7 @@ export async function createHomework(
   description: string | undefined,
   subject: string,
   dueDate: Date,
-  priority: "low" | "medium" | "high",
+  priority: 'low' | 'medium' | 'high',
   estimatedTime: number | undefined,
   testWeekId: string | undefined,
   relatedStudySetId: string | undefined
@@ -43,7 +43,7 @@ export async function createHomework(
     subject,
     dueDate.toISOString(),
     priority,
-    "pending",
+    'pending',
     estimatedTime || null,
     testWeekId || null,
     relatedStudySetId || null,
@@ -58,7 +58,7 @@ export async function createHomework(
     subject,
     dueDate,
     priority,
-    status: "pending",
+    status: 'pending',
     estimatedTime: estimatedTime || undefined,
     testWeekId: testWeekId || undefined,
     relatedStudySetId: relatedStudySetId || undefined,
@@ -67,7 +67,7 @@ export async function createHomework(
 }
 
 export async function getHomeworkById(id: string): Promise<Homework | null> {
-  const stmt = db.prepare("SELECT * FROM homework WHERE id = ?");
+  const stmt = db.prepare('SELECT * FROM homework WHERE id = ?');
   const row = stmt.get(id) as any;
 
   if (!row) return null;
@@ -90,10 +90,10 @@ export async function getHomeworkById(id: string): Promise<Homework | null> {
 }
 
 export async function getHomeworkByUserId(userId: string): Promise<Homework[]> {
-  const stmt = db.prepare("SELECT * FROM homework WHERE user_id = ? ORDER BY due_date ASC");
+  const stmt = db.prepare('SELECT * FROM homework WHERE user_id = ? ORDER BY due_date ASC');
   const rows = stmt.all(userId) as any[];
 
-  return rows.map(row => ({
+  return rows.map((row) => ({
     id: row.id,
     userId: row.user_id,
     title: row.title,
@@ -111,10 +111,10 @@ export async function getHomeworkByUserId(userId: string): Promise<Homework[]> {
 }
 
 export async function getHomeworkByTestWeek(testWeekId: string): Promise<Homework[]> {
-  const stmt = db.prepare("SELECT * FROM homework WHERE test_week_id = ? ORDER BY due_date ASC");
+  const stmt = db.prepare('SELECT * FROM homework WHERE test_week_id = ? ORDER BY due_date ASC');
   const rows = stmt.all(testWeekId) as any[];
 
-  return rows.map(row => ({
+  return rows.map((row) => ({
     id: row.id,
     userId: row.user_id,
     title: row.title,
@@ -137,12 +137,12 @@ export async function updateHomework(
   description: string | undefined,
   subject: string | undefined,
   dueDate: Date | undefined,
-  priority: "low" | "medium" | "high" | undefined,
-  status: "pending" | "in_progress" | "completed" | undefined,
+  priority: 'low' | 'medium' | 'high' | undefined,
+  status: 'pending' | 'in_progress' | 'completed' | undefined,
   estimatedTime: number | undefined
 ): Promise<Homework | null> {
   const now = new Date();
-  const completedAt = status === "completed" ? now : undefined;
+  const completedAt = status === 'completed' ? now : undefined;
 
   const stmt = db.prepare(`
     UPDATE homework
@@ -173,16 +173,18 @@ export async function updateHomework(
 }
 
 export async function deleteHomework(id: string): Promise<boolean> {
-  const stmt = db.prepare("DELETE FROM homework WHERE id = ?");
+  const stmt = db.prepare('DELETE FROM homework WHERE id = ?');
   const result = stmt.run(id);
   return result.changes > 0;
 }
 
 export async function getPendingHomework(userId: string): Promise<Homework[]> {
-  const stmt = db.prepare("SELECT * FROM homework WHERE user_id = ? AND status != 'completed' ORDER BY due_date ASC");
+  const stmt = db.prepare(
+    "SELECT * FROM homework WHERE user_id = ? AND status != 'completed' ORDER BY due_date ASC"
+  );
   const rows = stmt.all(userId) as any[];
 
-  return rows.map(row => ({
+  return rows.map((row) => ({
     id: row.id,
     userId: row.user_id,
     title: row.title,
@@ -200,10 +202,12 @@ export async function getPendingHomework(userId: string): Promise<Homework[]> {
 }
 
 export async function getHomeworkBySubject(userId: string, subject: string): Promise<Homework[]> {
-  const stmt = db.prepare("SELECT * FROM homework WHERE user_id = ? AND subject = ? ORDER BY due_date ASC");
+  const stmt = db.prepare(
+    'SELECT * FROM homework WHERE user_id = ? AND subject = ? ORDER BY due_date ASC'
+  );
   const rows = stmt.all(userId, subject) as any[];
 
-  return rows.map(row => ({
+  return rows.map((row) => ({
     id: row.id,
     userId: row.user_id,
     title: row.title,

@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Check, X } from "lucide-react";
-import type { Question } from "@/types/learning-platform";
-import { MarkdownContent } from "../shared/MarkdownContent";
+import { useState } from 'react';
+import { Check, X } from 'lucide-react';
+import type { Question } from '@/types/learning-platform';
+import { MarkdownContent } from '../shared/MarkdownContent';
 
 interface McqQuestionProps {
   question: Question;
@@ -40,13 +40,13 @@ export function McqQuestion({
         {(question.options || []).map((option) => {
           const isSelected = selected === option;
           const isCorrect = option === question.correctAnswer;
-          let style = "border-border bg-card hover:bg-secondary/80";
+          let style = 'border-border bg-card hover:bg-secondary/80';
           if (submitted && showFeedback) {
-            if (isCorrect) style = "border-green-500 bg-green-500/15";
-            else if (isSelected) style = "border-red-500 bg-red-500/15";
-            else style = "border-border opacity-60";
+            if (isCorrect) style = 'border-green-500 bg-green-500/15';
+            else if (isSelected) style = 'border-red-500 bg-red-500/15';
+            else style = 'border-border opacity-60';
           } else if (isSelected) {
-            style = "border-foreground bg-secondary";
+            style = 'border-foreground bg-secondary';
           }
           return (
             <button
@@ -73,13 +73,13 @@ export function McqQuestion({
         <div
           className={`rounded-lg border px-4 py-3 text-sm ${
             selected === question.correctAnswer
-              ? "border-green-500/40 bg-green-500/10 text-green-700 dark:text-green-300"
-              : "border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300"
+              ? 'border-green-500/40 bg-green-500/10 text-green-700 dark:text-green-300'
+              : 'border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300'
           }`}
         >
           {selected === question.correctAnswer
-            ? "Goed antwoord."
-            : "Nog niet. Kijk even naar het juiste antwoord voordat je doorgaat."}
+            ? 'Goed antwoord.'
+            : 'Nog niet. Kijk even naar het juiste antwoord voordat je doorgaat.'}
         </div>
       )}
     </div>

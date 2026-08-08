@@ -11,6 +11,7 @@
  */
 
 import { createBrowserClient } from '@supabase/auth-helpers-nextjs';
+import type { SupabaseClient } from '@supabase/supabase-js';
 import { Database } from '@/types/database.types';
 
 /**
@@ -57,22 +58,41 @@ function getBrowserConfig() {
   return { url, anonKey };
 }
 
-const { url: supabaseUrl, anonKey: supabaseAnonKey } = getBrowserConfig();
-
-/**
- * Create a Supabase client for use in Client Components
- * Uses cookie storage to sync session with middleware.
- */
-export const supabase = createBrowserClient<Database>(supabaseUrl, supabaseAnonKey, {
-  cookies: browserCookieStorage,
-});
-
 /**
  * Create a fresh Supabase client instance
  * Useful when you need a new instance (e.g., after auth state changes)
  */
 export function createClient() {
-  return createBrowserClient<Database>(supabaseUrl, supabaseAnonKey, {
+  const { url, anonKey } = getBrowserConfig();
+  return createBrowserClient<Database>(url, anonKey, {
     cookies: browserCookieStorage,
   });
 }
+
+let cachedClient: SupabaseClient<Database> | null = null;
+
+function getClient(): SupabaseClient<Database> {
+  if (!cachedClient) {
+    cachedClient = createClient();
+  }
+  return cachedClient;
+}
+
+/**
+ * Lazily-initialised Supabase client for use in Client Components.
+ *
+ * The client is only created on first access so that importing this module
+ * never throws — this keeps server-side prerendering and the build working
+ * even when NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY are not
+ * configured (e.g. during CI or on a fresh clone). Accessing any property
+ * without env vars configured throws a descriptive error at runtime.
+ */
+export const supabase = new Proxy({} as SupabaseClient<Database>, {
+  get(_target, prop, receiver) {
+    return Reflect.get(getClient(), prop, receiver);
+  },
+  set(_target, prop, value, receiver) {
+    Reflect.set(getClient(), prop, value, receiver);
+    return true;
+  },
+});

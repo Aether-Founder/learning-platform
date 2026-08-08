@@ -5,7 +5,11 @@ export interface DocumentChunk {
   chunkIndex: number;
 }
 
-export function chunkTextDocument(text: string, sourceName: string, maxChunkSize = 500): DocumentChunk[] {
+export function chunkTextDocument(
+  text: string,
+  sourceName: string,
+  maxChunkSize = 500
+): DocumentChunk[] {
   const words = text.split(/\s+/);
   const chunks: DocumentChunk[] = [];
   let currentChunk: string[] = [];

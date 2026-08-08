@@ -1,12 +1,18 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Folder, FolderOpen, Plus, Edit, Trash2, ChevronRight, ChevronDown } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { Folder, FolderOpen, Plus, Edit, Trash2, ChevronRight, ChevronDown } from 'lucide-react';
 
 interface StudySet {
   id: string;
@@ -32,9 +38,9 @@ export function FolderSystem({ userId, onStudySetClick }: FolderSystemProps) {
   const [folders, setFolders] = useState<Folder[]>([]);
   const [loading, setLoading] = useState(true);
   const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set());
-  const [newFolderName, setNewFolderName] = useState("");
+  const [newFolderName, setNewFolderName] = useState('');
   const [editingFolder, setEditingFolder] = useState<string | null>(null);
-  const [editingName, setEditingName] = useState("");
+  const [editingName, setEditingName] = useState('');
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [selectedParentId, setSelectedParentId] = useState<string | null>(null);
 
@@ -45,8 +51,8 @@ export function FolderSystem({ userId, onStudySetClick }: FolderSystemProps) {
   const fetchFolders = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch("/api/studysets/folders", {
+      const token = localStorage.getItem('token');
+      const response = await fetch('/api/studysets/folders', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -57,7 +63,7 @@ export function FolderSystem({ userId, onStudySetClick }: FolderSystemProps) {
         setFolders(data.folders || []);
       }
     } catch (error) {
-      console.error("Failed to fetch folders:", error);
+      console.error('Failed to fetch folders:', error);
     } finally {
       setLoading(false);
     }
@@ -79,11 +85,11 @@ export function FolderSystem({ userId, onStudySetClick }: FolderSystemProps) {
     if (!newFolderName.trim()) return;
 
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch("/api/studysets/folders", {
-        method: "POST",
+      const token = localStorage.getItem('token');
+      const response = await fetch('/api/studysets/folders', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
@@ -93,21 +99,21 @@ export function FolderSystem({ userId, onStudySetClick }: FolderSystemProps) {
       });
 
       if (response.ok) {
-        setNewFolderName("");
+        setNewFolderName('');
         setShowCreateDialog(false);
         setSelectedParentId(null);
         fetchFolders();
       }
     } catch (error) {
-      console.error("Failed to create folder:", error);
+      console.error('Failed to create folder:', error);
     }
   };
 
   const handleDeleteFolder = async (folderId: string) => {
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       const response = await fetch(`/api/studysets/folders/${folderId}`, {
-        method: "DELETE",
+        method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -117,7 +123,7 @@ export function FolderSystem({ userId, onStudySetClick }: FolderSystemProps) {
         fetchFolders();
       }
     } catch (error) {
-      console.error("Failed to delete folder:", error);
+      console.error('Failed to delete folder:', error);
     }
   };
 
@@ -125,11 +131,11 @@ export function FolderSystem({ userId, onStudySetClick }: FolderSystemProps) {
     if (!editingName.trim()) return;
 
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       const response = await fetch(`/api/studysets/folders/${folderId}`, {
-        method: "PATCH",
+        method: 'PATCH',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
@@ -139,50 +145,24 @@ export function FolderSystem({ userId, onStudySetClick }: FolderSystemProps) {
 
       if (response.ok) {
         setEditingFolder(null);
-        setEditingName("");
+        setEditingName('');
         fetchFolders();
       }
     } catch (error) {
-      console.error("Failed to rename folder:", error);
-    }
-  };
-
-  const handleMoveToFolder = async (studySetId: string, folderId: string) => {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await fetch(`/api/studysets/${studySetId}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          folderId,
-        }),
-      });
-
-      if (response.ok) {
-        fetchFolders();
-      }
-    } catch (error) {
-      console.error("Failed to move study set:", error);
+      console.error('Failed to rename folder:', error);
     }
   };
 
   const renderFolder = (folder: Folder, depth: number = 0) => {
     const isExpanded = expandedFolders.has(folder.id);
-    const totalStudySets = folder.studySets.length + folder.subfolders.reduce(
-      (sum, subfolder) => sum + countStudySetsInFolder(subfolder),
-      0
-    );
+    const totalStudySets =
+      folder.studySets.length +
+      folder.subfolders.reduce((sum, subfolder) => sum + countStudySetsInFolder(subfolder), 0);
 
     return (
       <div key={folder.id} style={{ marginLeft: `${depth * 16}px` }}>
         <div className="flex items-center gap-2 p-2 hover:bg-muted/50 rounded-lg cursor-pointer group">
-          <button
-            onClick={() => toggleFolder(folder.id)}
-            className="p-1 hover:bg-muted rounded"
-          >
+          <button onClick={() => toggleFolder(folder.id)} className="p-1 hover:bg-muted rounded">
             {isExpanded ? (
               <ChevronDown className="w-4 h-4" />
             ) : (
@@ -200,10 +180,10 @@ export function FolderSystem({ userId, onStudySetClick }: FolderSystemProps) {
               onChange={(e) => setEditingName(e.target.value)}
               onBlur={() => handleRenameFolder(folder.id)}
               onKeyDown={(e) => {
-                if (e.key === "Enter") handleRenameFolder(folder.id);
-                if (e.key === "Escape") {
+                if (e.key === 'Enter') handleRenameFolder(folder.id);
+                if (e.key === 'Escape') {
                   setEditingFolder(null);
-                  setEditingName("");
+                  setEditingName('');
                 }
               }}
               className="h-8 w-48"
@@ -286,9 +266,9 @@ export function FolderSystem({ userId, onStudySetClick }: FolderSystemProps) {
   };
 
   const countStudySetsInFolder = (folder: Folder): number => {
-    return folder.studySets.length + folder.subfolders.reduce(
-      (sum, subfolder) => sum + countStudySetsInFolder(subfolder),
-      0
+    return (
+      folder.studySets.length +
+      folder.subfolders.reduce((sum, subfolder) => sum + countStudySetsInFolder(subfolder), 0)
     );
   };
 
@@ -351,9 +331,7 @@ export function FolderSystem({ userId, onStudySetClick }: FolderSystemProps) {
             <p className="text-sm">Maak je eerste map om je studie sets te organiseren</p>
           </div>
         ) : (
-          <div className="space-y-1">
-            {rootFolders.map((folder) => renderFolder(folder))}
-          </div>
+          <div className="space-y-1">{rootFolders.map((folder) => renderFolder(folder))}</div>
         )}
       </CardContent>
     </Card>

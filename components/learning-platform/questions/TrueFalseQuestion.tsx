@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import type { Question } from "@/types/learning-platform";
-import { MarkdownContent } from "../shared/MarkdownContent";
+import { useState } from 'react';
+import type { Question } from '@/types/learning-platform';
+import { MarkdownContent } from '../shared/MarkdownContent';
 
 interface TrueFalseQuestionProps {
   question: Question;
@@ -24,13 +24,11 @@ export function TrueFalseQuestion({ question, onAnswer }: TrueFalseQuestionProps
         <MarkdownContent className="text-lg">{question.prompt}</MarkdownContent>
       </div>
       <div className="grid grid-cols-2 gap-3">
-        {(["True", "False"] as const).map((label) => {
+        {(['True', 'False'] as const).map((label) => {
           const isCorrect = label === question.correctAnswer;
-          let style = "border-border bg-card hover:bg-secondary";
+          let style = 'border-border bg-card hover:bg-secondary';
           if (submitted) {
-            style = isCorrect
-              ? "border-green-500 bg-green-500/15"
-              : "border-border opacity-50";
+            style = isCorrect ? 'border-green-500 bg-green-500/15' : 'border-border opacity-50';
           }
           return (
             <button
@@ -40,7 +38,7 @@ export function TrueFalseQuestion({ question, onAnswer }: TrueFalseQuestionProps
               onClick={() => handle(label)}
               className={`rounded-lg border py-4 font-medium ${style}`}
             >
-              {label === "True" ? "True" : "False"}
+              {label === 'True' ? 'True' : 'False'}
             </button>
           );
         })}

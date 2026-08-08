@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
-import { ChevronLeft, ChevronRight, RotateCcw, CheckCircle, XCircle } from "lucide-react";
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Progress } from '@/components/ui/progress';
+import { ChevronLeft, ChevronRight, RotateCcw, CheckCircle, XCircle } from 'lucide-react';
 
 interface StudyCard {
   id: string;
@@ -122,19 +122,11 @@ export function LearnMode({ cards, onComplete, onExit }: LearnModeProps) {
             </div>
 
             <div className="flex gap-4">
-              <Button
-                onClick={handleIncorrect}
-                variant="destructive"
-                className="flex-1"
-              >
+              <Button onClick={handleIncorrect} variant="destructive" className="flex-1">
                 <XCircle className="w-4 h-4 mr-2" />
                 Fout
               </Button>
-              <Button
-                onClick={handleCorrect}
-                variant="default"
-                className="flex-1"
-              >
+              <Button onClick={handleCorrect} variant="default" className="flex-1">
                 <CheckCircle className="w-4 h-4 mr-2" />
                 Goed
               </Button>
@@ -144,12 +136,7 @@ export function LearnMode({ cards, onComplete, onExit }: LearnModeProps) {
       </div>
 
       <div className="flex items-center justify-between text-sm text-muted-foreground">
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={handlePrevious}
-          disabled={currentIndex === 0}
-        >
+        <Button variant="ghost" size="sm" onClick={handlePrevious} disabled={currentIndex === 0}>
           <ChevronLeft className="w-4 h-4 mr-2" />
           Vorige
         </Button>

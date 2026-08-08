@@ -1,12 +1,18 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Search, Filter, X, BookOpen, FileText, Calendar, Tag } from "lucide-react";
+import { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Search, Filter, X, BookOpen, FileText, Calendar, Tag } from 'lucide-react';
 
 interface ContentSearchFilterProps {
   onSearch: (query: string) => void;
@@ -22,7 +28,7 @@ export interface ContentFilters {
 }
 
 export function ContentSearchFilter({ onSearch, onFilter, onReset }: ContentSearchFilterProps) {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState<ContentFilters>({});
   const [showFilters, setShowFilters] = useState(false);
 
@@ -38,12 +44,12 @@ export function ContentSearchFilter({ onSearch, onFilter, onReset }: ContentSear
   };
 
   const handleReset = () => {
-    setSearchQuery("");
+    setSearchQuery('');
     setFilters({});
     onReset();
   };
 
-  const hasActiveFilters = Object.values(filters).some((v) => v !== undefined && v !== "");
+  const hasActiveFilters = Object.values(filters).some((v) => v !== undefined && v !== '');
 
   return (
     <Card>
@@ -65,25 +71,17 @@ export function ContentSearchFilter({ onSearch, onFilter, onReset }: ContentSear
         </div>
 
         <div className="flex items-center gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setShowFilters(!showFilters)}
-          >
+          <Button variant="outline" size="sm" onClick={() => setShowFilters(!showFilters)}>
             <Filter className="w-4 h-4 mr-2" />
             Filters
             {hasActiveFilters && (
               <Badge variant="secondary" className="ml-2">
-                {Object.values(filters).filter((v) => v !== undefined && v !== "").length}
+                {Object.values(filters).filter((v) => v !== undefined && v !== '').length}
               </Badge>
             )}
           </Button>
           {hasActiveFilters && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleReset}
-            >
+            <Button variant="ghost" size="sm" onClick={handleReset}>
               <X className="w-4 h-4 mr-2" />
               Reset
             </Button>
@@ -98,8 +96,8 @@ export function ContentSearchFilter({ onSearch, onFilter, onReset }: ContentSear
                 Type
               </label>
               <Select
-                value={filters.type || "all"}
-                onValueChange={(value) => handleFilterChange("type", value === "all" ? "" : value)}
+                value={filters.type || 'all'}
+                onValueChange={(value) => handleFilterChange('type', value === 'all' ? '' : value)}
               >
                 <SelectTrigger>
                   <SelectValue />
@@ -120,8 +118,10 @@ export function ContentSearchFilter({ onSearch, onFilter, onReset }: ContentSear
                 Categorie
               </label>
               <Select
-                value={filters.category || "all"}
-                onValueChange={(value) => handleFilterChange("category", value === "all" ? "" : value)}
+                value={filters.category || 'all'}
+                onValueChange={(value) =>
+                  handleFilterChange('category', value === 'all' ? '' : value)
+                }
               >
                 <SelectTrigger>
                   <SelectValue />
@@ -145,8 +145,10 @@ export function ContentSearchFilter({ onSearch, onFilter, onReset }: ContentSear
                 Tijdperiode
               </label>
               <Select
-                value={filters.dateRange || "all"}
-                onValueChange={(value) => handleFilterChange("dateRange", value === "all" ? "" : value)}
+                value={filters.dateRange || 'all'}
+                onValueChange={(value) =>
+                  handleFilterChange('dateRange', value === 'all' ? '' : value)
+                }
               >
                 <SelectTrigger>
                   <SelectValue />
@@ -167,17 +169,17 @@ export function ContentSearchFilter({ onSearch, onFilter, onReset }: ContentSear
                 Tags
               </label>
               <div className="flex flex-wrap gap-2">
-                {["exam", "practice", "review", "important", "draft"].map((tag) => (
+                {['exam', 'practice', 'review', 'important', 'draft'].map((tag) => (
                   <Badge
                     key={tag}
-                    variant={filters.tags?.includes(tag) ? "default" : "outline"}
+                    variant={filters.tags?.includes(tag) ? 'default' : 'outline'}
                     className="cursor-pointer"
                     onClick={() => {
                       const currentTags = filters.tags || [];
                       const newTags = currentTags.includes(tag)
                         ? currentTags.filter((t) => t !== tag)
                         : [...currentTags, tag];
-                      handleFilterChange("tags", newTags.join(","));
+                      handleFilterChange('tags', newTags.join(','));
                     }}
                   >
                     {tag}

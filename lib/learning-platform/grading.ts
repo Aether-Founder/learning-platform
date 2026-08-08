@@ -8,17 +8,13 @@ export interface GradingOptions {
 }
 
 export function normalizeForGrading(text: string, options: GradingOptions = {}): string {
-  const {
-    ignoreAccents = true,
-    ignoreCase = true,
-    ignorePunctuation = true,
-  } = options;
+  const { ignoreAccents = true, ignoreCase = true, ignorePunctuation = true } = options;
 
   let normalized = text.trim();
-  if (ignoreAccents) normalized = normalized.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  if (ignoreAccents) normalized = normalized.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   if (ignoreCase) normalized = normalized.toLowerCase();
-  if (ignorePunctuation) normalized = normalized.replace(PUNCTUATION_REGEX, "");
-  return normalized.replace(/\s+/g, " ");
+  if (ignorePunctuation) normalized = normalized.replace(PUNCTUATION_REGEX, '');
+  return normalized.replace(/\s+/g, ' ');
 }
 
 export function levenshteinDistance(a: string, b: string, options: GradingOptions = {}): number {

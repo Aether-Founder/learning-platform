@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { X, Settings } from "lucide-react";
-import { useLearningPlatformStore } from "@/store/useLearningPlatformStore";
-import { daysUntilExam } from "@/lib/learning-platform/term-filters";
-import type { QuestionType } from "@/types/learning-platform";
+import { X, Settings } from 'lucide-react';
+import { useLearningPlatformStore } from '@/store/useLearningPlatformStore';
+import { daysUntilExam } from '@/lib/learning-platform/term-filters';
+import type { QuestionType } from '@/types/learning-platform';
 
 interface SettingsModalProps {
   open: boolean;
@@ -18,9 +18,9 @@ export function SettingsModal({ open, onClose }: SettingsModalProps) {
 
   const daysLeft = daysUntilExam(settings.examDate);
   const questionTypes: { id: QuestionType; label: string }[] = [
-    { id: "multiple-choice", label: "Multiple Choice" },
-    { id: "written", label: "Written" },
-    { id: "true-false", label: "True/False" },
+    { id: 'multiple-choice', label: 'Multiple Choice' },
+    { id: 'written', label: 'Written' },
+    { id: 'true-false', label: 'True/False' },
   ];
 
   const toggleQuestionType = (type: QuestionType) => {
@@ -54,9 +54,7 @@ export function SettingsModal({ open, onClose }: SettingsModalProps) {
             <input
               type="date"
               value={
-                settings.examDate
-                  ? new Date(settings.examDate).toISOString().slice(0, 10)
-                  : ""
+                settings.examDate ? new Date(settings.examDate).toISOString().slice(0, 10) : ''
               }
               onChange={(e) =>
                 updateSettings({
@@ -67,8 +65,8 @@ export function SettingsModal({ open, onClose }: SettingsModalProps) {
             />
             {daysLeft !== null && (
               <span className="text-muted-foreground text-xs">
-                {daysLeft} day{daysLeft !== 1 ? "s" : ""} remaining
-                {daysLeft < 3 && " — prioritizing unmastered terms"}
+                {daysLeft} day{daysLeft !== 1 ? 's' : ''} remaining
+                {daysLeft < 3 && ' — prioritizing unmastered terms'}
               </span>
             )}
           </label>
@@ -80,15 +78,15 @@ export function SettingsModal({ open, onClose }: SettingsModalProps) {
               min={5}
               max={50}
               step={5}
-              value={settings.roundLength === "all" ? 50 : settings.roundLength}
+              value={settings.roundLength === 'all' ? 50 : settings.roundLength}
               onChange={(e) => {
                 const v = Number(e.target.value);
-                updateSettings({ roundLength: v >= 50 ? "all" : v });
+                updateSettings({ roundLength: v >= 50 ? 'all' : v });
               }}
               className="w-full"
             />
             <span className="text-xs text-muted-foreground">
-              {settings.roundLength === "all" ? "All terms" : `${settings.roundLength} terms`}
+              {settings.roundLength === 'all' ? 'All terms' : `${settings.roundLength} terms`}
             </span>
           </label>
 
@@ -115,8 +113,8 @@ export function SettingsModal({ open, onClose }: SettingsModalProps) {
               <input
                 type="radio"
                 name="format"
-                checked={settings.questionFormat === "term-to-definition"}
-                onChange={() => updateSettings({ questionFormat: "term-to-definition" })}
+                checked={settings.questionFormat === 'term-to-definition'}
+                onChange={() => updateSettings({ questionFormat: 'term-to-definition' })}
               />
               Answer with definition
             </label>
@@ -124,8 +122,8 @@ export function SettingsModal({ open, onClose }: SettingsModalProps) {
               <input
                 type="radio"
                 name="format"
-                checked={settings.questionFormat === "definition-to-term"}
-                onChange={() => updateSettings({ questionFormat: "definition-to-term" })}
+                checked={settings.questionFormat === 'definition-to-term'}
+                onChange={() => updateSettings({ questionFormat: 'definition-to-term' })}
               />
               Answer with term
             </label>
@@ -133,10 +131,10 @@ export function SettingsModal({ open, onClose }: SettingsModalProps) {
 
           <div className="space-y-3">
             {[
-              ["studyStarredOnly", "Study starred only"],
-              ["shuffleTerms", "Shuffle terms"],
-              ["smartGrading", "Smart grading (Levenshtein ≤ 2)"],
-              ["retypeAnswers", "Re-type answers on wrong"],
+              ['studyStarredOnly', 'Study starred only'],
+              ['shuffleTerms', 'Shuffle terms'],
+              ['smartGrading', 'Smart grading (Levenshtein ≤ 2)'],
+              ['retypeAnswers', 'Re-type answers on wrong'],
             ].map(([key, label]) => (
               <label key={key} className="flex items-center justify-between gap-4">
                 <span>{label}</span>
@@ -152,9 +150,9 @@ export function SettingsModal({ open, onClose }: SettingsModalProps) {
 
           <fieldset className="space-y-2">
             <legend className="font-medium">Test question mix (%)</legend>
-            {(["true-false", "multiple-choice", "written"] as const).map((key) => (
+            {(['true-false', 'multiple-choice', 'written'] as const).map((key) => (
               <label key={key} className="flex items-center gap-2">
-                <span className="w-32 capitalize">{key.replace("-", " ")}</span>
+                <span className="w-32 capitalize">{key.replace('-', ' ')}</span>
                 <input
                   type="number"
                   min={0}
@@ -188,7 +186,7 @@ export function SettingsModal({ open, onClose }: SettingsModalProps) {
             <button
               type="button"
               onClick={() => {
-                if (confirm("Reset all progress for this set?")) {
+                if (confirm('Reset all progress for this set?')) {
                   resetAllProgress();
                 }
               }}

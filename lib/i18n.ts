@@ -1,4 +1,4 @@
-import { NL_FALLBACKS } from "./i18n-nl-fallbacks";
+import { NL_FALLBACKS } from './i18n-nl-fallbacks';
 
 export type Language = 'en' | 'nl' | 'fr' | 'de' | 'es' | 'tr';
 
@@ -38,39 +38,27 @@ class I18n {
       } catch {}
 
       // Load all language files
-      const [enResponse, nlResponse, frResponse, deResponse, esResponse, trResponse] = await Promise.all([
-        fetch('/locales/en.csv'),
-        fetch('/locales/nl.csv'),
-        fetch('/locales/fr.csv'),
-        fetch('/locales/de.csv'),
-        fetch('/locales/es.csv'),
-        fetch('/locales/tr.csv'),
-      ]);
+      const [enResponse, nlResponse, frResponse, deResponse, esResponse, trResponse] =
+        await Promise.all([
+          fetch('/locales/en.csv'),
+          fetch('/locales/nl.csv'),
+          fetch('/locales/fr.csv'),
+          fetch('/locales/de.csv'),
+          fetch('/locales/es.csv'),
+          fetch('/locales/tr.csv'),
+        ]);
 
-      this.translations.en = enResponse.ok
-        ? this.parseCSV(await enResponse.text())
-        : {};
+      this.translations.en = enResponse.ok ? this.parseCSV(await enResponse.text()) : {};
 
-      this.translations.nl = nlResponse.ok
-        ? this.parseCSV(await nlResponse.text())
-        : {};
+      this.translations.nl = nlResponse.ok ? this.parseCSV(await nlResponse.text()) : {};
 
-      this.translations.fr = frResponse.ok
-        ? this.parseCSV(await frResponse.text())
-        : {};
+      this.translations.fr = frResponse.ok ? this.parseCSV(await frResponse.text()) : {};
 
-      this.translations.de = deResponse.ok
-        ? this.parseCSV(await deResponse.text())
-        : {};
+      this.translations.de = deResponse.ok ? this.parseCSV(await deResponse.text()) : {};
 
-      this.translations.es = esResponse.ok
-        ? this.parseCSV(await esResponse.text())
-        : {};
+      this.translations.es = esResponse.ok ? this.parseCSV(await esResponse.text()) : {};
 
-      this.translations.tr = trResponse.ok
-        ? this.parseCSV(await trResponse.text())
-        : {};
-
+      this.translations.tr = trResponse.ok ? this.parseCSV(await trResponse.text()) : {};
     } catch (error) {
       console.error('Failed to load translations:', error);
       this.translations.en = {};
@@ -156,10 +144,7 @@ export function useTranslation() {
     setCurrentLanguage(language);
   }, []);
 
-  const t = useCallback(
-    (id: string, fallback?: string) => i18n.t(id, fallback),
-    [currentLanguage]
-  );
+  const t = useCallback((id: string, fallback?: string) => i18n.t(id, fallback), []);
 
   return { t, currentLanguage, changeLanguage, translationsReady };
 }

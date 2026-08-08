@@ -1,13 +1,4 @@
-import { getUserById } from './auth';
 import db from './db';
-
-interface SyncData {
-  userId: string;
-  dataType: string;
-  data: any;
-  timestamp: number;
-  version: number;
-}
 
 /**
  * Sync data between local storage and server
@@ -28,7 +19,7 @@ export class DataSync {
   private setupOnlineStatusListener(): void {
     if (typeof window !== 'undefined') {
       this.isOnline = navigator.onLine;
-      
+
       window.addEventListener('online', () => {
         this.isOnline = true;
         this.syncAll();
@@ -72,7 +63,7 @@ export class DataSync {
     if (!this.isOnline) return;
 
     const dataTypes = ['readingProgress', 'bookmarks', 'studyProgress', 'quizResults'];
-    
+
     for (const dataType of dataTypes) {
       await this.syncDataType(dataType);
     }
@@ -85,19 +76,18 @@ export class DataSync {
     try {
       // Get local data
       const localData = this.getLocalData(dataType);
-      
+
       // Get server data
       const serverData = await this.getServerData(dataType);
-      
+
       // Merge data (server takes precedence for conflicts)
       const mergedData = this.mergeData(localData, serverData);
-      
+
       // Save merged data locally
       this.saveLocalData(dataType, mergedData);
-      
+
       // Save merged data to server
       await this.saveServerData(dataType, mergedData);
-      
     } catch (error) {
       console.error(`Failed to sync ${dataType}:`, error);
     }
@@ -142,13 +132,13 @@ export class DataSync {
         ORDER BY created_at DESC
         LIMIT 1
       `);
-      
+
       const row = stmt.get(this.userId, dataType) as any;
-      
+
       if (row) {
         return JSON.parse(row.data_value);
       }
-      
+
       return null;
     } catch (error) {
       console.error(`Failed to get server ${dataType}:`, error);
@@ -165,7 +155,7 @@ export class DataSync {
         INSERT OR REPLACE INTO user_data (user_id, data_key, data_value, created_at)
         VALUES (?, ?, ?, CURRENT_TIMESTAMP)
       `);
-      
+
       stmt.run(this.userId, dataType, JSON.stringify(data));
     } catch (error) {
       console.error(`Failed to save server ${dataType}:`, error);
@@ -181,7 +171,12 @@ export class DataSync {
     if (!server) return local;
 
     // If both are objects, merge them
-    if (typeof local === 'object' && typeof server === 'object' && !Array.isArray(local) && !Array.isArray(server)) {
+    if (
+      typeof local === 'object' &&
+      typeof server === 'object' &&
+      !Array.isArray(local) &&
+      !Array.isArray(server)
+    ) {
       return { ...server, ...local };
     }
 

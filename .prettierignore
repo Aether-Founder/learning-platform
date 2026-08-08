@@ -1,0 +1,15 @@
+node_modules
+.next
+out
+coverage
+next-env.d.ts
+UI-REFERENCE
+UI-REFERENCE-2
+_archive
+magister-extension-project
+agent_context.txt
+public/assets
+package-lock.json
+data/*.db
+data/*.db-*
+supabase

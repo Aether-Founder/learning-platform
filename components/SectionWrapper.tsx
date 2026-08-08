@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { ChevronDown, ChevronRight } from "lucide-react";
-import Flashcard from "./Flashcard";
+import { useState } from 'react';
+import { ChevronDown, ChevronRight } from 'lucide-react';
+import Flashcard from './Flashcard';
 
 interface Card {
   id: string;

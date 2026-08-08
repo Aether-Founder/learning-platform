@@ -1,19 +1,25 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Switch } from "@/components/ui/switch";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Bell, Clock, Plus, Trash2, CheckCircle2 } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Switch } from '@/components/ui/switch';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Bell, Clock, Plus, Trash2, CheckCircle2 } from 'lucide-react';
 
 interface Reminder {
   id: string;
   eventId: string;
   eventTitle: string;
   reminderTime: string;
-  reminderType: "email" | "push" | "in-app";
+  reminderType: 'email' | 'push' | 'in-app';
   enabled: boolean;
 }
 
@@ -33,8 +39,8 @@ export function EventReminders({ userId }: EventRemindersProps) {
   const fetchReminders = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch("/api/calendar/reminders", {
+      const token = localStorage.getItem('token');
+      const response = await fetch('/api/calendar/reminders', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -45,7 +51,7 @@ export function EventReminders({ userId }: EventRemindersProps) {
         setReminders(data.reminders || []);
       }
     } catch (error) {
-      console.error("Failed to fetch reminders:", error);
+      console.error('Failed to fetch reminders:', error);
     } finally {
       setLoading(false);
     }
@@ -53,31 +59,29 @@ export function EventReminders({ userId }: EventRemindersProps) {
 
   const toggleReminder = async (id: string, enabled: boolean) => {
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       const response = await fetch(`/api/calendar/reminders/${id}`, {
-        method: "PATCH",
+        method: 'PATCH',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ enabled }),
       });
 
       if (response.ok) {
-        setReminders((prev) =>
-          prev.map((r) => (r.id === id ? { ...r, enabled } : r))
-        );
+        setReminders((prev) => prev.map((r) => (r.id === id ? { ...r, enabled } : r)));
       }
     } catch (error) {
-      console.error("Failed to toggle reminder:", error);
+      console.error('Failed to toggle reminder:', error);
     }
   };
 
   const deleteReminder = async (id: string) => {
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       const response = await fetch(`/api/calendar/reminders/${id}`, {
-        method: "DELETE",
+        method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -87,17 +91,17 @@ export function EventReminders({ userId }: EventRemindersProps) {
         setReminders((prev) => prev.filter((r) => r.id !== id));
       }
     } catch (error) {
-      console.error("Failed to delete reminder:", error);
+      console.error('Failed to delete reminder:', error);
     }
   };
 
   const getReminderTypeIcon = (type: string) => {
     switch (type) {
-      case "email":
+      case 'email':
         return <Bell className="w-4 h-4 text-blue-500" />;
-      case "push":
+      case 'push':
         return <Bell className="w-4 h-4 text-purple-500" />;
-      case "in-app":
+      case 'in-app':
         return <Bell className="w-4 h-4 text-green-500" />;
       default:
         return <Bell className="w-4 h-4" />;
@@ -106,11 +110,11 @@ export function EventReminders({ userId }: EventRemindersProps) {
 
   const getReminderTypeBadge = (type: string) => {
     switch (type) {
-      case "email":
+      case 'email':
         return <Badge variant="secondary">Email</Badge>;
-      case "push":
+      case 'push':
         return <Badge variant="secondary">Push</Badge>;
-      case "in-app":
+      case 'in-app':
         return <Badge variant="secondary">In-App</Badge>;
       default:
         return <Badge variant="secondary">Onbekend</Badge>;
@@ -178,11 +182,7 @@ export function EventReminders({ userId }: EventRemindersProps) {
                     checked={reminder.enabled}
                     onCheckedChange={(checked) => toggleReminder(reminder.id, checked)}
                   />
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => deleteReminder(reminder.id)}
-                  >
+                  <Button variant="ghost" size="icon" onClick={() => deleteReminder(reminder.id)}>
                     <Trash2 className="w-4 h-4 text-destructive" />
                   </Button>
                 </div>

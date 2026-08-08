@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { EyeOff, Moon, Star } from "lucide-react";
-import type { Term } from "@/types/learning-platform";
-import { useLearningPlatformStore } from "@/store/useLearningPlatformStore";
-import { MarkdownContent } from "./shared/MarkdownContent";
+import { EyeOff, Moon, Star } from 'lucide-react';
+import type { Term } from '@/types/learning-platform';
+import { useLearningPlatformStore } from '@/store/useLearningPlatformStore';
+import { MarkdownContent } from './shared/MarkdownContent';
 
-function StatusIcon({ status }: { status: Term["masteryStatus"] }) {
+function StatusIcon({ status }: { status: Term['masteryStatus'] }) {
   const colors = {
-    unstudied: "bg-muted-foreground/30",
-    learning: "bg-yellow-500",
-    review: "bg-sky-500",
-    due: "bg-orange-500",
-    mastered: "bg-green-600",
-    suspended: "bg-slate-500",
+    unstudied: 'bg-muted-foreground/30',
+    learning: 'bg-yellow-500',
+    review: 'bg-sky-500',
+    due: 'bg-orange-500',
+    mastered: 'bg-green-600',
+    suspended: 'bg-slate-500',
   };
   return (
     <span
@@ -38,9 +38,7 @@ export function TermList({ terms }: { terms: Term[] }) {
             <StatusIcon status={term.masteryStatus} />
           </span>
           <div className="flex-1 min-w-0 space-y-2">
-            <MarkdownContent className="text-base font-medium">
-              {term.term}
-            </MarkdownContent>
+            <MarkdownContent className="text-base font-medium">{term.term}</MarkdownContent>
             <MarkdownContent className="text-sm leading-relaxed text-muted-foreground">
               {term.definition}
             </MarkdownContent>
@@ -48,12 +46,14 @@ export function TermList({ terms }: { terms: Term[] }) {
               <p className="text-xs text-muted-foreground">{term.learningSetTitle}</p>
             )}
             <div className="flex flex-wrap gap-2 text-[11px] text-muted-foreground">
-              <span>{term.cardType || "basic"}</span>
+              <span>{term.cardType || 'basic'}</span>
               {(term.tags || []).map((tag) => (
                 <span key={tag}>#{tag}</span>
               ))}
               {term.nextReviewAt && <span>Review: {term.nextReviewAt.toLocaleDateString()}</span>}
-              {typeof term.intervalDays === "number" && <span>{Math.round(term.intervalDays * 10) / 10}d</span>}
+              {typeof term.intervalDays === 'number' && (
+                <span>{Math.round(term.intervalDays * 10) / 10}d</span>
+              )}
             </div>
           </div>
           <button
@@ -69,19 +69,19 @@ export function TermList({ terms }: { terms: Term[] }) {
             type="button"
             onClick={() => suspendTerm(term.id)}
             className="p-1 shrink-0 text-muted-foreground hover:text-foreground"
-            aria-label={term.suspended ? "Unsuspend" : "Suspend"}
-            title={term.suspended ? "Unsuspend" : "Suspend"}
+            aria-label={term.suspended ? 'Unsuspend' : 'Suspend'}
+            title={term.suspended ? 'Unsuspend' : 'Suspend'}
           >
-            <EyeOff className={`h-4 w-4 ${term.suspended ? "text-slate-500" : ""}`} />
+            <EyeOff className={`h-4 w-4 ${term.suspended ? 'text-slate-500' : ''}`} />
           </button>
           <button
             type="button"
             onClick={() => toggleStar(term.id)}
             className="p-1 shrink-0 text-muted-foreground hover:text-yellow-500"
-            aria-label={term.isStarred ? "Unstar" : "Star"}
+            aria-label={term.isStarred ? 'Unstar' : 'Star'}
           >
             <Star
-              className={`h-4 w-4 ${term.isStarred ? "fill-yellow-500 text-yellow-500" : ""}`}
+              className={`h-4 w-4 ${term.isStarred ? 'fill-yellow-500 text-yellow-500' : ''}`}
             />
           </button>
         </li>

@@ -37,7 +37,10 @@ export async function GET(request: NextRequest) {
     const totalEvents = events.length;
 
     // Calculate total hours
-    const totalDurationMs = Object.values(users).reduce((sum: number, user: any) => sum + (user.totalDuration || 0), 0);
+    const totalDurationMs = Object.values(users).reduce(
+      (sum: number, user: any) => sum + (user.totalDuration || 0),
+      0
+    );
     const totalHours = totalDurationMs / (1000 * 60 * 60);
 
     // Calculate hours per user
@@ -63,12 +66,14 @@ export async function GET(request: NextRequest) {
 
     // Calculate active users (last 7 days)
     const sevenDaysAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
-    const activeUsers = Object.values(users).filter((user: any) => user.lastSeen > sevenDaysAgo).length;
+    const activeUsers = Object.values(users).filter(
+      (user: any) => user.lastSeen > sevenDaysAgo
+    ).length;
 
     // Calculate daily stats for the last 30 days
     const dailyStats: any = {};
     const thirtyDaysAgo = Date.now() - 30 * 24 * 60 * 60 * 1000;
-    
+
     events.forEach((event: any) => {
       if (event.timestamp > thirtyDaysAgo) {
         const date = new Date(event.timestamp).toISOString().split('T')[0];
@@ -89,14 +94,14 @@ export async function GET(request: NextRequest) {
     });
 
     // Convert Set to count
-    Object.keys(dailyStats).forEach(date => {
+    Object.keys(dailyStats).forEach((date) => {
       dailyStats[date].uniqueUsers = dailyStats[date].users.size;
       delete dailyStats[date].users;
     });
 
     // Sort by date
-    const sortedDailyStats = Object.values(dailyStats).sort((a: any, b: any) => 
-      new Date(a.date).getTime() - new Date(b.date).getTime()
+    const sortedDailyStats = Object.values(dailyStats).sort(
+      (a: any, b: any) => new Date(a.date).getTime() - new Date(b.date).getTime()
     );
 
     return NextResponse.json({

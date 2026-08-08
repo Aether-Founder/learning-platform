@@ -1,4 +1,4 @@
-import db from "./db";
+import db from './db';
 
 export interface StreakData {
   userId: string;
@@ -9,7 +9,7 @@ export interface StreakData {
 }
 
 export async function getStreakData(userId: string): Promise<StreakData> {
-  const stmt = db.prepare("SELECT * FROM streak_data WHERE user_id = ?");
+  const stmt = db.prepare('SELECT * FROM streak_data WHERE user_id = ?');
   const row = stmt.get(userId) as any;
 
   if (!row) {
@@ -35,7 +35,7 @@ export async function updateStreak(userId: string, studyDate: Date): Promise<Str
   const currentData = await getStreakData(userId);
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  
+
   const studyDay = new Date(studyDate);
   studyDay.setHours(0, 0, 0, 0);
 
@@ -45,9 +45,11 @@ export async function updateStreak(userId: string, studyDate: Date): Promise<Str
   if (currentData.lastStudyDate) {
     const lastStudyDay = new Date(currentData.lastStudyDate);
     lastStudyDay.setHours(0, 0, 0, 0);
-    
-    const dayDiff = Math.floor((studyDay.getTime() - lastStudyDay.getTime()) / (1000 * 60 * 60 * 24));
-    
+
+    const dayDiff = Math.floor(
+      (studyDay.getTime() - lastStudyDay.getTime()) / (1000 * 60 * 60 * 24)
+    );
+
     if (dayDiff === 0) {
       // Same day, no change
       return currentData;
@@ -69,7 +71,7 @@ export async function updateStreak(userId: string, studyDate: Date): Promise<Str
 
   const streakHistory = currentData.streakHistory || [];
   streakHistory.push({ date: studyDay.toISOString().split('T')[0], streak: newStreak });
-  
+
   // Keep only last 365 days of history
   if (streakHistory.length > 365) {
     streakHistory.splice(0, streakHistory.length - 365);
@@ -80,7 +82,13 @@ export async function updateStreak(userId: string, studyDate: Date): Promise<Str
     VALUES (?, ?, ?, ?, ?)
   `);
 
-  stmt.run(userId, newStreak, newLongestStreak, studyDay.toISOString(), JSON.stringify(streakHistory));
+  stmt.run(
+    userId,
+    newStreak,
+    newLongestStreak,
+    studyDay.toISOString(),
+    JSON.stringify(streakHistory)
+  );
 
   return {
     userId,
@@ -93,7 +101,7 @@ export async function updateStreak(userId: string, studyDate: Date): Promise<Str
 
 export async function resetStreak(userId: string): Promise<StreakData> {
   const currentData = await getStreakData(userId);
-  
+
   const stmt = db.prepare(`
     UPDATE streak_data
     SET current_streak = 0
@@ -108,20 +116,24 @@ export async function resetStreak(userId: string): Promise<StreakData> {
   };
 }
 
-export async function checkStreakStatus(userId: string): Promise<{ isActive: boolean; daysSinceLastStudy: number }> {
+export async function checkStreakStatus(
+  userId: string
+): Promise<{ isActive: boolean; daysSinceLastStudy: number }> {
   const data = await getStreakData(userId);
-  
+
   if (!data.lastStudyDate) {
     return { isActive: false, daysSinceLastStudy: 0 };
   }
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  
+
   const lastStudyDay = new Date(data.lastStudyDate);
   lastStudyDay.setHours(0, 0, 0, 0);
 
-  const daysSinceLastStudy = Math.floor((today.getTime() - lastStudyDay.getTime()) / (1000 * 60 * 60 * 24));
+  const daysSinceLastStudy = Math.floor(
+    (today.getTime() - lastStudyDay.getTime()) / (1000 * 60 * 60 * 24)
+  );
   const isActive = daysSinceLastStudy <= 1;
 
   return { isActive, daysSinceLastStudy };

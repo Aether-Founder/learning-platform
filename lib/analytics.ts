@@ -2,9 +2,9 @@ import { useEffect, useRef } from 'react';
 
 // Generate a random UUID for anonymous user tracking
 function generateUUID(): string {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    const r = Math.random() * 16 | 0;
-    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    const r = (Math.random() * 16) | 0;
+    const v = c === 'x' ? r : (r & 0x3) | 0x8;
     return v.toString(16);
   });
 }
@@ -12,7 +12,7 @@ function generateUUID(): string {
 // Get user data from localStorage (name, email)
 function getUserData(): { name?: string; email?: string } {
   if (typeof window === 'undefined') return {};
-  
+
   try {
     const userData = localStorage.getItem('user_data');
     if (userData) {
@@ -21,20 +21,20 @@ function getUserData(): { name?: string; email?: string } {
   } catch (error) {
     console.error('Failed to parse user data:', error);
   }
-  
+
   return {};
 }
 
 // Get or create anonymous user ID from localStorage
 function getUserId(): string {
   if (typeof window === 'undefined') return '';
-  
+
   const userData = getUserData();
   // Use email as user ID if available, otherwise generate UUID
   if (userData.email) {
     return userData.email;
   }
-  
+
   let userId = localStorage.getItem('analytics_user_id');
   if (!userId) {
     userId = generateUUID();
@@ -46,7 +46,7 @@ function getUserId(): string {
 // Get or create session ID
 function getSessionId(): string {
   if (typeof window === 'undefined') return '';
-  
+
   let sessionId = sessionStorage.getItem('analytics_session_id');
   if (!sessionId) {
     sessionId = generateUUID();
@@ -56,7 +56,7 @@ function getSessionId(): string {
 }
 
 // Analytics event types
-export type AnalyticsEventType = 
+export type AnalyticsEventType =
   | 'page_view'
   | 'session_start'
   | 'session_end'
@@ -168,7 +168,7 @@ export function useAnalytics() {
     if (typeof window === 'undefined') return;
 
     const userData = getUserData();
-    
+
     trackEvent({
       userId: userId.current || getUserId(),
       userName: userData.name,
@@ -183,10 +183,10 @@ export function useAnalytics() {
   // Track time spent on current page
   const trackPageTime = () => {
     if (typeof window === 'undefined') return;
-    
+
     const timeSpent = Date.now() - pageStartTime.current;
     pageStartTime.current = Date.now();
-    
+
     track('page_view', {
       path: window.location.pathname,
       timeSpent,

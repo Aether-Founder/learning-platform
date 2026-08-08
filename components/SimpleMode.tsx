@@ -1,17 +1,14 @@
-"use client";
+'use client';
 
-import { useMemo, memo } from "react";
-import { MarkdownRenderer } from "./MarkdownRenderer";
-import { Hash } from "lucide-react";
-import { useTranslation } from "@/lib/i18n";
-import { getSectionTitle, getSectionTitles } from "@/lib/section-title";
+import { useMemo, memo } from 'react';
+import { MarkdownRenderer } from './MarkdownRenderer';
+import { Hash } from 'lucide-react';
+import { useTranslation } from '@/lib/i18n';
+import { getSectionTitle, getSectionTitles } from '@/lib/section-title';
 
 // Helper function to convert \n to actual newlines
 function processNewlines(text: string): string {
-  return text
-    .replace(/\\n/g, '\n')
-    .replace(/\r\n/g, '\n')
-    .replace(/\n/g, '  \n');
+  return text.replace(/\\n/g, '\n').replace(/\r\n/g, '\n').replace(/\n/g, '  \n');
 }
 
 interface ParagraphQuestion {
@@ -38,7 +35,13 @@ interface SimpleModeProps {
   };
 }
 
-const SectionHeader = memo(function SectionHeader({ titles, id }: { titles: string[]; id: string }) {
+const SectionHeader = memo(function SectionHeader({
+  titles,
+  id,
+}: {
+  titles: string[];
+  id: string;
+}) {
   const [mainTitle, ...extraTitles] = titles;
 
   return (
@@ -58,8 +61,6 @@ const SectionHeader = memo(function SectionHeader({ titles, id }: { titles: stri
 
 const ParagraphContent = memo(function ParagraphContent({
   paragraph,
-  sectionIndex,
-  paraIndex,
 }: {
   paragraph: Paragraph;
   sectionIndex: number;
@@ -79,7 +80,7 @@ const ParagraphContent = memo(function ParagraphContent({
           <a
             href={`#${anchorId}`}
             className="opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-foreground transition-opacity"
-            title={t("link_to_paragraph")}
+            title={t('link_to_paragraph')}
           >
             <Hash className="w-4 h-4" />
           </a>
@@ -97,10 +98,10 @@ const ParagraphContent = memo(function ParagraphContent({
       {paragraph.questions.length > 0 && (
         <div className="mt-6 pt-6 border-t border-border/50">
           <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-4">
-            {t("questions_and_answers")}
+            {t('questions_and_answers')}
           </h4>
           <div className="space-y-4">
-            {paragraph.questions.map((q, idx) => (
+            {paragraph.questions.map((q) => (
               <div key={q.id} className="bg-secondary/30 rounded-lg p-4">
                 <div className="flex gap-3">
                   <span className="text-sm font-medium text-muted-foreground min-w-[2rem]">
@@ -128,16 +129,15 @@ export const SimpleMode = memo(function SimpleMode({ section }: SimpleModeProps)
   const sectionTitles = getSectionTitles(section);
 
   if (paragraphs.length === 0) {
-    return (
-      <div className="text-center py-12 text-muted-foreground">
-        {t("empty_state_empty")}
-      </div>
-    );
+    return <div className="text-center py-12 text-muted-foreground">{t('empty_state_empty')}</div>;
   }
 
   return (
     <article className="max-w-3xl mx-auto">
-      <SectionHeader titles={sectionTitles.length ? sectionTitles : [getSectionTitle(section)]} id={section.id} />
+      <SectionHeader
+        titles={sectionTitles.length ? sectionTitles : [getSectionTitle(section)]}
+        id={section.id}
+      />
 
       <div className="space-y-8">
         {paragraphs.map((paragraph, idx) => (

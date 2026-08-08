@@ -1,12 +1,18 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Progress } from "@/components/ui/progress";
-import { TrendingUp, TrendingDown, Clock, Target, BookOpen, Award, Download } from "lucide-react";
+import { useState, useEffect, useCallback } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Progress } from '@/components/ui/progress';
+import { TrendingUp, TrendingDown, Clock, Target, BookOpen, Award, Download } from 'lucide-react';
 
 interface TestResult {
   id: string;
@@ -17,7 +23,7 @@ interface TestResult {
   correctAnswers: number;
   timeSpent: number;
   date: string;
-  mode: "test" | "learn" | "match";
+  mode: 'test' | 'learn' | 'match';
 }
 
 interface TestAnalytics {
@@ -50,19 +56,15 @@ interface TestResultAnalyticsProps {
   userId: string;
 }
 
-export function TestResultAnalytics({ userId }: TestResultAnalyticsProps) {
+export function TestResultAnalytics({ userId: _userId }: TestResultAnalyticsProps) {
   const [analytics, setAnalytics] = useState<TestAnalytics | null>(null);
   const [loading, setLoading] = useState(true);
-  const [timeRange, setTimeRange] = useState<"week" | "month" | "all">("all");
+  const [timeRange, setTimeRange] = useState<'week' | 'month' | 'all'>('all');
 
-  useEffect(() => {
-    fetchAnalytics();
-  }, [userId, timeRange]);
-
-  const fetchAnalytics = async () => {
+  const fetchAnalytics = useCallback(async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       const response = await fetch(`/api/analytics/test-results?timeRange=${timeRange}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -74,15 +76,19 @@ export function TestResultAnalytics({ userId }: TestResultAnalyticsProps) {
         setAnalytics(data.analytics);
       }
     } catch (error) {
-      console.error("Failed to fetch test analytics:", error);
+      console.error('Failed to fetch test analytics:', error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [timeRange]);
+
+  useEffect(() => {
+    fetchAnalytics();
+  }, [fetchAnalytics]);
 
   const handleExportResults = async () => {
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       const response = await fetch(`/api/analytics/test-results/export?timeRange=${timeRange}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -92,7 +98,7 @@ export function TestResultAnalytics({ userId }: TestResultAnalyticsProps) {
       if (response.ok) {
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
+        const a = document.createElement('a');
         a.href = url;
         a.download = `test-results-${timeRange}.csv`;
         document.body.appendChild(a);
@@ -101,7 +107,7 @@ export function TestResultAnalytics({ userId }: TestResultAnalyticsProps) {
         document.body.removeChild(a);
       }
     } catch (error) {
-      console.error("Failed to export results:", error);
+      console.error('Failed to export results:', error);
     }
   };
 
@@ -153,12 +159,12 @@ export function TestResultAnalytics({ userId }: TestResultAnalyticsProps) {
 
   const getModeLabel = (mode: string) => {
     switch (mode) {
-      case "test":
-        return "Test";
-      case "learn":
-        return "Leren";
-      case "match":
-        return "Match";
+      case 'test':
+        return 'Test';
+      case 'learn':
+        return 'Leren';
+      case 'match':
+        return 'Match';
       default:
         return mode;
     }
@@ -169,7 +175,10 @@ export function TestResultAnalytics({ userId }: TestResultAnalyticsProps) {
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold">Test Resultaten Analyse</h2>
         <div className="flex items-center gap-2">
-          <Select value={timeRange} onValueChange={(value: "week" | "month" | "all") => setTimeRange(value)}>
+          <Select
+            value={timeRange}
+            onValueChange={(value: 'week' | 'month' | 'all') => setTimeRange(value)}
+          >
             <SelectTrigger className="w-32">
               <SelectValue />
             </SelectTrigger>
@@ -215,7 +224,9 @@ export function TestResultAnalytics({ userId }: TestResultAnalyticsProps) {
             <Award className="w-4 h-4 text-yellow-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-yellow-500">{Math.round(analytics.bestScore)}%</div>
+            <div className="text-2xl font-bold text-yellow-500">
+              {Math.round(analytics.bestScore)}%
+            </div>
             <p className="text-xs text-muted-foreground">persoonlijk record</p>
           </CardContent>
         </Card>
@@ -275,9 +286,7 @@ export function TestResultAnalytics({ userId }: TestResultAnalyticsProps) {
             <div>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm font-medium">Voltooiingspercentage</span>
-                <span className="text-sm font-bold">
-                  {Math.round(analytics.averageScore)}%
-                </span>
+                <span className="text-sm font-bold">{Math.round(analytics.averageScore)}%</span>
               </div>
               <Progress value={analytics.averageScore} className="h-2" />
             </div>
@@ -293,10 +302,15 @@ export function TestResultAnalytics({ userId }: TestResultAnalyticsProps) {
           <div className="space-y-3">
             {analytics.weeklyProgress.map((week, index) => {
               const prevWeek = analytics.weeklyProgress[index - 1];
-              const scoreTrend = prevWeek ? getTrendIcon(week.averageScore, prevWeek.averageScore) : null;
-              
+              const scoreTrend = prevWeek
+                ? getTrendIcon(week.averageScore, prevWeek.averageScore)
+                : null;
+
               return (
-                <div key={week.week} className="flex items-center justify-between p-3 rounded-lg border">
+                <div
+                  key={week.week}
+                  className="flex items-center justify-between p-3 rounded-lg border"
+                >
                   <div className="flex items-center gap-4">
                     <span className="text-sm font-medium w-20">{week.week}</span>
                     <div className="flex items-center gap-2">
@@ -335,20 +349,26 @@ export function TestResultAnalytics({ userId }: TestResultAnalyticsProps) {
                     </div>
                     <div className="flex items-center gap-1">
                       <Target className="w-3 h-3" />
-                      <span>{result.correctAnswers}/{result.totalQuestions}</span>
+                      <span>
+                        {result.correctAnswers}/{result.totalQuestions}
+                      </span>
                     </div>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <Badge 
-                    variant={result.score >= 80 ? "default" : result.score >= 60 ? "secondary" : "destructive"}
+                  <Badge
+                    variant={
+                      result.score >= 80
+                        ? 'default'
+                        : result.score >= 60
+                          ? 'secondary'
+                          : 'destructive'
+                    }
                     className="text-lg px-3 py-1"
                   >
                     {Math.round(result.score)}%
                   </Badge>
-                  <span className="text-xs text-muted-foreground">
-                    {formatDate(result.date)}
-                  </span>
+                  <span className="text-xs text-muted-foreground">{formatDate(result.date)}</span>
                 </div>
               </div>
             ))}

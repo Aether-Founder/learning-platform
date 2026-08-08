@@ -1,13 +1,19 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
-import { Settings, Calendar as CalendarIcon, Sun, Moon } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
+import { Settings, Calendar as CalendarIcon } from 'lucide-react';
 
-type CalendarView = "day" | "week" | "workweek" | "month" | "agenda";
+type CalendarView = 'day' | 'week' | 'workweek' | 'month' | 'agenda';
 type FirstDayOfWeek = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 interface CalendarSettingsProps {
@@ -15,7 +21,7 @@ interface CalendarSettingsProps {
 }
 
 export function CalendarSettings({ userId }: CalendarSettingsProps) {
-  const [defaultView, setDefaultView] = useState<CalendarView>("month");
+  const [defaultView, setDefaultView] = useState<CalendarView>('month');
   const [firstDayOfWeek, setFirstDayOfWeek] = useState<FirstDayOfWeek>(1);
   const [showWeekends, setShowWeekends] = useState(true);
   const [showWeekNumbers, setShowWeekNumbers] = useState(true);
@@ -29,8 +35,8 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
 
   const fetchSettings = async () => {
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch("/api/calendar/settings", {
+      const token = localStorage.getItem('token');
+      const response = await fetch('/api/calendar/settings', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -38,7 +44,7 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
 
       if (response.ok) {
         const data = await response.json();
-        setDefaultView(data.defaultView || "month");
+        setDefaultView(data.defaultView || 'month');
         setFirstDayOfWeek(data.firstDayOfWeek || 1);
         setShowWeekends(data.showWeekends !== false);
         setShowWeekNumbers(data.showWeekNumbers !== false);
@@ -46,18 +52,18 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
         setEndHour(data.endHour || 20);
       }
     } catch (error) {
-      console.error("Failed to fetch calendar settings:", error);
+      console.error('Failed to fetch calendar settings:', error);
     }
   };
 
   const saveSettings = async () => {
     setSaving(true);
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch("/api/calendar/settings", {
-        method: "PATCH",
+      const token = localStorage.getItem('token');
+      const response = await fetch('/api/calendar/settings', {
+        method: 'PATCH',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
@@ -74,20 +80,20 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
         // Settings saved successfully
       }
     } catch (error) {
-      console.error("Failed to save calendar settings:", error);
+      console.error('Failed to save calendar settings:', error);
     } finally {
       setSaving(false);
     }
   };
 
   const weekDays = [
-    { value: 0, label: "Zondag" },
-    { value: 1, label: "Maandag" },
-    { value: 2, label: "Dinsdag" },
-    { value: 3, label: "Woensdag" },
-    { value: 4, label: "Donderdag" },
-    { value: 5, label: "Vrijdag" },
-    { value: 6, label: "Zaterdag" },
+    { value: 0, label: 'Zondag' },
+    { value: 1, label: 'Maandag' },
+    { value: 2, label: 'Dinsdag' },
+    { value: 3, label: 'Woensdag' },
+    { value: 4, label: 'Donderdag' },
+    { value: 5, label: 'Vrijdag' },
+    { value: 6, label: 'Zaterdag' },
   ];
 
   return (
@@ -95,7 +101,7 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold">Agenda Instellingen</h2>
         <Button onClick={saveSettings} disabled={saving}>
-          {saving ? "Opslaan..." : "Opslaan"}
+          {saving ? 'Opslaan...' : 'Opslaan'}
         </Button>
       </div>
 
@@ -109,7 +115,10 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
         <CardContent className="space-y-6">
           <div className="space-y-2">
             <label className="text-sm font-medium">Standaard Weergave</label>
-            <Select value={defaultView} onValueChange={(value: CalendarView) => setDefaultView(value)}>
+            <Select
+              value={defaultView}
+              onValueChange={(value: CalendarView) => setDefaultView(value)}
+            >
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
@@ -128,7 +137,10 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
 
           <div className="space-y-2">
             <label className="text-sm font-medium">Eerste Dag van de Week</label>
-            <Select value={firstDayOfWeek.toString()} onValueChange={(value) => setFirstDayOfWeek(parseInt(value) as FirstDayOfWeek)}>
+            <Select
+              value={firstDayOfWeek.toString()}
+              onValueChange={(value) => setFirstDayOfWeek(parseInt(value) as FirstDayOfWeek)}
+            >
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
@@ -158,9 +170,7 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
           <div className="flex items-center justify-between">
             <div>
               <label className="text-sm font-medium">Toon Weeknummers</label>
-              <p className="text-xs text-muted-foreground">
-                Toon weeknummers in de maandweergave
-              </p>
+              <p className="text-xs text-muted-foreground">Toon weeknummers in de maandweergave</p>
             </div>
             <Switch checked={showWeekNumbers} onCheckedChange={setShowWeekNumbers} />
           </div>
@@ -177,7 +187,10 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
         <CardContent className="space-y-6">
           <div className="space-y-2">
             <label className="text-sm font-medium">Startuur</label>
-            <Select value={startHour.toString()} onValueChange={(value) => setStartHour(parseInt(value))}>
+            <Select
+              value={startHour.toString()}
+              onValueChange={(value) => setStartHour(parseInt(value))}
+            >
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
@@ -189,14 +202,15 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
                 ))}
               </SelectContent>
             </Select>
-            <p className="text-xs text-muted-foreground">
-              Het uur waarop de dagweergave begint
-            </p>
+            <p className="text-xs text-muted-foreground">Het uur waarop de dagweergave begint</p>
           </div>
 
           <div className="space-y-2">
             <label className="text-sm font-medium">Einduur</label>
-            <Select value={endHour.toString()} onValueChange={(value) => setEndHour(parseInt(value))}>
+            <Select
+              value={endHour.toString()}
+              onValueChange={(value) => setEndHour(parseInt(value))}
+            >
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
@@ -208,9 +222,7 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
                 ))}
               </SelectContent>
             </Select>
-            <p className="text-xs text-muted-foreground">
-              Het uur waarop de dagweergave eindigt
-            </p>
+            <p className="text-xs text-muted-foreground">Het uur waarop de dagweergave eindigt</p>
           </div>
         </CardContent>
       </Card>

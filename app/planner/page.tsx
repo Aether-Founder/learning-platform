@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { AppShell, PageHeader } from "@/components/AppShell";
-import { Badge, Panel } from "@/components/ui-kit";
-import { TASKS, TASK_COLUMNS, TASK_LABELS } from "@/lib/os-data";
+import { AppShell, PageHeader } from '@/components/AppShell';
+import { Badge } from '@/components/ui-kit';
+import { TASKS, TASK_COLUMNS, TASK_LABELS } from '@/lib/os-data';
 
 export default function PlannerPage() {
   return (
@@ -40,14 +40,12 @@ export default function PlannerPage() {
                     <p className="mt-1 text-xs text-muted-foreground">{t.subject}</p>
                     <div className="mt-3 flex items-center gap-2">
                       <span className="text-xs text-muted-foreground">
-                        {new Date(t.due).toLocaleDateString("nl-NL", {
-                          day: "numeric",
-                          month: "short",
+                        {new Date(t.due).toLocaleDateString('nl-NL', {
+                          day: 'numeric',
+                          month: 'short',
                         })}
                       </span>
-                      <Badge tone={t.priority === "hoog" ? "warning" : "muted"}>
-                        {t.estimate}
-                      </Badge>
+                      <Badge tone={t.priority === 'hoog' ? 'warning' : 'muted'}>{t.estimate}</Badge>
                     </div>
                   </div>
                 ))}

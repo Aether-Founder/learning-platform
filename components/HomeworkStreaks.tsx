@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Flame, Calendar, TrendingUp, Award } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Flame, Calendar, Award } from 'lucide-react';
 
 interface HomeworkStreak {
   currentStreak: number;
@@ -37,8 +37,8 @@ export function HomeworkStreaks({ userId }: HomeworkStreaksProps) {
   const fetchStreak = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch("/api/homework/streaks", {
+      const token = localStorage.getItem('token');
+      const response = await fetch('/api/homework/streaks', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -49,7 +49,7 @@ export function HomeworkStreaks({ userId }: HomeworkStreaksProps) {
         setStreak(data.streak);
       }
     } catch (error) {
-      console.error("Failed to fetch homework streaks:", error);
+      console.error('Failed to fetch homework streaks:', error);
     } finally {
       setLoading(false);
     }
@@ -82,10 +82,10 @@ export function HomeworkStreaks({ userId }: HomeworkStreaksProps) {
   }
 
   const getStreakColor = (days: number) => {
-    if (days >= 30) return "text-purple-500";
-    if (days >= 14) return "text-orange-500";
-    if (days >= 7) return "text-yellow-500";
-    return "text-blue-500";
+    if (days >= 30) return 'text-purple-500';
+    if (days >= 14) return 'text-orange-500';
+    if (days >= 7) return 'text-yellow-500';
+    return 'text-blue-500';
   };
 
   const formatDate = (dateString: string) => {
@@ -119,9 +119,7 @@ export function HomeworkStreaks({ userId }: HomeworkStreaksProps) {
             <Award className="w-4 h-4 text-yellow-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-yellow-500">
-              {streak.longestStreak}
-            </div>
+            <div className="text-3xl font-bold text-yellow-500">{streak.longestStreak}</div>
             <p className="text-xs text-muted-foreground">dagen record</p>
           </CardContent>
         </Card>
@@ -132,9 +130,7 @@ export function HomeworkStreaks({ userId }: HomeworkStreaksProps) {
             <Calendar className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">
-              {streak.totalDays}
-            </div>
+            <div className="text-3xl font-bold">{streak.totalDays}</div>
             <p className="text-xs text-muted-foreground">met voltooid huiswerk</p>
           </CardContent>
         </Card>
@@ -153,19 +149,19 @@ export function HomeworkStreaks({ userId }: HomeworkStreaksProps) {
                   key={day.date}
                   className={`flex flex-col items-center p-2 rounded-lg border ${
                     day.completed && day.onTime
-                      ? "bg-green-500/20 border-green-500"
+                      ? 'bg-green-500/20 border-green-500'
                       : day.completed && !day.onTime
-                      ? "bg-yellow-500/20 border-yellow-500"
-                      : "bg-muted/30 border-muted"
-                  } ${isToday ? "ring-2 ring-primary" : ""}`}
+                        ? 'bg-yellow-500/20 border-yellow-500'
+                        : 'bg-muted/30 border-muted'
+                  } ${isToday ? 'ring-2 ring-primary' : ''}`}
                   title={`${formatDate(day.date)}: ${day.completed ? (day.onTime ? 'Op tijd' : 'Te laat') : 'Niet voltooid'}`}
                 >
-                  <span className="text-xs font-medium">
-                    {new Date(day.date).getDate()}
-                  </span>
+                  <span className="text-xs font-medium">{new Date(day.date).getDate()}</span>
                   <div className="w-2 h-2 rounded-full mt-1">
                     {day.completed ? (
-                      <div className={`w-2 h-2 rounded-full ${day.onTime ? 'bg-green-500' : 'bg-yellow-500'}`} />
+                      <div
+                        className={`w-2 h-2 rounded-full ${day.onTime ? 'bg-green-500' : 'bg-yellow-500'}`}
+                      />
                     ) : (
                       <div className="w-2 h-2 rounded-full bg-muted" />
                     )}
@@ -207,14 +203,10 @@ export function HomeworkStreaks({ userId }: HomeworkStreaksProps) {
                     <Award className="w-5 h-5 text-yellow-500" />
                     <div>
                       <div className="font-medium">{achievement.name}</div>
-                      <div className="text-sm text-muted-foreground">
-                        {achievement.description}
-                      </div>
+                      <div className="text-sm text-muted-foreground">{achievement.description}</div>
                     </div>
                   </div>
-                  <Badge variant="secondary">
-                    {formatDate(achievement.unlockedAt)}
-                  </Badge>
+                  <Badge variant="secondary">{formatDate(achievement.unlockedAt)}</Badge>
                 </div>
               ))}
             </div>
@@ -234,8 +226,7 @@ export function HomeworkStreaks({ userId }: HomeworkStreaksProps) {
                 <p className="text-sm text-muted-foreground">
                   {streak.longestStreak - streak.currentStreak > 0
                     ? `Nog ${streak.longestStreak - streak.currentStreak} dagen om je record te breken`
-                    : "Je hebt je record al gebroken!"
-                  }
+                    : 'Je hebt je record al gebroken!'}
                 </p>
               </div>
             </div>

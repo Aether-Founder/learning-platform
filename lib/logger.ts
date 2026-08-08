@@ -23,7 +23,8 @@ class Logger {
   }
 
   error(message: string, error?: any, context?: LogContext) {
-    const errDetails = error instanceof Error ? { message: error.message, stack: error.stack } : error;
+    const errDetails =
+      error instanceof Error ? { message: error.message, stack: error.stack } : error;
     console.error(this.format('error', message, { ...context, error: errDetails }));
   }
 

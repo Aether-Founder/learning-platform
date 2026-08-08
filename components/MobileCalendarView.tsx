@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, Plus, Calendar as CalendarIcon } from "lucide-react";
+import { useState } from 'react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { ChevronLeft, ChevronRight, Plus, Calendar as CalendarIcon } from 'lucide-react';
 
 interface MobileCalendarViewProps {
   currentDate: Date;
@@ -40,13 +40,10 @@ export function MobileCalendarView({
   };
 
   const days = getDaysInMonth(currentDate);
-  const weekDays = ["Zo", "Ma", "Di", "Wo", "Do", "Vr", "Za"];
+  const weekDays = ['Zo', 'Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za'];
 
   const getEventsForDate = (date: Date) => {
-    return events.filter(
-      (event) =>
-        event.date.toDateString() === date.toDateString()
-    );
+    return events.filter((event) => event.date.toDateString() === date.toDateString());
   };
 
   const handlePreviousMonth = () => {
@@ -84,7 +81,7 @@ export function MobileCalendarView({
               <ChevronLeft className="w-5 h-5" />
             </Button>
             <h2 className="text-lg font-semibold">
-              {currentDate.toLocaleDateString("nl-NL", { month: "long", year: "numeric" })}
+              {currentDate.toLocaleDateString('nl-NL', { month: 'long', year: 'numeric' })}
             </h2>
             <Button variant="ghost" size="icon" onClick={handleNextMonth}>
               <ChevronRight className="w-5 h-5" />
@@ -107,9 +104,9 @@ export function MobileCalendarView({
                 disabled={!date}
                 className={`
                   aspect-square rounded-lg flex flex-col items-center justify-center text-sm relative
-                  ${!date ? "opacity-0" : "hover:bg-muted"}
-                  ${date && isToday(date) ? "bg-primary text-primary-foreground" : ""}
-                  ${date && isSelected(date) && !isToday(date) ? "bg-secondary" : ""}
+                  ${!date ? 'opacity-0' : 'hover:bg-muted'}
+                  ${date && isToday(date) ? 'bg-primary text-primary-foreground' : ''}
+                  ${date && isSelected(date) && !isToday(date) ? 'bg-secondary' : ''}
                 `}
               >
                 {date && (
@@ -117,12 +114,11 @@ export function MobileCalendarView({
                     <span>{date.getDate()}</span>
                     {getEventsForDate(date).length > 0 && (
                       <div className="flex gap-0.5 mt-1">
-                        {getEventsForDate(date).slice(0, 3).map((_, i) => (
-                          <div
-                            key={i}
-                            className="w-1 h-1 rounded-full bg-blue-500"
-                          />
-                        ))}
+                        {getEventsForDate(date)
+                          .slice(0, 3)
+                          .map((_, i) => (
+                            <div key={i} className="w-1 h-1 rounded-full bg-blue-500" />
+                          ))}
                       </div>
                     )}
                   </>
@@ -137,10 +133,10 @@ export function MobileCalendarView({
         <CardContent className="p-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-semibold">
-              {selectedDate.toLocaleDateString("nl-NL", {
-                weekday: "long",
-                day: "numeric",
-                month: "long",
+              {selectedDate.toLocaleDateString('nl-NL', {
+                weekday: 'long',
+                day: 'numeric',
+                month: 'long',
               })}
             </h3>
             {onAddEvent && (
@@ -159,10 +155,7 @@ export function MobileCalendarView({
           ) : (
             <div className="space-y-2">
               {getEventsForDate(selectedDate).map((event, index) => (
-                <div
-                  key={index}
-                  className="p-3 rounded-lg bg-muted/50 border"
-                >
+                <div key={index} className="p-3 rounded-lg bg-muted/50 border">
                   <p className="text-sm font-medium">{event.title}</p>
                 </div>
               ))}

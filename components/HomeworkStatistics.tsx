@@ -1,11 +1,17 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CheckCircle2, Clock, TrendingUp, TrendingDown, Calendar, BookOpen } from "lucide-react";
+import { useState, useEffect, useCallback } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { CheckCircle2, Clock, TrendingUp, TrendingDown, Calendar, BookOpen } from 'lucide-react';
 
 interface HomeworkStats {
   totalHomework: number;
@@ -32,23 +38,19 @@ interface HomeworkStatisticsProps {
   testWeekId?: string;
 }
 
-export function HomeworkStatistics({ userId, testWeekId }: HomeworkStatisticsProps) {
+export function HomeworkStatistics({ userId: _userId, testWeekId }: HomeworkStatisticsProps) {
   const [stats, setStats] = useState<HomeworkStats | null>(null);
   const [loading, setLoading] = useState(true);
-  const [timeRange, setTimeRange] = useState<"week" | "month" | "all">("week");
+  const [timeRange, setTimeRange] = useState<'week' | 'month' | 'all'>('week');
 
-  useEffect(() => {
-    fetchStats();
-  }, [userId, testWeekId, timeRange]);
-
-  const fetchStats = async () => {
+  const fetchStats = useCallback(async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("token");
-      const url = testWeekId 
+      const token = localStorage.getItem('token');
+      const url = testWeekId
         ? `/api/homework/stats?testWeekId=${testWeekId}&timeRange=${timeRange}`
         : `/api/homework/stats?timeRange=${timeRange}`;
-      
+
       const response = await fetch(url, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -60,11 +62,15 @@ export function HomeworkStatistics({ userId, testWeekId }: HomeworkStatisticsPro
         setStats(data.stats);
       }
     } catch (error) {
-      console.error("Failed to fetch homework stats:", error);
+      console.error('Failed to fetch homework stats:', error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [testWeekId, timeRange]);
+
+  useEffect(() => {
+    fetchStats();
+  }, [fetchStats]);
 
   if (loading) {
     return (
@@ -102,7 +108,10 @@ export function HomeworkStatistics({ userId, testWeekId }: HomeworkStatisticsPro
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold">Huiswerk Statistieken</h2>
-        <Select value={timeRange} onValueChange={(value: "week" | "month" | "all") => setTimeRange(value)}>
+        <Select
+          value={timeRange}
+          onValueChange={(value: 'week' | 'month' | 'all') => setTimeRange(value)}
+        >
           <SelectTrigger className="w-32">
             <SelectValue />
           </SelectTrigger>
@@ -133,7 +142,9 @@ export function HomeworkStatistics({ userId, testWeekId }: HomeworkStatisticsPro
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.completedHomework}</div>
-            <p className="text-xs text-muted-foreground">{stats.completionRate}% voltooiingspercentage</p>
+            <p className="text-xs text-muted-foreground">
+              {stats.completionRate}% voltooiingspercentage
+            </p>
           </CardContent>
         </Card>
 
@@ -173,7 +184,7 @@ export function HomeworkStatistics({ userId, testWeekId }: HomeworkStatisticsPro
               </div>
               <Progress value={stats.completionRate} className="h-2" />
             </div>
-            
+
             {stats.subjectBreakdown.map((subject) => (
               <div key={subject.subject}>
                 <div className="flex items-center justify-between mb-2">
@@ -197,9 +208,12 @@ export function HomeworkStatistics({ userId, testWeekId }: HomeworkStatisticsPro
             <div className="space-y-3">
               {stats.weeklyTrend.map((week, index) => {
                 const prevWeek = stats.weeklyTrend[index - 1];
-                const trendIcon = prevWeek ? getTrendIcon(week.completed, prevWeek.completed) : null;
-                const weekRate = week.total > 0 ? Math.round((week.completed / week.total) * 100) : 0;
-                
+                const trendIcon = prevWeek
+                  ? getTrendIcon(week.completed, prevWeek.completed)
+                  : null;
+                const weekRate =
+                  week.total > 0 ? Math.round((week.completed / week.total) * 100) : 0;
+
                 return (
                   <div key={week.week} className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -207,7 +221,11 @@ export function HomeworkStatistics({ userId, testWeekId }: HomeworkStatisticsPro
                       {trendIcon}
                     </div>
                     <div className="flex items-center gap-4">
-                      <Badge variant={weekRate >= 80 ? "default" : weekRate >= 50 ? "secondary" : "destructive"}>
+                      <Badge
+                        variant={
+                          weekRate >= 80 ? 'default' : weekRate >= 50 ? 'secondary' : 'destructive'
+                        }
+                      >
                         {weekRate}%
                       </Badge>
                       <span className="text-sm text-muted-foreground">
@@ -228,10 +246,9 @@ export function HomeworkStatistics({ userId, testWeekId }: HomeworkStatisticsPro
         </CardHeader>
         <CardContent>
           <div className="text-4xl font-bold">
-            {stats.averageCompletionTime > 0 
+            {stats.averageCompletionTime > 0
               ? `${Math.round(stats.averageCompletionTime / 60)} min`
-              : "N/A"
-            }
+              : 'N/A'}
           </div>
           <p className="text-sm text-muted-foreground mt-2">
             Gemiddelde tijd om een huiswerkopdracht te voltooien

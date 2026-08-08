@@ -1,9 +1,8 @@
-import db from "./db";
-import { getStreakData } from "./streaks";
-import { getUserAchievements } from "./achievements";
-import { getStudySetsByUserId } from "./studysets";
-import { getHomeworkByUserId } from "./homework";
-import { getStudyPlansByUser } from "./studyplans";
+import { getStreakData } from './streaks';
+import { getUserAchievements } from './achievements';
+import { getStudySetsByUserId } from './studysets';
+import { getHomeworkByUserId } from './homework';
+import { getStudyPlansByUser } from './studyplans';
 
 export interface UserAnalytics {
   userId: string;
@@ -29,15 +28,15 @@ export async function getUserAnalytics(userId: string): Promise<UserAnalytics> {
   const homework = await getHomeworkByUserId(userId);
   const studyPlans = await getStudyPlansByUser(userId);
 
-  const achievementsUnlocked = achievements.filter(a => a.unlockedAt).length;
+  const achievementsUnlocked = achievements.filter((a) => a.unlockedAt).length;
   const totalStudySets = studySets.length;
-  const totalHomeworkCompleted = homework.filter(h => h.status === "completed").length;
-  const totalHomeworkPending = homework.filter(h => h.status !== "completed").length;
+  const totalHomeworkCompleted = homework.filter((h) => h.status === 'completed').length;
+  const totalHomeworkPending = homework.filter((h) => h.status !== 'completed').length;
   const totalStudyPlans = studyPlans.length;
 
   // Calculate total cards from all study sets
   let totalCardsStudied = 0;
-  studySets.forEach(set => {
+  studySets.forEach((set) => {
     if (set.cards) {
       totalCardsStudied += set.cards.length;
     }
@@ -56,7 +55,7 @@ export async function getUserAnalytics(userId: string): Promise<UserAnalytics> {
 
   // Generate subject breakdown (using study set titles as categories)
   const subjectBreakdown: Array<{ subject: string; cardsStudied: number; timeSpent: number }> = [];
-  studySets.forEach(set => {
+  studySets.forEach((set) => {
     const cards = set.cards?.length || 0;
     subjectBreakdown.push({
       subject: set.title,
@@ -83,7 +82,9 @@ export async function getUserAnalytics(userId: string): Promise<UserAnalytics> {
   };
 }
 
-export async function getAggregatedAnalytics(timeRange: "day" | "week" | "month" | "year" = "week"): Promise<{
+export async function getAggregatedAnalytics(
+  _timeRange: 'day' | 'week' | 'month' | 'year' = 'week'
+): Promise<{
   totalUsers: number;
   activeUsers: number;
   totalStudyTime: number;
@@ -102,18 +103,20 @@ export async function getAggregatedAnalytics(timeRange: "day" | "week" | "month"
   };
 }
 
-export async function getSubjectAnalytics(userId: string): Promise<Array<{
-  subject: string;
-  cardsStudied: number;
-  accuracy: number;
-  timeSpent: number;
-  lastStudied: Date | null;
-}>> {
+export async function getSubjectAnalytics(userId: string): Promise<
+  Array<{
+    subject: string;
+    cardsStudied: number;
+    accuracy: number;
+    timeSpent: number;
+    lastStudied: Date | null;
+  }>
+> {
   const studySets = await getStudySetsByUserId(userId);
 
-  const subjectAnalytics = studySets.map(set => {
+  const subjectAnalytics = studySets.map((set) => {
     const cardsStudied = set.cards?.length || 0;
-    
+
     return {
       subject: set.title,
       cardsStudied,
@@ -126,16 +129,21 @@ export async function getSubjectAnalytics(userId: string): Promise<Array<{
   return subjectAnalytics;
 }
 
-export async function getStudySessionAnalytics(userId: string, limit: number = 10): Promise<Array<{
-  id: string;
-  studySetId: string;
-  studySetName: string;
-  mode: string;
-  cardsStudied: number;
-  accuracy: number;
-  duration: number;
-  timestamp: Date;
-}>> {
+export async function getStudySessionAnalytics(
+  userId: string,
+  _limit: number = 10
+): Promise<
+  Array<{
+    id: string;
+    studySetId: string;
+    studySetName: string;
+    mode: string;
+    cardsStudied: number;
+    accuracy: number;
+    duration: number;
+    timestamp: Date;
+  }>
+> {
   // Placeholder - would query actual session data
   return [];
 }

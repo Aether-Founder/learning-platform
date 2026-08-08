@@ -17,6 +17,7 @@ The system is organized into three layers:
 ## Data Models
 
 ### LearningSet
+
 ```typescript
 interface LearningSet {
   id: string;
@@ -32,34 +33,43 @@ interface LearningSet {
 ```
 
 ### StudyCard
+
 ```typescript
 interface StudyCard {
   id: string;
   front: string;
   back: string;
-  type: "basic" | "cloze" | "image-occlusion";
-  difficulty?: "easy" | "medium" | "hard";
+  type: 'basic' | 'cloze' | 'image-occlusion';
+  difficulty?: 'easy' | 'medium' | 'hard';
   clozeText?: string;
   imageUrl?: string;
   audioUrl?: string;
-  occlusions?: Array<{ id: string; x: number; y: number; width: number; height: number; label?: string }>;
+  occlusions?: Array<{
+    id: string;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    label?: string;
+  }>;
   createdAt: string;
   updatedAt: string;
 }
 ```
 
 ### CardProgress
+
 ```typescript
 interface CardProgress {
   cardId: string;
   sm2: {
-    easeFactor: number;      // 1.3–2.5, starts at 2.5
+    easeFactor: number; // 1.3–2.5, starts at 2.5
     intervalDays: number;
     repetitions: number;
-    nextReviewAt: string;    // ISO date
+    nextReviewAt: string; // ISO date
   };
   fsrs: {
-    difficulty: number;      // 1–10
+    difficulty: number; // 1–10
     stability: number;
     retrievability: number;
     nextReviewAt: string;
@@ -67,11 +77,12 @@ interface CardProgress {
   reviews: number;
   correct: number;
   totalTimeMs: number;
-  responses: Record<"again" | "hard" | "good" | "easy", number>;
+  responses: Record<'again' | 'hard' | 'good' | 'easy', number>;
 }
 ```
 
 ### UserStats
+
 ```typescript
 interface UserStats {
   totalXp: number;
@@ -92,23 +103,25 @@ interface UserStats {
 ```
 
 ### SessionPreferences
+
 ```typescript
 interface SessionPreferences {
-  mode: "flashcard" | "multiple-choice" | "typing" | "matching";
+  mode: 'flashcard' | 'multiple-choice' | 'typing' | 'matching';
   cardLimit: number;
   timeLimitMinutes: number;
-  reviewMix: "due" | "new" | "mix";
-  fuzzyThreshold: number;    // 70–95, default 80
+  reviewMix: 'due' | 'new' | 'mix';
+  fuzzyThreshold: number; // 70–95, default 80
   autoplayAudio: boolean;
-  srsAlgorithm: "sm2" | "fsrs";
+  srsAlgorithm: 'sm2' | 'fsrs';
 }
 ```
 
 ### StudyResponse (normalized output from all modes)
+
 ```typescript
 interface StudyResponse {
   cardId: string;
-  quality: "again" | "hard" | "good" | "easy";
+  quality: 'again' | 'hard' | 'good' | 'easy';
   isCorrect: boolean;
   timeMs: number;
 }
@@ -117,33 +130,36 @@ interface StudyResponse {
 ## Components and Interfaces
 
 ### `lib/learning-system.ts` — Core logic module
+
 Pure functions and types, no React dependencies.
 
-| Export | Purpose |
-|--------|---------|
-| `updateSm2(progress, quality)` | SM-2 interval calculation |
-| `updateFsrs(progress, quality)` | FSRS interval calculation |
-| `updateProgress(progress, response)` | Merge a StudyResponse into CardProgress |
-| `levenshtein(a, b)` | Edit distance |
-| `similarityPercent(input, answer)` | 0–100 similarity score |
-| `qualityFromSimilarity(percent)` | Maps similarity to ResponseQuality |
-| `generateOptions(cards, card)` | Distractor generation for multiple choice |
-| `getDueCards(set, progress, algorithm)` | Cards due for review now |
-| `forecastDueCards(set, progress, algorithm)` | 7-day review forecast |
+| Export                                            | Purpose                                    |
+| ------------------------------------------------- | ------------------------------------------ |
+| `updateSm2(progress, quality)`                    | SM-2 interval calculation                  |
+| `updateFsrs(progress, quality)`                   | FSRS interval calculation                  |
+| `updateProgress(progress, response)`              | Merge a StudyResponse into CardProgress    |
+| `levenshtein(a, b)`                               | Edit distance                              |
+| `similarityPercent(input, answer)`                | 0–100 similarity score                     |
+| `qualityFromSimilarity(percent)`                  | Maps similarity to ResponseQuality         |
+| `generateOptions(cards, card)`                    | Distractor generation for multiple choice  |
+| `getDueCards(set, progress, algorithm)`           | Cards due for review now                   |
+| `forecastDueCards(set, progress, algorithm)`      | 7-day review forecast                      |
 | `applySessionResults(stats, responses, setCount)` | XP, streak, achievement, challenge updates |
-| `loadLearningState()` | SSR-safe localStorage read |
-| `saveLearningState(state)` | localStorage write |
-| `parseImportText(text)` | Parse tab/comma/pipe-delimited import |
-| `createLearningSet(name, cards)` | Factory for new sets |
+| `loadLearningState()`                             | SSR-safe localStorage read                 |
+| `saveLearningState(state)`                        | localStorage write                         |
+| `parseImportText(text)`                           | Parse tab/comma/pipe-delimited import      |
+| `createLearningSet(name, cards)`                  | Factory for new sets                       |
 
 ### `components/AdvancedLearningSystem.tsx` — Main UI component
+
 ```typescript
 interface AdvancedLearningSystemProps {
-  sourceSections?: SourceSection[];  // Page content to convert to cards
+  sourceSections?: SourceSection[]; // Page content to convert to cards
 }
 ```
 
 Internal sub-components:
+
 - `StudySession` — Owns mode state, card index, response collection, and session summary
 - `CardContent` — Renders markdown/LaTeX card text
 - `StatPill` — Reusable stat display widget
@@ -153,31 +169,36 @@ Tabs: `study` | `stats` | `settings`
 ### Study Mode Interfaces
 
 **Flashcard Mode**
+
 - Click or Space to flip
 - Keys 1–4 record Again/Hard/Good/Easy after reveal
 - 3D CSS flip animation (600ms)
 
 **Multiple Choice Mode**
+
 - 4 options: 1 correct + 3 distractors from similar cards
 - Keys A–D select options
 - Immediate color feedback (green/red)
 - Correct → "good", incorrect → "again"
 
 **Typing Mode**
+
 - Textarea input, submitted via form
 - Levenshtein similarity calculated on submit
 - Configurable threshold (default 80%)
 - Quality mapping: 100%=easy, 90–99%=good, 75–89%=hard, <75%=again
 
 **Matching Mode**
+
 - 4–6 shuffled pairs displayed in two columns
 - Click question then answer to match
 - Correct pairs lock with green highlight
 - Completion triggers session summary
 
 ### Storage Interface
+
 ```typescript
-const STORAGE_KEY = "advanced-learning-system-v1";
+const STORAGE_KEY = 'advanced-learning-system-v1';
 // loadLearningState() — SSR-safe, returns defaults before hydration
 // saveLearningState(state) — serializes to JSON, excludes generated sets
 ```
@@ -199,18 +220,19 @@ The following properties must hold for the system to be correct:
 
 ## Error Handling
 
-| Scenario | Handling |
-|----------|---------|
+| Scenario                                       | Handling                                                                  |
+| ---------------------------------------------- | ------------------------------------------------------------------------- |
 | `localStorage` unavailable (SSR, private mode) | `loadLearningState` returns safe defaults; `saveLearningState` is a no-op |
-| Corrupted localStorage JSON | `try/catch` in `loadLearningState` returns defaults |
-| Empty card set | `StudySession` renders "no cards due" message |
-| Import with malformed lines | `parseImportText` skips invalid lines and returns warnings array |
-| Missing card progress | `getDefaultProgress` initializes fresh SM-2/FSRS state |
-| Zero-length answer in similarity | `Math.max(..., 1)` prevents division by zero |
+| Corrupted localStorage JSON                    | `try/catch` in `loadLearningState` returns defaults                       |
+| Empty card set                                 | `StudySession` renders "no cards due" message                             |
+| Import with malformed lines                    | `parseImportText` skips invalid lines and returns warnings array          |
+| Missing card progress                          | `getDefaultProgress` initializes fresh SM-2/FSRS state                    |
+| Zero-length answer in similarity               | `Math.max(..., 1)` prevents division by zero                              |
 
 ## Testing Strategy
 
 ### Unit tests (pure functions in `lib/learning-system.ts`)
+
 - SM-2: ease factor clamping, interval progression, "again" reset behavior
 - FSRS: difficulty/stability updates, interval calculation
 - Levenshtein: known edit distances, empty strings, identical strings
@@ -221,6 +243,7 @@ The following properties must hold for the system to be correct:
 - `applySessionResults`: XP accumulation, streak increment, achievement unlock
 
 ### Integration smoke tests
+
 - Load page with study content → AdvancedLearningSystem renders
 - Complete a flashcard session → summary shows correct counts
 - Switch modes mid-session → index resets, no stale state
@@ -228,5 +251,6 @@ The following properties must hold for the system to be correct:
 - Import text file → cards appear in session
 
 ### Build verification
+
 - `next build` or `tsc --noEmit` passes with no type errors
 - No ESLint errors on modified files

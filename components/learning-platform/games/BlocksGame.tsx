@@ -1,23 +1,39 @@
-"use client";
+'use client';
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import type { GameShellProps } from "@/lib/learning-platform/game-registry";
-import { useLearningPlatformStore } from "@/store/useLearningPlatformStore";
-import { buildMcqQuestion, buildWrittenQuestion, createId } from "@/lib/learning-platform/question-generator";
-import type { BlockShape, Question } from "@/types/learning-platform";
-import { useTranslation } from "@/lib/i18n";
-import { McqQuestion } from "../questions/McqQuestion";
-import { WrittenQuestion } from "../questions/WrittenQuestion";
-import { GameShell } from "../GameShell";
+import { useCallback, useEffect, useRef, useState } from 'react';
+import type { GameShellProps } from '@/lib/learning-platform/game-registry';
+import { useLearningPlatformStore } from '@/store/useLearningPlatformStore';
+import {
+  buildMcqQuestion,
+  buildWrittenQuestion,
+  createId,
+} from '@/lib/learning-platform/question-generator';
+import type { BlockShape, Question } from '@/types/learning-platform';
+import { useTranslation } from '@/lib/i18n';
+import { McqQuestion } from '../questions/McqQuestion';
+import { WrittenQuestion } from '../questions/WrittenQuestion';
+import { GameShell } from '../GameShell';
 
 const GRID = 8;
 const CELL = 36;
 
-const SHAPES: Omit<BlockShape, "id">[] = [
-  { color: "#3b82f6", pattern: [[true, false], [true, true]] },
-  { color: "#22c55e", pattern: [[true, true, true, true]] },
-  { color: "#eab308", pattern: [[true, true], [true, true]] },
-  { color: "#a855f7", pattern: [[true]] },
+const SHAPES: Omit<BlockShape, 'id'>[] = [
+  {
+    color: '#3b82f6',
+    pattern: [
+      [true, false],
+      [true, true],
+    ],
+  },
+  { color: '#22c55e', pattern: [[true, true, true, true]] },
+  {
+    color: '#eab308',
+    pattern: [
+      [true, true],
+      [true, true],
+    ],
+  },
+  { color: '#a855f7', pattern: [[true]] },
 ];
 
 function emptyGrid() {
@@ -69,7 +85,7 @@ function placeFinal(
 }
 
 function clearFullLines(grid: (string | null)[][]) {
-  let next = grid.map((row) => [...row]);
+  const next = grid.map((row) => [...row]);
   let cleared = 0;
   for (let r = 0; r < GRID; r++) {
     if (next[r].every((cell) => cell)) {
@@ -87,7 +103,7 @@ function clearFullLines(grid: (string | null)[][]) {
 }
 
 function freshBlocks(): BlockShape[] {
-  return SHAPES.map((s) => ({ ...s, id: createId("block") }));
+  return SHAPES.map((s) => ({ ...s, id: createId('block') }));
 }
 
 export function BlocksGame({ onQuit }: GameShellProps) {
@@ -105,16 +121,14 @@ export function BlocksGame({ onQuit }: GameShellProps) {
   const lastQuestionTermId = useRef<string | null>(null);
 
   useEffect(() => {
-    beginSession("blocks", playableTerms.length);
+    beginSession('blocks', playableTerms.length);
   }, [playableTerms, beginSession]);
 
   const requestQuestion = useCallback(() => {
     const terms = playableTerms;
     if (!terms.length) return;
     const pool =
-      terms.length > 1
-        ? terms.filter((term) => term.id !== lastQuestionTermId.current)
-        : terms;
+      terms.length > 1 ? terms.filter((term) => term.id !== lastQuestionTermId.current) : terms;
     const term = pool[Math.floor(Math.random() * pool.length)];
     lastQuestionTermId.current = term.id;
     const all = studySet?.terms ?? terms;
@@ -165,7 +179,11 @@ export function BlocksGame({ onQuit }: GameShellProps) {
     }
   };
 
-  const dropAt = (row: number, col: number, setScore: React.Dispatch<React.SetStateAction<number>>) => {
+  const dropAt = (
+    row: number,
+    col: number,
+    setScore: React.Dispatch<React.SetStateAction<number>>
+  ) => {
     if (!dragBlock || waiting) return;
     if (!canPlace(grid, dragBlock.pattern, row, col)) return;
     const placed = placeFinal(grid, dragBlock.pattern, row, col, dragBlock.color);
@@ -185,7 +203,7 @@ export function BlocksGame({ onQuit }: GameShellProps) {
 
   return (
     <GameShell gameId="blocks" onQuit={onQuit}>
-      {({ setScore, reportScore }) => (
+      {({ setScore }) => (
         <div className="space-y-4 select-none rounded-2xl border border-border bg-gradient-to-br from-card to-secondary/40 p-5">
           <div
             ref={gridRef}
@@ -193,7 +211,7 @@ export function BlocksGame({ onQuit }: GameShellProps) {
             style={{
               width: GRID * CELL,
               height: GRID * CELL,
-              display: "grid",
+              display: 'grid',
               gridTemplateColumns: `repeat(${GRID}, ${CELL}px)`,
               gridTemplateRows: `repeat(${GRID}, ${CELL}px)`,
               gap: 2,
@@ -201,7 +219,7 @@ export function BlocksGame({ onQuit }: GameShellProps) {
             onPointerMove={(e) => {
               if (dragBlock) handlePointerMove(e.clientX, e.clientY);
             }}
-            onPointerUp={(e) => {
+            onPointerUp={() => {
               if (dragBlock && hoverCell) {
                 dropAt(hoverCell.row, hoverCell.col, setScore);
               }
@@ -212,20 +230,17 @@ export function BlocksGame({ onQuit }: GameShellProps) {
           >
             {previewGrid.map((row, ri) =>
               row.map((cell, ci) => {
-                const isPreview =
-                  dragBlock &&
-                  hoverCell &&
-                  cell === `${dragBlock.color}66`;
+                const isPreview = dragBlock && hoverCell && cell === `${dragBlock.color}66`;
                 return (
                   <div
                     key={`${ri}-${ci}`}
                     className="rounded-sm border border-border/40"
                     style={{
                       backgroundColor: isPreview
-                        ? dragBlock!.color + "99"
-                        : cell && !String(cell).endsWith("66")
-                        ? cell
-                        : "transparent",
+                        ? dragBlock!.color + '99'
+                        : cell && !String(cell).endsWith('66')
+                          ? cell
+                          : 'transparent',
                       boxShadow: isPreview ? `inset 0 0 0 2px ${dragBlock!.color}` : undefined,
                     }}
                   />
@@ -241,7 +256,9 @@ export function BlocksGame({ onQuit }: GameShellProps) {
                 role="button"
                 tabIndex={0}
                 className={`p-2 rounded-lg border cursor-grab active:cursor-grabbing touch-none ${
-                  dragBlock?.id === block.id ? "border-foreground ring-2 ring-foreground/20" : "border-border bg-card"
+                  dragBlock?.id === block.id
+                    ? 'border-foreground ring-2 ring-foreground/20'
+                    : 'border-border bg-card'
                 }`}
                 onPointerDown={(e) => {
                   e.currentTarget.setPointerCapture(e.pointerId);
@@ -250,7 +267,7 @@ export function BlocksGame({ onQuit }: GameShellProps) {
                 onPointerMove={(e) => {
                   if (dragBlock?.id === block.id) handlePointerMove(e.clientX, e.clientY);
                 }}
-                onPointerUp={(e) => {
+                onPointerUp={() => {
                   if (dragBlock?.id === block.id && hoverCell) {
                     dropAt(hoverCell.row, hoverCell.col, setScore);
                   }
@@ -267,13 +284,10 @@ export function BlocksGame({ onQuit }: GameShellProps) {
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
               <div className="bg-card border border-border rounded-xl p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto">
                 <h3 className="font-medium mb-4 text-foreground">
-                  {t("study_blocks_question", "Beantwoord om nieuwe blokken te verdienen")}
+                  {t('study_blocks_question', 'Beantwoord om nieuwe blokken te verdienen')}
                 </h3>
-                {question.type === "multiple-choice" ? (
-                  <McqQuestion
-                    question={question}
-                    onAnswer={(a, c) => onQuestionDone(c, a)}
-                  />
+                {question.type === 'multiple-choice' ? (
+                  <McqQuestion question={question} onAnswer={(a, c) => onQuestionDone(c, a)} />
                 ) : (
                   <WrittenQuestion
                     question={question}
@@ -287,7 +301,7 @@ export function BlocksGame({ onQuit }: GameShellProps) {
                   onClick={skipQuestion}
                   className="mt-4 w-full py-2.5 rounded-lg border border-border text-sm text-muted-foreground hover:bg-secondary"
                 >
-                  {t("study_skip_question", "Sla over (andere vraag)")}
+                  {t('study_skip_question', 'Sla over (andere vraag)')}
                 </button>
               </div>
             </div>
@@ -309,7 +323,7 @@ function MiniGrid({ shape, color }: { shape: boolean[][]; color: string }) {
           <span
             key={`${ri}-${ci}`}
             className="w-3.5 h-3.5 rounded-sm"
-            style={{ backgroundColor: cell ? color : "transparent" }}
+            style={{ backgroundColor: cell ? color : 'transparent' }}
           />
         ))
       )}

@@ -1,11 +1,10 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import { Flame, BookOpen, Trophy, Clock, Target, TrendingUp, Calendar } from "lucide-react";
+import { useState, useEffect, useCallback } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Progress } from '@/components/ui/progress';
+import { Flame, BookOpen, Trophy, Clock, Target, TrendingUp, Calendar } from 'lucide-react';
 
 interface UserAnalytics {
   userId: string;
@@ -28,18 +27,14 @@ interface AnalyticsDashboardProps {
   userId: string;
 }
 
-export function AnalyticsDashboard({ userId }: AnalyticsDashboardProps) {
+export function AnalyticsDashboard({ userId: _userId }: AnalyticsDashboardProps) {
   const [analytics, setAnalytics] = useState<UserAnalytics | null>(null);
   const [loading, setLoading] = useState(true);
-  const [timeRange, setTimeRange] = useState<"day" | "week" | "month" | "year">("week");
+  const [timeRange, setTimeRange] = useState<'day' | 'week' | 'month' | 'year'>('week');
 
-  useEffect(() => {
-    loadAnalytics();
-  }, [userId, timeRange]);
-
-  const loadAnalytics = async () => {
+  const loadAnalytics = useCallback(async () => {
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       const response = await fetch(`/api/analytics?timeRange=${timeRange}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -48,11 +43,15 @@ export function AnalyticsDashboard({ userId }: AnalyticsDashboardProps) {
       const data = await response.json();
       setAnalytics(data.analytics);
     } catch (error) {
-      console.error("Error loading analytics:", error);
+      console.error('Error loading analytics:', error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [timeRange]);
+
+  useEffect(() => {
+    loadAnalytics();
+  }, [loadAnalytics]);
 
   if (loading) {
     return (
@@ -79,21 +78,27 @@ export function AnalyticsDashboard({ userId }: AnalyticsDashboardProps) {
     return `${mins}m`;
   };
 
-  const maxActivity = Math.max(...analytics.weeklyActivity.map(a => a.activity), 1);
+  const maxActivity = Math.max(...analytics.weeklyActivity.map((a) => a.activity), 1);
 
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Analytics Dashboard</h1>
         <div className="flex gap-2">
-          {(["day", "week", "month", "year"] as const).map((range) => (
+          {(['day', 'week', 'month', 'year'] as const).map((range) => (
             <Button
               key={range}
-              variant={timeRange === range ? "default" : "outline"}
+              variant={timeRange === range ? 'default' : 'outline'}
               onClick={() => setTimeRange(range)}
               size="sm"
             >
-              {range === "day" ? "Dag" : range === "week" ? "Week" : range === "month" ? "Maand" : "Jaar"}
+              {range === 'day'
+                ? 'Dag'
+                : range === 'week'
+                  ? 'Week'
+                  : range === 'month'
+                    ? 'Maand'
+                    : 'Jaar'}
             </Button>
           ))}
         </div>
@@ -108,7 +113,16 @@ export function AnalyticsDashboard({ userId }: AnalyticsDashboardProps) {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{formatTime(analytics.totalStudyTime)}</div>
-            <p className="text-xs text-muted-foreground">Deze {timeRange === "day" ? "dag" : timeRange === "week" ? "week" : timeRange === "month" ? "maand" : "jaar"}</p>
+            <p className="text-xs text-muted-foreground">
+              Deze{' '}
+              {timeRange === 'day'
+                ? 'dag'
+                : timeRange === 'week'
+                  ? 'week'
+                  : timeRange === 'month'
+                    ? 'maand'
+                    : 'jaar'}
+            </p>
           </CardContent>
         </Card>
 
@@ -130,7 +144,9 @@ export function AnalyticsDashboard({ userId }: AnalyticsDashboardProps) {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{analytics.currentStreak}</div>
-            <p className="text-xs text-muted-foreground">Langste: {analytics.longestStreak} dagen</p>
+            <p className="text-xs text-muted-foreground">
+              Langste: {analytics.longestStreak} dagen
+            </p>
           </CardContent>
         </Card>
 
@@ -158,9 +174,9 @@ export function AnalyticsDashboard({ userId }: AnalyticsDashboardProps) {
           <div className="space-y-4">
             {analytics.weeklyActivity.map((day, index) => {
               const date = new Date(day.date);
-              const dayName = date.toLocaleDateString("nl-NL", { weekday: "short" });
+              const dayName = date.toLocaleDateString('nl-NL', { weekday: 'short' });
               const percentage = (day.activity / maxActivity) * 100;
-              
+
               return (
                 <div key={index} className="flex items-center gap-4">
                   <div className="w-12 text-sm text-muted-foreground">{dayName}</div>
@@ -201,7 +217,10 @@ export function AnalyticsDashboard({ userId }: AnalyticsDashboardProps) {
                     <span>{formatTime(subject.timeSpent)}</span>
                   </div>
                 </div>
-                <Progress value={(subject.cardsStudied / analytics.totalCardsStudied) * 100 || 0} className="h-2" />
+                <Progress
+                  value={(subject.cardsStudied / analytics.totalCardsStudied) * 100 || 0}
+                  className="h-2"
+                />
               </div>
             ))}
           </div>
@@ -228,7 +247,9 @@ export function AnalyticsDashboard({ userId }: AnalyticsDashboardProps) {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{analytics.totalHomeworkCompleted}</div>
-            <p className="text-xs text-muted-foreground">{analytics.totalHomeworkPending} in behandeling</p>
+            <p className="text-xs text-muted-foreground">
+              {analytics.totalHomeworkPending} in behandeling
+            </p>
           </CardContent>
         </Card>
 

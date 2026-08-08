@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import React, { useEffect, useMemo, useState } from "react";
-import { Calendar, Clock, LayoutGrid, List } from "lucide-react";
+import React, { useEffect, useMemo, useState } from 'react';
+import { Calendar, Clock, LayoutGrid, List } from 'lucide-react';
 
 interface Toets {
   vak: string;
@@ -14,31 +14,31 @@ interface ToetsweekplanningProps {
   toetsen: Toets[];
 }
 
-type ViewMode = "table" | "agenda" | "timeline" | "compact";
+type ViewMode = 'table' | 'agenda' | 'timeline' | 'compact';
 
 const modeOptions: { id: ViewMode; label: string; icon: React.ReactNode }[] = [
-  { id: "table", label: "Tabel", icon: <LayoutGrid className="h-4 w-4" /> },
-  { id: "agenda", label: "Agenda", icon: <Calendar className="h-4 w-4" /> },
-  { id: "timeline", label: "Tijdlijn", icon: <Clock className="h-4 w-4" /> },
-  { id: "compact", label: "Compact", icon: <List className="h-4 w-4" /> },
+  { id: 'table', label: 'Tabel', icon: <LayoutGrid className="h-4 w-4" /> },
+  { id: 'agenda', label: 'Agenda', icon: <Calendar className="h-4 w-4" /> },
+  { id: 'timeline', label: 'Tijdlijn', icon: <Clock className="h-4 w-4" /> },
+  { id: 'compact', label: 'Compact', icon: <List className="h-4 w-4" /> },
 ];
 
 const formatFullDate = (date: string) =>
-  new Date(date).toLocaleDateString("nl-NL", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
+  new Date(date).toLocaleDateString('nl-NL', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
   });
 
 const formatShortDate = (date: string) =>
-  new Date(date).toLocaleDateString("nl-NL", {
-    day: "numeric",
-    month: "short",
+  new Date(date).toLocaleDateString('nl-NL', {
+    day: 'numeric',
+    month: 'short',
   });
 
 export function Toetsweekplanning({ toetsen }: ToetsweekplanningProps) {
-  const [viewMode, setViewMode] = useState<ViewMode>("table");
+  const [viewMode, setViewMode] = useState<ViewMode>('table');
   const [countdown, setCountdown] = useState({
     weeks: 0,
     days: 0,
@@ -49,7 +49,7 @@ export function Toetsweekplanning({ toetsen }: ToetsweekplanningProps) {
 
   const firstToets = toetsen[0];
   const firstToetsDate = useMemo(
-    () => new Date(`${firstToets.datum}T${firstToets.tijd.split("-")[0]}`),
+    () => new Date(`${firstToets.datum}T${firstToets.tijd.split('-')[0]}`),
     [firstToets.datum, firstToets.tijd]
   );
 
@@ -77,12 +77,15 @@ export function Toetsweekplanning({ toetsen }: ToetsweekplanningProps) {
     return () => clearInterval(interval);
   }, [firstToetsDate]);
 
-  const groupedToetsen = toetsen.reduce((acc, toets) => {
-    const date = toets.datum;
-    if (!acc[date]) acc[date] = [];
-    acc[date].push(toets);
-    return acc;
-  }, {} as Record<string, Toets[]>);
+  const groupedToetsen = toetsen.reduce(
+    (acc, toets) => {
+      const date = toets.datum;
+      if (!acc[date]) acc[date] = [];
+      acc[date].push(toets);
+      return acc;
+    },
+    {} as Record<string, Toets[]>
+  );
 
   const renderCountdown = () => (
     <div className="rounded-xl border border-border bg-gradient-to-br from-card to-secondary/40 p-5 shadow-sm sm:p-6">
@@ -92,14 +95,19 @@ export function Toetsweekplanning({ toetsen }: ToetsweekplanningProps) {
       </h2>
       <div className="grid grid-cols-2 gap-3 text-center sm:grid-cols-5 sm:gap-4">
         {[
-          ["Weken", countdown.weeks],
-          ["Dagen", countdown.days],
-          ["Uren", countdown.hours],
-          ["Minuten", countdown.minutes],
-          ["Seconden", countdown.seconds],
+          ['Weken', countdown.weeks],
+          ['Dagen', countdown.days],
+          ['Uren', countdown.hours],
+          ['Minuten', countdown.minutes],
+          ['Seconden', countdown.seconds],
         ].map(([label, value]) => (
-          <div key={label} className="rounded-lg border border-border bg-background/70 p-3 shadow-sm sm:p-4">
-            <div className="text-3xl font-bold tabular-nums text-foreground sm:text-4xl">{value}</div>
+          <div
+            key={label}
+            className="rounded-lg border border-border bg-background/70 p-3 shadow-sm sm:p-4"
+          >
+            <div className="text-3xl font-bold tabular-nums text-foreground sm:text-4xl">
+              {value}
+            </div>
             <div className="mt-1 text-xs font-medium uppercase tracking-wide text-muted-foreground sm:text-sm">
               {label}
             </div>
@@ -112,7 +120,10 @@ export function Toetsweekplanning({ toetsen }: ToetsweekplanningProps) {
   const renderTableView = () => (
     <div className="space-y-4">
       {Object.entries(groupedToetsen).map(([date, dayTests]) => (
-        <div key={date} className="overflow-hidden rounded-lg border border-border bg-card shadow-sm">
+        <div
+          key={date}
+          className="overflow-hidden rounded-lg border border-border bg-card shadow-sm"
+        >
           <div className="border-b border-border bg-secondary/50 px-4 py-3 font-semibold text-foreground">
             {formatFullDate(date)}
           </div>
@@ -136,7 +147,9 @@ export function Toetsweekplanning({ toetsen }: ToetsweekplanningProps) {
                   <tr key={idx} className="transition-colors hover:bg-secondary/30">
                     <td className="px-4 py-3 font-medium text-foreground">{toets.vak}</td>
                     <td className="px-4 py-3 text-sm text-muted-foreground">{toets.tijd}</td>
-                    <td className="px-4 py-3 text-sm leading-relaxed text-muted-foreground">{toets.stof}</td>
+                    <td className="px-4 py-3 text-sm leading-relaxed text-muted-foreground">
+                      {toets.stof}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -157,7 +170,10 @@ export function Toetsweekplanning({ toetsen }: ToetsweekplanningProps) {
           </div>
           <div className="space-y-3">
             {dayTests.map((toets, idx) => (
-              <div key={idx} className="rounded-md border border-border border-l-4 bg-background p-3">
+              <div
+                key={idx}
+                className="rounded-md border border-border border-l-4 bg-background p-3"
+              >
                 <div className="mb-1 flex items-start justify-between gap-3">
                   <span className="font-semibold text-foreground">{toets.vak}</span>
                   <span className="shrink-0 text-sm text-muted-foreground">{toets.tijd}</span>
@@ -194,7 +210,10 @@ export function Toetsweekplanning({ toetsen }: ToetsweekplanningProps) {
   const renderCompactView = () => (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
       {toetsen.map((toets, idx) => (
-        <div key={idx} className="rounded-lg border border-border bg-card p-4 shadow-sm transition-colors hover:bg-secondary/30">
+        <div
+          key={idx}
+          className="rounded-lg border border-border bg-card p-4 shadow-sm transition-colors hover:bg-secondary/30"
+        >
           <div className="mb-1 font-semibold text-foreground">{toets.vak}</div>
           <div className="mb-2 text-sm text-muted-foreground">
             {formatShortDate(toets.datum)} - {toets.tijd}
@@ -207,13 +226,13 @@ export function Toetsweekplanning({ toetsen }: ToetsweekplanningProps) {
 
   const renderView = () => {
     switch (viewMode) {
-      case "table":
+      case 'table':
         return renderTableView();
-      case "agenda":
+      case 'agenda':
         return renderAgendaView();
-      case "timeline":
+      case 'timeline':
         return renderTimelineView();
-      case "compact":
+      case 'compact':
         return renderCompactView();
       default:
         return renderTableView();
@@ -232,8 +251,8 @@ export function Toetsweekplanning({ toetsen }: ToetsweekplanningProps) {
             onClick={() => setViewMode(mode.id)}
             className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-all duration-200 ${
               viewMode === mode.id
-                ? "border border-border bg-background text-foreground shadow-sm"
-                : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+                ? 'border border-border bg-background text-foreground shadow-sm'
+                : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
             }`}
           >
             {mode.icon}

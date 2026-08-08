@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { useState, useMemo, memo } from "react";
-import { MarkdownRenderer } from "./MarkdownRenderer";
-import { ChevronDown, HelpCircle, Bookmark } from "lucide-react";
-import { useTranslation } from "@/lib/i18n";
+import { useState, useMemo, memo } from 'react';
+import { MarkdownRenderer } from './MarkdownRenderer';
+import { ChevronDown, HelpCircle, Bookmark } from 'lucide-react';
+import { useTranslation } from '@/lib/i18n';
 
 interface ParagraphQuestion {
   id: string;
   number: string;
   question: string;
   answer: string;
-  type: "inline" | "section";
-  difficulty?: "easy" | "medium" | "hard";
+  type: 'inline' | 'section';
+  difficulty?: 'easy' | 'medium' | 'hard';
 }
 
 interface Paragraph {
@@ -34,10 +34,7 @@ interface ParagraphSectionProps {
 
 // Helper function to convert \n to actual newlines and preserve markdown breaks
 function processNewlines(text: string): string {
-  return text
-    .replace(/\\n/g, '\n')
-    .replace(/\r\n/g, '\n')
-    .replace(/\n/g, '  \n');
+  return text.replace(/\\n/g, '\n').replace(/\r\n/g, '\n').replace(/\n/g, '  \n');
 }
 
 const InlineQuestionAccordion = memo(function InlineQuestionAccordion({
@@ -65,11 +62,11 @@ const InlineQuestionAccordion = memo(function InlineQuestionAccordion({
           {question.difficulty && (
             <span
               className={`text-xs px-2 py-0.5 rounded-full ${
-                question.difficulty === "easy"
-                  ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
-                  : question.difficulty === "medium"
-                  ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"
-                  : "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
+                question.difficulty === 'easy'
+                  ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+                  : question.difficulty === 'medium'
+                    ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400'
+                    : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
               }`}
             >
               {t(`difficulty_${question.difficulty}`, question.difficulty)}
@@ -78,7 +75,7 @@ const InlineQuestionAccordion = memo(function InlineQuestionAccordion({
         </div>
         <ChevronDown
           className={`w-4 h-4 text-muted-foreground transition-transform duration-200 ${
-            isExpanded ? "rotate-180" : ""
+            isExpanded ? 'rotate-180' : ''
           }`}
         />
       </button>
@@ -125,12 +122,12 @@ const ParagraphCard = memo(function ParagraphCard({
             onClick={onToggleBookmark}
             className={`p-2 rounded-md transition-colors ${
               isBookmarked
-                ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"
-                : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400'
+                : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
             }`}
-            title={isBookmarked ? t("remove_bookmark") : t("bookmark_this")}
+            title={isBookmarked ? t('remove_bookmark') : t('bookmark_this')}
           >
-            <Bookmark className={`w-4 h-4 ${isBookmarked ? "fill-current" : ""}`} />
+            <Bookmark className={`w-4 h-4 ${isBookmarked ? 'fill-current' : ''}`} />
           </button>
         )}
       </div>
@@ -146,7 +143,7 @@ const ParagraphCard = memo(function ParagraphCard({
       {paragraph.questions.length > 0 && (
         <div className="space-y-3 mt-8 pt-6 border-t border-border">
           <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-4">
-            {t("questions")} ({paragraph.questions.length})
+            {t('questions')} ({paragraph.questions.length})
           </h4>
           {paragraph.questions.map((question) => (
             <InlineQuestionAccordion
@@ -195,9 +192,7 @@ export const ParagraphSection = memo(function ParagraphSection({
 
   if (paragraphs.length === 0) {
     return (
-      <div className="text-center py-12 text-muted-foreground">
-        {t("no_paragraphs_available")}
-      </div>
+      <div className="text-center py-12 text-muted-foreground">{t('no_paragraphs_available')}</div>
     );
   }
 
@@ -213,13 +208,13 @@ export const ParagraphSection = memo(function ParagraphSection({
             onClick={expandAllQuestions}
             className="text-xs px-3 py-1.5 rounded-md bg-secondary hover:bg-secondary/80 transition-colors"
           >
-            {t("expand_all_qa")}
+            {t('expand_all_qa')}
           </button>
           <button
             onClick={collapseAllQuestions}
             className="text-xs px-3 py-1.5 rounded-md bg-secondary hover:bg-secondary/80 transition-colors"
           >
-            {t("collapse_all")}
+            {t('collapse_all')}
           </button>
         </div>
       </div>
@@ -235,7 +230,7 @@ export const ParagraphSection = memo(function ParagraphSection({
             isBookmarked={bookmarks?.has(paragraph.id)}
             onToggleBookmark={
               onToggleBookmark
-                ? () => onToggleBookmark(paragraph.id, paragraph.title || "Untitled")
+                ? () => onToggleBookmark(paragraph.id, paragraph.title || 'Untitled')
                 : undefined
             }
           />

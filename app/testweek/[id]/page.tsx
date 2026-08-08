@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Calendar, BookOpen, Trash2, Edit } from "lucide-react";
+import { useState, useEffect, useCallback } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { ArrowLeft, Calendar, BookOpen, Trash2, Edit } from 'lucide-react';
 
 export default function TestWeekDashboardPage() {
   const params = useParams();
@@ -13,11 +13,7 @@ export default function TestWeekDashboardPage() {
   const [testWeek, setTestWeek] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadTestWeek();
-  }, [params.id]);
-
-  const loadTestWeek = async () => {
+  const loadTestWeek = useCallback(async () => {
     try {
       const token = localStorage.getItem('access_token');
       if (!token) {
@@ -27,7 +23,7 @@ export default function TestWeekDashboardPage() {
 
       const response = await fetch(`/api/testweeks/${params.id}`, {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -40,7 +36,11 @@ export default function TestWeekDashboardPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [params.id, router]);
+
+  useEffect(() => {
+    loadTestWeek();
+  }, [loadTestWeek]);
 
   const handleDelete = async () => {
     if (!confirm('Weet u zeker dat u deze toetsweek wilt verwijderen?')) {
@@ -52,7 +52,7 @@ export default function TestWeekDashboardPage() {
       const response = await fetch(`/api/testweeks/${params.id}`, {
         method: 'DELETE',
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -85,16 +85,11 @@ export default function TestWeekDashboardPage() {
   const today = new Date();
   const isOngoing = today >= startDate && today <= endDate;
   const isUpcoming = today < startDate;
-  const isPast = today > endDate;
 
   return (
     <div className="container mx-auto py-8 px-4 max-w-6xl">
       <div className="mb-8">
-        <Button
-          variant="ghost"
-          onClick={() => router.push('/')}
-          className="mb-4"
-        >
+        <Button variant="ghost" onClick={() => router.push('/')} className="mb-4">
           <ArrowLeft className="w-4 h-4 mr-2" />
           Terug
         </Button>
@@ -138,9 +133,7 @@ export default function TestWeekDashboardPage() {
         <Card>
           <CardHeader>
             <CardTitle>Vakken</CardTitle>
-            <CardDescription>
-              {testWeek.subjects.length} vakken in deze toetsweek
-            </CardDescription>
+            <CardDescription>{testWeek.subjects.length} vakken in deze toetsweek</CardDescription>
           </CardHeader>
           <CardContent>
             {testWeek.subjects.length === 0 ? (
@@ -169,9 +162,7 @@ export default function TestWeekDashboardPage() {
         <Card>
           <CardHeader>
             <CardTitle>Voortgang</CardTitle>
-            <CardDescription>
-              Uw voortgang voor deze toetsweek
-            </CardDescription>
+            <CardDescription>Uw voortgang voor deze toetsweek</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">

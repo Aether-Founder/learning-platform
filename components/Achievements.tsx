@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import { Trophy, Lock, Flame, BookOpen, Users, Target } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
+import { Trophy, Lock, Flame, BookOpen, Users, Target } from 'lucide-react';
 
 interface Achievement {
   id: string;
@@ -22,7 +22,7 @@ interface AchievementDefinition {
   description: string;
   icon: string;
   maxProgress: number;
-  category: "streak" | "study" | "social" | "mastery";
+  category: 'streak' | 'study' | 'social' | 'mastery';
 }
 
 interface AchievementsProps {
@@ -32,8 +32,8 @@ interface AchievementsProps {
 export function Achievements({ userId }: AchievementsProps) {
   const [achievements, setAchievements] = useState<Achievement[]>([]);
   const [definitions, setDefinitions] = useState<AchievementDefinition[]>([]);
-  const [filter, setFilter] = useState<"all" | "unlocked" | "locked">("all");
-  const [categoryFilter, setCategoryFilter] = useState<string>("all");
+  const [filter, setFilter] = useState<'all' | 'unlocked' | 'locked'>('all');
+  const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -42,8 +42,8 @@ export function Achievements({ userId }: AchievementsProps) {
 
   const loadAchievements = async () => {
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch("/api/achievements", {
+      const token = localStorage.getItem('token');
+      const response = await fetch('/api/achievements', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -52,37 +52,37 @@ export function Achievements({ userId }: AchievementsProps) {
       setAchievements(data.achievements || []);
       setDefinitions(data.definitions || []);
     } catch (error) {
-      console.error("Error loading achievements:", error);
+      console.error('Error loading achievements:', error);
     } finally {
       setLoading(false);
     }
   };
 
-  const filteredAchievements = achievements.filter(achievement => {
-    if (filter === "unlocked" && !achievement.unlockedAt) return false;
-    if (filter === "locked" && achievement.unlockedAt) return false;
-    
-    if (categoryFilter !== "all") {
-      const definition = definitions.find(d => d.id === achievement.achievementId);
+  const filteredAchievements = achievements.filter((achievement) => {
+    if (filter === 'unlocked' && !achievement.unlockedAt) return false;
+    if (filter === 'locked' && achievement.unlockedAt) return false;
+
+    if (categoryFilter !== 'all') {
+      const definition = definitions.find((d) => d.id === achievement.achievementId);
       if (definition?.category !== categoryFilter) return false;
     }
-    
+
     return true;
   });
 
-  const unlockedCount = achievements.filter(a => a.unlockedAt).length;
+  const unlockedCount = achievements.filter((a) => a.unlockedAt).length;
   const totalCount = achievements.length;
   const completionPercentage = totalCount > 0 ? Math.round((unlockedCount / totalCount) * 100) : 0;
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case "streak":
+      case 'streak':
         return <Flame className="w-4 h-4" />;
-      case "study":
+      case 'study':
         return <BookOpen className="w-4 h-4" />;
-      case "social":
+      case 'social':
         return <Users className="w-4 h-4" />;
-      case "mastery":
+      case 'mastery':
         return <Target className="w-4 h-4" />;
       default:
         return <Trophy className="w-4 h-4" />;
@@ -91,16 +91,16 @@ export function Achievements({ userId }: AchievementsProps) {
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case "streak":
-        return "bg-orange-500";
-      case "study":
-        return "bg-blue-500";
-      case "social":
-        return "bg-green-500";
-      case "mastery":
-        return "bg-purple-500";
+      case 'streak':
+        return 'bg-orange-500';
+      case 'study':
+        return 'bg-blue-500';
+      case 'social':
+        return 'bg-green-500';
+      case 'mastery':
+        return 'bg-purple-500';
       default:
-        return "bg-gray-500";
+        return 'bg-gray-500';
     }
   };
 
@@ -134,22 +134,22 @@ export function Achievements({ userId }: AchievementsProps) {
 
       <div className="flex gap-2 mb-6 flex-wrap">
         <Button
-          variant={filter === "all" ? "default" : "outline"}
-          onClick={() => setFilter("all")}
+          variant={filter === 'all' ? 'default' : 'outline'}
+          onClick={() => setFilter('all')}
           size="sm"
         >
           Alle
         </Button>
         <Button
-          variant={filter === "unlocked" ? "default" : "outline"}
-          onClick={() => setFilter("unlocked")}
+          variant={filter === 'unlocked' ? 'default' : 'outline'}
+          onClick={() => setFilter('unlocked')}
           size="sm"
         >
           Ontgrendeld
         </Button>
         <Button
-          variant={filter === "locked" ? "default" : "outline"}
-          onClick={() => setFilter("locked")}
+          variant={filter === 'locked' ? 'default' : 'outline'}
+          onClick={() => setFilter('locked')}
           size="sm"
         >
           Vergrendeld
@@ -158,39 +158,39 @@ export function Achievements({ userId }: AchievementsProps) {
 
       <div className="flex gap-2 mb-6 flex-wrap">
         <Button
-          variant={categoryFilter === "all" ? "default" : "outline"}
-          onClick={() => setCategoryFilter("all")}
+          variant={categoryFilter === 'all' ? 'default' : 'outline'}
+          onClick={() => setCategoryFilter('all')}
           size="sm"
         >
           Alle categorieën
         </Button>
         <Button
-          variant={categoryFilter === "streak" ? "default" : "outline"}
-          onClick={() => setCategoryFilter("streak")}
+          variant={categoryFilter === 'streak' ? 'default' : 'outline'}
+          onClick={() => setCategoryFilter('streak')}
           size="sm"
         >
           <Flame className="w-4 h-4 mr-1" />
           Streak
         </Button>
         <Button
-          variant={categoryFilter === "study" ? "default" : "outline"}
-          onClick={() => setCategoryFilter("study")}
+          variant={categoryFilter === 'study' ? 'default' : 'outline'}
+          onClick={() => setCategoryFilter('study')}
           size="sm"
         >
           <BookOpen className="w-4 h-4 mr-1" />
           Studie
         </Button>
         <Button
-          variant={categoryFilter === "social" ? "default" : "outline"}
-          onClick={() => setCategoryFilter("social")}
+          variant={categoryFilter === 'social' ? 'default' : 'outline'}
+          onClick={() => setCategoryFilter('social')}
           size="sm"
         >
           <Users className="w-4 h-4 mr-1" />
           Sociaal
         </Button>
         <Button
-          variant={categoryFilter === "mastery" ? "default" : "outline"}
-          onClick={() => setCategoryFilter("mastery")}
+          variant={categoryFilter === 'mastery' ? 'default' : 'outline'}
+          onClick={() => setCategoryFilter('mastery')}
           size="sm"
         >
           <Target className="w-4 h-4 mr-1" />
@@ -199,20 +199,22 @@ export function Achievements({ userId }: AchievementsProps) {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filteredAchievements.map(achievement => {
-          const definition = definitions.find(d => d.id === achievement.achievementId);
+        {filteredAchievements.map((achievement) => {
+          const definition = definitions.find((d) => d.id === achievement.achievementId);
           if (!definition) return null;
 
           const isUnlocked = achievement.unlockedAt !== null;
-          const progressPercentage = Math.round((achievement.progress / achievement.maxProgress) * 100);
+          const progressPercentage = Math.round(
+            (achievement.progress / achievement.maxProgress) * 100
+          );
 
           return (
             <div
               key={achievement.id}
               className={`p-4 rounded-lg border ${
                 isUnlocked
-                  ? "bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-950 dark:to-orange-950 border-yellow-200 dark:border-yellow-800"
-                  : "bg-card border-border opacity-60"
+                  ? 'bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-950 dark:to-orange-950 border-yellow-200 dark:border-yellow-800'
+                  : 'bg-card border-border opacity-60'
               }`}
             >
               <div className="flex items-start justify-between mb-3">
@@ -237,7 +239,9 @@ export function Achievements({ userId }: AchievementsProps) {
                 <div className={`p-1 rounded ${getCategoryColor(definition.category)} text-white`}>
                   {getCategoryIcon(definition.category)}
                 </div>
-                <span className="text-xs text-muted-foreground capitalize">{definition.category}</span>
+                <span className="text-xs text-muted-foreground capitalize">
+                  {definition.category}
+                </span>
               </div>
 
               <div className="mt-3">
@@ -252,7 +256,7 @@ export function Achievements({ userId }: AchievementsProps) {
 
               {isUnlocked && achievement.unlockedAt && (
                 <div className="mt-3 text-xs text-muted-foreground">
-                  Ontgrendeld op: {new Date(achievement.unlockedAt).toLocaleDateString("nl-NL")}
+                  Ontgrendeld op: {new Date(achievement.unlockedAt).toLocaleDateString('nl-NL')}
                 </div>
               )}
             </div>

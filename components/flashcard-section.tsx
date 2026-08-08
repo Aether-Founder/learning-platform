@@ -1,15 +1,12 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import type { FlashcardSection as FlashcardSectionType } from "@/lib/flashcard-data";
-import { MarkdownRenderer } from "./MarkdownRenderer";
-import { useTranslation } from "@/lib/i18n";
+import { useState } from 'react';
+import type { FlashcardSection as FlashcardSectionType } from '@/lib/flashcard-data';
+import { MarkdownRenderer } from './MarkdownRenderer';
+import { useTranslation } from '@/lib/i18n';
 
 function processNewlines(text: string): string {
-  return text
-    .replace(/\\n/g, "\n")
-    .replace(/\r\n/g, "\n")
-    .replace(/\n/g, "  \n");
+  return text.replace(/\\n/g, '\n').replace(/\r\n/g, '\n').replace(/\n/g, '  \n');
 }
 
 interface FlashcardSectionProps {
@@ -20,7 +17,7 @@ interface FlashcardSectionProps {
 function ChevronIcon({ className, rotated }: { className?: string; rotated?: boolean }) {
   return (
     <svg
-      className={`${className} transition-transform duration-150 ${rotated ? "rotate-90" : ""}`}
+      className={`${className} transition-transform duration-150 ${rotated ? 'rotate-90' : ''}`}
       width="16"
       height="16"
       viewBox="0 0 16 16"
@@ -37,9 +34,7 @@ function ChevronIcon({ className, rotated }: { className?: string; rotated?: boo
 
 export function FlashcardSection({ section, showTimestamps }: FlashcardSectionProps) {
   const { t } = useTranslation();
-  const [expandedQuestions, setExpandedQuestions] = useState<Set<string>>(
-    new Set()
-  );
+  const [expandedQuestions, setExpandedQuestions] = useState<Set<string>>(new Set());
 
   const toggleQuestion = (questionId: string) => {
     setExpandedQuestions((prev) => {
@@ -64,7 +59,7 @@ export function FlashcardSection({ section, showTimestamps }: FlashcardSectionPr
   const allExpanded = expandedQuestions.size === section.questions.length;
 
   return (
-    <div 
+    <div
       id={section.id}
       className="bg-card border border-border rounded-[3px] shadow-[0_1px_2px_rgba(0,0,0,0.04)] dark:shadow-none scroll-mt-6"
     >
@@ -84,17 +79,14 @@ export function FlashcardSection({ section, showTimestamps }: FlashcardSectionPr
             onClick={expandAll}
             className="text-[11px] sm:text-[12px] text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap mt-2 sm:mt-0"
           >
-            {allExpanded ? t("collapse_all") : t("expand_all")}
+            {allExpanded ? t('collapse_all') : t('expand_all')}
           </button>
         </div>
       </div>
 
       <div className="border-t border-border">
         {section.questions.map((question, index) => (
-          <div
-            key={question.id}
-            className={index > 0 ? "border-t border-border" : ""}
-          >
+          <div key={question.id} className={index > 0 ? 'border-t border-border' : ''}>
             <button
               onClick={() => toggleQuestion(question.id)}
               className="w-full px-3 sm:px-5 py-2 flex items-start gap-2 sm:gap-2.5 text-left"
@@ -118,7 +110,7 @@ export function FlashcardSection({ section, showTimestamps }: FlashcardSectionPr
                   </MarkdownRenderer>
                 ) : (
                   <div className="text-[12px] sm:text-[13px] text-muted-foreground italic">
-                    {t("answer_not_provided_hint")}
+                    {t('answer_not_provided_hint')}
                   </div>
                 )}
               </div>

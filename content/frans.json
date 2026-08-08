@@ -5,9 +5,7 @@
   },
   "contentFormat": "textbook",
   "defaultViewMode": "simple",
-  "availableModes": [
-    "simple"
-  ],
+  "availableModes": ["simple"],
   "showTimestamps": false,
   "showExportButtons": false,
   "showAnkiExport": false,

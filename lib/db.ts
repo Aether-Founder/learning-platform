@@ -10,10 +10,12 @@ declare global {
 }
 
 const DB_DIR = path.join(process.cwd(), 'data');
-const DB_PATH = path.join(DB_DIR, 'learning-platform.db');
+// Allow overriding the database location (e.g. ':memory:' in tests). This is
+// also useful for running separate environments without clobbering dev data.
+const DB_PATH = process.env.SQLITE_DB_PATH || path.join(DB_DIR, 'learning-platform.db');
 
-// Ensure data directory exists
-if (!fs.existsSync(DB_DIR)) {
+// Ensure data directory exists (not needed for in-memory databases)
+if (!fs.existsSync(DB_DIR) && DB_PATH !== ':memory:') {
   fs.mkdirSync(DB_DIR, { recursive: true });
 }
 
@@ -101,11 +103,11 @@ export function initializeDatabase() {
     )
   `);
 
-  ensureColumn("study_sets", "subject", "TEXT DEFAULT 'General'");
-  ensureColumn("study_sets", "terms", "JSON DEFAULT '[]'");
-  ensureColumn("study_sets", "visibility", "TEXT DEFAULT 'private'");
-  ensureColumn("study_sets", "is_public", "BOOLEAN DEFAULT 0");
-  ensureColumn("study_sets", "folder_id", "TEXT");
+  ensureColumn('study_sets', 'subject', "TEXT DEFAULT 'General'");
+  ensureColumn('study_sets', 'terms', "JSON DEFAULT '[]'");
+  ensureColumn('study_sets', 'visibility', "TEXT DEFAULT 'private'");
+  ensureColumn('study_sets', 'is_public', 'BOOLEAN DEFAULT 0');
+  ensureColumn('study_sets', 'folder_id', 'TEXT');
 
   db.exec(`
     CREATE TABLE IF NOT EXISTS study_cards (
@@ -179,23 +181,30 @@ export function initializeDatabase() {
       id TEXT PRIMARY KEY,
       teacher_id TEXT NOT NULL,
       name TEXT NOT NULL,
+      description TEXT,
       school TEXT,
-      subject TEXT NOT NULL,
+      subject TEXT,
       code TEXT UNIQUE NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (teacher_id) REFERENCES users(id) ON DELETE CASCADE
     )
   `);
 
+  ensureColumn('classes', 'description', 'TEXT');
+  ensureColumn('classes', 'updated_at', "TIMESTAMP DEFAULT CURRENT_TIMESTAMP");
+
   // Class students table
   db.exec(`
-    CREATE TABLE IF NOT EXISTS class_students (
+    CREATE TABLE IF NOT EXISTS class_members (
+      id TEXT PRIMARY KEY,
       class_id TEXT NOT NULL,
-      student_id TEXT NOT NULL,
+      user_id TEXT NOT NULL,
+      role TEXT NOT NULL DEFAULT 'student',
       joined_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      PRIMARY KEY (class_id, student_id),
       FOREIGN KEY (class_id) REFERENCES classes(id) ON DELETE CASCADE,
-      FOREIGN KEY (student_id) REFERENCES users(id) ON DELETE CASCADE
+      FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+      UNIQUE(class_id, user_id)
     )
   `);
 
@@ -240,19 +249,32 @@ export function initializeDatabase() {
       id TEXT PRIMARY KEY,
       user_id TEXT NOT NULL,
       title TEXT NOT NULL,
-      type TEXT NOT NULL,
-      start TIMESTAMP NOT NULL,
+      type TEXT DEFAULT 'event',
+      start TIMESTAMP,
       end TIMESTAMP,
+      start_date TIMESTAMP,
+      end_date TIMESTAMP,
       all_day BOOLEAN DEFAULT 0,
       description TEXT,
       subject_id TEXT,
       test_week_id TEXT,
       color TEXT,
+      location TEXT,
+      reminder_minutes INTEGER,
+      recurrence TEXT,
       completed BOOLEAN DEFAULT 0,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
     )
   `);
+
+  ensureColumn('calendar_events', 'start_date', 'TIMESTAMP');
+  ensureColumn('calendar_events', 'end_date', 'TIMESTAMP');
+  ensureColumn('calendar_events', 'location', 'TEXT');
+  ensureColumn('calendar_events', 'reminder_minutes', 'INTEGER');
+  ensureColumn('calendar_events', 'recurrence', 'TEXT');
+  ensureColumn('calendar_events', 'updated_at', "TIMESTAMP DEFAULT CURRENT_TIMESTAMP");
 
   // Study plans table
   db.exec(`
@@ -312,19 +334,55 @@ export function initializeDatabase() {
     )
   `);
 
+  // Content table
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS content (
+      id TEXT PRIMARY KEY,
+      user_id TEXT NOT NULL,
+      title TEXT NOT NULL,
+      description TEXT,
+      type TEXT NOT NULL,
+      data JSON,
+      tags JSON,
+      is_public BOOLEAN DEFAULT 0,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    )
+  `);
+
+  // User data table (key/value store for migrated localStorage data)
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS user_data (
+      user_id TEXT NOT NULL,
+      data_key TEXT NOT NULL,
+      data_value TEXT,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      PRIMARY KEY (user_id, data_key),
+      FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    )
+  `);
+
   // Create indexes for better performance
   db.exec(`CREATE INDEX IF NOT EXISTS idx_users_email ON users(email)`);
   db.exec(`CREATE INDEX IF NOT EXISTS idx_test_weeks_user_id ON test_weeks(user_id)`);
-  db.exec(`CREATE INDEX IF NOT EXISTS idx_test_week_subjects_test_week_id ON test_week_subjects(test_week_id)`);
+  db.exec(
+    `CREATE INDEX IF NOT EXISTS idx_test_week_subjects_test_week_id ON test_week_subjects(test_week_id)`
+  );
   db.exec(`CREATE INDEX IF NOT EXISTS idx_study_sets_user_id ON study_sets(user_id)`);
   db.exec(`CREATE INDEX IF NOT EXISTS idx_study_cards_study_set_id ON study_cards(study_set_id)`);
-  db.exec(`CREATE INDEX IF NOT EXISTS idx_card_progress_next_review ON card_progress(next_review_at)`);
+  db.exec(
+    `CREATE INDEX IF NOT EXISTS idx_card_progress_next_review ON card_progress(next_review_at)`
+  );
   db.exec(`CREATE INDEX IF NOT EXISTS idx_review_logs_user_id ON review_logs(user_id)`);
   db.exec(`CREATE INDEX IF NOT EXISTS idx_homework_user_id ON homework(user_id)`);
   db.exec(`CREATE INDEX IF NOT EXISTS idx_homework_due_date ON homework(due_date)`);
   db.exec(`CREATE INDEX IF NOT EXISTS idx_calendar_events_user_id ON calendar_events(user_id)`);
   db.exec(`CREATE INDEX IF NOT EXISTS idx_calendar_events_start ON calendar_events(start)`);
-  db.exec(`CREATE INDEX IF NOT EXISTS idx_class_students_class_id ON class_students(class_id)`);
+  db.exec(`CREATE INDEX IF NOT EXISTS idx_achievements_user_id ON achievements(user_id)`);
+  db.exec(`CREATE INDEX IF NOT EXISTS idx_content_user_id ON content(user_id)`);
+  db.exec(`CREATE INDEX IF NOT EXISTS idx_content_public ON content(is_public)`);
+  db.exec(`CREATE INDEX IF NOT EXISTS idx_class_members_class_id ON class_members(class_id)`);
   db.exec(`CREATE INDEX IF NOT EXISTS idx_assignments_class_id ON assignments(class_id)`);
   globalThis.__learningPlatformDbInitialized = true;
 }
@@ -336,7 +394,9 @@ try {
   if ((error as { code?: string }).code !== 'SQLITE_BUSY') {
     throw error;
   }
-  console.warn('SQLite database is busy during schema initialization; it will be retried on next server use.');
+  console.warn(
+    'SQLite database is busy during schema initialization; it will be retried on next server use.'
+  );
 }
 
 export default db;

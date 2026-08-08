@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { ThemeToggle } from "./theme-toggle";
+import { useState } from 'react';
+import { ThemeToggle } from './theme-toggle';
 
 function YoutubeIcon({ className }: { className?: string }) {
   return (
@@ -70,13 +70,11 @@ export function Header() {
 
   const handleCopyTranscript = async () => {
     try {
-      await navigator.clipboard.writeText(
-        "Transcript content would be copied here..."
-      );
+      await navigator.clipboard.writeText('Transcript content would be copied here...');
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      console.error("Failed to copy:", err);
+      console.error('Failed to copy:', err);
     }
   };
 
@@ -84,15 +82,15 @@ export function Header() {
     <header className="mb-10">
       <div className="flex items-start justify-between gap-4 mb-2.5">
         <h1 className="text-[26px] md:text-[32px] font-serif text-foreground leading-tight font-medium">
-        Flashcards for Reiner Pope on Dwarkesh Podcast
-      </h1>
+          Flashcards for Reiner Pope on Dwarkesh Podcast
+        </h1>
         <div className="xl:hidden flex-shrink-0">
           <ThemeToggle />
         </div>
       </div>
       <p className="text-[15px] text-muted-foreground mb-6 leading-relaxed">
-        Wrote some practice problems to help myself and my audience retain
-        Reiner&apos;s blackboard lecture.
+        Wrote some practice problems to help myself and my audience retain Reiner&apos;s blackboard
+        lecture.
       </p>
 
       <div className="flex flex-wrap gap-2.5 mb-7">
@@ -146,7 +144,7 @@ export function Header() {
           className="text-foreground hover:text-muted-foreground transition-colors inline-flex items-center gap-1.5"
         >
           <CopyIcon className="w-3.5 h-3.5" />
-          {copied ? "Copied!" : "Copy transcript"}
+          {copied ? 'Copied!' : 'Copy transcript'}
         </button>
       </div>
     </header>

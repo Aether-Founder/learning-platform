@@ -28,12 +28,12 @@ export function createContent(
 ): Content {
   const contentId = generateId();
   const now = new Date().toISOString();
-  
+
   const stmt = db.prepare(`
     INSERT INTO content (id, user_id, title, description, type, data, tags, is_public, created_at, updated_at)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
-  
+
   stmt.run(
     contentId,
     userId,
@@ -46,7 +46,7 @@ export function createContent(
     now,
     now
   );
-  
+
   return getContentById(contentId)!;
 }
 
@@ -56,9 +56,9 @@ export function createContent(
 export function getContentById(id: string): Content | null {
   const stmt = db.prepare('SELECT * FROM content WHERE id = ?');
   const row = stmt.get(id) as any;
-  
+
   if (!row) return null;
-  
+
   return {
     id: row.id,
     userId: row.user_id,
@@ -79,8 +79,8 @@ export function getContentById(id: string): Content | null {
 export function getContentByUserId(userId: string): Content[] {
   const stmt = db.prepare('SELECT * FROM content WHERE user_id = ? ORDER BY updated_at DESC');
   const rows = stmt.all(userId) as any[];
-  
-  return rows.map(row => ({
+
+  return rows.map((row) => ({
     id: row.id,
     userId: row.user_id,
     title: row.title,
@@ -105,8 +105,8 @@ export function getPublicContent(limit: number = 50, offset: number = 0): Conten
     LIMIT ? OFFSET ?
   `);
   const rows = stmt.all(limit, offset) as any[];
-  
-  return rows.map(row => ({
+
+  return rows.map((row) => ({
     id: row.id,
     userId: row.user_id,
     title: row.title,
@@ -139,11 +139,11 @@ export function updateContent(
   if (!content || content.userId !== userId) {
     return null;
   }
-  
+
   const now = new Date().toISOString();
   const updateFields: string[] = [];
   const updateValues: any[] = [];
-  
+
   if (updates.title !== undefined) {
     updateFields.push('title = ?');
     updateValues.push(updates.title);
@@ -168,19 +168,19 @@ export function updateContent(
     updateFields.push('is_public = ?');
     updateValues.push(updates.isPublic ? 1 : 0);
   }
-  
+
   updateFields.push('updated_at = ?');
   updateValues.push(now);
   updateValues.push(id);
-  
+
   const stmt = db.prepare(`
     UPDATE content 
     SET ${updateFields.join(', ')}
     WHERE id = ?
   `);
-  
+
   stmt.run(...updateValues);
-  
+
   return getContentById(id);
 }
 
@@ -192,21 +192,17 @@ export function deleteContent(id: string, userId: string): boolean {
   if (!content || content.userId !== userId) {
     return false;
   }
-  
+
   const stmt = db.prepare('DELETE FROM content WHERE id = ?');
   stmt.run(id);
-  
+
   return true;
 }
 
 /**
  * Search content by title or tags
  */
-export function searchContent(
-  userId: string,
-  query: string,
-  limit: number = 50
-): Content[] {
+export function searchContent(userId: string, query: string, limit: number = 50): Content[] {
   const stmt = db.prepare(`
     SELECT * FROM content 
     WHERE user_id = ? 
@@ -215,8 +211,8 @@ export function searchContent(
     LIMIT ?
   `);
   const rows = stmt.all(userId, `%${query}%`, `%${query}%`, limit) as any[];
-  
-  return rows.map(row => ({
+
+  return rows.map((row) => ({
     id: row.id,
     userId: row.user_id,
     title: row.title,
@@ -243,8 +239,8 @@ export function getContentByType(
     ORDER BY updated_at DESC
   `);
   const rows = stmt.all(userId, type) as any[];
-  
-  return rows.map(row => ({
+
+  return rows.map((row) => ({
     id: row.id,
     userId: row.user_id,
     title: row.title,

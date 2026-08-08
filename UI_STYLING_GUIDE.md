@@ -1,6 +1,7 @@
 # UI & Styling Guide - Complete Copy & Paste Documentation
 
 ## 📋 Table of Contents
+
 1. [Project Overview](#project-overview)
 2. [Technology Stack](#technology-stack)
 3. [File Structure](#file-structure)
@@ -18,6 +19,7 @@
 ## 🎯 Project Overview
 
 This is a modern, responsive study platform built with Next.js that features:
+
 - **Multi-mode viewing**: Book, Study, and Simple modes
 - **Interactive flashcards**: With flip animations and keyboard controls
 - **Hierarchical navigation**: Sections and sub-sections with scroll spy
@@ -32,24 +34,28 @@ This is a modern, responsive study platform built with Next.js that features:
 ## 🛠 Technology Stack
 
 ### Frontend Framework
+
 ```tsx
 // Next.js 14+ with App Router
 import { useState, useEffect, useMemo } from 'react';
 ```
 
 ### Styling
+
 ```tsx
 // Tailwind CSS with custom design system
 import { cn } from '@/lib/utils';
 ```
 
 ### Icons
+
 ```tsx
 // Lucide React Icons
 import { ChevronLeft, Globe, Sun, Moon } from 'lucide-react';
 ```
 
 ### Markdown & Math
+
 ```tsx
 // React Markdown with KaTeX support
 import ReactMarkdown from 'react-markdown';
@@ -58,6 +64,7 @@ import rehypeKatex from 'rehype-katex';
 ```
 
 ### Internationalization
+
 ```tsx
 // Custom CSV-based i18n system
 import { useTranslation } from '@/lib/i18n';
@@ -104,15 +111,16 @@ project-root/
 ## 🧩 Core Components
 
 ### Header Component
+
 ```tsx
 // Complete header with navigation and controls
-<Header 
+<Header
   siteMetadata={siteMetadata}
   sections={sections}
   buttons={buttons}
   showExportButtons={false}
   showLanguageSwitcher={true}
-/>
+/>;
 
 // Props interface
 interface HeaderProps {
@@ -132,30 +140,30 @@ interface HeaderProps {
 ```
 
 ### Language Switcher
+
 ```tsx
 // Dropdown language selector with flags
-<LanguageSwitcher />
+<LanguageSwitcher />;
 
 // Usage
 const { t, currentLanguage, changeLanguage } = useTranslation();
 ```
 
 ### Theme Toggle
+
 ```tsx
 // Dark/light mode switcher
-<ThemeToggle />
+<ThemeToggle />;
 
 // Uses next-themes for state management
 const { theme, setTheme } = useTheme();
 ```
 
 ### Mode Switcher
+
 ```tsx
 // View mode selector (Book/Study/Simple)
-<ModeSwitcher 
-  currentMode={viewMode}
-  onModeChange={setViewMode}
-/>
+<ModeSwitcher currentMode={viewMode} onModeChange={setViewMode} />
 ```
 
 ---
@@ -163,6 +171,7 @@ const { theme, setTheme } = useTheme();
 ## 🎨 Styling System
 
 ### CSS Variables (globals.css)
+
 ```css
 :root {
   /* Light mode colors */
@@ -173,7 +182,7 @@ const { theme, setTheme } = useTheme();
   --muted: 210 40% 98%;
   --accent: 222.2 47.4% 11.2%;
   --primary: 222.2 47.4% 11.2%;
-  
+
   /* Typography */
   --font-inter: 'Inter', sans-serif;
   --font-cormorant: 'Cormorant Garamond', serif;
@@ -192,6 +201,7 @@ const { theme, setTheme } = useTheme();
 ```
 
 ### Tailwind Configuration
+
 ```js
 // tailwind.config.js
 module.exports = {
@@ -218,7 +228,7 @@ module.exports = {
     },
   },
   plugins: [require('@tailwindcss/typography')],
-}
+};
 ```
 
 ---
@@ -226,42 +236,44 @@ module.exports = {
 ## 🎨 Color Scheme
 
 ### Primary Colors
+
 ```css
 /* Light Mode */
---background: 222.2 84% 95.1%;    /* Very light blue */
---foreground: 222.2 84% 4.9%;     /* Dark blue-gray */
---card: 222.2 84% 95.1%;         /* Same as background */
---border: 214.3 31.8% 91.4%;      /* Light gray border */
---muted: 210 40% 98%;             /* Muted gray */
---accent: 222.2 47.4% 11.2%;     /* Blue accent */
---primary: 222.2 47.4% 11.2%;     /* Primary blue */
+--background: 222.2 84% 95.1%; /* Very light blue */
+--foreground: 222.2 84% 4.9%; /* Dark blue-gray */
+--card: 222.2 84% 95.1%; /* Same as background */
+--border: 214.3 31.8% 91.4%; /* Light gray border */
+--muted: 210 40% 98%; /* Muted gray */
+--accent: 222.2 47.4% 11.2%; /* Blue accent */
+--primary: 222.2 47.4% 11.2%; /* Primary blue */
 
 /* Dark Mode */
---background: 222.2 84% 4.9%;      /* Dark blue-gray */
---foreground: 210 40% 98%;           /* Light gray text */
---card: 222.2 84% 4.9%;           /* Dark card background */
---border: 217.2 32.6% 17.5%;      /* Dark border */
---muted: 215 27.9% 16.9%;          /* Dark muted */
---accent: 210 40% 98%;             /* Light accent */
---primary: 210 40% 98%;             /* Light primary */
+--background: 222.2 84% 4.9%; /* Dark blue-gray */
+--foreground: 210 40% 98%; /* Light gray text */
+--card: 222.2 84% 4.9%; /* Dark card background */
+--border: 217.2 32.6% 17.5%; /* Dark border */
+--muted: 215 27.9% 16.9%; /* Dark muted */
+--accent: 210 40% 98%; /* Light accent */
+--primary: 210 40% 98%; /* Light primary */
 ```
 
 ### Color Usage Patterns
+
 ```tsx
 // Background colors
-className="bg-background"      // Main background
-className="bg-card"            // Card backgrounds
-className="bg-secondary"        // Secondary backgrounds
-className="bg-muted"           // Muted backgrounds
+className = 'bg-background'; // Main background
+className = 'bg-card'; // Card backgrounds
+className = 'bg-secondary'; // Secondary backgrounds
+className = 'bg-muted'; // Muted backgrounds
 
 // Text colors
-className="text-foreground"      // Main text
-className="text-muted-foreground" // Muted text
-className="text-primary"         // Primary text
+className = 'text-foreground'; // Main text
+className = 'text-muted-foreground'; // Muted text
+className = 'text-primary'; // Primary text
 
 // Border colors
-className="border-border"        // Standard borders
-className="border-border/50"      // Faded borders
+className = 'border-border'; // Standard borders
+className = 'border-border/50'; // Faded borders
 ```
 
 ---
@@ -269,24 +281,26 @@ className="border-border/50"      // Faded borders
 ## ✏️ Typography
 
 ### Font System
+
 ```css
 /* Font variables */
---font-inter: 'Inter', sans-serif;     /* UI and controls */
+--font-inter: 'Inter', sans-serif; /* UI and controls */
 --font-cormorant: 'Cormorant Garamond', serif; /* Headings and content */
 ```
 
 ### Typography Classes
+
 ```tsx
 // Headings
-className="font-serif text-foreground font-normal"
-className="text-2xl font-serif text-foreground font-normal mb-4 mt-6"
+className = 'font-serif text-foreground font-normal';
+className = 'text-2xl font-serif text-foreground font-normal mb-4 mt-6';
 
 // Body text
-className="font-sans text-foreground leading-relaxed"
-className="text-sm text-muted-foreground"
+className = 'font-sans text-foreground leading-relaxed';
+className = 'text-sm text-muted-foreground';
 
 // Code
-className="font-mono text-sm bg-muted px-1 py-0.5 rounded"
+className = 'font-mono text-sm bg-muted px-1 py-0.5 rounded';
 ```
 
 ---
@@ -294,6 +308,7 @@ className="font-mono text-sm bg-muted px-1 py-0.5 rounded"
 ## 📐 Layout Patterns
 
 ### Responsive Grid System
+
 ```tsx
 // Main layout container
 <div className="xl:flex xl:gap-8 mt-8">
@@ -301,7 +316,7 @@ className="font-mono text-sm bg-muted px-1 py-0.5 rounded"
   <aside className="xl:w-[280px] hidden xl:block">
     {/* Content */}
   </aside>
-  
+
   {/* Main content */}
   <div className="flex-1 px-5 py-10">
     {/* Content */}
@@ -325,6 +340,7 @@ className="font-mono text-sm bg-muted px-1 py-0.5 rounded"
 ```
 
 ### Flex Patterns
+
 ```tsx
 // Horizontal alignment
 <div className="flex items-center gap-3">
@@ -347,6 +363,7 @@ className="font-mono text-sm bg-muted px-1 py-0.5 rounded"
 ## 🧩 Component Library
 
 ### Button Variants
+
 ```tsx
 // Primary button
 <button className="bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 transition-colors">
@@ -365,6 +382,7 @@ className="font-mono text-sm bg-muted px-1 py-0.5 rounded"
 ```
 
 ### Card Components
+
 ```tsx
 // Standard card
 <div className="bg-card border border-border rounded-lg p-6 shadow-sm">
@@ -378,6 +396,7 @@ className="font-mono text-sm bg-muted px-1 py-0.5 rounded"
 ```
 
 ### Input Components
+
 ```tsx
 // Text input
 <input className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20" />
@@ -398,6 +417,7 @@ className="font-mono text-sm bg-muted px-1 py-0.5 rounded"
 ## 🌍 Internationalization
 
 ### Translation System Setup
+
 ```tsx
 // Translation hook
 import { useTranslation } from '@/lib/i18n';
@@ -410,6 +430,7 @@ const { t, currentLanguage, changeLanguage } = useTranslation();
 ```
 
 ### CSV Translation Files
+
 ```csv
 // locales/en.csv
 id,text
@@ -422,7 +443,7 @@ language,Language
 english,English
 dutch,Dutch
 
-// locales/nl.csv  
+// locales/nl.csv
 id,text
 welcome_message,Welkom bij ons studieplatform
 sections,Secties
@@ -435,10 +456,11 @@ dutch,Nederlands
 ```
 
 ### Language Switcher Implementation
+
 ```tsx
 export function LanguageSwitcher() {
   const { t, currentLanguage, changeLanguage } = useTranslation();
-  
+
   return (
     <div className="relative">
       <button onClick={() => setIsOpen(!isOpen)}>
@@ -447,7 +469,7 @@ export function LanguageSwitcher() {
       </button>
       {isOpen && (
         <div className="absolute right-0 top-full bg-card border border-border rounded-md shadow-lg">
-          {languages.map(lang => (
+          {languages.map((lang) => (
             <button onClick={() => changeLanguage(lang.code)}>
               <span>{lang.flag}</span>
               <span>{lang.name}</span>
@@ -465,6 +487,7 @@ export function LanguageSwitcher() {
 ## 📚 Content Structure
 
 ### JSON Content Format
+
 ```json
 {
   "siteMetadata": {
@@ -511,6 +534,7 @@ export function LanguageSwitcher() {
 ```
 
 ### Math Rendering
+
 ```tsx
 // Markdown with KaTeX
 <MarkdownRenderer className="prose prose-sm max-w-none">
@@ -533,6 +557,7 @@ export function LanguageSwitcher() {
 ### Step 1: Project Setup
 
 #### 1.1 Initialize New Project
+
 ```bash
 # Create new Next.js project
 npx create-next-app@latest your-study-app --typescript --tailwind --eslint
@@ -545,6 +570,7 @@ npm install lucide-react next-themes react-markdown remark-gfm remark-math rehyp
 ```
 
 #### 1.2 Configure Tailwind
+
 ```js
 // tailwind.config.js
 module.exports = {
@@ -571,10 +597,11 @@ module.exports = {
     },
   },
   plugins: [require('@tailwindcss/typography')],
-}
+};
 ```
 
 #### 1.3 Global Styles
+
 ```css
 /* app/globals.css */
 @tailwind base;
@@ -623,34 +650,35 @@ module.exports = {
 }
 
 .dark .katex {
-  color: #F9FAFB;
+  color: #f9fafb;
 }
 
 .dark .katex .mord {
-  color: #F9FAFB;
+  color: #f9fafb;
 }
 ```
 
 ### Step 2: Core Files
 
 #### 2.1 Layout File
+
 ```tsx
 // app/layout.tsx
-import type { Metadata } from "next";
-import { Inter, Cormorant_Garamond } from "next/font/google";
-import "./globals.css";
-import { ThemeProvider } from "@/components/ThemeProvider";
+import type { Metadata } from 'next';
+import { Inter, Cormorant_Garamond } from 'next/font/google';
+import './globals.css';
+import { ThemeProvider } from '@/components/ThemeProvider';
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const cormorant = Cormorant_Garamond({ 
-  subsets: ["latin"], 
-  variable: "--font-cormorant",
-  weight: ["400", "500", "600", "700"],
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  variable: '--font-cormorant',
+  weight: ['400', '500', '600', '700'],
 });
 
 export const metadata: Metadata = {
-  title: "Study Guide Platform",
-  description: "Interactive study guides with multiple viewing modes",
+  title: 'Study Guide Platform',
+  description: 'Interactive study guides with multiple viewing modes',
 };
 
 export default function RootLayout({
@@ -671,10 +699,11 @@ export default function RootLayout({
 ```
 
 #### 2.2 Utility Functions
+
 ```tsx
 // lib/utils.ts
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -682,6 +711,7 @@ export function cn(...inputs: ClassValue[]) {
 ```
 
 #### 2.3 Internationalization Setup
+
 ```tsx
 // lib/i18n.ts
 export type Language = 'en' | 'nl';
@@ -713,7 +743,7 @@ class I18n {
   private parseCSV(csvText: string): Translation {
     const lines = csvText.split('\n');
     const translations: Translation = {};
-    
+
     for (let i = 1; i < lines.length; i++) {
       const line = lines[i].trim();
       if (line) {
@@ -724,7 +754,7 @@ class I18n {
         }
       }
     }
-    
+
     return translations;
   }
 
@@ -761,14 +791,15 @@ export const i18n = new I18n();
 ### Step 3: Component Implementation
 
 #### 3.1 Header Component
+
 ```tsx
 // components/Header.tsx
-"use client";
+'use client';
 
-import { useState } from "react";
-import { ArrowLeft } from "lucide-react";
-import { ThemeToggle } from "./ThemeToggle";
-import { LanguageSwitcher } from "./LanguageSwitcher";
+import { useState } from 'react';
+import { ArrowLeft } from 'lucide-react';
+import { ThemeToggle } from './ThemeToggle';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 interface HeaderProps {
   siteMetadata: {
@@ -785,7 +816,7 @@ export function Header({ siteMetadata, showLanguageSwitcher = false }: HeaderPro
         <div className="flex-1">
           <div className="flex items-start gap-4 mb-6">
             <button
-              onClick={() => window.location.href = '/'}
+              onClick={() => (window.location.href = '/')}
               className="p-2 text-sm text-muted-foreground hover:text-foreground transition-colors border border-border rounded-md hover:bg-secondary/50"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -811,13 +842,14 @@ export function Header({ siteMetadata, showLanguageSwitcher = false }: HeaderPro
 ```
 
 #### 3.2 Theme Toggle
+
 ```tsx
 // components/ThemeToggle.tsx
-"use client";
+'use client';
 
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
-import { Sun, Moon } from "lucide-react";
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
+import { Sun, Moon } from 'lucide-react';
 
 export function ThemeToggle() {
   const [mounted, setMounted] = useState(false);
@@ -834,18 +866,14 @@ export function ThemeToggle() {
   return (
     <div className="flex items-center gap-0.5 p-1 rounded-md bg-secondary/80">
       <button
-        onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+        onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
         className={`p-1.5 rounded transition-colors ${
-          theme === "light"
-            ? "bg-background text-foreground shadow-sm"
-            : "text-muted-foreground hover:text-foreground"
+          theme === 'light'
+            ? 'bg-background text-foreground shadow-sm'
+            : 'text-muted-foreground hover:text-foreground'
         }`}
       >
-        {theme === "light" ? (
-          <Moon className="w-4 h-4" />
-        ) : (
-          <Sun className="w-4 h-4" />
-        )}
+        {theme === 'light' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
       </button>
     </div>
   );
@@ -853,13 +881,14 @@ export function ThemeToggle() {
 ```
 
 #### 3.3 Language Switcher
+
 ```tsx
 // components/LanguageSwitcher.tsx
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Globe } from "lucide-react";
-import { useTranslation, Language } from "@/lib/i18n";
+import { useState, useEffect } from 'react';
+import { Globe } from 'lucide-react';
+import { useTranslation, Language } from '@/lib/i18n';
 
 export function LanguageSwitcher() {
   const { t, currentLanguage, changeLanguage } = useTranslation();
@@ -867,10 +896,10 @@ export function LanguageSwitcher() {
 
   const languages: { code: Language; name: string; flag: string }[] = [
     { code: 'en', name: t('english'), flag: '🇬🇧' },
-    { code: 'nl', name: t('dutch'), flag: '🇳🇱' }
+    { code: 'nl', name: t('dutch'), flag: '🇳🇱' },
   ];
 
-  const currentLang = languages.find(lang => lang.code === currentLanguage);
+  const currentLang = languages.find((lang) => lang.code === currentLanguage);
 
   return (
     <div className="relative">
@@ -879,15 +908,14 @@ export function LanguageSwitcher() {
         className="flex items-center gap-2 px-3 py-2 text-sm rounded-md border border-border hover:bg-secondary transition-colors"
       >
         <Globe className="w-4 h-4" />
-        <span>{currentLang?.flag} {currentLang?.name}</span>
+        <span>
+          {currentLang?.flag} {currentLang?.name}
+        </span>
       </button>
 
       {isOpen && (
         <>
-          <div 
-            className="fixed inset-0 z-10" 
-            onClick={() => setIsOpen(false)}
-          />
+          <div className="fixed inset-0 z-10" onClick={() => setIsOpen(false)} />
           <div className="absolute right-0 top-full mt-1 bg-card border border-border rounded-md shadow-lg z-20 min-w-[140px]">
             {languages.map((language) => (
               <button
@@ -897,7 +925,9 @@ export function LanguageSwitcher() {
                   setIsOpen(false);
                 }}
                 className={`w-full flex items-center gap-2 px-3 py-2 text-sm hover:bg-secondary transition-colors text-left ${
-                  currentLanguage === language.code ? 'bg-secondary text-foreground' : 'text-foreground'
+                  currentLanguage === language.code
+                    ? 'bg-secondary text-foreground'
+                    : 'text-foreground'
                 }`}
               >
                 <span>{language.flag}</span>
@@ -913,15 +943,16 @@ export function LanguageSwitcher() {
 ```
 
 #### 3.4 Markdown Renderer
+
 ```tsx
 // components/MarkdownRenderer.tsx
-"use client";
+'use client';
 
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import remarkMath from "remark-math";
-import rehypeKatex from "rehype-katex";
-import { cn } from "@/lib/utils";
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import { cn } from '@/lib/utils';
 
 interface MarkdownRendererProps {
   children: string;
@@ -931,32 +962,29 @@ interface MarkdownRendererProps {
 export function MarkdownRenderer({ children, className }: MarkdownRendererProps) {
   return (
     <ReactMarkdown
-      remarkPlugins={[
-        remarkGfm,
-        [remarkMath, { singleDollarTextMath: true }],
-      ]}
+      remarkPlugins={[remarkGfm, [remarkMath, { singleDollarTextMath: true }]]}
       rehypePlugins={[rehypeKatex]}
       className={cn(
-        "prose prose-sm max-w-none",
-        "prose-headings:font-serif prose-headings:text-foreground prose-headings:font-normal",
-        "prose-h1:text-2xl prose-h1:mb-4 prose-h1:mt-6",
-        "prose-h2:text-xl prose-h2:mb-3 prose-h2:mt-5",
-        "prose-h3:text-lg prose-h3:mb-2 prose-h3:mt-4",
-        "prose-p:text-foreground prose-p:leading-relaxed prose-p:mb-4",
-        "prose-strong:text-foreground prose-strong:font-semibold",
-        "prose-em:text-foreground prose-em:italic",
-        "prose-code:text-foreground prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:font-mono prose-code:text-sm",
-        "prose-pre:bg-muted prose-pre:border prose-pre:border-border prose-pre:rounded-lg prose-pre:p-4 prose-pre:overflow-x-auto",
-        "prose-blockquote:border-l-border prose-blockquote:text-muted-foreground prose-blockquote:not-italic",
-        "prose-ul:text-foreground prose-ul:space-y-2",
-        "prose-ol:text-foreground prose-ol:space-y-2",
-        "prose-li:text-foreground",
-        "prose-a:text-primary prose-a:underline prose-a:underline-offset-2 hover:prose-a:no-underline",
-        "prose-table:border-border prose-th:border-border prose-td:border-border",
-        "prose-th:text-foreground prose-td:text-foreground",
-        "prose-img:border-border prose-img:rounded-lg prose-img:shadow-sm",
-        "prose-hr:border-border",
-        "dark:prose-invert",
+        'prose prose-sm max-w-none',
+        'prose-headings:font-serif prose-headings:text-foreground prose-headings:font-normal',
+        'prose-h1:text-2xl prose-h1:mb-4 prose-h1:mt-6',
+        'prose-h2:text-xl prose-h2:mb-3 prose-h2:mt-5',
+        'prose-h3:text-lg prose-h3:mb-2 prose-h3:mt-4',
+        'prose-p:text-foreground prose-p:leading-relaxed prose-p:mb-4',
+        'prose-strong:text-foreground prose-strong:font-semibold',
+        'prose-em:text-foreground prose-em:italic',
+        'prose-code:text-foreground prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:font-mono prose-code:text-sm',
+        'prose-pre:bg-muted prose-pre:border prose-pre:border-border prose-pre:rounded-lg prose-pre:p-4 prose-pre:overflow-x-auto',
+        'prose-blockquote:border-l-border prose-blockquote:text-muted-foreground prose-blockquote:not-italic',
+        'prose-ul:text-foreground prose-ul:space-y-2',
+        'prose-ol:text-foreground prose-ol:space-y-2',
+        'prose-li:text-foreground',
+        'prose-a:text-primary prose-a:underline prose-a:underline-offset-2 hover:prose-a:no-underline',
+        'prose-table:border-border prose-th:border-border prose-td:border-border',
+        'prose-th:text-foreground prose-td:text-foreground',
+        'prose-img:border-border prose-img:rounded-lg prose-img:shadow-sm',
+        'prose-hr:border-border',
+        'dark:prose-invert',
         className
       )}
     >
@@ -969,13 +997,14 @@ export function MarkdownRenderer({ children, className }: MarkdownRendererProps)
 ### Step 4: Main Page Implementation
 
 #### 4.1 Page Component Structure
+
 ```tsx
 // app/[page]/page.tsx
-"use client";
+'use client';
 
-import { Header } from "@/components/header";
-import { MarkdownRenderer } from "@/components/MarkdownRenderer";
-import { useTranslation } from "@/lib/i18n";
+import { Header } from '@/components/header';
+import { MarkdownRenderer } from '@/components/MarkdownRenderer';
+import { useTranslation } from '@/lib/i18n';
 
 export default function Page({ params }: { params: { page: string } }) {
   const { t } = useTranslation();
@@ -1022,14 +1051,9 @@ export default function Page({ params }: { params: { page: string } }) {
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
             <div className="flex-1">
-              <Header 
-                siteMetadata={data.siteMetadata}
-                showLanguageSwitcher={true}
-              />
+              <Header siteMetadata={data.siteMetadata} showLanguageSwitcher={true} />
             </div>
-            <div className="flex items-center gap-3 lg:gap-4">
-              {/* Additional controls */}
-            </div>
+            <div className="flex items-center gap-3 lg:gap-4">{/* Additional controls */}</div>
           </div>
         </div>
       </div>
@@ -1042,16 +1066,14 @@ export default function Page({ params }: { params: { page: string } }) {
               <h2 className="text-2xl font-serif text-foreground font-normal mb-6 mt-8">
                 {section.title}
               </h2>
-              
+
               {section.paragraphs?.map((paragraph) => (
                 <div key={paragraph.id} id={paragraph.id} className="mb-8">
                   <h3 className="text-xl font-serif text-foreground font-normal mb-4 mt-6">
                     {paragraph.title}
                   </h3>
                   <div className="prose prose-sm max-w-none">
-                    <MarkdownRenderer>
-                      {paragraph.content}
-                    </MarkdownRenderer>
+                    <MarkdownRenderer>{paragraph.content}</MarkdownRenderer>
                   </div>
                 </div>
               ))}
@@ -1067,6 +1089,7 @@ export default function Page({ params }: { params: { page: string } }) {
 ### Step 5: Content Files
 
 #### 5.1 Sample Content Structure
+
 ```json
 // content/study-guide.json
 {
@@ -1114,6 +1137,7 @@ export default function Page({ params }: { params: { page: string } }) {
 ```
 
 #### 5.2 Translation Files
+
 ```csv
 // locales/en.csv
 id,text
@@ -1151,6 +1175,7 @@ loading,Laden...
 ## 🚀 Deployment Instructions
 
 ### Build for Production
+
 ```bash
 # Build the application
 npm run build
@@ -1163,6 +1188,7 @@ vercel --prod
 ```
 
 ### Environment Variables
+
 ```bash
 # .env.local
 NEXT_PUBLIC_APP_URL=https://your-domain.com
@@ -1174,6 +1200,7 @@ NEXT_PUBLIC_APP_NAME=Study Guide Platform
 ## 🎨 Customization Guide
 
 ### Adding New Colors
+
 ```css
 :root {
   --custom-color: 210 40% 50%;
@@ -1188,6 +1215,7 @@ NEXT_PUBLIC_APP_NAME=Study Guide Platform
 ```
 
 ### Custom Typography
+
 ```css
 :root {
   --font-custom: 'Your Custom Font', sans-serif;
@@ -1198,6 +1226,7 @@ className="font-custom"
 ```
 
 ### Component Variations
+
 ```tsx
 // Custom button variant
 <button className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all">
@@ -1210,15 +1239,17 @@ className="font-custom"
 ## 📱 Responsive Design
 
 ### Breakpoints
+
 ```css
 /* Tailwind default breakpoints */
 sm: 640px   /* Small screens */
-md: 768px   /* Medium screens */  
+md: 768px   /* Medium screens */
 lg: 1024px  /* Large screens */
 xl: 1280px  /* Extra large screens */
 ```
 
 ### Mobile-First Patterns
+
 ```tsx
 // Mobile first, then enhance for larger screens
 <div className="block sm:hidden">
@@ -1237,6 +1268,7 @@ xl: 1280px  /* Extra large screens */
 ## 🔧 Development Tips
 
 ### Performance Optimization
+
 ```tsx
 // Use React.memo for expensive components
 export const ExpensiveComponent = memo(function ExpensiveComponent({ data }) {
@@ -1250,11 +1282,12 @@ const expensiveValue = useMemo(() => {
 
 // Lazy load components
 const LazyComponent = dynamic(() => import('./HeavyComponent'), {
-  loading: () => <div>Loading...</div>
+  loading: () => <div>Loading...</div>,
 });
 ```
 
 ### Accessibility
+
 ```tsx
 // Semantic HTML
 <header>
@@ -1284,6 +1317,7 @@ useEffect(() => {
 ## 🎯 Complete Copy Package
 
 ### All Files to Copy
+
 ```
 your-project/
 ├── app/
@@ -1310,6 +1344,7 @@ your-project/
 ```
 
 ### Quick Start Commands
+
 ```bash
 # 1. Copy all files from above structure
 # 2. Run npm install
@@ -1326,6 +1361,7 @@ npm run dev
 ## 📚 Additional Resources
 
 ### Useful Libraries
+
 - **Lucide React**: Modern icon library
 - **Next Themes**: Theme management
 - **React Markdown**: Markdown rendering
@@ -1333,15 +1369,17 @@ npm run dev
 - **Tailwind CSS**: Utility-first CSS
 
 ### Design Inspiration
+
 - **shadcn/ui**: Component design patterns
 - **Tailwind UI**: Pre-built components
 - **Headless UI**: Unstyled components
 
 ### Performance Tools
+
 - **React DevTools**: Component debugging
 - **Lighthouse**: Performance auditing
 - **Bundle Analyzer**: Package size optimization
 
 ---
 
-*This guide provides everything needed to recreate the study platform UI and styling system. Copy the relevant sections and adapt them to your specific needs!*
+_This guide provides everything needed to recreate the study platform UI and styling system. Copy the relevant sections and adapt them to your specific needs!_

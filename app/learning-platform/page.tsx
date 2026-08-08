@@ -1,17 +1,20 @@
-import fs from "fs";
-import path from "path";
-import { StandaloneLearningPlatform, type SourceLearningSet } from "@/components/learning-platform/StandaloneLearningPlatform";
-import { buildStudySetFromSections } from "@/lib/learning-platform/study-set";
+import fs from 'fs';
+import path from 'path';
+import {
+  StandaloneLearningPlatform,
+  type SourceLearningSet,
+} from '@/components/learning-platform/StandaloneLearningPlatform';
+import { buildStudySetFromSections } from '@/lib/learning-platform/study-set';
 
 function loadSourceLearningSets(): SourceLearningSet[] {
-  const contentDir = path.join(process.cwd(), "content");
-  const files = fs.readdirSync(contentDir).filter((file) => file.endsWith(".json"));
+  const contentDir = path.join(process.cwd(), 'content');
+  const files = fs.readdirSync(contentDir).filter((file) => file.endsWith('.json'));
   const sets: SourceLearningSet[] = [];
 
   for (const file of files) {
     try {
-      const raw = JSON.parse(fs.readFileSync(path.join(contentDir, file), "utf-8"));
-      const pageName = file.replace(".json", "");
+      const raw = JSON.parse(fs.readFileSync(path.join(contentDir, file), 'utf-8'));
+      const pageName = file.replace('.json', '');
       const pageTitle = raw.siteMetadata?.title || pageName;
       const studySet = buildStudySetFromSections(raw.sections || [], pageName);
 
@@ -25,7 +28,7 @@ function loadSourceLearningSets(): SourceLearningSet[] {
           pageName,
           pageTitle,
           title: term.learningSetTitle || studySet.title,
-          description: raw.siteMetadata?.description || studySet.description || "",
+          description: raw.siteMetadata?.description || studySet.description || '',
           terms: [],
         };
         existing.terms.push({
@@ -43,7 +46,7 @@ function loadSourceLearningSets(): SourceLearningSet[] {
     }
   }
 
-  return sets.sort((a, b) => a.pageTitle.localeCompare(b.pageTitle, "nl", { sensitivity: "base" }));
+  return sets.sort((a, b) => a.pageTitle.localeCompare(b.pageTitle, 'nl', { sensitivity: 'base' }));
 }
 
 export default function LearningPlatformPage() {

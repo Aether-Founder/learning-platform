@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Plus, BookOpen, Calendar, MessageSquare, X } from "lucide-react";
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Plus, BookOpen, Calendar, MessageSquare, X } from 'lucide-react';
 
 interface QuickActionFABProps {
   onCreateStudySet?: () => void;
@@ -21,30 +21,30 @@ export function QuickActionFAB({
 
   const actions = [
     {
-      label: "Studie Set",
+      label: 'Studie Set',
       icon: BookOpen,
       onClick: onCreateStudySet,
-      color: "bg-blue-500",
+      color: 'bg-blue-500',
     },
     {
-      label: "Evenement",
+      label: 'Evenement',
       icon: Calendar,
       onClick: onCreateEvent,
-      color: "bg-green-500",
+      color: 'bg-green-500',
     },
     {
-      label: "Huiswerk",
+      label: 'Huiswerk',
       icon: BookOpen,
       onClick: onCreateHomework,
-      color: "bg-orange-500",
+      color: 'bg-orange-500',
     },
     {
-      label: "Discussie",
+      label: 'Discussie',
       icon: MessageSquare,
       onClick: onCreateDiscussion,
-      color: "bg-purple-500",
+      color: 'bg-purple-500',
     },
-  ].filter(action => action.onClick !== undefined);
+  ].filter((action) => action.onClick !== undefined);
 
   const handleActionClick = (onClick?: () => void) => {
     setIsOpen(false);
@@ -53,7 +53,9 @@ export function QuickActionFAB({
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
-      <div className={`absolute bottom-16 right-0 space-y-3 transition-all duration-300 ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}>
+      <div
+        className={`absolute bottom-16 right-0 space-y-3 transition-all duration-300 ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}
+      >
         {actions.map((action, index) => (
           <div
             key={action.label}

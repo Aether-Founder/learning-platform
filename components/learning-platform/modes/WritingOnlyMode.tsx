@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
-import { buildWrittenQuestion } from "@/lib/learning-platform/question-generator";
-import { fisherYatesShuffle } from "@/lib/learning-platform/term-filters";
-import { useLearningPlatformStore } from "@/store/useLearningPlatformStore";
-import type { Question, Term, TermResult } from "@/types/learning-platform";
-import { SessionSummary } from "../SessionSummary";
-import { WrittenQuestion } from "../questions/WrittenQuestion";
+import { useEffect, useRef, useState } from 'react';
+import { buildWrittenQuestion } from '@/lib/learning-platform/question-generator';
+import { fisherYatesShuffle } from '@/lib/learning-platform/term-filters';
+import { useLearningPlatformStore } from '@/store/useLearningPlatformStore';
+import type { Question, Term, TermResult } from '@/types/learning-platform';
+import { SessionSummary } from '../SessionSummary';
+import { WrittenQuestion } from '../questions/WrittenQuestion';
 
 export function WritingOnlyMode() {
   const { playableTerms, settings, recordAnswer, beginSession, endSession } =
@@ -24,7 +24,7 @@ export function WritingOnlyMode() {
     initialized.current = true;
     const terms = fisherYatesShuffle(playableTerms);
     setSessionTerms(terms);
-    beginSession("writing-only", terms.length);
+    beginSession('writing-only', terms.length);
   }, [beginSession, playableTerms]);
 
   useEffect(() => {
@@ -37,24 +37,24 @@ export function WritingOnlyMode() {
     const timeSpent = Date.now() - question.startTime.getTime();
 
     recordAnswer(question.term.id, {
-      questionType: "written",
+      questionType: 'written',
       userAnswer: answer,
       correctAnswer: question.correctAnswer,
       isCorrect,
       wasOverridden: overridden,
-      reviewGrade: isCorrect ? "good" : "again",
+      reviewGrade: isCorrect ? 'good' : 'again',
       timeSpent,
     });
     setResults((prev) => [
       ...prev,
       {
         termId: question.term.id,
-        questionType: "written",
+        questionType: 'written',
         userAnswer: answer,
         correctAnswer: question.correctAnswer,
         isCorrect,
         wasOverridden: overridden,
-        reviewGrade: isCorrect ? "good" : "again",
+        reviewGrade: isCorrect ? 'good' : 'again',
         timeSpent,
         timestamp: new Date(),
       },
@@ -91,7 +91,7 @@ export function WritingOnlyMode() {
   return (
     <div className="max-w-2xl mx-auto">
       <p className="text-sm text-center text-muted-foreground mb-4">
-        {index + 1} / {sessionTerms.length} - Accuracy{" "}
+        {index + 1} / {sessionTerms.length} - Accuracy{' '}
         {stats.total ? Math.round((stats.correct / stats.total) * 100) : 0}%
       </p>
       <WrittenQuestion

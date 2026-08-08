@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Lightbulb, RotateCcw, CheckCircle, XCircle, ChevronRight } from "lucide-react";
+import { useState } from 'react';
+import { Lightbulb, RotateCcw, CheckCircle, XCircle } from 'lucide-react';
 
 interface QuizQuestion {
   id: number;
@@ -96,7 +96,7 @@ export function QuizMode({ quiz }: QuizModeProps) {
       <div className="max-w-3xl mx-auto py-12">
         <div className="bg-card border border-border rounded-lg p-8">
           <h1 className="text-3xl font-bold text-foreground mb-6">{quiz.title}</h1>
-          
+
           <div className="bg-secondary/50 border border-border rounded-lg p-6 mb-8">
             <div className="text-center">
               <p className="text-6xl font-bold text-foreground mb-2">{percentage}%</p>
@@ -117,8 +117,8 @@ export function QuizMode({ quiz }: QuizModeProps) {
                   key={question.id}
                   className={`p-4 rounded-lg border ${
                     isCorrect
-                      ? "bg-green-50 border-green-200 dark:bg-green-900/20 dark:border-green-800"
-                      : "bg-red-50 border-red-200 dark:bg-red-900/20 dark:border-red-800"
+                      ? 'bg-green-50 border-green-200 dark:bg-green-900/20 dark:border-green-800'
+                      : 'bg-red-50 border-red-200 dark:bg-red-900/20 dark:border-red-800'
                   }`}
                 >
                   <div className="flex items-start gap-3">
@@ -133,7 +133,7 @@ export function QuizMode({ quiz }: QuizModeProps) {
                       </p>
                       <div className="space-y-1 text-sm">
                         <p className="text-muted-foreground">
-                          Jouw antwoord: {userAnswer || "Geen antwoord"}
+                          Jouw antwoord: {userAnswer || 'Geen antwoord'}
                         </p>
                         {!isCorrect && (
                           <p className="text-green-600 dark:text-green-400">
@@ -141,9 +141,7 @@ export function QuizMode({ quiz }: QuizModeProps) {
                           </p>
                         )}
                         {question.rationale && (
-                          <p className="text-muted-foreground mt-2 italic">
-                            {question.rationale}
-                          </p>
+                          <p className="text-muted-foreground mt-2 italic">{question.rationale}</p>
                         )}
                       </div>
                     </div>
@@ -183,19 +181,20 @@ export function QuizMode({ quiz }: QuizModeProps) {
               const isSelected = selectedOption === option;
               const optionLetter = String.fromCharCode(65 + index); // A, B, C, D
 
-              let buttonClass = "w-full text-left p-4 rounded-lg border transition-colors ";
+              let buttonClass = 'w-full text-left p-4 rounded-lg border transition-colors ';
               if (showFeedback) {
                 if (option === currentQuestion.answer) {
-                  buttonClass += "bg-green-500/20 border-green-500 text-green-700 dark:text-green-300";
+                  buttonClass +=
+                    'bg-green-500/20 border-green-500 text-green-700 dark:text-green-300';
                 } else if (isSelected && !isCorrect) {
-                  buttonClass += "bg-red-500/20 border-red-500 text-red-700 dark:text-red-300";
+                  buttonClass += 'bg-red-500/20 border-red-500 text-red-700 dark:text-red-300';
                 } else {
-                  buttonClass += "bg-background text-foreground border-border opacity-50";
+                  buttonClass += 'bg-background text-foreground border-border opacity-50';
                 }
               } else {
                 buttonClass += isSelected
-                  ? "bg-primary text-primary-foreground border-primary"
-                  : "bg-background text-foreground border-border hover:bg-secondary/50";
+                  ? 'bg-primary text-primary-foreground border-primary'
+                  : 'bg-background text-foreground border-border hover:bg-secondary/50';
               }
 
               return (
@@ -219,7 +218,7 @@ export function QuizMode({ quiz }: QuizModeProps) {
               className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-2"
             >
               <Lightbulb className="w-4 h-4" />
-              {showHint ? "Hint verbergen" : "Hint tonen"}
+              {showHint ? 'Hint verbergen' : 'Hint tonen'}
             </button>
             {showHint && (
               <div className="bg-secondary/50 border border-border rounded-lg p-4 text-sm text-foreground">

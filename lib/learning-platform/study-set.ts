@@ -1,5 +1,5 @@
-import type { LearningSetSummary, StudySet, Term } from "@/types/learning-platform";
-import { getSectionTitle } from "@/lib/section-title";
+import type { LearningSetSummary, StudySet, Term } from '@/types/learning-platform';
+import { getSectionTitle } from '@/lib/section-title';
 
 interface SourceQuestion {
   id: string;
@@ -59,8 +59,8 @@ interface SourceSection {
 function slugify(value: string): string {
   return value
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
     .slice(0, 80);
 }
 
@@ -82,8 +82,8 @@ function pushTerm(
   learningSet: { id: string; title: string; description?: string },
   now: Date
 ) {
-  const term = (input.term || "").trim();
-  const definition = (input.definition || "").trim();
+  const term = (input.term || '').trim();
+  const definition = (input.definition || '').trim();
   if (!term || !definition) return;
 
   addLearningSet(learningSets, learningSet.id, learningSet.title, learningSet.description);
@@ -96,12 +96,12 @@ function pushTerm(
     definition,
     front: term,
     back: definition,
-    cardType: "basic",
+    cardType: 'basic',
     tags: [],
     learningSetId: learningSet.id,
     learningSetTitle: learningSet.title,
     isStarred: false,
-    masteryStatus: "unstudied",
+    masteryStatus: 'unstudied',
     consecutiveCorrectCount: 0,
     createdAt: now,
   });
@@ -161,7 +161,7 @@ export function buildStudySetFromSections(
 
     (section.paragraphs || []).forEach((paragraph) => {
       const fallbackSet = {
-        id: paragraph.id || `${section.id}-paragraph-${slugify(paragraph.title || "set")}`,
+        id: paragraph.id || `${section.id}-paragraph-${slugify(paragraph.title || 'set')}`,
         title: paragraph.title || sectionTitle,
       };
       addExplicitLearningSetTerms(terms, learningSets, paragraph.learningSet, fallbackSet, now);
@@ -193,23 +193,21 @@ export function buildStudySetFromSections(
       });
     });
 
-    const answerMap = new Map(
-      (section.answers || []).map((a) => [a.questionId, a.answer])
-    );
+    const answerMap = new Map((section.answers || []).map((a) => [a.questionId, a.answer]));
     (section.blocks || [])
-      .filter((b) => b.type === "questions")
+      .filter((b) => b.type === 'questions')
       .forEach((block) => {
         const blockSet = {
           id: block.questions?.[0]?.id
-            ? `${section.id}-${slugify(block.questions[0].id.replace(/-q.*/, ""))}`
+            ? `${section.id}-${slugify(block.questions[0].id.replace(/-q.*/, ''))}`
             : block.type
-            ? `${section.id}-${block.type}`
-            : section.id,
+              ? `${section.id}-${block.type}`
+              : section.id,
           title: sectionTitle,
         };
         (block.questions || []).forEach((q) => {
-          const prompt = (q.question || q.text || "").trim();
-          const answer = (answerMap.get(q.id) || "").trim();
+          const prompt = (q.question || q.text || '').trim();
+          const answer = (answerMap.get(q.id) || '').trim();
           pushTerm(
             terms,
             learningSets,
@@ -225,7 +223,7 @@ export function buildStudySetFromSections(
 
   return {
     id: `set-${pageId}`,
-    title: sections.length === 1 ? getSectionTitle(sections[0]) : "Oefenmateriaal",
+    title: sections.length === 1 ? getSectionTitle(sections[0]) : 'Oefenmateriaal',
     description: `${terms.length} begrippen`,
     terms,
     learningSets: Array.from(learningSets.values()).filter((set) => set.termCount > 0),

@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useMemo, useState } from "react";
-import { AppShell, Meter, SectionTitle } from "@/components/AppShell";
-import { LESSONS, SCHOOL_EVENTS, SUBJECTS, countSets } from "@/lib/aether-data";
-import { useUserProfile } from "@/hooks/useAuth";
-import { updateUserProfile } from "@/lib/supabase/auth";
-import { GradeOnboardingModal } from "@/components/GradeOnboardingModal";
+import Link from 'next/link';
+import { useMemo, useState } from 'react';
+import { AppShell, Meter, SectionTitle } from '@/components/AppShell';
+import { LESSONS, SCHOOL_EVENTS, SUBJECTS, countSets } from '@/lib/aether-data';
+import { useUserProfile } from '@/hooks/useAuth';
+import { updateUserProfile } from '@/lib/supabase/auth';
+import { GradeOnboardingModal } from '@/components/GradeOnboardingModal';
 
 function Stat({ value, label }: { value: string; label: string }) {
   return (
@@ -31,10 +31,10 @@ function Chip({
       type="button"
       onClick={onClick}
       className={
-        "rounded-full border px-3.5 py-1.5 text-[13px] font-medium transition-colors " +
+        'rounded-full border px-3.5 py-1.5 text-[13px] font-medium transition-colors ' +
         (active
-          ? "border-foreground bg-foreground text-background"
-          : "border-border text-muted-foreground hover:border-foreground/40 hover:text-foreground")
+          ? 'border-foreground bg-foreground text-background'
+          : 'border-border text-muted-foreground hover:border-foreground/40 hover:text-foreground')
       }
     >
       {children}
@@ -43,11 +43,10 @@ function Chip({
 }
 
 export default function Home() {
-  const [subject, setSubject] = useState("Alle vakken");
-  const [query, setQuery] = useState("");
+  const [subject, setSubject] = useState('Alle vakken');
+  const [query, setQuery] = useState('');
 
   const { profile, loading: profileLoading } = useUserProfile();
-  const router = useRouter();
 
   // Function to get current school year (e.g., 2026-2027)
   const getCurrentSchoolYear = () => {
@@ -60,18 +59,16 @@ export default function Home() {
 
   // Determine if onboarding is needed
   const needsOnboarding =
-    !profile ||
-    !profile.grade_level ||
-    profile.grade_confirmed_year !== currentSchoolYear;
+    !profile || !profile.grade_level || profile.grade_confirmed_year !== currentSchoolYear;
 
   const filtered = useMemo(
-    () => (subject === "Alle vakken" ? SUBJECTS : SUBJECTS.filter((s) => s.name === subject)),
-    [subject],
+    () => (subject === 'Alle vakken' ? SUBJECTS : SUBJECTS.filter((s) => s.name === subject)),
+    [subject]
   );
 
   const matches = (subjectName: string, text: string) =>
-    (subject === "Alle vakken" || subjectName === subject) &&
-    (query.trim() === "" ||
+    (subject === 'Alle vakken' || subjectName === subject) &&
+    (query.trim() === '' ||
       `${text} ${subjectName}`.toLowerCase().includes(query.trim().toLowerCase()));
 
   const totalSets = SUBJECTS.reduce((a, s) => a + countSets(s.children), 0);
@@ -83,21 +80,23 @@ export default function Home() {
       grade_level: grade,
       track: track,
       grade_confirmed_year: currentSchoolYear,
-    }).then(() => {
-      // Show a success message or just close the modal (handled by the component)
-    }).catch((error) => {
-      console.error("Failed to save grade onboarding:", error);
-      throw error; // So that the modal knows it failed
-    });
+    })
+      .then(() => {
+        // Show a success message or just close the modal (handled by the component)
+      })
+      .catch((error) => {
+        console.error('Failed to save grade onboarding:', error);
+        throw error; // So that the modal knows it failed
+      });
   };
 
   return (
     <AppShell search={query} onSearch={setQuery}>
       {needsOnboarding && profile && !profileLoading ? (
         <GradeOnboardingModal
-          currentGrade={profile.grade_level ?? ""}
-          currentTrack={profile.track ?? ""}
-          confirmedYear={profile.grade_confirmed_year ?? ""}
+          currentGrade={profile.grade_level ?? ''}
+          currentTrack={profile.track ?? ''}
+          confirmedYear={profile.grade_confirmed_year ?? ''}
           onComplete={handleOnComplete}
         />
       ) : (
@@ -105,14 +104,15 @@ export default function Home() {
           <section className="grid gap-8 border-b border-border py-12 md:grid-cols-[1.4fr_1fr] md:items-end">
             <div>
               <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-                {profile?.grade_level} · {profile?.track ?? 'Niet ingesteld'} · {profile?.grade_confirmed_year ?? 'Niet ingesteld'} vakken
+                {profile?.grade_level} · {profile?.track ?? 'Niet ingesteld'} ·{' '}
+                {profile?.grade_confirmed_year ?? 'Niet ingesteld'} vakken
               </p>
               <h1 className="mt-3 font-display text-5xl font-semibold leading-[1.05]">
                 Welkom terug, {profile?.full_name ?? 'Mohammed'}
               </h1>
               <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
-                Je hebt {totalDue} kaarten klaarstaan om te herhalen. Begin bij Natuurkunde — daar loopt je
-                beheersing het meest achter.
+                Je hebt {totalDue} kaarten klaarstaan om te herhalen. Begin bij Natuurkunde — daar
+                loopt je beheersing het meest achter.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link
@@ -138,8 +138,10 @@ export default function Home() {
           </section>
 
           <div className="flex flex-wrap items-center gap-2 py-6">
-            <span className="mr-2 text-[11px] uppercase tracking-[0.14em] text-muted-foreground">Vak</span>
-            <Chip active={subject === "Alle vakken"} onClick={() => setSubject("Alle vakken")}>
+            <span className="mr-2 text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+              Vak
+            </span>
+            <Chip active={subject === 'Alle vakken'} onClick={() => setSubject('Alle vakken')}>
               Alle vakken
             </Chip>
             {SUBJECTS.map((s) => (
@@ -154,7 +156,7 @@ export default function Home() {
               <SectionTitle
                 action={
                   <span className="text-xs text-muted-foreground">
-                    {filtered.length} {filtered.length === 1 ? "vak" : "vakken"}
+                    {filtered.length} {filtered.length === 1 ? 'vak' : 'vakken'}
                   </span>
                 }
               >
@@ -187,7 +189,9 @@ export default function Home() {
                           Bij
                         </span>
                       ) : (
-                        <span className="text-xs tabular-nums text-muted-foreground">{s.due} te doen</span>
+                        <span className="text-xs tabular-nums text-muted-foreground">
+                          {s.due} te doen
+                        </span>
                       )}
                       <Link
                         href={`/vakken/${s.slug}`}
@@ -248,18 +252,18 @@ export default function Home() {
                       <span className="text-[13px] font-medium leading-snug">{a.title}</span>
                       <span
                         className={
-                          "text-xs " +
-                          (a.type === "toets" || a.type === "examen"
-                            ? "text-warning"
-                            : "text-muted-foreground")
+                          'text-xs ' +
+                          (a.type === 'toets' || a.type === 'examen'
+                            ? 'text-warning'
+                            : 'text-muted-foreground')
                         }
                       >
-                        {new Date(a.date).toLocaleDateString("nl-NL", {
-                          weekday: "long",
-                          day: "numeric",
-                          month: "long",
+                        {new Date(a.date).toLocaleDateString('nl-NL', {
+                          weekday: 'long',
+                          day: 'numeric',
+                          month: 'long',
                         })}
-                        {a.time ? ` · ${a.time}` : ""}
+                        {a.time ? ` · ${a.time}` : ''}
                       </span>
                     </li>
                   ))}
@@ -278,10 +282,13 @@ export default function Home() {
                         style={{ height: 64 }}
                         aria-hidden="true"
                       >
-                        <div className="w-full rounded-sm bg-foreground/60" style={{ height: `${h}%` }} />
+                        <div
+                          className="w-full rounded-sm bg-foreground/60"
+                          style={{ height: `${h}%` }}
+                        />
                       </div>
                       <span className="text-[10px] text-muted-foreground">
-                        {["m", "d", "w", "d", "v", "z", "z"][i]}
+                        {['m', 'd', 'w', 'd', 'v', 'z', 'z'][i]}
                       </span>
                     </div>
                   ))}

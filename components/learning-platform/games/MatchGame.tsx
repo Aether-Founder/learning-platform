@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import { Clock, Flame, Star, Trophy } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { fisherYatesShuffle } from "@/lib/learning-platform/term-filters";
-import type { GameShellProps } from "@/lib/learning-platform/game-registry";
-import { useLearningPlatformStore } from "@/store/useLearningPlatformStore";
-import { useTranslation } from "@/lib/i18n";
-import { MarkdownContent } from "../shared/MarkdownContent";
-import { GameShell } from "../GameShell";
+import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
+import { Clock, Flame, Star, Trophy } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { fisherYatesShuffle } from '@/lib/learning-platform/term-filters';
+import type { GameShellProps } from '@/lib/learning-platform/game-registry';
+import { useLearningPlatformStore } from '@/store/useLearningPlatformStore';
+import { useTranslation } from '@/lib/i18n';
+import { MarkdownContent } from '../shared/MarkdownContent';
+import { GameShell } from '../GameShell';
 
 interface PairRow {
   termId: string;
@@ -18,9 +18,12 @@ interface PairRow {
   matched: boolean;
 }
 
-type Difficulty = "easy" | "medium" | "hard";
+type Difficulty = 'easy' | 'medium' | 'hard';
 
-const DIFFICULTY_CONFIGS: Record<Difficulty, { timeLimit: number; pairsCount: number; points: number }> = {
+const DIFFICULTY_CONFIGS: Record<
+  Difficulty,
+  { timeLimit: number; pairsCount: number; points: number }
+> = {
   easy: { timeLimit: 180, pairsCount: 6, points: 10 },
   medium: { timeLimit: 120, pairsCount: 8, points: 15 },
   hard: { timeLimit: 90, pairsCount: 10, points: 20 },
@@ -29,13 +32,13 @@ const DIFFICULTY_CONFIGS: Record<Difficulty, { timeLimit: number; pairsCount: nu
 function formatTime(seconds: number) {
   const mins = Math.floor(seconds / 60);
   const secs = seconds % 60;
-  return `${mins}:${secs.toString().padStart(2, "0")}`;
+  return `${mins}:${secs.toString().padStart(2, '0')}`;
 }
 
 export function MatchGame({ onQuit }: GameShellProps) {
   const { t } = useTranslation();
   const { playableTerms, recordAnswer, beginSession, endSession } = useLearningPlatformStore();
-  const [difficulty, setDifficulty] = useState<Difficulty>("medium");
+  const [difficulty, setDifficulty] = useState<Difficulty>('medium');
   const [pairs, setPairs] = useState<PairRow[]>([]);
   const [terms, setTerms] = useState<PairRow[]>([]);
   const [defs, setDefs] = useState<PairRow[]>([]);
@@ -61,47 +64,50 @@ export function MatchGame({ onQuit }: GameShellProps) {
 
   const difficultyOptions = useMemo(
     () => [
-      { id: "easy" as const, label: t("study_difficulty_easy", "Makkelijk") },
-      { id: "medium" as const, label: t("study_difficulty_medium", "Middel") },
-      { id: "hard" as const, label: t("study_difficulty_hard", "Moeilijk") },
+      { id: 'easy' as const, label: t('study_difficulty_easy', 'Makkelijk') },
+      { id: 'medium' as const, label: t('study_difficulty_medium', 'Middel') },
+      { id: 'hard' as const, label: t('study_difficulty_hard', 'Moeilijk') },
     ],
     [t]
   );
 
-  const resetGame = (nextDifficulty = difficulty) => {
-    const nextConfig = DIFFICULTY_CONFIGS[nextDifficulty];
-    const selectedPairs = fisherYatesShuffle(playableTerms)
-      .slice(0, Math.min(nextConfig.pairsCount, playableTerms.length))
-      .map((term) => ({
-        termId: term.id,
-        term: term.term,
-        definition: term.definition,
-        matched: false,
-      }));
+  const resetGame = useCallback(
+    (nextDifficulty = difficulty) => {
+      const nextConfig = DIFFICULTY_CONFIGS[nextDifficulty];
+      const selectedPairs = fisherYatesShuffle(playableTerms)
+        .slice(0, Math.min(nextConfig.pairsCount, playableTerms.length))
+        .map((term) => ({
+          termId: term.id,
+          term: term.term,
+          definition: term.definition,
+          matched: false,
+        }));
 
-    setPairs(selectedPairs);
-    setTerms(fisherYatesShuffle(selectedPairs));
-    setDefs(fisherYatesShuffle(selectedPairs));
-    setSelectedTermId(null);
-    setSelectedDefId(null);
-    setShake(false);
-    setStarted(false);
-    setComplete(false);
-    setGameOver(false);
-    setElapsed(0);
-    setTimeRemaining(nextConfig.timeLimit);
-    setScore(0);
-    setCombo(0);
-    setMaxCombo(0);
-    setMatches(0);
-    setMisses(0);
-    reportedRef.current = false;
-  };
+      setPairs(selectedPairs);
+      setTerms(fisherYatesShuffle(selectedPairs));
+      setDefs(fisherYatesShuffle(selectedPairs));
+      setSelectedTermId(null);
+      setSelectedDefId(null);
+      setShake(false);
+      setStarted(false);
+      setComplete(false);
+      setGameOver(false);
+      setElapsed(0);
+      setTimeRemaining(nextConfig.timeLimit);
+      setScore(0);
+      setCombo(0);
+      setMaxCombo(0);
+      setMatches(0);
+      setMisses(0);
+      reportedRef.current = false;
+    },
+    [difficulty, playableTerms]
+  );
 
   useEffect(() => {
     resetGame(difficulty);
-    beginSession("match", targetPairs);
-  }, [beginSession, difficulty, targetPairs]);
+    beginSession('match', targetPairs);
+  }, [resetGame, beginSession, targetPairs, difficulty]);
 
   useEffect(() => {
     if (!started || complete) return;
@@ -126,48 +132,57 @@ export function MatchGame({ onQuit }: GameShellProps) {
     endSession();
   }, [complete, score, endSession]);
 
-  const tryMatch = (termId: string, defTermId: string) => {
-    if (termId !== defTermId) {
-      setShake(true);
-      setMisses((value) => value + 1);
-      setCombo(0);
-      setTimeout(() => {
-        setShake(false);
-        setSelectedTermId(null);
-        setSelectedDefId(null);
-      }, 550);
-      return;
-    }
+  const tryMatch = useCallback(
+    (termId: string, defTermId: string) => {
+      if (termId !== defTermId) {
+        setShake(true);
+        setMisses((value) => value + 1);
+        setCombo(0);
+        setTimeout(() => {
+          setShake(false);
+          setSelectedTermId(null);
+          setSelectedDefId(null);
+        }, 550);
+        return;
+      }
 
-    const nextCombo = combo + 1;
-    const points = config.points + nextCombo * 2;
-    const nextMatches = matches + 1;
-    setScore((value) => value + points);
-    setCombo(nextCombo);
-    setMaxCombo((value) => Math.max(value, nextCombo));
-    setMatches(nextMatches);
-    setPairs((prev) => prev.map((pair) => (pair.termId === termId ? { ...pair, matched: true } : pair)));
-    setTerms((prev) => prev.map((pair) => (pair.termId === termId ? { ...pair, matched: true } : pair)));
-    setDefs((prev) => prev.map((pair) => (pair.termId === termId ? { ...pair, matched: true } : pair)));
-    recordAnswer(termId, {
-      questionType: "flashcard",
-      userAnswer: "match",
-      correctAnswer: "match",
-      isCorrect: true,
-      wasOverridden: false,
-      timeSpent: elapsed * 1000,
-    });
-    setSelectedTermId(null);
-    setSelectedDefId(null);
+      const nextCombo = combo + 1;
+      const points = config.points + nextCombo * 2;
+      const nextMatches = matches + 1;
+      setScore((value) => value + points);
+      setCombo(nextCombo);
+      setMaxCombo((value) => Math.max(value, nextCombo));
+      setMatches(nextMatches);
+      setPairs((prev) =>
+        prev.map((pair) => (pair.termId === termId ? { ...pair, matched: true } : pair))
+      );
+      setTerms((prev) =>
+        prev.map((pair) => (pair.termId === termId ? { ...pair, matched: true } : pair))
+      );
+      setDefs((prev) =>
+        prev.map((pair) => (pair.termId === termId ? { ...pair, matched: true } : pair))
+      );
+      recordAnswer(termId, {
+        questionType: 'flashcard',
+        userAnswer: 'match',
+        correctAnswer: 'match',
+        isCorrect: true,
+        wasOverridden: false,
+        timeSpent: elapsed * 1000,
+      });
+      setSelectedTermId(null);
+      setSelectedDefId(null);
 
-    if (nextMatches >= pairs.length) {
-      setComplete(true);
-    }
-  };
+      if (nextMatches >= pairs.length) {
+        setComplete(true);
+      }
+    },
+    [combo, matches, config, pairs, elapsed, recordAnswer]
+  );
 
   useEffect(() => {
     if (selectedTermId && selectedDefId) tryMatch(selectedTermId, selectedDefId);
-  }, [selectedTermId, selectedDefId]);
+  }, [selectedTermId, selectedDefId, tryMatch]);
 
   return (
     <GameShell gameId="match" onQuit={onQuit}>
@@ -177,7 +192,9 @@ export function MatchGame({ onQuit }: GameShellProps) {
         if (availableCount < 2) {
           return (
             <div className="rounded-2xl border border-border bg-card p-8 text-center">
-              <p className="text-muted-foreground">Minstens 2 begrippen nodig voor het koppelspel.</p>
+              <p className="text-muted-foreground">
+                Minstens 2 begrippen nodig voor het koppelspel.
+              </p>
             </div>
           );
         }
@@ -188,7 +205,9 @@ export function MatchGame({ onQuit }: GameShellProps) {
               <div className="flex justify-center gap-2">
                 <Trophy className="w-8 h-8 text-yellow-500" />
                 <h3 className="text-2xl font-serif">
-                  {gameOver ? t("study_time_up", "Tijd om!") : t("study_match_done", "Alles gekoppeld!")}
+                  {gameOver
+                    ? t('study_time_up', 'Tijd om!')
+                    : t('study_match_done', 'Alles gekoppeld!')}
                 </h3>
               </div>
               <div className="flex justify-center gap-4 flex-wrap">
@@ -202,13 +221,19 @@ export function MatchGame({ onQuit }: GameShellProps) {
                 </Badge>
               </div>
               <div className="text-sm text-muted-foreground space-y-1">
-                <p>{t("study_time", "Tijd")}: {formatTime(elapsed)}</p>
-                <p>{t("study_matches", "Matches")}: {matches}/{pairs.length}</p>
-                <p>{t("study_misses", "Misses")}: {misses}</p>
+                <p>
+                  {t('study_time', 'Tijd')}: {formatTime(elapsed)}
+                </p>
+                <p>
+                  {t('study_matches', 'Matches')}: {matches}/{pairs.length}
+                </p>
+                <p>
+                  {t('study_misses', 'Misses')}: {misses}
+                </p>
               </div>
               <div className="flex justify-center gap-2 flex-wrap">
                 <Button onClick={() => resetGame()} variant="outline">
-                  {t("study_play_again", "Speel opnieuw")}
+                  {t('study_play_again', 'Speel opnieuw')}
                 </Button>
                 {difficultyOptions.map((option) => (
                   <Button
@@ -217,7 +242,7 @@ export function MatchGame({ onQuit }: GameShellProps) {
                       setDifficulty(option.id);
                       resetGame(option.id);
                     }}
-                    variant={difficulty === option.id ? "secondary" : "ghost"}
+                    variant={difficulty === option.id ? 'secondary' : 'ghost'}
                     size="sm"
                   >
                     {option.label}
@@ -237,7 +262,7 @@ export function MatchGame({ onQuit }: GameShellProps) {
                     key={option.id}
                     type="button"
                     onClick={() => setDifficulty(option.id)}
-                    variant={difficulty === option.id ? "secondary" : "outline"}
+                    variant={difficulty === option.id ? 'secondary' : 'outline'}
                     size="sm"
                   >
                     {option.label}
@@ -257,7 +282,7 @@ export function MatchGame({ onQuit }: GameShellProps) {
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-1 text-sm">
                   <Clock className="w-4 h-4" />
-                  <span className={timeRemaining < 30 ? "text-red-500 font-bold" : ""}>
+                  <span className={timeRemaining < 30 ? 'text-red-500 font-bold' : ''}>
                     {formatTime(timeRemaining)}
                   </span>
                 </div>
@@ -268,13 +293,13 @@ export function MatchGame({ onQuit }: GameShellProps) {
             </div>
             {!started && (
               <p className="text-center py-2 text-sm text-muted-foreground">
-                {t("study_match_hint", "Klik een begrip en bijpassende definitie")}
+                {t('study_match_hint', 'Klik een begrip en bijpassende definitie')}
               </p>
             )}
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <h4 className="text-sm font-medium text-center">
-                  {t("study_terms_column", "Begrippen")}
+                  {t('study_terms_column', 'Begrippen')}
                 </h4>
                 {terms.map((row) => (
                   <button
@@ -289,12 +314,12 @@ export function MatchGame({ onQuit }: GameShellProps) {
                     }}
                     className={`w-full text-left p-3 rounded-lg border text-sm transition-all ${
                       row.matched
-                        ? "border-green-500/50 bg-green-500/10 opacity-60"
+                        ? 'border-green-500/50 bg-green-500/10 opacity-60'
                         : selectedTermId === row.termId
-                        ? "border-foreground bg-secondary"
-                        : shake && selectedTermId === row.termId
-                        ? "border-red-500 bg-red-500/10"
-                        : "border-border bg-card hover:bg-secondary/50"
+                          ? 'border-foreground bg-secondary'
+                          : shake && selectedTermId === row.termId
+                            ? 'border-red-500 bg-red-500/10'
+                            : 'border-border bg-card hover:bg-secondary/50'
                     }`}
                   >
                     <MarkdownContent className="text-sm">{row.term}</MarkdownContent>
@@ -303,7 +328,7 @@ export function MatchGame({ onQuit }: GameShellProps) {
               </div>
               <div className="space-y-2">
                 <h4 className="text-sm font-medium text-center">
-                  {t("study_defs_column", "Definities")}
+                  {t('study_defs_column', 'Definities')}
                 </h4>
                 {defs.map((row) => (
                   <button
@@ -317,12 +342,12 @@ export function MatchGame({ onQuit }: GameShellProps) {
                     }}
                     className={`w-full text-left p-3 rounded-lg border text-sm transition-all ${
                       row.matched
-                        ? "border-green-500/50 bg-green-500/10 opacity-60"
+                        ? 'border-green-500/50 bg-green-500/10 opacity-60'
                         : selectedDefId === row.termId
-                        ? "border-foreground bg-secondary"
-                        : shake && selectedDefId === row.termId
-                        ? "border-red-500 bg-red-500/10"
-                        : "border-border bg-card hover:bg-secondary/50"
+                          ? 'border-foreground bg-secondary'
+                          : shake && selectedDefId === row.termId
+                            ? 'border-red-500 bg-red-500/10'
+                            : 'border-border bg-card hover:bg-secondary/50'
                     }`}
                   >
                     <MarkdownContent className="text-sm">{row.definition}</MarkdownContent>

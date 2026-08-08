@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Copy, Check, Download } from "lucide-react";
+import { useState } from 'react';
+import { Copy, Check, Download } from 'lucide-react';
 
 export default function CopyContentPage({ params }: { params: { page: string } }) {
   const [copied, setCopied] = useState(false);
-  const [content, setContent] = useState<string>("");
+  const [content, setContent] = useState<string>('');
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string>("");
+  const [error, setError] = useState<string>('');
 
   const { page } = params;
 
@@ -15,13 +15,13 @@ export default function CopyContentPage({ params }: { params: { page: string } }
     try {
       const response = await fetch(`/api/content/page/${page}/txt`);
       if (!response.ok) {
-        throw new Error("Content not found");
+        throw new Error('Content not found');
       }
       const text = await response.text();
       setContent(text);
       setLoading(false);
-    } catch (err) {
-      setError("Failed to load content");
+    } catch {
+      setError('Failed to load content');
       setLoading(false);
     }
   };
@@ -32,14 +32,14 @@ export default function CopyContentPage({ params }: { params: { page: string } }
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      console.error("Failed to copy:", err);
+      console.error('Failed to copy:', err);
     }
   };
 
   const handleDownload = () => {
-    const blob = new Blob([content], { type: "text/plain" });
+    const blob = new Blob([content], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
+    const a = document.createElement('a');
     a.href = url;
     a.download = `${page}.txt`;
     a.click();
@@ -70,9 +70,7 @@ export default function CopyContentPage({ params }: { params: { page: string } }
     <div className="min-h-screen bg-background">
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="mb-6">
-          <h1 className="text-3xl font-bold text-foreground mb-2">
-            Copy Content for AI
-          </h1>
+          <h1 className="text-3xl font-bold text-foreground mb-2">Copy Content for AI</h1>
           <p className="text-muted-foreground">
             Copy this content and paste it into ChatGPT or other AI tools.
           </p>
@@ -105,15 +103,11 @@ export default function CopyContentPage({ params }: { params: { page: string } }
         </div>
 
         <div className="bg-card border border-border rounded-lg p-4 overflow-x-auto">
-          <pre className="text-sm text-foreground whitespace-pre-wrap break-words">
-            {content}
-          </pre>
+          <pre className="text-sm text-foreground whitespace-pre-wrap break-words">{content}</pre>
         </div>
 
         <div className="mt-6 bg-secondary/50 border border-border rounded-lg p-4">
-          <h2 className="text-lg font-semibold text-foreground mb-2">
-            Instructions:
-          </h2>
+          <h2 className="text-lg font-semibold text-foreground mb-2">Instructions:</h2>
           <ol className="list-decimal list-inside space-y-2 text-muted-foreground">
             <li>Click "Copy to Clipboard" to copy the content</li>
             <li>Paste the content into ChatGPT or another AI tool</li>

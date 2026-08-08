@@ -1,5 +1,5 @@
-import type { StudySet, Term } from "@/types/learning-platform";
-import { createId } from "./question-generator";
+import type { StudySet, Term } from '@/types/learning-platform';
+import { createId } from './question-generator';
 
 export interface ParsedCards {
   terms: Term[];
@@ -14,12 +14,12 @@ function newTerm(input: Partial<Term> & { term: string; definition: string }, in
     definition: input.definition,
     front: input.front || input.term,
     back: input.back || input.definition,
-    cardType: input.cardType || "basic",
+    cardType: input.cardType || 'basic',
     tags: input.tags || [],
     learningSetId: input.learningSetId,
     learningSetTitle: input.learningSetTitle,
     isStarred: Boolean(input.isStarred),
-    masteryStatus: "unstudied",
+    masteryStatus: 'unstudied',
     consecutiveCorrectCount: 0,
     createdAt: now,
     image: input.image,
@@ -29,24 +29,33 @@ function newTerm(input: Partial<Term> & { term: string; definition: string }, in
   };
 }
 
-export function parseCardsFromText(text: string, learningSetId?: string, learningSetTitle?: string): ParsedCards {
+export function parseCardsFromText(
+  text: string,
+  learningSetId?: string,
+  learningSetTitle?: string
+): ParsedCards {
   const warnings: string[] = [];
   const terms: Term[] = [];
   text.split(/\r?\n/).forEach((line, index) => {
     const trimmed = line.trim();
     if (!trimmed) return;
-    const delimiter = trimmed.includes("\t") ? "\t" : trimmed.includes("|") ? "|" : ",";
+    const delimiter = trimmed.includes('\t') ? '\t' : trimmed.includes('|') ? '|' : ',';
     const [front, ...rest] = trimmed.split(delimiter);
     const back = rest.join(delimiter);
     if (!front?.trim() || !back?.trim()) {
       warnings.push(`Regel ${index + 1} overgeslagen: verwacht vraag en antwoord.`);
       return;
     }
-    const tags = front.includes("#") ? front.split(/\s+/).filter((part) => part.startsWith("#")).map((part) => part.slice(1)) : [];
+    const tags = front.includes('#')
+      ? front
+          .split(/\s+/)
+          .filter((part) => part.startsWith('#'))
+          .map((part) => part.slice(1))
+      : [];
     terms.push(
       newTerm(
         {
-          term: front.replace(/\s+#\S+/g, "").trim(),
+          term: front.replace(/\s+#\S+/g, '').trim(),
           definition: back.trim(),
           learningSetId,
           learningSetTitle,
@@ -59,7 +68,11 @@ export function parseCardsFromText(text: string, learningSetId?: string, learnin
   return { terms, warnings };
 }
 
-export function parseCardsFromJson(text: string, learningSetId?: string, learningSetTitle?: string): ParsedCards {
+export function parseCardsFromJson(
+  text: string,
+  learningSetId?: string,
+  learningSetTitle?: string
+): ParsedCards {
   const warnings: string[] = [];
   try {
     const parsed = JSON.parse(text);
@@ -79,7 +92,7 @@ export function parseCardsFromJson(text: string, learningSetId?: string, learnin
             definition,
             front: card.front,
             back: card.back,
-            cardType: card.cardType || card.type || "basic",
+            cardType: card.cardType || card.type || 'basic',
             image: card.image || card.imageUrl,
             audio: card.audio || card.audioUrl,
             tags: card.tags || [],
@@ -94,12 +107,12 @@ export function parseCardsFromJson(text: string, learningSetId?: string, learnin
       .filter(Boolean) as Term[];
     return { terms, warnings };
   } catch {
-    return { terms: [], warnings: ["JSON kon niet worden gelezen."] };
+    return { terms: [], warnings: ['JSON kon niet worden gelezen.'] };
   }
 }
 
-export function exportStudySet(set: StudySet, format: "json" | "tsv" | "csv") {
-  if (format === "json") {
+export function exportStudySet(set: StudySet, format: 'json' | 'tsv' | 'csv') {
+  if (format === 'json') {
     return JSON.stringify(
       {
         title: set.title,
@@ -108,7 +121,7 @@ export function exportStudySet(set: StudySet, format: "json" | "tsv" | "csv") {
           id: term.id,
           front: term.front || term.term,
           back: term.back || term.definition,
-          type: term.cardType || "basic",
+          type: term.cardType || 'basic',
           image: term.image,
           audio: term.audio,
           tags: term.tags || [],
@@ -121,11 +134,15 @@ export function exportStudySet(set: StudySet, format: "json" | "tsv" | "csv") {
     );
   }
 
-  const separator = format === "tsv" ? "\t" : ",";
+  const separator = format === 'tsv' ? '\t' : ',';
   const escape = (value: string) => {
-    if (format === "tsv") return value.replace(/\t/g, " ").replace(/\r?\n/g, " ");
+    if (format === 'tsv') return value.replace(/\t/g, ' ').replace(/\r?\n/g, ' ');
     const clean = value.replace(/"/g, '""');
     return /[",\n]/.test(clean) ? `"${clean}"` : clean;
   };
-  return set.terms.map((term) => [term.front || term.term, term.back || term.definition].map(escape).join(separator)).join("\n");
+  return set.terms
+    .map((term) =>
+      [term.front || term.term, term.back || term.definition].map(escape).join(separator)
+    )
+    .join('\n');
 }

@@ -30,14 +30,14 @@ export function createTestWeek(
   endDate: string
 ): TestWeek {
   const testWeekId = generateId();
-  
+
   const stmt = db.prepare(`
     INSERT INTO test_weeks (id, user_id, name, start_date, end_date, is_active)
     VALUES (?, ?, ?, ?, ?, 1)
   `);
-  
+
   stmt.run(testWeekId, userId, name, startDate, endDate);
-  
+
   return getTestWeekById(testWeekId)!;
 }
 
@@ -47,11 +47,11 @@ export function createTestWeek(
 export function getTestWeekById(testWeekId: string): TestWeek | null {
   const stmt = db.prepare('SELECT * FROM test_weeks WHERE id = ?');
   const testWeekRow = stmt.get(testWeekId) as any;
-  
+
   if (!testWeekRow) return null;
-  
+
   const subjects = getTestWeekSubjects(testWeekId);
-  
+
   return {
     id: testWeekRow.id,
     userId: testWeekRow.user_id,
@@ -70,8 +70,8 @@ export function getTestWeekById(testWeekId: string): TestWeek | null {
 export function getTestWeeksByUserId(userId: string): TestWeek[] {
   const stmt = db.prepare('SELECT * FROM test_weeks WHERE user_id = ? ORDER BY created_at DESC');
   const rows = stmt.all(userId) as any[];
-  
-  return rows.map(row => {
+
+  return rows.map((row) => {
     const subjects = getTestWeekSubjects(row.id);
     return {
       id: row.id,
@@ -92,11 +92,11 @@ export function getTestWeeksByUserId(userId: string): TestWeek[] {
 export function getActiveTestWeek(userId: string): TestWeek | null {
   const stmt = db.prepare('SELECT * FROM test_weeks WHERE user_id = ? AND is_active = 1');
   const row = stmt.get(userId) as any;
-  
+
   if (!row) return null;
-  
+
   const subjects = getTestWeekSubjects(row.id);
-  
+
   return {
     id: row.id,
     userId: row.user_id,
@@ -118,7 +118,7 @@ export function updateTestWeek(
 ): TestWeek | null {
   const fields: string[] = [];
   const values: any[] = [];
-  
+
   if (updates.name !== undefined) {
     fields.push('name = ?');
     values.push(updates.name);
@@ -135,18 +135,18 @@ export function updateTestWeek(
     fields.push('is_active = ?');
     values.push(updates.isActive ? 1 : 0);
   }
-  
+
   if (fields.length === 0) {
     return getTestWeekById(testWeekId);
   }
-  
+
   values.push(testWeekId);
   const stmt = db.prepare(`
     UPDATE test_weeks
     SET ${fields.join(', ')}
     WHERE id = ?
   `);
-  
+
   stmt.run(...values);
   return getTestWeekById(testWeekId);
 }
@@ -169,14 +169,14 @@ export function addSubjectToTestWeek(
   subjectName: string
 ): TestWeekSubject {
   const subjectIdDb = generateId();
-  
+
   const stmt = db.prepare(`
     INSERT INTO test_week_subjects (id, test_week_id, subject_id, subject_name)
     VALUES (?, ?, ?, ?)
   `);
-  
+
   stmt.run(subjectIdDb, testWeekId, subjectId, subjectName);
-  
+
   return {
     id: subjectIdDb,
     testWeekId,
@@ -192,8 +192,8 @@ export function addSubjectToTestWeek(
 export function getTestWeekSubjects(testWeekId: string): TestWeekSubject[] {
   const stmt = db.prepare('SELECT * FROM test_week_subjects WHERE test_week_id = ?');
   const rows = stmt.all(testWeekId) as any[];
-  
-  return rows.map(row => ({
+
+  return rows.map((row) => ({
     id: row.id,
     testWeekId: row.test_week_id,
     subjectId: row.subject_id,
@@ -218,7 +218,7 @@ export function setActiveTestWeek(userId: string, testWeekId: string): void {
   // Deactivate all test weeks for the user
   const deactivateStmt = db.prepare('UPDATE test_weeks SET is_active = 0 WHERE user_id = ?');
   deactivateStmt.run(userId);
-  
+
   // Activate the specified test week
   const activateStmt = db.prepare('UPDATE test_weeks SET is_active = 1 WHERE id = ?');
   activateStmt.run(testWeekId);

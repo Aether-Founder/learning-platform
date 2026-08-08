@@ -5,12 +5,17 @@ import { createCalendarEventInsert, serializeCalendarEvent } from '@/lib/supabas
 export async function GET(request: NextRequest) {
   try {
     const { client, user, error: authError } = await getRequestUser(request);
-    if (authError || !user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+    if (authError || !user)
+      return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
 
     const { searchParams } = new URL(request.url);
     const startDate = searchParams.get('startDate');
     const endDate = searchParams.get('endDate');
-    let query = client.from('calendar_events').select('*').eq('user_id', user.id).order('event_date');
+    let query = client
+      .from('calendar_events')
+      .select('*')
+      .eq('user_id', user.id)
+      .order('event_date');
 
     if (startDate) query = query.gte('event_date', startDate.slice(0, 10));
     if (endDate) query = query.lte('event_date', endDate.slice(0, 10));
@@ -28,7 +33,8 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const { client, user, error: authError } = await getRequestUser(request);
-    if (authError || !user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+    if (authError || !user)
+      return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
 
     const insert = createCalendarEventInsert(user.id, await request.json());
     const { data, error } = await client.from('calendar_events').insert(insert).select().single();

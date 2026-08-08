@@ -9,6 +9,7 @@ Transform the current test-week focused flashcard application into a comprehensi
 ## Current State Analysis
 
 ### Existing Features
+
 - **Content Management**: JSON-based content files in `/content` directory
 - **Study Modes**: Book mode, Study mode, Simple mode, Advanced SRS mode
 - **Learning System**: Spaced repetition (SM-2, FSRS algorithms), multiple study modes (flashcard, multiple-choice, typing, matching)
@@ -18,6 +19,7 @@ Transform the current test-week focused flashcard application into a comprehensi
 - **UI Components**: Modern Radix UI components with Tailwind CSS
 
 ### Technical Stack
+
 - Next.js 14 with TypeScript
 - Radix UI component library
 - react-day-picker, date-fns (calendar dependencies)
@@ -26,6 +28,7 @@ Transform the current test-week focused flashcard application into a comprehensi
 - react-markdown (content rendering)
 
 ### Current Limitations
+
 - Single-user focus (no authentication or multi-user support)
 - Single test week support
 - Limited calendar functionality
@@ -39,7 +42,9 @@ Transform the current test-week focused flashcard application into a comprehensi
 ## Vision: The Perfect Learning Platform
 
 ### Core Philosophy
+
 "TO BE THE PERFECT STUDENT" - A platform that enables academic comeback through:
+
 - Early test preparation (not day-before cramming)
 - Consistent study habits
 - Effective planning and time management
@@ -54,6 +59,7 @@ Transform the current test-week focused flashcard application into a comprehensi
 ### 1.1 User Authentication System
 
 #### User Data Model
+
 ```typescript
 interface User {
   id: string;
@@ -79,12 +85,14 @@ interface UserPreferences {
 ```
 
 #### Authentication Flow
+
 - **Simple Auth**: Email/password or OAuth (Google, Microsoft)
 - **Local Storage Fallback**: Guest mode with local-only data (current behavior)
 - **Session Management**: JWT tokens with refresh mechanism
 - **Profile Management**: Edit display name, avatar, preferences
 
 #### Implementation Tasks
+
 - [ ] Set up authentication API routes (`/api/auth/*`)
 - [ ] Create user database schema (SQLite for simplicity, or PostgreSQL)
 - [ ] Implement AuthModal enhancement with login/register
@@ -95,6 +103,7 @@ interface UserPreferences {
 ### 1.2 Multi-Test Week Architecture
 
 #### Test Week Data Model
+
 ```typescript
 interface TestWeek {
   id: string;
@@ -116,6 +125,7 @@ interface TestWeekSubject {
 ```
 
 #### Content Organization
+
 ```
 content/
 ├── users/
@@ -135,6 +145,7 @@ content/
 ```
 
 #### Implementation Tasks
+
 - [ ] Create test week management API (`/api/testweeks/*`)
 - [ ] Build test week creation wizard
 - [ ] Add test week selection on home page
@@ -149,6 +160,7 @@ content/
 ### 2.1 Calendar Component Architecture
 
 #### Calendar Views
+
 ```typescript
 type CalendarView = 'day' | 'week' | 'workweek' | 'month' | 'agenda';
 
@@ -168,6 +180,7 @@ interface CalendarEvent {
 ```
 
 #### Calendar Features
+
 - **Week View**: 7-day grid with time slots, week number display
 - **Day View**: Single day with hourly time slots
 - **Workweek View**: Monday-Friday only (5-day view)
@@ -178,6 +191,7 @@ interface CalendarEvent {
 - **Event Types**: Color-coded by type (tests, study sessions, homework, reminders)
 
 #### Integration Points
+
 - Test dates from test week planning
 - Scheduled study sessions from SRS system
 - Homework deadlines
@@ -187,6 +201,7 @@ interface CalendarEvent {
 ### 2.2 Calendar Component Implementation
 
 #### File Structure
+
 ```
 components/
 ├── calendar/
@@ -204,6 +219,7 @@ components/
 ```
 
 #### Implementation Tasks
+
 - [ ] Create base Calendar component with react-day-picker
 - [ ] Implement all 5 calendar views
 - [ ] Add week number calculation and display
@@ -221,6 +237,7 @@ components/
 ### 3.1 Study Set Management
 
 #### Study Set Data Model
+
 ```typescript
 interface StudySet {
   id: string;
@@ -247,6 +264,7 @@ interface StudyTerm {
 ```
 
 #### Study Set Features
+
 - **Create/Edit**: Rich text editor for terms and definitions
 - **Import**: CSV import, Quizlet import
 - **Export**: CSV, PDF, Anki export
@@ -257,6 +275,7 @@ interface StudyTerm {
 - **Version History**: Track changes to study sets
 
 #### Implementation Tasks
+
 - [ ] Create study set CRUD API (`/api/studysets/*`)
 - [ ] Build study set editor component
 - [ ] Add CSV import/export functionality
@@ -268,6 +287,7 @@ interface StudyTerm {
 ### 3.2 Enhanced Study Modes
 
 #### Additional Study Modes
+
 - **Learn Mode**: Adaptive learning that focuses on weak areas
 - **Test Mode**: Timed tests with various question types
 - **Match Mode**: Drag-and-drop matching game
@@ -275,6 +295,7 @@ interface StudyTerm {
 - **Live Mode**: Real-time multiplayer quiz (future)
 
 #### Test Mode Features
+
 ```typescript
 interface TestConfig {
   questionTypes: ('written' | 'multiple_choice' | 'true_false')[];
@@ -298,6 +319,7 @@ interface TestResult {
 ```
 
 #### Implementation Tasks
+
 - [ ] Create Learn Mode component
 - [ ] Build Test Mode with configuration
 - [ ] Implement Match Mode (enhanced existing)
@@ -308,6 +330,7 @@ interface TestResult {
 ### 3.3 Class and Teacher Features
 
 #### Class Data Model
+
 ```typescript
 interface Class {
   id: string;
@@ -334,6 +357,7 @@ interface Assignment {
 ```
 
 #### Class Features
+
 - **Class Creation**: Teachers create classes with join codes
 - **Student Enrollment**: Students join with class code
 - **Assignments**: Teachers assign study sets as homework
@@ -342,6 +366,7 @@ interface Assignment {
 - **Discussions**: Q&A within classes
 
 #### Implementation Tasks
+
 - [ ] Create class management API (`/api/classes/*`)
 - [ ] Build class creation wizard
 - [ ] Implement class join functionality
@@ -357,6 +382,7 @@ interface Assignment {
 ### 4.1 Homework Management
 
 #### Homework Data Model
+
 ```typescript
 interface Homework {
   id: string;
@@ -376,6 +402,7 @@ interface Homework {
 ```
 
 #### Homework Features
+
 - **Quick Add**: Fast homework entry from dashboard
 - **Priority Levels**: Color-coded by priority
 - **Time Estimation**: Track and improve time estimation
@@ -385,6 +412,7 @@ interface Homework {
 - **Reminders**: Custom reminder times
 
 #### Implementation Tasks
+
 - [ ] Create homework CRUD API (`/api/homework/*`)
 - [ ] Build homework dashboard widget
 - [ ] Add homework calendar integration
@@ -395,6 +423,7 @@ interface Homework {
 ### 4.2 Study Planning System
 
 #### Study Plan Data Model
+
 ```typescript
 interface StudyPlan {
   id: string;
@@ -419,6 +448,7 @@ interface PlannedStudySession {
 ```
 
 #### Study Planning Features
+
 - **Auto-Generate**: AI-powered study schedule based on test dates
 - **Manual Planning**: Drag-and-drop session creation
 - **Time Blocking**: Calendar integration for study sessions
@@ -427,6 +457,7 @@ interface PlannedStudySession {
 - **Break Reminders**: Pomodoro-style break suggestions
 
 #### Implementation Tasks
+
 - [ ] Create study plan API (`/api/studyplans/*`)
 - [ ] Build study plan wizard
 - [ ] Implement auto-scheduling algorithm
@@ -441,6 +472,7 @@ interface PlannedStudySession {
 ### 5.1 Streak and Achievement System
 
 #### Streak Data Model
+
 ```typescript
 interface StreakData {
   currentStreak: number; // days
@@ -465,12 +497,14 @@ interface Achievement {
 ```
 
 #### Streak Features
+
 - **Daily Streak**: Consecutive days of study
 - **Subject Streaks**: Per-subject consistency
 - **Streak Freeze**: Protect streaks for missed days
 - **Streak Rewards**: Unlock features with streaks
 
 #### Achievement System
+
 - **Study Milestones**: 100, 500, 1000 cards studied
 - **Perfect Sessions**: 100% accuracy sessions
 - **Time Milestones**: Total study time achievements
@@ -478,6 +512,7 @@ interface Achievement {
 - **Subject Mastery**: Complete subject achievements
 
 #### Implementation Tasks
+
 - [ ] Create streak tracking system
 - [ ] Build achievement engine
 - [ ] Design achievement UI
@@ -488,6 +523,7 @@ interface Achievement {
 ### 5.2 Progress Analytics Dashboard
 
 #### Analytics Data Model
+
 ```typescript
 interface AnalyticsData {
   studyTime: {
@@ -510,6 +546,7 @@ interface AnalyticsData {
 ```
 
 #### Dashboard Features
+
 - **Study Time Charts**: Daily/weekly study time visualization
 - **Performance Metrics**: Accuracy, cards learned, test scores
 - **Subject Breakdown**: Per-subject progress
@@ -518,6 +555,7 @@ interface AnalyticsData {
 - **Comparative Analysis**: Compare with past performance
 
 #### Implementation Tasks
+
 - [ ] Create analytics aggregation API
 - [ ] Build analytics dashboard
 - [ ] Implement chart visualizations (recharts)
@@ -530,6 +568,7 @@ interface AnalyticsData {
 ## Phase 6: Enhanced i18n System
 
 ### 6.1 Current i18n System
+
 - Dutch by default (nl)
 - English translations available (en)
 - CSV-based with ID system
@@ -538,13 +577,16 @@ interface AnalyticsData {
 ### 6.2 i18n Expansion Strategy
 
 #### Additional Languages
+
 Add support for:
+
 - French (fr)
 - German (de)
 - Spanish (es)
 - Turkish (tr)
 
 #### Translation File Structure
+
 ```
 locales/
 ├── nl.csv          # Dutch (primary, complete)
@@ -556,9 +598,11 @@ locales/
 ```
 
 #### Translation ID System Enhancement
+
 All UI text must use translation IDs. Current system already implements this well.
 
 #### Implementation Tasks
+
 - [ ] Add language switcher component (currently disabled)
 - [ ] Create translation CSV files for new languages
 - [ ] Implement language persistence in user preferences
@@ -573,6 +617,7 @@ All UI text must use translation IDs. Current system already implements this wel
 ### 7.1 JSON Content System (Keep Fast)
 
 #### Current JSON Structure (Preserve and Enhance)
+
 ```json
 {
   "siteMetadata": {
@@ -610,6 +655,7 @@ All UI text must use translation IDs. Current system already implements this wel
 ```
 
 #### Enhanced JSON Features
+
 - **Metadata Tags**: Add tags for better search
 - **Difficulty Levels**: Section-level difficulty
 - **Prerequisites**: Link to prerequisite content
@@ -617,6 +663,7 @@ All UI text must use translation IDs. Current system already implements this wel
 - **Related Content**: Links to related subjects
 
 #### Content Management Tools
+
 - **JSON Validator**: Validate content files before use
 - **Content Preview**: Preview content before publishing
 - **Bulk Import**: Import multiple JSON files
@@ -624,6 +671,7 @@ All UI text must use translation IDs. Current system already implements this wel
 - **Content Analytics**: Track which content is most used
 
 #### Implementation Tasks
+
 - [ ] Create content management API (`/api/content/*`)
 - [ ] Build content upload interface
 - [ ] Add JSON validation
@@ -638,12 +686,14 @@ All UI text must use translation IDs. Current system already implements this wel
 ### 8.1 Progressive Web App (PWA)
 
 #### PWA Features
+
 - **Offline Support**: Cache content for offline study
 - **Install Prompt**: Add to home screen
 - **Push Notifications**: Study reminders
 - **Background Sync**: Sync progress when online
 
 #### Implementation Tasks
+
 - [ ] Add PWA manifest
 - [ ] Implement service worker
 - [ ] Add offline support
@@ -653,6 +703,7 @@ All UI text must use translation IDs. Current system already implements this wel
 ### 8.2 Responsive Design Enhancement
 
 #### Mobile Optimizations
+
 - **Touch-Friendly UI**: Larger touch targets
 - **Mobile Navigation**: Bottom navigation bar
 - **Swipe Gestures: Swipe between cards
@@ -660,6 +711,7 @@ All UI text must use translation IDs. Current system already implements this wel
 - **Quick Actions**: Floating action button for common tasks
 
 #### Implementation Tasks
+
 - [ ] Audit all components for mobile
 - [ ] Add mobile navigation
 - [ ] Implement swipe gestures
@@ -671,41 +723,49 @@ All UI text must use translation IDs. Current system already implements this wel
 ## Implementation Timeline
 
 ### Phase 1: Multi-User Foundation (4-6 weeks)
+
 - Week 1-2: Authentication system
 - Week 3-4: Multi-test week architecture
 - Week 5-6: User profiles and data migration
 
 ### Phase 2: Calendar Integration (3-4 weeks)
+
 - Week 1-2: Core calendar component
 - Week 3: Event management
 - Week 4: Integration with existing features
 
 ### Phase 3: Quizlet Features (6-8 weeks)
+
 - Week 1-2: Study set management
 - Week 3-4: Enhanced study modes
 - Week 5-6: Class and teacher features
 - Week 7-8: Public library and sharing
 
 ### Phase 4: Homework & Planning (4-5 weeks)
+
 - Week 1-2: Homework management
 - Week 3-4: Study planning system
 - Week 5: Integration and testing
 
 ### Phase 5: Consistency Features (3-4 weeks)
+
 - Week 1-2: Streak and achievement system
 - Week 3-4: Analytics dashboard
 
 ### Phase 6: i18n Expansion (2-3 weeks)
+
 - Week 1: Language switcher and new languages
 - Week 2: Translation tools and validation
 - Week 3: Testing and refinement
 
 ### Phase 7: Content Management (2-3 weeks)
+
 - Week 1: Enhanced JSON features
 - Week 2: Content management tools
 - Week 3: Analytics and search
 
 ### Phase 8: Mobile & PWA (3-4 weeks)
+
 - Week 1-2: PWA implementation
 - Week 3-4: Mobile optimizations
 
@@ -773,6 +833,7 @@ All UI text must use translation IDs. Current system already implements this wel
 ## Database Schema (SQLite/PostgreSQL)
 
 ### Users Table
+
 ```sql
 CREATE TABLE users (
   id TEXT PRIMARY KEY,
@@ -790,6 +851,7 @@ CREATE TABLE users (
 ```
 
 ### Test Weeks Table
+
 ```sql
 CREATE TABLE test_weeks (
   id TEXT PRIMARY KEY,
@@ -804,6 +866,7 @@ CREATE TABLE test_weeks (
 ```
 
 ### Study Sets Table
+
 ```sql
 CREATE TABLE study_sets (
   id TEXT PRIMARY KEY,
@@ -821,6 +884,7 @@ CREATE TABLE study_sets (
 ```
 
 ### Classes Table
+
 ```sql
 CREATE TABLE classes (
   id TEXT PRIMARY KEY,
@@ -835,6 +899,7 @@ CREATE TABLE classes (
 ```
 
 ### Homework Table
+
 ```sql
 CREATE TABLE homework (
   id TEXT PRIMARY KEY,
@@ -854,6 +919,7 @@ CREATE TABLE homework (
 ```
 
 ### Calendar Events Table
+
 ```sql
 CREATE TABLE calendar_events (
   id TEXT PRIMARY KEY,
@@ -921,26 +987,31 @@ CREATE TABLE calendar_events (
 ## Key Design Decisions
 
 ### 1. Database Choice
+
 - **Development**: SQLite (simple, file-based)
 - **Production**: PostgreSQL (robust, scalable)
 - **ORM**: Prisma (type-safe, migrations)
 
 ### 2. Authentication
+
 - **Primary**: Email/password with JWT
 - **Social**: Google OAuth (optional)
 - **Guest Mode**: Local storage only (current behavior preserved)
 
 ### 3. Data Storage Strategy
+
 - **User Data**: Server database with local cache
 - **Content**: JSON files (preserved for speed)
 - **Progress**: Server database with sync
 - **Analytics**: Aggregated on server
 
 ### 4. Real-time Features
+
 - **Phase 1**: No real-time (simpler)
 - **Future**: WebSocket for live mode and collaboration
 
 ### 5. File Storage
+
 - **Avatars**: Cloudinary or similar
 - **Content Images**: Public folder or CDN
 - **Exports**: Generated on-demand
@@ -950,18 +1021,21 @@ CREATE TABLE calendar_events (
 ## Performance Considerations
 
 ### 1. Content Loading
+
 - **Lazy Loading**: Load content on demand
 - **Caching**: Cache frequently used content
 - **Compression**: Gzip compression for JSON files
 - **CDN**: Serve static assets via CDN
 
 ### 2. Database Optimization
+
 - **Indexing**: Proper indexes on frequently queried fields
 - **Query Optimization**: Use efficient queries
 - **Connection Pooling**: Reuse database connections
 - **Caching**: Redis for hot data
 
 ### 3. Frontend Performance
+
 - **Code Splitting**: Split code by route
 - **Lazy Components**: Lazy load heavy components
 - **Image Optimization**: Next.js Image component
@@ -972,18 +1046,21 @@ CREATE TABLE calendar_events (
 ## Security Considerations
 
 ### 1. Authentication Security
+
 - **Password Hashing**: bcrypt with salt rounds
 - **JWT Security**: Short-lived tokens with refresh
 - **Rate Limiting**: Prevent brute force attacks
 - **HTTPS**: Enforce HTTPS in production
 
 ### 2. Data Privacy
+
 - **GDPR Compliance**: User data export/deletion
 - **Data Encryption**: Encrypt sensitive data
 - **Access Control**: Proper authorization checks
 - **Audit Logs**: Track data access
 
 ### 3. Content Security
+
 - **Input Validation**: Validate all user input
 - **XSS Prevention**: Sanitize user-generated content
 - **CSRF Protection**: CSRF tokens for mutations
@@ -994,16 +1071,19 @@ CREATE TABLE calendar_events (
 ## Testing Strategy
 
 ### 1. Unit Tests
+
 - Test individual functions and components
 - Use Jest and React Testing Library
 - Aim for 80%+ coverage
 
 ### 2. Integration Tests
+
 - Test API routes and database operations
 - Test component integration
 - Use Playwright for E2E tests
 
 ### 3. Manual Testing
+
 - Test all user flows manually
 - Test on multiple devices and browsers
 - Accessibility testing
@@ -1013,16 +1093,19 @@ CREATE TABLE calendar_events (
 ## Deployment Strategy
 
 ### 1. Development
+
 - **Environment**: Local development with Next.js dev server
 - **Database**: Local SQLite
 - **Hosting**: Vercel for preview deployments
 
 ### 2. Staging
+
 - **Environment**: Vercel preview deployments
 - **Database**: Test PostgreSQL database
 - **Testing**: Automated tests on PRs
 
 ### 3. Production
+
 - **Hosting**: Vercel (recommended) or self-hosted
 - **Database**: Managed PostgreSQL (Supabase, Neon, etc.)
 - **CDN**: Vercel's built-in CDN
@@ -1033,18 +1116,21 @@ CREATE TABLE calendar_events (
 ## Success Metrics
 
 ### User Engagement
+
 - Daily Active Users (DAU)
 - Weekly Active Users (WAU)
 - Session duration
 - Study completion rates
 
 ### Learning Outcomes
+
 - Average study time per user
 - Test score improvements
 - Homework completion rates
 - Streak consistency
 
 ### Technical Metrics
+
 - Page load time (< 2s)
 - API response time (< 200ms)
 - Error rate (< 0.1%)
@@ -1055,24 +1141,28 @@ CREATE TABLE calendar_events (
 ## Future Enhancements (Post-Launch)
 
 ### 1. AI-Powered Features
+
 - **Smart Content Generation**: AI-generated study materials
 - **Personalized Learning Paths**: AI-recommended study schedules
 - **Difficulty Adaptation**: AI-adjusted difficulty based on performance
 - **Content Summarization**: AI-generated summaries
 
 ### 2. Collaborative Features
+
 - **Study Groups**: Create and join study groups
 - **Shared Progress**: Track group progress
 - **Peer Review**: Review and rate study sets
 - **Discussion Forums**: Subject-specific discussions
 
 ### 3. Advanced Analytics
+
 - **Learning Style Detection**: Visual, auditory, kinesthetic
 - **Optimal Study Time**: Identify best study times
 - **Performance Prediction**: ML-based test score prediction
 - **Comparative Analytics**: Compare with class averages
 
 ### 4. Integration Features
+
 - **School LMS Integration**: Google Classroom, Canvas
 - **Calendar Sync**: Google Calendar, Apple Calendar
 - **Notification Channels**: Email, SMS, push notifications
@@ -1085,6 +1175,7 @@ CREATE TABLE calendar_events (
 This comprehensive expansion blueprint transforms the current test-week focused application into a full-featured learning platform that rivals Quizlet while maintaining the simplicity and speed of JSON-based content management. The phased approach allows for incremental development and testing, ensuring each phase delivers value before moving to the next.
 
 The platform will enable students to become "perfect learners" through:
+
 - Consistent study habits with streak tracking
 - Effective planning with advanced calendar integration
 - Early test preparation with study planning

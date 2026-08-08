@@ -4,7 +4,7 @@ export interface OfflineReviewEvent {
   id: string;
   cardId: string;
   studySetId: string;
-  grade: "again" | "hard" | "good" | "easy";
+  grade: 'again' | 'hard' | 'good' | 'easy';
   timestamp: string;
   synced: boolean;
 }
@@ -29,7 +29,11 @@ export function addReviewToOutbox(event: Omit<OfflineReviewEvent, 'synced'>): Of
   if (typeof window !== 'undefined') {
     localStorage.setItem(OUTBOX_STORAGE_KEY, JSON.stringify(outbox));
   }
-  logger.info('Added review event to offline outbox', { id: event.id, cardId: event.cardId, grade: event.grade });
+  logger.info('Added review event to offline outbox', {
+    id: event.id,
+    cardId: event.cardId,
+    grade: event.grade,
+  });
   return entry;
 }
 

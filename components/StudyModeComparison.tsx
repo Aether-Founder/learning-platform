@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import { BarChart3, TrendingUp, Target, Clock, Star, BookOpen, FileText, Zap } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
+import { BarChart3, TrendingUp, Target, Clock, Star, BookOpen, FileText, Zap } from 'lucide-react';
 
 interface ModeStats {
   mode: string;
@@ -31,8 +31,8 @@ export function StudyModeComparison({ userId }: StudyModeComparisonProps) {
   const fetchModeStats = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch("/api/analytics/mode-comparison", {
+      const token = localStorage.getItem('token');
+      const response = await fetch('/api/analytics/mode-comparison', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -43,7 +43,7 @@ export function StudyModeComparison({ userId }: StudyModeComparisonProps) {
         setModeStats(data.modeStats || []);
       }
     } catch (error) {
-      console.error("Failed to fetch mode stats:", error);
+      console.error('Failed to fetch mode stats:', error);
     } finally {
       setLoading(false);
     }
@@ -51,13 +51,13 @@ export function StudyModeComparison({ userId }: StudyModeComparisonProps) {
 
   const getModeIcon = (mode: string) => {
     switch (mode) {
-      case "learn":
+      case 'learn':
         return <BookOpen className="w-5 h-5" />;
-      case "test":
+      case 'test':
         return <FileText className="w-5 h-5" />;
-      case "match":
+      case 'match':
         return <Target className="w-5 h-5" />;
-      case "gravity":
+      case 'gravity':
         return <Zap className="w-5 h-5" />;
       default:
         return <BarChart3 className="w-5 h-5" />;
@@ -66,22 +66,22 @@ export function StudyModeComparison({ userId }: StudyModeComparisonProps) {
 
   const getModeColor = (mode: string) => {
     switch (mode) {
-      case "learn":
-        return "bg-blue-500";
-      case "test":
-        return "bg-green-500";
-      case "match":
-        return "bg-purple-500";
-      case "gravity":
-        return "bg-orange-500";
+      case 'learn':
+        return 'bg-blue-500';
+      case 'test':
+        return 'bg-green-500';
+      case 'match':
+        return 'bg-purple-500';
+      case 'gravity':
+        return 'bg-orange-500';
       default:
-        return "bg-gray-500";
+        return 'bg-gray-500';
     }
   };
 
   const getBestMode = () => {
     if (modeStats.length === 0) return null;
-    return modeStats.reduce((best, current) => 
+    return modeStats.reduce((best, current) =>
       current.averageAccuracy > best.averageAccuracy ? current : best
     );
   };
@@ -116,7 +116,8 @@ export function StudyModeComparison({ userId }: StudyModeComparisonProps) {
               <div>
                 <h3 className="font-semibold mb-2">Beste Prestatie: {bestMode.mode}</h3>
                 <p className="text-sm text-muted-foreground">
-                  Je presteert het beste in {bestMode.mode} mode met een gemiddelde nauwkeurigheid van {bestMode.averageAccuracy.toFixed(1)}%
+                  Je presteert het beste in {bestMode.mode} mode met een gemiddelde nauwkeurigheid
+                  van {bestMode.averageAccuracy.toFixed(1)}%
                 </p>
               </div>
             </div>
@@ -175,7 +176,9 @@ export function StudyModeComparison({ userId }: StudyModeComparisonProps) {
               <div className="pt-2 border-t">
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-muted-foreground">Correct</span>
-                  <span className="font-medium text-green-500">{stats.correctAnswers}/{stats.totalCards}</span>
+                  <span className="font-medium text-green-500">
+                    {stats.correctAnswers}/{stats.totalCards}
+                  </span>
                 </div>
               </div>
             </CardContent>

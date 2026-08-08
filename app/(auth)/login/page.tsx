@@ -1,6 +1,6 @@
 /**
  * Login Page
- * 
+ *
  * User authentication with email/password
  * Includes redirect to dashboard after successful login
  */
@@ -56,7 +56,7 @@ function LoginPageContent() {
     setError(null);
     setLoading(true);
 
-    const { data, error } = await signIn({ email, password });
+    const { error } = await signIn({ email, password });
 
     if (error) {
       setError(error.message);
@@ -93,10 +93,7 @@ function LoginPageContent() {
 
           <div className="space-y-4">
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-foreground"
-              >
+              <label htmlFor="email" className="block text-sm font-medium text-foreground">
                 E-mailadres
               </label>
               <input
@@ -112,16 +109,13 @@ function LoginPageContent() {
             </div>
 
             <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-foreground"
-              >
+              <label htmlFor="password" className="block text-sm font-medium text-foreground">
                 Wachtwoord
               </label>
               <div className="relative">
                 <input
                   id="password"
-                  type={showPassword ? "text" : "password"}
+                  type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => handlePasswordChange(e.target.value)}
                   required
@@ -133,7 +127,7 @@ function LoginPageContent() {
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-2 top-0 mt-2.5 h-6 w-6 flex items-center justify-center text-sm rounded-md hover:bg-secondary/50"
-                  aria-label={showPassword ? "Verberg wachtwoord" : "Toon wachtwoord"}
+                  aria-label={showPassword ? 'Verberg wachtwoord' : 'Toon wachtwoord'}
                 >
                   {showPassword ? (
                     <EyeOff className="h-4 w-4 text-muted-foreground" />
@@ -152,18 +146,12 @@ function LoginPageContent() {
                 type="checkbox"
                 className="h-4 w-4 rounded border-border text-primary focus:ring-2 focus:ring-primary/20"
               />
-              <label
-                htmlFor="remember-me"
-                className="ml-2 block text-sm text-muted-foreground"
-              >
+              <label htmlFor="remember-me" className="ml-2 block text-sm text-muted-foreground">
                 Onthoud mij
               </label>
             </div>
 
-            <Link
-              href="/reset-password"
-              className="text-sm text-primary hover:underline"
-            >
+            <Link href="/reset-password" className="text-sm text-primary hover:underline">
               Wachtwoord vergeten?
             </Link>
           </div>
@@ -181,19 +169,14 @@ function LoginPageContent() {
               <div className="w-full border-t border-border" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-2 text-muted-foreground">
-                Of
-              </span>
+              <span className="bg-background px-2 text-muted-foreground">Of</span>
             </div>
           </div>
 
           <div className="text-center">
             <span className="text-sm text-muted-foreground">
               Nog geen account?{' '}
-              <Link
-                href="/register"
-                className="font-medium text-primary hover:underline"
-              >
+              <Link href="/register" className="font-medium text-primary hover:underline">
                 Registreer nu
               </Link>
             </span>

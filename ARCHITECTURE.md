@@ -34,6 +34,7 @@
 ```
 
 **Problems with current setup:**
+
 - ❌ Database is local (can't share between devices)
 - ❌ No real authentication (custom JWT implementation)
 - ❌ No data security (Row Level Security)
@@ -117,6 +118,7 @@
 ```
 
 **Benefits of new setup:**
+
 - ✅ Cloud-hosted (access from any device)
 - ✅ Professional authentication (Supabase Auth)
 - ✅ Row Level Security (data automatically isolated per user)
@@ -133,6 +135,7 @@
 ### Example 1: User Login
 
 **Before (SQLite):**
+
 ```
 1. User enters email/password
 2. Frontend sends to /api/auth/login
@@ -143,6 +146,7 @@
 ```
 
 **After (Supabase):**
+
 ```
 1. User enters email/password
 2. Frontend calls supabase.auth.signInWithPassword()
@@ -152,6 +156,7 @@
 ```
 
 **Code comparison:**
+
 ```typescript
 // BEFORE (30+ lines of custom code in API route)
 export async function POST(req: Request) {
@@ -164,7 +169,8 @@ export async function POST(req: Request) {
 
 // AFTER (2 lines!)
 const { data, error } = await supabase.auth.signInWithPassword({
-  email, password
+  email,
+  password,
 });
 ```
 
@@ -173,6 +179,7 @@ const { data, error } = await supabase.auth.signInWithPassword({
 ### Example 2: Getting User's Study Sets
 
 **Before (SQLite):**
+
 ```
 1. Frontend sends request to /api/study-sets
 2. Backend validates JWT token manually
@@ -181,6 +188,7 @@ const { data, error } = await supabase.auth.signInWithPassword({
 ```
 
 **After (Supabase):**
+
 ```
 1. Frontend calls supabase.from('study_sets').select('*')
 2. Supabase automatically:
@@ -190,6 +198,7 @@ const { data, error } = await supabase.auth.signInWithPassword({
 ```
 
 **Code comparison:**
+
 ```typescript
 // BEFORE (API route + validation)
 export async function GET(req: Request) {
@@ -200,10 +209,7 @@ export async function GET(req: Request) {
 }
 
 // AFTER (Direct from frontend, no API route needed!)
-const { data: studySets } = await supabase
-  .from('study_sets')
-  .select('*')
-  .eq('user_id', user.id); // RLS automatically enforces this!
+const { data: studySets } = await supabase.from('study_sets').select('*').eq('user_id', user.id); // RLS automatically enforces this!
 ```
 
 ---
@@ -211,6 +217,7 @@ const { data: studySets } = await supabase
 ### Example 3: Tracking Study Session
 
 **Before (SQLite):**
+
 ```
 1. User finishes study session
 2. Frontend calculates stats
@@ -221,6 +228,7 @@ const { data: studySets } = await supabase
 ```
 
 **After (Supabase):**
+
 ```
 1. User finishes study session
 2. Frontend calls supabase.from('study_sessions').insert()
@@ -299,6 +307,7 @@ CREATE POLICY "Users can view own and public sets"
 ```
 
 **Result:**
+
 - When User A queries study_sets, they ONLY see their own sets + public sets
 - When User B queries study_sets, they ONLY see their own sets + public sets
 - No manual filtering needed in code!
@@ -307,6 +316,7 @@ CREATE POLICY "Users can view own and public sets"
 ### Authentication Security
 
 **Before:**
+
 - Custom JWT implementation (potential security holes)
 - Manual password hashing (need to update bcrypt)
 - Manual session management
@@ -314,6 +324,7 @@ CREATE POLICY "Users can view own and public sets"
 - No password reset flow
 
 **After:**
+
 - Industry-standard OAuth 2.0 + JWT
 - Automatic password hashing (secure by default)
 - Automatic session management
@@ -326,22 +337,23 @@ CREATE POLICY "Users can view own and public sets"
 
 ## 📊 Performance Comparison
 
-| Feature | SQLite (Before) | Supabase (After) |
-|---------|----------------|------------------|
-| **Query Speed** | Fast (local) | Very fast (optimized, cached) |
-| **Concurrent Users** | 1 (local only) | Unlimited |
-| **Data Sync** | None | Real-time |
-| **Backup** | Manual | Automatic daily |
-| **Scaling** | Can't scale | Auto-scales |
-| **Database Size** | Limited by disk | 500MB-8GB+ (upgradable) |
-| **API Latency** | ~0ms (local) | ~50-100ms (cloud) |
-| **Setup Time** | Complex | Simple |
+| Feature              | SQLite (Before) | Supabase (After)              |
+| -------------------- | --------------- | ----------------------------- |
+| **Query Speed**      | Fast (local)    | Very fast (optimized, cached) |
+| **Concurrent Users** | 1 (local only)  | Unlimited                     |
+| **Data Sync**        | None            | Real-time                     |
+| **Backup**           | Manual          | Automatic daily               |
+| **Scaling**          | Can't scale     | Auto-scales                   |
+| **Database Size**    | Limited by disk | 500MB-8GB+ (upgradable)       |
+| **API Latency**      | ~0ms (local)    | ~50-100ms (cloud)             |
+| **Setup Time**       | Complex         | Simple                        |
 
 ---
 
 ## 🚀 Deployment Flow
 
 ### Before (Complex):
+
 ```
 1. Build Next.js app
 2. Include SQLite database file
@@ -351,6 +363,7 @@ CREATE POLICY "Users can view own and public sets"
 ```
 
 ### After (Simple):
+
 ```
 1. Build Next.js app
 2. Add Supabase env vars to Vercel
@@ -364,11 +377,13 @@ CREATE POLICY "Users can view own and public sets"
 ## 💰 Cost Comparison
 
 ### Current (SQLite):
+
 - Free (local development only)
 - Can't deploy as-is to production
 - Would need paid database service anyway
 
 ### Supabase:
+
 - **Free tier**: Perfect for your use case!
   - 500MB database (thousands of flashcards)
   - 50,000 monthly active users
@@ -387,6 +402,7 @@ CREATE POLICY "Users can view own and public sets"
 ## ✅ Summary
 
 ### What We're Replacing:
+
 - ❌ SQLite → ✅ PostgreSQL (Supabase)
 - ❌ Custom JWT auth → ✅ Supabase Auth
 - ❌ API routes → ✅ Direct database access (with RLS)
@@ -394,6 +410,7 @@ CREATE POLICY "Users can view own and public sets"
 - ❌ Local only → ✅ Cloud-hosted
 
 ### What Stays the Same:
+
 - ✅ Next.js framework
 - ✅ React components
 - ✅ UI/UX design
@@ -401,6 +418,7 @@ CREATE POLICY "Users can view own and public sets"
 - ✅ All existing features
 
 ### New Capabilities:
+
 - 🆕 Multi-device sync
 - 🆕 Real-time updates
 - 🆕 Better security

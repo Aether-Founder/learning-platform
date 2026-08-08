@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { ChevronRight, Plus, BookOpen } from "lucide-react";
-import { useTranslation } from "@/lib/i18n";
-import { AuthModal } from "@/components/AuthModal";
-import { TestWeekWizard } from "@/components/TestWeekWizard";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { ChevronRight, Plus, BookOpen } from 'lucide-react';
+import { useTranslation } from '@/lib/i18n';
+import { AuthModal } from '@/components/AuthModal';
+import { TestWeekWizard } from '@/components/TestWeekWizard';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 
 interface ContentFile {
   pageName: string;
@@ -16,7 +16,7 @@ interface ContentFile {
 }
 
 function TitleWithFlatDash({ title }: { title: string }) {
-  const parts = title.split(" - ");
+  const parts = title.split(' - ');
 
   if (parts.length === 1) return <>{title}</>;
 
@@ -63,7 +63,7 @@ export function HomePageClient({ contentFiles }: { contentFiles: ContentFile[] }
 
       const response = await fetch('/api/testweeks', {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -77,7 +77,7 @@ export function HomePageClient({ contentFiles }: { contentFiles: ContentFile[] }
     }
   };
 
-  const handleAuthSuccess = (user: any, tokens: any) => {
+  const handleAuthSuccess = () => {
     setIsLoggedIn(true);
     setShowAuthModal(false);
     loadTestWeeks();
@@ -87,7 +87,7 @@ export function HomePageClient({ contentFiles }: { contentFiles: ContentFile[] }
     setShowAuthModal(false);
   };
 
-  const handleTestWeekComplete = (testWeek: any) => {
+  const handleTestWeekComplete = () => {
     setShowTestWeekWizard(false);
     loadTestWeeks();
   };
@@ -108,12 +108,12 @@ export function HomePageClient({ contentFiles }: { contentFiles: ContentFile[] }
       <div className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-14">
         <header className="mb-12">
           <h1 className="text-5xl md:text-6xl font-serif text-foreground font-medium text-center mb-4">
-            {mounted ? t("home_title", "Toetsweekvoorbereiding") : "Toetsweekvoorbereiding"}
+            {mounted ? t('home_title', 'Toetsweekvoorbereiding') : 'Toetsweekvoorbereiding'}
           </h1>
           <p className="text-muted-foreground text-center text-lg max-w-3xl mx-auto">
             {mounted
-              ? t("home_subtitle", "Kies hieronder een vak om te oefenen voor de toetsweek.")
-              : "Kies hieronder een vak om te oefenen voor de toetsweek."}
+              ? t('home_subtitle', 'Kies hieronder een vak om te oefenen voor de toetsweek.')
+              : 'Kies hieronder een vak om te oefenen voor de toetsweek.'}
           </p>
         </header>
 
@@ -121,15 +121,12 @@ export function HomePageClient({ contentFiles }: { contentFiles: ContentFile[] }
           <div className="mb-8 p-6 border border-border rounded-lg bg-card">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-semibold">Toetsweek</h2>
-              <Button
-                size="sm"
-                onClick={() => setShowTestWeekWizard(true)}
-              >
+              <Button size="sm" onClick={() => setShowTestWeekWizard(true)}>
                 <Plus className="w-4 h-4 mr-2" />
                 Nieuwe toetsweek
               </Button>
             </div>
-            
+
             {activeTestWeek ? (
               <div>
                 <Link
@@ -139,25 +136,24 @@ export function HomePageClient({ contentFiles }: { contentFiles: ContentFile[] }
                   <div>
                     <h3 className="font-semibold text-lg">{activeTestWeek.name}</h3>
                     <p className="text-sm text-muted-foreground">
-                      {new Date(activeTestWeek.startDate).toLocaleDateString('nl-NL')} - {new Date(activeTestWeek.endDate).toLocaleDateString('nl-NL')}
+                      {new Date(activeTestWeek.startDate).toLocaleDateString('nl-NL')} -{' '}
+                      {new Date(activeTestWeek.endDate).toLocaleDateString('nl-NL')}
                     </p>
                     <div className="flex items-center gap-2 mt-2">
-                      <Badge variant="secondary">
-                        {activeTestWeek.subjects.length} vakken
-                      </Badge>
+                      <Badge variant="secondary">{activeTestWeek.subjects.length} vakken</Badge>
                     </div>
                   </div>
                   <ChevronRight className="w-5 h-5 text-muted-foreground" />
                 </Link>
-                
+
                 {testWeeks.length > 1 && (
                   <div className="mt-4">
                     <p className="text-sm text-muted-foreground mb-2">Andere toetsweken:</p>
                     <div className="space-y-2">
                       {testWeeks
-                        .filter(tw => tw.id !== activeTestWeek.id)
+                        .filter((tw) => tw.id !== activeTestWeek.id)
                         .slice(0, 3)
-                        .map(tw => (
+                        .map((tw) => (
                           <Link
                             key={tw.id}
                             href={`/testweek/${tw.id}`}
@@ -173,9 +169,7 @@ export function HomePageClient({ contentFiles }: { contentFiles: ContentFile[] }
             ) : (
               <div className="text-center py-8">
                 <BookOpen className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
-                <p className="text-muted-foreground mb-4">
-                  Nog geen toetsweek geselecteerd
-                </p>
+                <p className="text-muted-foreground mb-4">Nog geen toetsweek geselecteerd</p>
                 <Button onClick={() => setShowTestWeekWizard(true)}>
                   <Plus className="w-4 h-4 mr-2" />
                   Maak uw eerste toetsweek
@@ -198,9 +192,7 @@ export function HomePageClient({ contentFiles }: { contentFiles: ContentFile[] }
                 </h2>
                 <ChevronRight className="mt-1 h-5 w-5 text-muted-foreground" />
               </div>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                {content.description}
-              </p>
+              <p className="text-muted-foreground text-sm leading-relaxed">{content.description}</p>
             </Link>
           ))}
         </div>

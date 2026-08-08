@@ -1,13 +1,13 @@
-export type GameScoreId = "match" | "blast" | "blocks" | "sprint" | "type-rush";
+export type GameScoreId = 'match' | 'blast' | 'blocks' | 'sprint' | 'type-rush';
 
-const KEY = "learning-platform-highscores-v1";
+const KEY = 'learning-platform-highscores-v1';
 
 type ScoreStore = Record<string, Partial<Record<GameScoreId, number>>>;
 
 function load(): ScoreStore {
-  if (typeof window === "undefined") return {};
+  if (typeof window === 'undefined') return {};
   try {
-    return JSON.parse(localStorage.getItem(KEY) || "{}");
+    return JSON.parse(localStorage.getItem(KEY) || '{}');
   } catch {
     return {};
   }
@@ -21,7 +21,7 @@ function save(store: ScoreStore) {
 export function getHighScore(
   studySetId: string,
   gameId: GameScoreId,
-  lowerIsBetter = false
+  _lowerIsBetter = false
 ): number | null {
   const v = load()[studySetId]?.[gameId];
   return v === undefined ? null : v;
@@ -35,9 +35,7 @@ export function saveHighScore(
 ): boolean {
   const store = load();
   const prev = store[studySetId]?.[gameId];
-  const isNew =
-    prev === undefined ||
-    (lowerIsBetter ? value < prev : value > prev);
+  const isNew = prev === undefined || (lowerIsBetter ? value < prev : value > prev);
   if (isNew) {
     store[studySetId] = { ...store[studySetId], [gameId]: value };
     save(store);

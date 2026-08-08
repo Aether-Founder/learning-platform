@@ -1,6 +1,6 @@
 /**
  * Middleware for Authentication and Route Protection
- * 
+ *
  * This middleware runs on every request and:
  * 1. Refreshes the user's session if needed
  * 2. Protects authenticated routes (dashboard, vakken, etc.)
@@ -48,11 +48,12 @@ export async function middleware(req: NextRequest) {
   } = await supabase.auth.getSession();
 
   // Define route patterns
-  const isAuthPage = req.nextUrl.pathname.startsWith('/login') || 
-                     req.nextUrl.pathname.startsWith('/register') ||
-                     req.nextUrl.pathname.startsWith('/reset-password');
-  
-  const isProtectedRoute = 
+  const isAuthPage =
+    req.nextUrl.pathname.startsWith('/login') ||
+    req.nextUrl.pathname.startsWith('/register') ||
+    req.nextUrl.pathname.startsWith('/reset-password');
+
+  const isProtectedRoute =
     req.nextUrl.pathname === '/' ||
     req.nextUrl.pathname.startsWith('/vakken') ||
     req.nextUrl.pathname.startsWith('/agenda') ||

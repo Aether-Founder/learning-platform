@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import {
   ArrowLeft,
   Brain,
@@ -12,23 +12,23 @@ import {
   Layers,
   PenLine,
   RotateCcw,
-} from "lucide-react";
-import { buildStudySetFromSections } from "@/lib/learning-platform/study-set";
-import { STUDY_GAMES, getGameById } from "@/lib/learning-platform/game-registry";
-import { reviewForecast } from "@/lib/learning-platform/srs";
-import { useLearningPlatformStore } from "@/store/useLearningPlatformStore";
-import type { LearningMode } from "@/types/learning-platform";
-import { useTranslation } from "@/lib/i18n";
-import { SessionSettingsPanel } from "./SessionSettingsPanel";
-import { MasteryProgressBar } from "./MasteryProgressBar";
-import { TermList } from "./TermList";
-import { StudySetTools } from "./StudySetTools";
-import { LearnMode } from "./modes/LearnMode";
-import { TestMode } from "./modes/TestMode";
-import { EnhancedFlashcardMode } from "./modes/EnhancedFlashcardMode";
-import { McqOnlyMode } from "./modes/McqOnlyMode";
-import { WritingOnlyMode } from "./modes/WritingOnlyMode";
-import { RegisteredGameView } from "./GameShell";
+} from 'lucide-react';
+import { buildStudySetFromSections } from '@/lib/learning-platform/study-set';
+import { STUDY_GAMES, getGameById } from '@/lib/learning-platform/game-registry';
+import { reviewForecast } from '@/lib/learning-platform/srs';
+import { useLearningPlatformStore } from '@/store/useLearningPlatformStore';
+import type { LearningMode } from '@/types/learning-platform';
+import { useTranslation } from '@/lib/i18n';
+import { SessionSettingsPanel } from './SessionSettingsPanel';
+import { MasteryProgressBar } from './MasteryProgressBar';
+import { TermList } from './TermList';
+import { StudySetTools } from './StudySetTools';
+import { LearnMode } from './modes/LearnMode';
+import { TestMode } from './modes/TestMode';
+import { EnhancedFlashcardMode } from './modes/EnhancedFlashcardMode';
+import { McqOnlyMode } from './modes/McqOnlyMode';
+import { WritingOnlyMode } from './modes/WritingOnlyMode';
+import { RegisteredGameView } from './GameShell';
 
 interface SourceSection {
   id: string;
@@ -65,7 +65,7 @@ interface LearningPlatformProps {
   };
 }
 
-type HubScreen = "home" | "leren-setup" | "test-setup" | "games" | "terms" | "playing";
+type HubScreen = 'home' | 'leren-setup' | 'test-setup' | 'games' | 'terms' | 'playing';
 
 function HubButton({
   label,
@@ -89,9 +89,7 @@ function HubButton({
       </div>
       <div className="flex-1 min-w-0">
         <p className="font-medium text-base text-foreground">{label}</p>
-        {description && (
-          <p className="text-sm text-muted-foreground mt-0.5">{description}</p>
-        )}
+        {description && <p className="text-sm text-muted-foreground mt-0.5">{description}</p>}
       </div>
       <ChevronRight className="h-5 w-5 text-muted-foreground group-hover:text-foreground shrink-0" />
     </button>
@@ -110,15 +108,20 @@ function StudyModeView({ mode }: { mode: LearningMode }) {
   if (getGameById(mode)) {
     return null;
   }
-  if (mode === "test") return <TestMode />;
-  if (mode === "learn-image") return <LerenMetAfbeeldingenView />;
-  if (mode === "flashcard" || mode === "review") return <EnhancedFlashcardMode />;
-  if (mode === "multiple-choice-only") return <McqOnlyMode />;
-  if (mode === "writing-only") return <WritingOnlyMode />;
+  if (mode === 'test') return <TestMode />;
+  if (mode === 'learn-image') return <LerenMetAfbeeldingenView />;
+  if (mode === 'flashcard' || mode === 'review') return <EnhancedFlashcardMode />;
+  if (mode === 'multiple-choice-only') return <McqOnlyMode />;
+  if (mode === 'writing-only') return <WritingOnlyMode />;
   return <LerenModeView />;
 }
 
-export function LearningPlatform({ pageId, sections, enableImageLearning, learningSet: providedLearningSet }: LearningPlatformProps) {
+export function LearningPlatform({
+  pageId,
+  sections,
+  enableImageLearning,
+  learningSet: providedLearningSet,
+}: LearningPlatformProps) {
   const { t } = useTranslation();
   const {
     init,
@@ -129,7 +132,7 @@ export function LearningPlatform({ pageId, sections, enableImageLearning, learni
     saveSettingsToStorage,
     initialized,
   } = useLearningPlatformStore();
-  const [screen, setScreen] = useState<HubScreen>("home");
+  const [screen, setScreen] = useState<HubScreen>('home');
 
   useEffect(() => {
     let set;
@@ -143,12 +146,12 @@ export function LearningPlatform({ pageId, sections, enableImageLearning, learni
         learningSetId: `set-${pageId}`,
         learningSetTitle: providedLearningSet.title,
         isStarred: false,
-        masteryStatus: "unstudied" as const,
+        masteryStatus: 'unstudied' as const,
         consecutiveCorrectCount: 0,
         createdAt: now,
         front: item.term,
         back: item.definition,
-        cardType: "basic" as const,
+        cardType: 'basic' as const,
         tags: [],
         image: item.image,
       }));
@@ -165,7 +168,7 @@ export function LearningPlatform({ pageId, sections, enableImageLearning, learni
       set = buildStudySetFromSections(sections, pageId);
     }
     if (set) init(set);
-    setScreen("home");
+    setScreen('home');
     setActiveMode(null);
     return () => setActiveMode(null);
   }, [pageId, sections, providedLearningSet, init, setActiveMode]);
@@ -175,71 +178,76 @@ export function LearningPlatform({ pageId, sections, enableImageLearning, learni
   }, [initialized, refreshPlayableTerms]);
 
   const startLeren = () => {
-    useLearningPlatformStore.getState().updateSettings({ reviewMode: "mix" });
+    useLearningPlatformStore.getState().updateSettings({ reviewMode: 'mix' });
     refreshPlayableTerms();
     saveSettingsToStorage();
-    setActiveMode("learn");
-    setScreen("playing");
+    setActiveMode('learn');
+    setScreen('playing');
   };
 
   const startTest = () => {
-    useLearningPlatformStore.getState().updateSettings({ reviewMode: "mix" });
+    useLearningPlatformStore.getState().updateSettings({ reviewMode: 'mix' });
     refreshPlayableTerms();
     saveSettingsToStorage();
-    setActiveMode("test");
-    setScreen("playing");
+    setActiveMode('test');
+    setScreen('playing');
   };
 
-  const startMode = (mode: LearningMode, reviewMode: "due" | "new" | "mix" | "mistakes" | "starred" = "mix") => {
+  const startMode = (
+    mode: LearningMode,
+    reviewMode: 'due' | 'new' | 'mix' | 'mistakes' | 'starred' = 'mix'
+  ) => {
     useLearningPlatformStore.getState().updateSettings({ reviewMode });
     refreshPlayableTerms();
     saveSettingsToStorage();
     setActiveMode(mode);
-    setScreen("playing");
+    setScreen('playing');
   };
 
   const startGame = (gameId: LearningMode) => {
     setActiveMode(gameId);
-    setScreen("playing");
+    setScreen('playing');
   };
 
   const goBackFromPlaying = () => {
     const mode = activeMode;
     setActiveMode(null);
-    if (mode === "test") setScreen("home");
-    else if (mode && getGameById(mode)) setScreen("games");
-    else setScreen("home");
+    if (mode === 'test') setScreen('home');
+    else if (mode && getGameById(mode)) setScreen('games');
+    else setScreen('home');
   };
 
   const startLerenMetAfbeeldingen = () => {
     refreshPlayableTerms();
     saveSettingsToStorage();
-    setActiveMode("learn-image");
-    setScreen("playing");
+    setActiveMode('learn-image');
+    setScreen('playing');
   };
 
   if (!studySet) {
     return (
       <p className="text-center py-12 text-muted-foreground">
-        {t("study_no_terms", "Geen studiemateriaal gevonden op deze pagina.")}
+        {t('study_no_terms', 'Geen studiemateriaal gevonden op deze pagina.')}
       </p>
     );
   }
 
   const termCount = studySet.terms.length;
-  const dueCount = studySet.terms.filter((term) => !term.suspended && (!term.nextReviewAt || term.nextReviewAt.getTime() <= Date.now())).length;
+  const dueCount = studySet.terms.filter(
+    (term) => !term.suspended && (!term.nextReviewAt || term.nextReviewAt.getTime() <= Date.now())
+  ).length;
   const newCount = studySet.terms.filter((term) => (term.reviewCount ?? 0) === 0).length;
-  const weakCount = studySet.terms.filter((term) => (term.lapseCount ?? 0) > 0 || term.masteryStatus === "learning").length;
+  const weakCount = studySet.terms.filter(
+    (term) => (term.lapseCount ?? 0) > 0 || term.masteryStatus === 'learning'
+  ).length;
   const forecast = reviewForecast(studySet.terms, 4);
 
   return (
     <div className="max-w-2xl mx-auto space-y-6 pb-16">
       <div className="text-center space-y-1">
-        <h2 className="text-2xl font-serif font-medium text-foreground">
-          {studySet.title}
-        </h2>
+        <h2 className="text-2xl font-serif font-medium text-foreground">{studySet.title}</h2>
         <p className="text-sm text-muted-foreground">
-          {termCount} {t("study_terms_count", "begrippen")}
+          {termCount} {t('study_terms_count', 'begrippen')}
         </p>
       </div>
 
@@ -259,7 +267,7 @@ export function LearningPlatform({ pageId, sections, enableImageLearning, learni
         </div>
       </div>
 
-      {screen === "playing" && activeMode ? (
+      {screen === 'playing' && activeMode ? (
         <div className="space-y-4">
           {getGameById(activeMode) ? (
             <RegisteredGameView gameId={activeMode} onQuit={goBackFromPlaying} />
@@ -271,53 +279,47 @@ export function LearningPlatform({ pageId, sections, enableImageLearning, learni
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
               >
                 <ArrowLeft className="h-4 w-4" />
-                {t("study_back", "Terug")}
+                {t('study_back', 'Terug')}
               </button>
               <StudyModeView key={activeMode} mode={activeMode} />
             </>
           )}
         </div>
-      ) : screen === "leren-setup" ? (
+      ) : screen === 'leren-setup' ? (
         <SessionSettingsPanel
           preset="leren"
-          onBack={() => setScreen("home")}
+          onBack={() => setScreen('home')}
           onStart={startLeren}
         />
-      ) : screen === "test-setup" ? (
-        <SessionSettingsPanel
-          preset="test"
-          onBack={() => setScreen("home")}
-          onStart={startTest}
-        />
-      ) : screen === "terms" ? (
+      ) : screen === 'test-setup' ? (
+        <SessionSettingsPanel preset="test" onBack={() => setScreen('home')} onStart={startTest} />
+      ) : screen === 'terms' ? (
         <div className="space-y-4">
           <button
             type="button"
-            onClick={() => setScreen("home")}
+            onClick={() => setScreen('home')}
             className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="h-4 w-4" />
-            {t("study_back_home", "Terug naar menu")}
+            {t('study_back_home', 'Terug naar menu')}
           </button>
           <h3 className="text-lg font-medium text-center">
-            {t("study_begrippenlijst", "Begrippenlijst")}
+            {t('study_begrippenlijst', 'Begrippenlijst')}
           </h3>
           <StudySetTools />
           <TermList terms={studySet.terms} />
         </div>
-      ) : screen === "games" ? (
+      ) : screen === 'games' ? (
         <div className="space-y-4">
           <button
             type="button"
-            onClick={() => setScreen("home")}
+            onClick={() => setScreen('home')}
             className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="h-4 w-4" />
-            {t("study_back_home", "Terug naar menu")}
+            {t('study_back_home', 'Terug naar menu')}
           </button>
-          <h3 className="text-lg font-medium text-center">
-            {t("study_spelletjes", "Spelletjes")}
-          </h3>
+          <h3 className="text-lg font-medium text-center">{t('study_spelletjes', 'Spelletjes')}</h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {STUDY_GAMES.map((game) => {
               const Icon = game.icon;
@@ -342,57 +344,60 @@ export function LearningPlatform({ pageId, sections, enableImageLearning, learni
       ) : (
         <div className="space-y-3">
           <p className="text-sm text-muted-foreground text-center mb-4">
-            {t("study_choose_activity", "Kies wat je wilt doen")}
+            {t('study_choose_activity', 'Kies wat je wilt doen')}
           </p>
           <HubButton
             label="Review"
             description={`${dueCount} kaarten klaar voor Anki-herhaling`}
             icon={<RotateCcw className="h-6 w-6" />}
-            onClick={() => startMode("review", "due")}
+            onClick={() => startMode('review', 'due')}
           />
           <HubButton
-            label={t("study_leren", "Leren")}
-            description={t("study_leren_desc", "Kies hoe je oefent en start meteen")}
+            label={t('study_leren', 'Leren')}
+            description={t('study_leren_desc', 'Kies hoe je oefent en start meteen')}
             icon={<Brain className="h-6 w-6" />}
-            onClick={() => setScreen("leren-setup")}
+            onClick={() => setScreen('leren-setup')}
           />
           <HubButton
             label="Flashcards"
             description="Draai kaarten om en beoordeel met Again, Hard, Good of Easy"
             icon={<Layers className="h-6 w-6" />}
-            onClick={() => startMode("flashcard", "mix")}
+            onClick={() => startMode('flashcard', 'mix')}
           />
           <HubButton
             label="Schrijven"
             description="WRTS-training met typecontrole, foutenronde en slimme beoordeling"
             icon={<PenLine className="h-6 w-6" />}
-            onClick={() => startMode("writing-only", "mix")}
+            onClick={() => startMode('writing-only', 'mix')}
           />
           {enableImageLearning && (
             <HubButton
-              label={t("study_leren_images", "Leren (met afbeeldingen)")}
-              description={t("study_leren_images_desc", "Oefen met afbeeldingen en kies het juiste begrip")}
+              label={t('study_leren_images', 'Leren (met afbeeldingen)')}
+              description={t(
+                'study_leren_images_desc',
+                'Oefen met afbeeldingen en kies het juiste begrip'
+              )}
               icon={<ImageIcon className="h-6 w-6" />}
               onClick={startLerenMetAfbeeldingen}
             />
           )}
           <HubButton
-            label={t("study_oefentoets", "Oefentoets")}
-            description={t("study_oefentoets_desc", "Stel je toets in en ontvang een score")}
+            label={t('study_oefentoets', 'Oefentoets')}
+            description={t('study_oefentoets_desc', 'Stel je toets in en ontvang een score')}
             icon={<ClipboardList className="h-6 w-6" />}
-            onClick={() => setScreen("test-setup")}
+            onClick={() => setScreen('test-setup')}
           />
           <HubButton
-            label={t("study_spelletjes", "Spelletjes")}
-            description={t("study_spelletjes_desc", "Leer spelenderwijs met minigames")}
+            label={t('study_spelletjes', 'Spelletjes')}
+            description={t('study_spelletjes_desc', 'Leer spelenderwijs met minigames')}
             icon={<Gamepad2 className="h-6 w-6" />}
-            onClick={() => setScreen("games")}
+            onClick={() => setScreen('games')}
           />
           <HubButton
-            label={t("study_begrippenlijst", "Begrippenlijst")}
-            description={`${t("study_begrippenlijst_desc", "Bekijk begrippen en markeer met een ster")} · ${forecast.map((day) => day.count).join("/")}`}
+            label={t('study_begrippenlijst', 'Begrippenlijst')}
+            description={`${t('study_begrippenlijst_desc', 'Bekijk begrippen en markeer met een ster')} · ${forecast.map((day) => day.count).join('/')}`}
             icon={<List className="h-6 w-6" />}
-            onClick={() => setScreen("terms")}
+            onClick={() => setScreen('terms')}
           />
         </div>
       )}

@@ -5,20 +5,20 @@ import type {
   StudySettings,
   Term,
   UserTermProgress,
-} from "@/types/learning-platform";
+} from '@/types/learning-platform';
 import {
   computeSrsStatus,
   defaultSrsProgress,
   gradeFromCorrectness,
   progressToTerm,
   scheduleReview,
-} from "./srs";
+} from './srs';
 
-const PROGRESS_KEY = "learning-platform-progress-v1";
-const SESSIONS_KEY = "learning-platform-sessions-v1";
-const SETTINGS_KEY = "learning-platform-settings-v1";
+const PROGRESS_KEY = 'learning-platform-progress-v1';
+const SESSIONS_KEY = 'learning-platform-sessions-v1';
+const SETTINGS_KEY = 'learning-platform-settings-v1';
 
-const DEFAULT_USER_ID = "local-user";
+const DEFAULT_USER_ID = 'local-user';
 
 export function computeMasteryStatus(progress?: UserTermProgress): MasteryStatus {
   return computeSrsStatus(progress);
@@ -29,7 +29,7 @@ export function applyTermProgress(
   termId: string,
   isCorrect: boolean,
   wasWritten = false,
-  algorithm: "sm2" | "fsrs" = "sm2",
+  algorithm: 'sm2' | 'fsrs' = 'sm2',
   grade = gradeFromCorrectness(isCorrect, wasWritten)
 ): UserTermProgress {
   const now = new Date();
@@ -72,15 +72,15 @@ export interface ProgressStore {
 }
 
 export function loadProgressStore(studySetId: string): ProgressStore {
-  if (typeof window === "undefined") {
+  if (typeof window === 'undefined') {
     return { progress: {}, sessions: [] };
   }
   try {
-    const allProgress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || "{}") as Record<
+    const allProgress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}') as Record<
       string,
       Record<string, UserTermProgress>
     >;
-    const allSessions = JSON.parse(localStorage.getItem(SESSIONS_KEY) || "{}") as Record<
+    const allSessions = JSON.parse(localStorage.getItem(SESSIONS_KEY) || '{}') as Record<
       string,
       StudySession[]
     >;
@@ -102,15 +102,15 @@ export function loadProgressStore(studySetId: string): ProgressStore {
 }
 
 export function saveProgressForSet(studySetId: string, progress: Record<string, UserTermProgress>) {
-  if (typeof window === "undefined") return;
-  const all = JSON.parse(localStorage.getItem(PROGRESS_KEY) || "{}");
+  if (typeof window === 'undefined') return;
+  const all = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
   all[studySetId] = progress;
   localStorage.setItem(PROGRESS_KEY, JSON.stringify(all));
 }
 
 export function saveSession(studySetId: string, session: StudySession) {
-  if (typeof window === "undefined") return;
-  const all = JSON.parse(localStorage.getItem(SESSIONS_KEY) || "{}");
+  if (typeof window === 'undefined') return;
+  const all = JSON.parse(localStorage.getItem(SESSIONS_KEY) || '{}');
   const list: StudySession[] = all[studySetId] || [];
   list.push(session);
   all[studySetId] = list.slice(-50);
@@ -118,16 +118,16 @@ export function saveSession(studySetId: string, session: StudySession) {
 }
 
 export function resetProgressForSet(studySetId: string) {
-  if (typeof window === "undefined") return;
-  const all = JSON.parse(localStorage.getItem(PROGRESS_KEY) || "{}");
+  if (typeof window === 'undefined') return;
+  const all = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
   delete all[studySetId];
   localStorage.setItem(PROGRESS_KEY, JSON.stringify(all));
 }
 
 export function loadSettings(studySetId: string): StudySettings | null {
-  if (typeof window === "undefined") return null;
+  if (typeof window === 'undefined') return null;
   try {
-    const all = JSON.parse(localStorage.getItem(SETTINGS_KEY) || "{}");
+    const all = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');
     const raw = all[studySetId];
     if (!raw) return null;
     return {
@@ -140,8 +140,8 @@ export function loadSettings(studySetId: string): StudySettings | null {
 }
 
 export function saveSettings(studySetId: string, settings: StudySettings) {
-  if (typeof window === "undefined") return;
-  const all = JSON.parse(localStorage.getItem(SETTINGS_KEY) || "{}");
+  if (typeof window === 'undefined') return;
+  const all = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');
   all[studySetId] = settings;
   localStorage.setItem(SETTINGS_KEY, JSON.stringify(all));
 }

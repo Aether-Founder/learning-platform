@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Award, X, Sparkles } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Award, X, Sparkles } from 'lucide-react';
 
 interface Achievement {
   id: string;
@@ -19,7 +19,11 @@ interface AchievementNotificationProps {
   onShare?: () => void;
 }
 
-function AchievementNotification({ achievement, onDismiss, onShare }: AchievementNotificationProps) {
+function AchievementNotification({
+  achievement,
+  onDismiss,
+  onShare,
+}: AchievementNotificationProps) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -34,7 +38,7 @@ function AchievementNotification({ achievement, onDismiss, onShare }: Achievemen
   return (
     <Card
       className={`fixed top-4 right-4 z-50 w-80 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border-yellow-500/50 shadow-lg transition-all duration-300 ${
-        isVisible ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
+        isVisible ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
       }`}
     >
       <CardContent className="p-4">
@@ -52,22 +56,12 @@ function AchievementNotification({ achievement, onDismiss, onShare }: Achievemen
             <p className="font-medium text-sm">{achievement.name}</p>
             <p className="text-xs text-muted-foreground mt-1">{achievement.description}</p>
           </div>
-          <Button
-            size="sm"
-            variant="ghost"
-            className="h-6 w-6 p-0"
-            onClick={onDismiss}
-          >
+          <Button size="sm" variant="ghost" className="h-6 w-6 p-0" onClick={onDismiss}>
             <X className="w-4 h-4" />
           </Button>
         </div>
         {onShare && (
-          <Button
-            size="sm"
-            variant="outline"
-            className="w-full mt-3"
-            onClick={onShare}
-          >
+          <Button size="sm" variant="outline" className="w-full mt-3" onClick={onShare}>
             Deel Prestatie
           </Button>
         )}
@@ -88,8 +82,8 @@ export function AchievementNotifications({ userId }: AchievementNotificationsPro
     // Check for new achievements periodically
     const checkAchievements = async () => {
       try {
-        const token = localStorage.getItem("token");
-        const response = await fetch("/api/achievements/new", {
+        const token = localStorage.getItem('token');
+        const response = await fetch('/api/achievements/new', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -100,13 +94,13 @@ export function AchievementNotifications({ userId }: AchievementNotificationsPro
           const newAchievements = data.achievements.filter(
             (a: Achievement) => !dismissedIds.has(a.id)
           );
-          
+
           if (newAchievements.length > 0) {
             setNotifications((prev) => [...prev, ...newAchievements]);
           }
         }
       } catch (error) {
-        console.error("Failed to check achievements:", error);
+        console.error('Failed to check achievements:', error);
       }
     };
 

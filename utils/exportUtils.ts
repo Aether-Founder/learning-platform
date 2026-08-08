@@ -32,11 +32,11 @@ export function exportToMarkdown(data: ContentData): void {
     });
   });
 
-  const blob = new Blob([markdown], { type: "text/markdown" });
+  const blob = new Blob([markdown], { type: 'text/markdown' });
   const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
+  const a = document.createElement('a');
   a.href = url;
-  a.download = `${data.siteMetadata.title.replace(/\s+/g, "-").toLowerCase()}.md`;
+  a.download = `${data.siteMetadata.title.replace(/\s+/g, '-').toLowerCase()}.md`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
@@ -44,22 +44,22 @@ export function exportToMarkdown(data: ContentData): void {
 }
 
 export function exportToAnki(data: ContentData): void {
-  let csv = "Front,Back,Tags\n";
+  let csv = 'Front,Back,Tags\n';
 
   data.sections.forEach((section) => {
     section.cards.forEach((card) => {
       const front = card.question.replace(/"/g, '""');
       const back = card.answer.replace(/"/g, '""');
-      const tags = section.title.replace(/\s+/g, "_").toLowerCase();
+      const tags = section.title.replace(/\s+/g, '_').toLowerCase();
       csv += `"${front}","${back}","${tags}"\n`;
     });
   });
 
-  const blob = new Blob([csv], { type: "text/csv" });
+  const blob = new Blob([csv], { type: 'text/csv' });
   const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
+  const a = document.createElement('a');
   a.href = url;
-  a.download = `${data.siteMetadata.title.replace(/\s+/g, "-").toLowerCase()}-anki.csv`;
+  a.download = `${data.siteMetadata.title.replace(/\s+/g, '-').toLowerCase()}-anki.csv`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);

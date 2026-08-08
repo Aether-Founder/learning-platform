@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Snowflake, Flame, Clock, Shield } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Snowflake, Flame, Clock, Shield } from 'lucide-react';
 
 interface StreakFreezeProps {
   currentStreak: number;
@@ -13,11 +13,11 @@ interface StreakFreezeProps {
   onActivateFreeze: () => void;
 }
 
-export function StreakFreeze({ 
-  currentStreak, 
-  hasFreeze, 
-  freezeCount, 
-  onActivateFreeze 
+export function StreakFreeze({
+  currentStreak,
+  hasFreeze,
+  freezeCount,
+  onActivateFreeze,
 }: StreakFreezeProps) {
   const [timeUntilFreeze, setTimeUntilFreeze] = useState<number | null>(null);
   const [freezeActive, setFreezeActive] = useState(false);
@@ -25,19 +25,19 @@ export function StreakFreeze({
   useEffect(() => {
     // Check if freeze is currently active
     const checkFreezeStatus = () => {
-      const freezeExpiry = localStorage.getItem("streakFreezeExpiry");
+      const freezeExpiry = localStorage.getItem('streakFreezeExpiry');
       if (freezeExpiry) {
         const expiryTime = new Date(freezeExpiry).getTime();
         const now = new Date().getTime();
         const remaining = expiryTime - now;
-        
+
         if (remaining > 0) {
           setTimeUntilFreeze(remaining);
           setFreezeActive(true);
         } else {
           setTimeUntilFreeze(null);
           setFreezeActive(false);
-          localStorage.removeItem("streakFreezeExpiry");
+          localStorage.removeItem('streakFreezeExpiry');
         }
       }
     };
@@ -49,9 +49,9 @@ export function StreakFreeze({
 
   const handleActivateFreeze = async () => {
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch("/api/streak/freeze", {
-        method: "POST",
+      const token = localStorage.getItem('token');
+      const response = await fetch('/api/streak/freeze', {
+        method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -60,13 +60,13 @@ export function StreakFreeze({
       if (response.ok) {
         const data = await response.json();
         const expiryTime = new Date(data.expiry).getTime();
-        localStorage.setItem("streakFreezeExpiry", data.expiry);
+        localStorage.setItem('streakFreezeExpiry', data.expiry);
         setTimeUntilFreeze(expiryTime - new Date().getTime());
         setFreezeActive(true);
         onActivateFreeze();
       }
     } catch (error) {
-      console.error("Failed to activate freeze:", error);
+      console.error('Failed to activate freeze:', error);
     }
   };
 
@@ -82,14 +82,14 @@ export function StreakFreeze({
   };
 
   const getStreakColor = (days: number) => {
-    if (days >= 30) return "text-purple-500";
-    if (days >= 14) return "text-orange-500";
-    if (days >= 7) return "text-yellow-500";
-    return "text-blue-500";
+    if (days >= 30) return 'text-purple-500';
+    if (days >= 14) return 'text-orange-500';
+    if (days >= 7) return 'text-yellow-500';
+    return 'text-blue-500';
   };
 
   return (
-    <Card className={freezeActive ? "bg-blue-500/10 border-blue-500/30" : ""}>
+    <Card className={freezeActive ? 'bg-blue-500/10 border-blue-500/30' : ''}>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Snowflake className="w-5 h-5 text-blue-500" />
@@ -117,12 +117,8 @@ export function StreakFreeze({
               <Clock className="w-4 h-4 text-blue-500" />
               <span className="font-medium text-blue-500">Bevriezing Actief</span>
             </div>
-            <p className="text-sm text-muted-foreground mb-2">
-              Je streak is beschermd voor:
-            </p>
-            <div className="text-2xl font-bold text-blue-500">
-              {formatTime(timeUntilFreeze)}
-            </div>
+            <p className="text-sm text-muted-foreground mb-2">Je streak is beschermd voor:</p>
+            <div className="text-2xl font-bold text-blue-500">{formatTime(timeUntilFreeze)}</div>
             <p className="text-xs text-muted-foreground mt-2">
               Je streak wordt niet gereset als je vandaag niet studeert.
             </p>
@@ -130,14 +126,10 @@ export function StreakFreeze({
         ) : hasFreeze ? (
           <div className="space-y-3">
             <p className="text-sm text-muted-foreground">
-              Activeer een streak bevriezing om je streak te beschermen voor 24 uur.
-              Dit is handig als je weet dat je niet kunt studeren.
+              Activeer een streak bevriezing om je streak te beschermen voor 24 uur. Dit is handig
+              als je weet dat je niet kunt studeren.
             </p>
-            <Button 
-              onClick={handleActivateFreeze} 
-              className="w-full"
-              disabled={freezeActive}
-            >
+            <Button onClick={handleActivateFreeze} className="w-full" disabled={freezeActive}>
               <Snowflake className="w-4 h-4 mr-2" />
               Activeer Bevriezing
             </Button>
@@ -149,7 +141,8 @@ export function StreakFreeze({
               <span className="font-medium text-muted-foreground">Geen Bevriezingen</span>
             </div>
             <p className="text-sm text-muted-foreground">
-              Je hebt geen streak bevriezingen beschikbaar. Verdien meer door je streak te verlengen!
+              Je hebt geen streak bevriezingen beschikbaar. Verdien meer door je streak te
+              verlengen!
             </p>
           </div>
         )}

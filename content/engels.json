@@ -6,12 +6,7 @@
   "summary": "Dit hoofdstuk behandelt leesvaardigheid en leesstrategieën voor Engelse teksten. Je leert de gouden tip voor leestoetsen: altijd vragen waar je antwoord in de tekst staat. Daarnaast leer je hoe je leesopdrachten aanpakt met een stappenplan: oriënterend lezen, opdrachten lezen, leesstrategieën toepassen (skimmen, scannen, intensief lezen) en vragen beantwoorden. Ook leer je wat je moet doen bij onbekende woorden (raden door de zin te vertalen) en hoe je efficiënt een woordenboek gebruikt. Totaal komen verschillende vraagsoorten aan bod: meerkeuzevragen, waar/niet waar-vragen, invulvragen, vragen over specifieke alinea's en open vragen, elk met een eigen aanpak.",
   "contentFormat": "textbook",
   "defaultViewMode": "simple",
-  "availableModes": [
-    "simple",
-    "uitleg",
-    "study",
-    "samenvatting"
-  ],
+  "availableModes": ["simple", "uitleg", "study", "samenvatting"],
   "showTimestamps": false,
   "showExportButtons": false,
   "showAnkiExport": false,

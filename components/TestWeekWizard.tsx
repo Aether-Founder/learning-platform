@@ -1,15 +1,21 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CalendarIcon, Loader2 } from "lucide-react";
-import { format } from "date-fns";
-import { nl } from "date-fns/locale";
+import { useState } from 'react';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Calendar } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { CalendarIcon, Loader2 } from 'lucide-react';
+import { format } from 'date-fns';
+import { nl } from 'date-fns/locale';
 
 interface TestWeekWizardProps {
   isOpen: boolean;
@@ -20,46 +26,46 @@ interface TestWeekWizardProps {
 export function TestWeekWizard({ isOpen, onClose, onComplete }: TestWeekWizardProps) {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  
-  const [name, setName] = useState("");
+  const [error, setError] = useState('');
+
+  const [name, setName] = useState('');
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
   const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
 
   const availableSubjects = [
-    { id: "wiskunde", name: "Wiskunde" },
-    { id: "scheikunde", name: "Scheikunde" },
-    { id: "natuurkunde", name: "Natuurkunde" },
-    { id: "biologie", name: "Biologie" },
-    { id: "geschiedenis", name: "Geschiedenis" },
-    { id: "aardrijkskunde", name: "Aardrijkskunde" },
-    { id: "nederlands", name: "Nederlands" },
-    { id: "engels", name: "Engels" },
-    { id: "frans", name: "Frans" },
-    { id: "duits", name: "Duits" },
-    { id: "economie", name: "Economie" },
-    { id: "maatschappijleer", name: "Maatschappijleer" },
+    { id: 'wiskunde', name: 'Wiskunde' },
+    { id: 'scheikunde', name: 'Scheikunde' },
+    { id: 'natuurkunde', name: 'Natuurkunde' },
+    { id: 'biologie', name: 'Biologie' },
+    { id: 'geschiedenis', name: 'Geschiedenis' },
+    { id: 'aardrijkskunde', name: 'Aardrijkskunde' },
+    { id: 'nederlands', name: 'Nederlands' },
+    { id: 'engels', name: 'Engels' },
+    { id: 'frans', name: 'Frans' },
+    { id: 'duits', name: 'Duits' },
+    { id: 'economie', name: 'Economie' },
+    { id: 'maatschappijleer', name: 'Maatschappijleer' },
   ];
 
   const handleNext = () => {
-    setError("");
-    
+    setError('');
+
     if (step === 1) {
       if (!name.trim()) {
-        setError("Naam is verplicht");
+        setError('Naam is verplicht');
         return;
       }
       if (!startDate) {
-        setError("Startdatum is verplicht");
+        setError('Startdatum is verplicht');
         return;
       }
       if (!endDate) {
-        setError("Einddatum is verplicht");
+        setError('Einddatum is verplicht');
         return;
       }
       if (endDate < startDate) {
-        setError("Einddatum moet na startdatum zijn");
+        setError('Einddatum moet na startdatum zijn');
         return;
       }
       setStep(2);
@@ -74,7 +80,7 @@ export function TestWeekWizard({ isOpen, onClose, onComplete }: TestWeekWizardPr
 
   const handleCreate = async () => {
     setLoading(true);
-    setError("");
+    setError('');
 
     try {
       const token = localStorage.getItem('access_token');
@@ -86,7 +92,7 @@ export function TestWeekWizard({ isOpen, onClose, onComplete }: TestWeekWizardPr
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           name,
@@ -107,11 +113,11 @@ export function TestWeekWizard({ isOpen, onClose, onComplete }: TestWeekWizardPr
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             subjectId: subject,
-            subjectName: availableSubjects.find(s => s.id === subject)?.name,
+            subjectName: availableSubjects.find((s) => s.id === subject)?.name,
           }),
         });
       }
@@ -128,18 +134,16 @@ export function TestWeekWizard({ isOpen, onClose, onComplete }: TestWeekWizardPr
 
   const resetForm = () => {
     setStep(1);
-    setName("");
+    setName('');
     setStartDate(undefined);
     setEndDate(undefined);
     setSelectedSubjects([]);
-    setError("");
+    setError('');
   };
 
   const toggleSubject = (subjectId: string) => {
-    setSelectedSubjects(prev =>
-      prev.includes(subjectId)
-        ? prev.filter(id => id !== subjectId)
-        : [...prev, subjectId]
+    setSelectedSubjects((prev) =>
+      prev.includes(subjectId) ? prev.filter((id) => id !== subjectId) : [...prev, subjectId]
     );
   };
 
@@ -149,12 +153,10 @@ export function TestWeekWizard({ isOpen, onClose, onComplete }: TestWeekWizardPr
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>
-            {step === 1 ? 'Nieuwe toetsweek' : 'Selecteer vakken'}
-          </DialogTitle>
+          <DialogTitle>{step === 1 ? 'Nieuwe toetsweek' : 'Selecteer vakken'}</DialogTitle>
           <DialogDescription>
-            {step === 1 
-              ? 'Voer de details van uw toetsweek in' 
+            {step === 1
+              ? 'Voer de details van uw toetsweek in'
               : 'Selecteer de vakken voor deze toetsweek'}
           </DialogDescription>
         </DialogHeader>
@@ -175,12 +177,9 @@ export function TestWeekWizard({ isOpen, onClose, onComplete }: TestWeekWizardPr
               <Label>Startdatum</Label>
               <Popover>
                 <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className="w-full justify-start text-left font-normal"
-                  >
+                  <Button variant="outline" className="w-full justify-start text-left font-normal">
                     <CalendarIcon className="mr-2 h-4 w-4" />
-                    {startDate ? format(startDate, "PPP", { locale: nl }) : "Kies een datum"}
+                    {startDate ? format(startDate, 'PPP', { locale: nl }) : 'Kies een datum'}
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">
@@ -199,12 +198,9 @@ export function TestWeekWizard({ isOpen, onClose, onComplete }: TestWeekWizardPr
               <Label>Einddatum</Label>
               <Popover>
                 <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className="w-full justify-start text-left font-normal"
-                  >
+                  <Button variant="outline" className="w-full justify-start text-left font-normal">
                     <CalendarIcon className="mr-2 h-4 w-4" />
-                    {endDate ? format(endDate, "PPP", { locale: nl }) : "Kies een datum"}
+                    {endDate ? format(endDate, 'PPP', { locale: nl }) : 'Kies een datum'}
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">
@@ -214,23 +210,19 @@ export function TestWeekWizard({ isOpen, onClose, onComplete }: TestWeekWizardPr
                     onSelect={setEndDate}
                     initialFocus
                     locale={nl}
-                    disabled={(date) => startDate ? date < startDate : false}
+                    disabled={(date) => (startDate ? date < startDate : false)}
                   />
                 </PopoverContent>
               </Popover>
             </div>
 
-            {error && (
-              <p className="text-sm text-red-500">{error}</p>
-            )}
+            {error && <p className="text-sm text-red-500">{error}</p>}
 
             <div className="flex justify-end gap-2">
               <Button variant="outline" onClick={onClose}>
                 Annuleren
               </Button>
-              <Button onClick={handleNext}>
-                Volgende
-              </Button>
+              <Button onClick={handleNext}>Volgende</Button>
             </div>
           </div>
         ) : (
@@ -239,7 +231,7 @@ export function TestWeekWizard({ isOpen, onClose, onComplete }: TestWeekWizardPr
               {availableSubjects.map((subject) => (
                 <Button
                   key={subject.id}
-                  variant={selectedSubjects.includes(subject.id) ? "default" : "outline"}
+                  variant={selectedSubjects.includes(subject.id) ? 'default' : 'outline'}
                   onClick={() => toggleSubject(subject.id)}
                   className="justify-start"
                 >
@@ -248,9 +240,7 @@ export function TestWeekWizard({ isOpen, onClose, onComplete }: TestWeekWizardPr
               ))}
             </div>
 
-            {error && (
-              <p className="text-sm text-red-500">{error}</p>
-            )}
+            {error && <p className="text-sm text-red-500">{error}</p>}
 
             <div className="flex justify-end gap-2">
               <Button variant="outline" onClick={handleBack} disabled={loading}>

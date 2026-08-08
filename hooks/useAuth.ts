@@ -1,6 +1,6 @@
 /**
  * React Hooks for Authentication
- * 
+ *
  * Custom hooks for managing authentication state in React components
  */
 
@@ -17,14 +17,14 @@ type UserProfile = Database['public']['Tables']['users']['Row'];
 
 /**
  * Hook to get the current authenticated user
- * 
+ *
  * @returns Current user or null
- * 
+ *
  * @example
  * ```tsx
  * function MyComponent() {
  *   const user = useUser();
- *   
+ *
  *   if (!user) return <div>Please log in</div>;
  *   return <div>Welcome {user.email}</div>;
  * }
@@ -57,17 +57,17 @@ export function useUser() {
 
 /**
  * Hook to get the current user's profile from the users table
- * 
+ *
  * @returns User profile or null
- * 
+ *
  * @example
  * ```tsx
  * function ProfilePage() {
  *   const { profile, loading } = useUserProfile();
- *   
+ *
  *   if (loading) return <div>Loading...</div>;
  *   if (!profile) return <div>Not logged in</div>;
- *   
+ *
  *   return (
  *     <div>
  *       <h1>{profile.full_name}</h1>
@@ -108,17 +108,17 @@ export function useUserProfile() {
 
 /**
  * Hook to require authentication (redirects to login if not authenticated)
- * 
+ *
  * @param redirectTo - Path to redirect to after login
  * @returns Current user (guaranteed to exist after loading)
- * 
+ *
  * @example
  * ```tsx
  * function ProtectedPage() {
  *   const { user, loading } = useRequireAuth();
- *   
+ *
  *   if (loading) return <div>Loading...</div>;
- *   
+ *
  *   // User is guaranteed to exist here
  *   return <div>Welcome {user.email}</div>;
  * }
@@ -142,12 +142,12 @@ export function useRequireAuth(redirectTo?: string) {
 
 /**
  * Hook to redirect authenticated users (useful for login/register pages)
- * 
+ *
  * @example
  * ```tsx
  * function LoginPage() {
  *   useRedirectIfAuthenticated();
- *   
+ *
  *   // Rest of login form...
  * }
  * ```
@@ -167,7 +167,7 @@ export function useRedirectIfAuthenticated(to: string = '/') {
 
 /**
  * Hook to get auth session
- * 
+ *
  * @returns Current session or null
  */
 export function useSession() {

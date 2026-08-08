@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { AppShell, PageHeader, SearchField } from "@/components/AppShell";
-import { LESSONS } from "@/lib/aether-data";
+import { useState } from 'react';
+import { AppShell, PageHeader, SearchField } from '@/components/AppShell';
+import { LESSONS } from '@/lib/aether-data';
 
 export default function LessenPage() {
-  const [q, setQ] = useState("");
+  const [q, setQ] = useState('');
   const list = LESSONS.filter((l) =>
-    `${l.title} ${l.subject}`.toLowerCase().includes(q.trim().toLowerCase()),
+    `${l.title} ${l.subject}`.toLowerCase().includes(q.trim().toLowerCase())
   );
 
   return (
@@ -16,7 +16,9 @@ export default function LessenPage() {
         eyebrow="Verdieping"
         title="Lessen"
         description="Compacte uitleg per onderwerp. Volg een les en oefen daarna direct met de bijbehorende studieset."
-        action={<SearchField value={q} onChange={setQ} placeholder="Zoek een les" className="w-64" />}
+        action={
+          <SearchField value={q} onChange={setQ} placeholder="Zoek een les" className="w-64" />
+        }
       />
 
       <ul className="divide-y divide-border">

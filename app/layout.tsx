@@ -1,30 +1,31 @@
-import type { Metadata, Viewport } from "next";
-import { Inter, Cormorant_Garamond } from "next/font/google";
-import "./globals.css";
-import { ThemeProvider } from "@/components/ThemeProvider";
-import { SupabaseProvider } from "@/components/providers/SupabaseProvider";
+import type { Metadata, Viewport } from 'next';
+import { Inter, Cormorant_Garamond } from 'next/font/google';
+import './globals.css';
+import { ThemeProvider } from '@/components/ThemeProvider';
+import { SupabaseProvider } from '@/components/providers/SupabaseProvider';
 
-const inter = Inter({ 
-  subsets: ["latin"], 
-  variable: "--font-sans"
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-sans',
 });
 
-const cormorant = Cormorant_Garamond({ 
-  subsets: ["latin"], 
-  variable: "--font-display",
-  weight: ["400", "500", "600", "700"],
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  variable: '--font-display',
+  weight: ['400', '500', '600', '700'],
 });
 
 export const metadata: Metadata = {
-  title: "Aether — Studeer slimmer, onthoud langer",
-  description: "Aether is het studieplatform voor VWO en HAVO: studiesets, lessen, agenda en oefenvoortgang per vak op één plek.",
+  title: 'Aether — Studeer slimmer, onthoud langer',
+  description:
+    'Aether is het studieplatform voor VWO en HAVO: studiesets, lessen, agenda en oefenvoortgang per vak op één plek.',
   icons: {
-    icon: "/favicon.ico",
+    icon: '/favicon.ico',
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#1a1d2e",
+  themeColor: '#1a1d2e',
 };
 
 export default function RootLayout({

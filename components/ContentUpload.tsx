@@ -1,38 +1,44 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Upload, FileText, Loader2, AlertCircle } from "lucide-react";
+import { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Upload, FileText, Loader2, AlertCircle } from 'lucide-react';
 
 interface ContentUploadProps {
   userId: string;
   onUploadSuccess?: (content: any) => void;
 }
 
-export function ContentUpload({ userId, onUploadSuccess }: ContentUploadProps) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [type, setType] = useState<"study_set" | "notes" | "reference">("study_set");
-  const [jsonData, setJsonData] = useState("");
-  const [tags, setTags] = useState("");
+export function ContentUpload({ onUploadSuccess }: ContentUploadProps) {
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [type, setType] = useState<'study_set' | 'notes' | 'reference'>('study_set');
+  const [jsonData, setJsonData] = useState('');
+  const [tags, setTags] = useState('');
   const [isPublic, setIsPublic] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [jsonError, setJsonError] = useState("");
+  const [error, setError] = useState('');
+  const [jsonError, setJsonError] = useState('');
 
   const validateJson = (jsonString: string) => {
     try {
       JSON.parse(jsonString);
-      setJsonError("");
+      setJsonError('');
       return true;
-    } catch (e) {
-      setJsonError("Invalid JSON format");
+    } catch {
+      setJsonError('Invalid JSON format');
       return false;
     }
   };
@@ -42,7 +48,7 @@ export function ContentUpload({ userId, onUploadSuccess }: ContentUploadProps) {
     if (value.trim()) {
       validateJson(value);
     } else {
-      setJsonError("");
+      setJsonError('');
     }
   };
 
@@ -61,34 +67,37 @@ export function ContentUpload({ userId, onUploadSuccess }: ContentUploadProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
+    setError('');
 
     if (!title.trim()) {
-      setError("Title is required");
+      setError('Title is required');
       return;
     }
 
     if (!jsonData.trim()) {
-      setError("Content data is required");
+      setError('Content data is required');
       return;
     }
 
     if (!validateJson(jsonData)) {
-      setError("Invalid JSON format");
+      setError('Invalid JSON format');
       return;
     }
 
     setLoading(true);
 
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       const parsedData = JSON.parse(jsonData);
-      const tagsArray = tags.split(",").map((tag) => tag.trim()).filter(Boolean);
+      const tagsArray = tags
+        .split(',')
+        .map((tag) => tag.trim())
+        .filter(Boolean);
 
-      const response = await fetch("/api/content", {
-        method: "POST",
+      const response = await fetch('/api/content', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
@@ -104,21 +113,21 @@ export function ContentUpload({ userId, onUploadSuccess }: ContentUploadProps) {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || "Failed to upload content");
+        throw new Error(result.error || 'Failed to upload content');
       }
 
       // Reset form
-      setTitle("");
-      setDescription("");
-      setJsonData("");
-      setTags("");
+      setTitle('');
+      setDescription('');
+      setJsonData('');
+      setTags('');
       setIsPublic(false);
 
       if (onUploadSuccess) {
         onUploadSuccess(result.content);
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to upload content");
+      setError(err instanceof Error ? err.message : 'Failed to upload content');
     } finally {
       setLoading(false);
     }
@@ -150,7 +159,9 @@ export function ContentUpload({ userId, onUploadSuccess }: ContentUploadProps) {
             <Textarea
               id="description"
               value={description}
-              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setDescription(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                setDescription(e.target.value)
+              }
               placeholder="Enter content description (optional)"
               rows={3}
               disabled={loading}
@@ -178,7 +189,7 @@ export function ContentUpload({ userId, onUploadSuccess }: ContentUploadProps) {
                 type="button"
                 variant="outline"
                 size="sm"
-                onClick={() => document.getElementById("file-upload")?.click()}
+                onClick={() => document.getElementById('file-upload')?.click()}
                 disabled={loading}
               >
                 <FileText className="w-4 h-4 mr-2" />
@@ -195,7 +206,9 @@ export function ContentUpload({ userId, onUploadSuccess }: ContentUploadProps) {
             <Textarea
               id="json"
               value={jsonData}
-              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => handleJsonChange(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                handleJsonChange(e.target.value)
+              }
               placeholder="Paste or upload JSON content"
               rows={10}
               className="font-mono text-sm"

@@ -8,16 +8,16 @@ The UI in `UI-REFERENCE-2` is the visual source of truth. It is a separate TanSt
 
 ## Current Baseline
 
-| Area | Current implementation | Decision |
-| --- | --- | --- |
-| Web app | Next.js 14 + TypeScript + Tailwind CSS | Keep; do not migrate frameworks for UI work. |
-| Reference UI | `UI-REFERENCE-2` (TanStack Start/Vite) | Use only as the pixel-level visual specification. |
-| Shared UI | `components/AppShell.tsx`, `components/ui-kit.tsx`, `app/globals.css` | Make these the single Aether design-system source. |
-| Authentication | Supabase provider and auth pages; legacy JWT routes also exist | Consolidate behind one adapter before adding features; do not remove either flow during UI work. |
-| Data/API | `app/api/**`, Supabase types/migrations, plus legacy SQLite-oriented libraries | Preserve all current endpoints; inventory and migrate deliberately. |
-| Learning engine | `components/learning-platform/**`, Zustand, local progress store, SRS-like scheduling | Keep operational; replace scheduling only through tested compatibility layers. |
-| Content | JSON content in `content/` and dynamic content routes | Keep backward-compatible loaders and import paths. |
-| Existing product areas | Calendar, test weeks, profile, analytics, classes, homework, achievements | Restyle without changing their API contracts. |
+| Area                   | Current implementation                                                                | Decision                                                                                         |
+| ---------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| Web app                | Next.js 14 + TypeScript + Tailwind CSS                                                | Keep; do not migrate frameworks for UI work.                                                     |
+| Reference UI           | `UI-REFERENCE-2` (TanStack Start/Vite)                                                | Use only as the pixel-level visual specification.                                                |
+| Shared UI              | `components/AppShell.tsx`, `components/ui-kit.tsx`, `app/globals.css`                 | Make these the single Aether design-system source.                                               |
+| Authentication         | Supabase provider and auth pages; legacy JWT routes also exist                        | Consolidate behind one adapter before adding features; do not remove either flow during UI work. |
+| Data/API               | `app/api/**`, Supabase types/migrations, plus legacy SQLite-oriented libraries        | Preserve all current endpoints; inventory and migrate deliberately.                              |
+| Learning engine        | `components/learning-platform/**`, Zustand, local progress store, SRS-like scheduling | Keep operational; replace scheduling only through tested compatibility layers.                   |
+| Content                | JSON content in `content/` and dynamic content routes                                 | Keep backward-compatible loaders and import paths.                                               |
+| Existing product areas | Calendar, test weeks, profile, analytics, classes, homework, achievements             | Restyle without changing their API contracts.                                                    |
 
 ## Non-Negotiable Guardrails
 
@@ -50,16 +50,16 @@ The UI may show optimistic state, but server-confirmed data and append-only revi
 
 The existing `study_sets`, cards/progress, test-week, calendar, analytics, and user models must first be mapped to a canonical schema. Additive migrations should introduce the following concepts; adapt column names rather than breaking live records.
 
-| Canonical entity | Repository mapping / responsibility |
-| --- | --- |
-| `profiles` | Supabase-auth user profile, username, avatar, timezone, theme, XP, streak counters. |
-| `decks` / `study_sets` | Owner, title, subject, visibility, source/import metadata, optional exam date. |
-| `cards` | Rich front/back content, media, card type, choices/cloze metadata, timestamps. |
-| `user_card_state` | One scheduling state per user/card: state, stability, difficulty, due time, repetitions, lapses, latest revision. |
-| `review_logs` | Immutable rating event with state before/after, device/client id, offline sync id, timestamp. |
-| `test_weeks` and `test_week_subjects` | Existing exam planning data; link decks and target dates rather than duplicating content. |
-| `calendar_events`, `tasks`, `study_plans` | Continue exposing the current API shape while repositories move to Supabase. |
-| `achievements`, `leaderboard_periods`, `classrooms` | Derived gamification/social records, not inputs to scheduling. |
+| Canonical entity                                    | Repository mapping / responsibility                                                                               |
+| --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `profiles`                                          | Supabase-auth user profile, username, avatar, timezone, theme, XP, streak counters.                               |
+| `decks` / `study_sets`                              | Owner, title, subject, visibility, source/import metadata, optional exam date.                                    |
+| `cards`                                             | Rich front/back content, media, card type, choices/cloze metadata, timestamps.                                    |
+| `user_card_state`                                   | One scheduling state per user/card: state, stability, difficulty, due time, repetitions, lapses, latest revision. |
+| `review_logs`                                       | Immutable rating event with state before/after, device/client id, offline sync id, timestamp.                     |
+| `test_weeks` and `test_week_subjects`               | Existing exam planning data; link decks and target dates rather than duplicating content.                         |
+| `calendar_events`, `tasks`, `study_plans`           | Continue exposing the current API shape while repositories move to Supabase.                                      |
+| `achievements`, `leaderboard_periods`, `classrooms` | Derived gamification/social records, not inputs to scheduling.                                                    |
 
 Required database protections:
 
@@ -180,14 +180,14 @@ Required database protections:
 
 ## Verification Matrix
 
-| Change type | Required checks |
-| --- | --- |
-| Shared UI | Reference screenshot diff, responsive manual pass, keyboard/focus pass. |
-| API-connected page | Existing request/response contract tests, authenticated and unauthenticated cases, loading/error/empty UI states. |
-| Database migration | Backup/export, migration test on representative data, RLS tests, rollback procedure. |
-| Scheduler change | Golden FSRS cases, timezone tests, idempotency tests, old-progress migration tests. |
-| Offline work | Disconnect/reload/reconnect test; duplicate-event and ordering test. |
-| Social/realtime work | Permission, reconnect, room isolation, and rate-limit tests. |
+| Change type          | Required checks                                                                                                   |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Shared UI            | Reference screenshot diff, responsive manual pass, keyboard/focus pass.                                           |
+| API-connected page   | Existing request/response contract tests, authenticated and unauthenticated cases, loading/error/empty UI states. |
+| Database migration   | Backup/export, migration test on representative data, RLS tests, rollback procedure.                              |
+| Scheduler change     | Golden FSRS cases, timezone tests, idempotency tests, old-progress migration tests.                               |
+| Offline work         | Disconnect/reload/reconnect test; duplicate-event and ordering test.                                              |
+| Social/realtime work | Permission, reconnect, room isolation, and rate-limit tests.                                                      |
 
 ## Non-AI MVP Exit Criteria
 
@@ -207,4 +207,3 @@ The platform is ready for AI only when all of the following are true:
 2. Finish Phase 1 screenshot checks route by route, beginning with the dashboard, subjects, agenda, grades, decks, planner, notes, and settings.
 3. Add a temporary compatibility test suite for `/api/studysets`, `/api/testweeks`, calendar, content, profile, and analytics before any data-layer refactor.
 4. Select and pin the official FSRS implementation, then write golden scheduling tests before replacing the current SRS adapter.
-

@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
-import { buildMcqQuestion } from "@/lib/learning-platform/question-generator";
-import { fisherYatesShuffle } from "@/lib/learning-platform/term-filters";
-import { useLearningPlatformStore } from "@/store/useLearningPlatformStore";
-import type { Question, Term, TermResult } from "@/types/learning-platform";
-import { McqQuestion } from "../questions/McqQuestion";
-import { SessionSummary } from "../SessionSummary";
+import { useEffect, useRef, useState } from 'react';
+import { buildMcqQuestion } from '@/lib/learning-platform/question-generator';
+import { fisherYatesShuffle } from '@/lib/learning-platform/term-filters';
+import { useLearningPlatformStore } from '@/store/useLearningPlatformStore';
+import type { Question, Term, TermResult } from '@/types/learning-platform';
+import { McqQuestion } from '../questions/McqQuestion';
+import { SessionSummary } from '../SessionSummary';
 
 export function McqOnlyMode() {
   const { playableTerms, studySet, settings, recordAnswer, beginSession, endSession } =
@@ -26,34 +26,38 @@ export function McqOnlyMode() {
     const terms = fisherYatesShuffle(playableTerms);
     setSessionTerms(terms);
     distractorTerms.current = studySet?.terms ?? terms;
-    beginSession("multiple-choice-only", terms.length);
-  }, [beginSession, playableTerms]);
+    beginSession('multiple-choice-only', terms.length);
+  }, [beginSession, playableTerms, studySet?.terms]);
 
   useEffect(() => {
-    setQuestion(sessionTerms[index] ? buildMcqQuestion(sessionTerms[index], distractorTerms.current, settings) : null);
+    setQuestion(
+      sessionTerms[index]
+        ? buildMcqQuestion(sessionTerms[index], distractorTerms.current, settings)
+        : null
+    );
   }, [index, sessionTerms, settings]);
 
   const onAnswer = (answer: string, correct: boolean) => {
     if (!question) return;
     recordAnswer(question.term.id, {
-      questionType: "multiple-choice",
+      questionType: 'multiple-choice',
       userAnswer: answer,
       correctAnswer: question.correctAnswer,
       isCorrect: correct,
       wasOverridden: false,
-      reviewGrade: correct ? "hard" : "again",
+      reviewGrade: correct ? 'hard' : 'again',
       timeSpent: Date.now() - question.startTime.getTime(),
     });
     setResults((prev) => [
       ...prev,
       {
         termId: question.term.id,
-        questionType: "multiple-choice",
+        questionType: 'multiple-choice',
         userAnswer: answer,
         correctAnswer: question.correctAnswer,
         isCorrect: correct,
         wasOverridden: false,
-        reviewGrade: correct ? "hard" : "again",
+        reviewGrade: correct ? 'hard' : 'again',
         timeSpent: Date.now() - question.startTime.getTime(),
         timestamp: new Date(),
       },
@@ -90,7 +94,7 @@ export function McqOnlyMode() {
   return (
     <div className="max-w-2xl mx-auto">
       <p className="text-sm text-center text-muted-foreground mb-4">
-        {index + 1} / {sessionTerms.length} - Accuracy{" "}
+        {index + 1} / {sessionTerms.length} - Accuracy{' '}
         {stats.total ? Math.round((stats.correct / stats.total) * 100) : 0}%
       </p>
       <McqQuestion key={question.id} question={question} onAnswer={onAnswer} />

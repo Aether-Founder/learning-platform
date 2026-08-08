@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { updateUserProfile } from "@/lib/supabase/auth";
+import { useState } from 'react';
+import { updateUserProfile } from '@/lib/supabase/auth';
 
 export function getCurrentSchoolYear(): string {
   const now = new Date();
@@ -11,20 +11,32 @@ export function getCurrentSchoolYear(): string {
 }
 
 const GRADES = [
-  "VMBO 1", "VMBO 2", "VMBO 3", "VMBO 4",
-  "HAVO 1", "HAVO 2", "HAVO 3", "HAVO 4", "HAVO 5",
-  "VWO 1", "VWO 2", "VWO 3", "VWO 4", "VWO 5", "VWO 6",
+  'VMBO 1',
+  'VMBO 2',
+  'VMBO 3',
+  'VMBO 4',
+  'HAVO 1',
+  'HAVO 2',
+  'HAVO 3',
+  'HAVO 4',
+  'HAVO 5',
+  'VWO 1',
+  'VWO 2',
+  'VWO 3',
+  'VWO 4',
+  'VWO 5',
+  'VWO 6',
 ] as const;
 
 const PROFILES = [
-  "Natuur & Techniek",
-  "Natuur & Gezondheid",
-  "Economie & Maatschappij",
-  "Cultuur & Maatschappij",
+  'Natuur & Techniek',
+  'Natuur & Gezondheid',
+  'Economie & Maatschappij',
+  'Cultuur & Maatschappij',
 ] as const;
 
 export function requiresProfile(grade: string): boolean {
-  const upperGrades = ["HAVO 4", "HAVO 5", "VWO 4", "VWO 5", "VWO 6"];
+  const upperGrades = ['HAVO 4', 'HAVO 5', 'VWO 4', 'VWO 5', 'VWO 6'];
   return upperGrades.includes(grade);
 }
 
@@ -43,8 +55,8 @@ export function GradeOnboardingModal({
   const needsOnboarding = !currentGrade || confirmedYear !== schoolYear;
 
   const [step, setStep] = useState<1 | 2>(1);
-  const [selectedGrade, setSelectedGrade] = useState<string>(currentGrade || "");
-  const [selectedTrack, setSelectedTrack] = useState<string>(currentTrack || "");
+  const [selectedGrade, setSelectedGrade] = useState<string>(currentGrade || '');
+  const [selectedTrack, setSelectedTrack] = useState<string>(currentTrack || '');
   const [loading, setLoading] = useState(false);
 
   if (!needsOnboarding) return null;
@@ -73,15 +85,15 @@ export function GradeOnboardingModal({
         grade_confirmed_year: schoolYear,
       } as any);
 
-      if (typeof window !== "undefined") {
-        localStorage.setItem("user_grade_level", grade);
-        localStorage.setItem("user_profile_track", track || "");
-        localStorage.setItem("user_grade_confirmed_year", schoolYear);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('user_grade_level', grade);
+        localStorage.setItem('user_profile_track', track || '');
+        localStorage.setItem('user_grade_confirmed_year', schoolYear);
       }
 
       onComplete(grade, track);
     } catch (e) {
-      console.error("Failed to save grade onboarding:", e);
+      console.error('Failed to save grade onboarding:', e);
     } finally {
       setLoading(false);
     }
@@ -95,12 +107,12 @@ export function GradeOnboardingModal({
             Schooljaar {schoolYear}
           </span>
           <h2 className="mt-2 font-display text-2xl font-semibold">
-            {step === 1 ? "In welke klas zit je?" : "Welk profiel heb je gekozen?"}
+            {step === 1 ? 'In welke klas zit je?' : 'Welk profiel heb je gekozen?'}
           </h2>
           <p className="mt-1 text-xs text-muted-foreground">
             {step === 1
-              ? "Selecteer je huidige leerjaar om je vakken en Toetsweekvoorbereiding in te stellen."
-              : "Kies je profiel voor de bovenbouw."}
+              ? 'Selecteer je huidige leerjaar om je vakken en Toetsweekvoorbereiding in te stellen.'
+              : 'Kies je profiel voor de bovenbouw.'}
           </p>
         </div>
 
@@ -113,8 +125,8 @@ export function GradeOnboardingModal({
                 onClick={() => setSelectedGrade(g)}
                 className={`rounded-lg border p-3 text-center text-sm font-medium transition-all ${
                   selectedGrade === g
-                    ? "border-foreground bg-foreground text-background"
-                    : "border-border bg-background hover:border-foreground/40 hover:bg-secondary/50"
+                    ? 'border-foreground bg-foreground text-background'
+                    : 'border-border bg-background hover:border-foreground/40 hover:bg-secondary/50'
                 }`}
               >
                 {g}
@@ -130,8 +142,8 @@ export function GradeOnboardingModal({
                 onClick={() => setSelectedTrack(p)}
                 className={`w-full rounded-lg border p-3.5 text-left text-sm font-medium transition-all ${
                   selectedTrack === p
-                    ? "border-foreground bg-foreground text-background"
-                    : "border-border bg-background hover:border-foreground/40 hover:bg-secondary/50"
+                    ? 'border-foreground bg-foreground text-background'
+                    : 'border-border bg-background hover:border-foreground/40 hover:bg-secondary/50'
                 }`}
               >
                 {p}
@@ -160,10 +172,10 @@ export function GradeOnboardingModal({
             className="rounded-md bg-primary px-5 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-50"
           >
             {loading
-              ? "Opslaan..."
+              ? 'Opslaan...'
               : step === 1 && requiresProfile(selectedGrade)
-              ? "Volgende"
-              : "Opslaan"}
+                ? 'Volgende'
+                : 'Opslaan'}
           </button>
         </div>
       </div>

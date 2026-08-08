@@ -1,13 +1,12 @@
 /**
  * Supabase Queries for Subjects
- * 
+ *
  * All database operations related to school subjects
  */
 
 import { supabase } from '@/lib/supabase/client';
 import type { Database } from '@/types/database.types';
 
-type Subject = Database['public']['Tables']['subjects']['Row'];
 type SubjectInsert = Database['public']['Tables']['subjects']['Insert'];
 type SubjectUpdate = Database['public']['Tables']['subjects']['Update'];
 
@@ -42,11 +41,7 @@ export async function getSubjectBySlug(userId: string, slug: string) {
  * Get a single subject by ID
  */
 export async function getSubjectById(subjectId: string) {
-  const { data, error } = await supabase
-    .from('subjects')
-    .select('*')
-    .eq('id', subjectId)
-    .single();
+  const { data, error } = await supabase.from('subjects').select('*').eq('id', subjectId).single();
 
   return { data, error };
 }
@@ -55,11 +50,7 @@ export async function getSubjectById(subjectId: string) {
  * Create a new subject
  */
 export async function createSubject(subject: SubjectInsert) {
-  const { data, error } = await supabase
-    .from('subjects')
-    .insert(subject)
-    .select()
-    .single();
+  const { data, error } = await supabase.from('subjects').insert(subject).select().single();
 
   return { data, error };
 }
@@ -82,10 +73,7 @@ export async function updateSubject(subjectId: string, updates: SubjectUpdate) {
  * Delete a subject
  */
 export async function deleteSubject(subjectId: string) {
-  const { error } = await supabase
-    .from('subjects')
-    .delete()
-    .eq('id', subjectId);
+  const { error } = await supabase.from('subjects').delete().eq('id', subjectId);
 
   return { error };
 }

@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useState, useMemo, memo, useCallback, useEffect } from "react";
-import { MarkdownRenderer } from "./MarkdownRenderer";
-import { ChevronLeft, ChevronRight, RotateCcw, Shuffle } from "lucide-react";
-import { useTranslation } from "@/lib/i18n";
+import { useState, useMemo, memo, useCallback, useEffect } from 'react';
+import { MarkdownRenderer } from './MarkdownRenderer';
+import { ChevronLeft, ChevronRight, RotateCcw, Shuffle } from 'lucide-react';
+import { useTranslation } from '@/lib/i18n';
 
 interface ParagraphQuestion {
   id: string;
   number: string;
   question: string;
   answer: string;
-  difficulty?: "easy" | "medium" | "hard";
+  difficulty?: 'easy' | 'medium' | 'hard';
 }
 
 interface Paragraph {
@@ -30,10 +30,7 @@ interface StudyModeProps {
 
 // Helper function to convert \n to actual newlines and preserve markdown breaks
 function processNewlines(text: string): string {
-  return text
-    .replace(/\\n/g, '\n')
-    .replace(/\r\n/g, '\n')
-    .replace(/\n/g, '  \n');
+  return text.replace(/\\n/g, '\n').replace(/\r\n/g, '\n').replace(/\n/g, '  \n');
 }
 
 interface FlashcardProps {
@@ -42,30 +39,26 @@ interface FlashcardProps {
   onFlip: () => void;
 }
 
-const Flashcard = memo(function Flashcard({
-  question,
-  isFlipped,
-  onFlip,
-}: FlashcardProps) {
+const Flashcard = memo(function Flashcard({ question, isFlipped, onFlip }: FlashcardProps) {
   const { t } = useTranslation();
 
   return (
     <div
       onClick={onFlip}
       className="relative w-full aspect-[4/3] cursor-pointer group"
-      style={{ perspective: "1000px" }}
+      style={{ perspective: '1000px' }}
     >
       <div
         className="relative w-full h-full transition-transform duration-500"
         style={{
-          transformStyle: "preserve-3d",
-          transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
+          transformStyle: 'preserve-3d',
+          transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
         }}
       >
         {/* Front - Question */}
         <div
           className="absolute inset-0 bg-card border border-border rounded-xl p-6 sm:p-8 shadow-sm flex flex-col"
-          style={{ backfaceVisibility: "hidden" }}
+          style={{ backfaceVisibility: 'hidden' }}
         >
           <div className="flex items-center justify-between mb-4">
             <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
@@ -74,11 +67,11 @@ const Flashcard = memo(function Flashcard({
             {question.difficulty && (
               <span
                 className={`text-xs px-2 py-1 rounded-full ${
-                  question.difficulty === "easy"
-                    ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
-                    : question.difficulty === "medium"
-                    ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"
-                    : "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
+                  question.difficulty === 'easy'
+                    ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+                    : question.difficulty === 'medium'
+                      ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400'
+                      : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
                 }`}
               >
                 {t(`difficulty_${question.difficulty}`, question.difficulty)}
@@ -90,15 +83,13 @@ const Flashcard = memo(function Flashcard({
               {processNewlines(question.question)}
             </MarkdownRenderer>
           </div>
-          <div className="text-center text-xs text-muted-foreground mt-4">
-            {t('click_to_flip')}
-          </div>
+          <div className="text-center text-xs text-muted-foreground mt-4">{t('click_to_flip')}</div>
         </div>
 
         {/* Back - Answer */}
         <div
           className="absolute inset-0 bg-secondary border border-border rounded-xl p-6 sm:p-8 shadow-sm flex flex-col"
-          style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
+          style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
         >
           <div className="flex items-center justify-between mb-4">
             <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
@@ -110,9 +101,7 @@ const Flashcard = memo(function Flashcard({
               {processNewlines(question.answer)}
             </MarkdownRenderer>
           </div>
-          <div className="text-center text-xs text-muted-foreground mt-4">
-            {t('click_to_flip')}
-          </div>
+          <div className="text-center text-xs text-muted-foreground mt-4">{t('click_to_flip')}</div>
         </div>
       </div>
     </div>
@@ -123,7 +112,6 @@ export const StudyMode = memo(function StudyMode({ section }: StudyModeProps) {
   const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
-  const [showAllAnswers, setShowAllAnswers] = useState(false);
   const [shuffled, setShuffled] = useState(false);
 
   // Extract all questions from paragraphs
@@ -180,37 +168,31 @@ export const StudyMode = memo(function StudyMode({ section }: StudyModeProps) {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       // Only handle keys when in study mode (this component is mounted)
-      if (event.code === "Space") {
+      if (event.code === 'Space') {
         event.preventDefault(); // Prevent page scroll
         handleFlip();
-      } else if (event.code === "ArrowLeft") {
+      } else if (event.code === 'ArrowLeft') {
         event.preventDefault();
         handlePrev();
-      } else if (event.code === "ArrowRight") {
+      } else if (event.code === 'ArrowRight') {
         event.preventDefault();
         handleNext();
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleFlip, handlePrev, handleNext]);
 
   if (totalQuestions === 0) {
-    return (
-      <div className="text-center py-12 text-muted-foreground">
-        {t('no_results')}
-      </div>
-    );
+    return <div className="text-center py-12 text-muted-foreground">{t('no_results')}</div>;
   }
 
   return (
     <div className="max-w-3xl mx-auto">
       {/* Header */}
       <div className="mb-8 text-center">
-        <h2 className="text-2xl font-serif font-medium text-foreground mb-2">
-          {section.title}
-        </h2>
+        <h2 className="text-2xl font-serif font-medium text-foreground mb-2">{section.title}</h2>
         <p className="text-sm text-muted-foreground">
           {t('question')} {currentIndex + 1} {t('of')} {totalQuestions}
         </p>
@@ -226,11 +208,7 @@ export const StudyMode = memo(function StudyMode({ section }: StudyModeProps) {
 
       {/* Flashcard */}
       {currentQuestion && (
-        <Flashcard
-          question={currentQuestion}
-          isFlipped={isFlipped}
-          onFlip={handleFlip}
-        />
+        <Flashcard question={currentQuestion} isFlipped={isFlipped} onFlip={handleFlip} />
       )}
 
       {/* Controls */}
@@ -238,7 +216,7 @@ export const StudyMode = memo(function StudyMode({ section }: StudyModeProps) {
         <button
           onClick={handlePrev}
           className="p-3 rounded-full bg-secondary hover:bg-secondary/80 transition-colors"
-          title={t("previous_question")}
+          title={t('previous_question')}
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
@@ -247,13 +225,13 @@ export const StudyMode = memo(function StudyMode({ section }: StudyModeProps) {
           onClick={handleFlip}
           className="px-6 py-3 rounded-full bg-foreground text-background font-medium hover:bg-foreground/90 transition-colors"
         >
-          {isFlipped ? t("show_question") : t("show_answer")}
+          {isFlipped ? t('show_question') : t('show_answer')}
         </button>
 
         <button
           onClick={handleNext}
           className="p-3 rounded-full bg-secondary hover:bg-secondary/80 transition-colors"
-          title={t("next_question")}
+          title={t('next_question')}
         >
           <ChevronRight className="w-5 h-5" />
         </button>
@@ -264,11 +242,13 @@ export const StudyMode = memo(function StudyMode({ section }: StudyModeProps) {
         <button
           onClick={handleShuffle}
           className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm transition-colors ${
-            shuffled ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30" : "bg-secondary hover:bg-secondary/80"
+            shuffled
+              ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30'
+              : 'bg-secondary hover:bg-secondary/80'
           }`}
         >
           <Shuffle className="w-4 h-4" />
-          {shuffled ? t("shuffled") : t("shuffle")}
+          {shuffled ? t('shuffled') : t('shuffle')}
         </button>
 
         <button
@@ -276,14 +256,12 @@ export const StudyMode = memo(function StudyMode({ section }: StudyModeProps) {
           className="flex items-center gap-2 px-4 py-2 rounded-md text-sm bg-secondary hover:bg-secondary/80 transition-colors"
         >
           <RotateCcw className="w-4 h-4" />
-          {t("reset")}
+          {t('reset')}
         </button>
       </div>
 
       {/* Keyboard Shortcuts Hint */}
-      <div className="mt-8 text-center text-xs text-muted-foreground">
-        {t("keyboard_hint")}
-      </div>
+      <div className="mt-8 text-center text-xs text-muted-foreground">{t('keyboard_hint')}</div>
     </div>
   );
 });

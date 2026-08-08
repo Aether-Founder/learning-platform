@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { memo } from "react";
-import { Bookmark, X } from "lucide-react";
-import { useTranslation } from "@/lib/i18n";
+import { memo } from 'react';
+import { Bookmark, X } from 'lucide-react';
+import { useTranslation } from '@/lib/i18n';
 
 interface Bookmark {
   paragraphId: string;
@@ -48,12 +48,12 @@ export const BookmarksSidebar = memo(function BookmarksSidebar({
                 onClick={() => {
                   const element = document.getElementById(bookmark.paragraphId);
                   if (element) {
-                    element.scrollIntoView({ behavior: "smooth", block: "start" });
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }
                 }}
                 className="flex-1 text-left px-3 py-2 rounded-md text-[12px] text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors line-clamp-2"
               >
-                {bookmark.title || t("untitled")}
+                {bookmark.title || t('untitled')}
               </button>
               <button
                 onClick={() => onRemove(bookmark.paragraphId)}

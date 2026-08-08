@@ -48,8 +48,17 @@ export class LegacyStudySetRepository implements IStudySetRepository {
   async getPublic(limit = 50, offset = 0) {
     return legacyStudySets.getPublicStudySets(limit, offset);
   }
-  async create(userId: string, data: { title: string; description?: string; folderId?: string; isPublic?: boolean }) {
-    return legacyStudySets.createStudySet(userId, data.title, data.description, data.folderId, data.isPublic ?? false);
+  async create(
+    userId: string,
+    data: { title: string; description?: string; folderId?: string; isPublic?: boolean }
+  ) {
+    return legacyStudySets.createStudySet(
+      userId,
+      data.title,
+      data.description,
+      data.folderId,
+      data.isPublic ?? false
+    );
   }
   async update(id: string, updates: any) {
     return legacyStudySets.updateStudySet(id, updates);
@@ -70,7 +79,13 @@ export class LegacyCardRepository implements ICardRepository {
     return legacyStudySets.getStudyCardById(cardId);
   }
   async addCard(studySetId: string, data: any) {
-    return legacyStudySets.addStudyCard(studySetId, data.term || data.front || '', data.definition || data.back || '', data.imageUrl, data);
+    return legacyStudySets.addStudyCard(
+      studySetId,
+      data.term || data.front || '',
+      data.definition || data.back || '',
+      data.imageUrl,
+      data
+    );
   }
   async updateCard(cardId: string, updates: any) {
     return legacyStudySets.updateStudyCard(cardId, updates);

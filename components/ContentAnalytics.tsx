@@ -1,12 +1,17 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Progress } from "@/components/ui/progress";
-import { TrendingUp, TrendingDown, Eye, Download, Share2, Clock, FileText, Users } from "lucide-react";
+import { useState, useEffect, useCallback } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Progress } from '@/components/ui/progress';
+import { TrendingUp, TrendingDown, Eye, Download, FileText, Users } from 'lucide-react';
 
 interface ContentAnalytics {
   totalContent: number;
@@ -38,19 +43,15 @@ interface ContentAnalyticsProps {
   userId: string;
 }
 
-export function ContentAnalytics({ userId }: ContentAnalyticsProps) {
+export function ContentAnalytics({ userId: _userId }: ContentAnalyticsProps) {
   const [analytics, setAnalytics] = useState<ContentAnalytics | null>(null);
   const [loading, setLoading] = useState(true);
-  const [timeRange, setTimeRange] = useState<"week" | "month" | "all">("all");
+  const [timeRange, setTimeRange] = useState<'week' | 'month' | 'all'>('all');
 
-  useEffect(() => {
-    fetchAnalytics();
-  }, [userId, timeRange]);
-
-  const fetchAnalytics = async () => {
+  const fetchAnalytics = useCallback(async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       const response = await fetch(`/api/content/analytics?timeRange=${timeRange}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -62,11 +63,15 @@ export function ContentAnalytics({ userId }: ContentAnalyticsProps) {
         setAnalytics(data.analytics);
       }
     } catch (error) {
-      console.error("Failed to fetch content analytics:", error);
+      console.error('Failed to fetch content analytics:', error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [timeRange]);
+
+  useEffect(() => {
+    fetchAnalytics();
+  }, [fetchAnalytics]);
 
   const getTrendIcon = (current: number, previous: number) => {
     if (current > previous) return <TrendingUp className="w-4 h-4 text-green-500" />;
@@ -104,7 +109,10 @@ export function ContentAnalytics({ userId }: ContentAnalyticsProps) {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold">Content Analyse</h2>
-        <Select value={timeRange} onValueChange={(value: "week" | "month" | "all") => setTimeRange(value)}>
+        <Select
+          value={timeRange}
+          onValueChange={(value: 'week' | 'month' | 'all') => setTimeRange(value)}
+        >
           <SelectTrigger className="w-32">
             <SelectValue />
           </SelectTrigger>
@@ -156,7 +164,9 @@ export function ContentAnalytics({ userId }: ContentAnalyticsProps) {
             <Users className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{Math.round(analytics.averageRating * 10) / 10}</div>
+            <div className="text-2xl font-bold">
+              {Math.round(analytics.averageRating * 10) / 10}
+            </div>
             <p className="text-xs text-muted-foreground">van 5 sterren</p>
           </CardContent>
         </Card>
@@ -175,9 +185,7 @@ export function ContentAnalytics({ userId }: ContentAnalyticsProps) {
                   <span className="text-sm font-bold">{category.views} weergaven</span>
                 </div>
                 <Progress value={(category.views / analytics.totalViews) * 100} className="h-2" />
-                <div className="text-xs text-muted-foreground mt-1">
-                  {category.count} items
-                </div>
+                <div className="text-xs text-muted-foreground mt-1">{category.count} items</div>
               </div>
             ))}
           </CardContent>
@@ -208,12 +216,18 @@ export function ContentAnalytics({ userId }: ContentAnalyticsProps) {
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm font-medium">Engagement Rate</span>
                 <span className="text-sm font-bold">
-                  {Math.round(((analytics.totalDownloads + analytics.totalShares) / analytics.totalViews) * 100)}%
+                  {Math.round(
+                    ((analytics.totalDownloads + analytics.totalShares) / analytics.totalViews) *
+                      100
+                  )}
+                  %
                 </span>
               </div>
-              <Progress 
-                value={((analytics.totalDownloads + analytics.totalShares) / analytics.totalViews) * 100} 
-                className="h-2" 
+              <Progress
+                value={
+                  ((analytics.totalDownloads + analytics.totalShares) / analytics.totalViews) * 100
+                }
+                className="h-2"
               />
             </div>
           </CardContent>
@@ -248,12 +262,8 @@ export function ContentAnalytics({ userId }: ContentAnalyticsProps) {
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <Badge variant="outline">
-                    {Math.round(content.rating * 10) / 10} ★
-                  </Badge>
-                  <span className="text-xs text-muted-foreground">
-                    #{index + 1}
-                  </span>
+                  <Badge variant="outline">{Math.round(content.rating * 10) / 10} ★</Badge>
+                  <span className="text-xs text-muted-foreground">#{index + 1}</span>
                 </div>
               </div>
             ))}
@@ -270,10 +280,15 @@ export function ContentAnalytics({ userId }: ContentAnalyticsProps) {
             {analytics.weeklyTrends.map((week, index) => {
               const prevWeek = analytics.weeklyTrends[index - 1];
               const viewsTrend = prevWeek ? getTrendIcon(week.views, prevWeek.views) : null;
-              const downloadsTrend = prevWeek ? getTrendIcon(week.downloads, prevWeek.downloads) : null;
-              
+              const downloadsTrend = prevWeek
+                ? getTrendIcon(week.downloads, prevWeek.downloads)
+                : null;
+
               return (
-                <div key={week.week} className="flex items-center justify-between p-3 rounded-lg border">
+                <div
+                  key={week.week}
+                  className="flex items-center justify-between p-3 rounded-lg border"
+                >
                   <div className="flex items-center gap-4">
                     <span className="text-sm font-medium w-20">{week.week}</span>
                     <div className="flex items-center gap-2">
