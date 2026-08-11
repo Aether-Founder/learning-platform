@@ -79,14 +79,21 @@ export function GradeOnboardingModal({
   const saveProfile = async (grade: string, track: string | null) => {
     setLoading(true);
     try {
-      const result = await updateUserProfile({
+      const updates: any = {
         grade_level: grade,
-        track: track,
         grade_confirmed_year: schoolYear,
-      } as any);
+      };
+      
+      // Only include track if it's provided
+      if (track) {
+        updates.track = track;
+      }
+
+      const result = await updateUserProfile(updates);
 
       if (result.error) {
-        throw result.error;
+        console.error('Supabase error details:', result.error);
+        throw new Error(result.error.message || 'Database update failed');
       }
 
       if (typeof window !== 'undefined') {
@@ -95,16 +102,17 @@ export function GradeOnboardingModal({
         localStorage.setItem('user_grade_confirmed_year', schoolYear);
       }
 
-      // Call onComplete to close the modal and refresh the page
+      // Call onComplete to notify parent component
       await onComplete(grade, track);
       
       // Force a page reload to refresh all data
       if (typeof window !== 'undefined') {
         window.location.reload();
       }
-    } catch (e) {
+    } catch (e: any) {
       console.error('Failed to save grade onboarding:', e);
-      alert('Er ging iets mis bij het opslaan. Probeer het opnieuw.');
+      const errorMessage = e?.message || 'Onbekende fout';
+      alert(`Er ging iets mis bij het opslaan: ${errorMessage}`);
     } finally {
       setLoading(false);
     }
