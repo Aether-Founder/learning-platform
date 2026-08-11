@@ -47,7 +47,7 @@ function getSupabaseConfig() {
   // Validate URL format
   try {
     new URL(url);
-  } catch (e) {
+  } catch {
     console.error('❌ Invalid NEXT_PUBLIC_SUPABASE_URL:', url);
     return { url: 'https://placeholder.supabase.co', anonKey: 'placeholder' };
   }

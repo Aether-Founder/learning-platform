@@ -1,12 +1,11 @@
 'use client';
 
 import { AppShell, PageHeader } from '@/components/AppShell';
-import { PrimaryButton } from '@/components/ui-kit';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useWorkspaceStore, type WorkspaceItem } from '@/store/useWorkspaceStore';
 import { Folder, FileText, Plus, Trash2, Edit2, ChevronRight, ChevronDown } from 'lucide-react';
-import { DndContext, DragOverlay, useDraggable, useDroppable } from '@dnd-kit/core';
+import { DndContext } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
 
 function TreeItem({ item, level = 0 }: { item: WorkspaceItem; level?: number }) {
