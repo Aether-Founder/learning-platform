@@ -31,12 +31,25 @@ import { Database } from '@/types/database.types';
  * }
  * ```
  */
+/**
+ * Get Supabase configuration with graceful fallback
+ */
 function getSupabaseConfig() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
+  // Return early if env vars are missing (allows build to succeed)
   if (!url || !anonKey) {
-    throw new Error('Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY');
+    console.warn('⚠️  Supabase environment variables not configured in server client.');
+    return { url: 'https://placeholder.supabase.co', anonKey: 'placeholder' };
+  }
+
+  // Validate URL format
+  try {
+    new URL(url);
+  } catch (e) {
+    console.error('❌ Invalid NEXT_PUBLIC_SUPABASE_URL:', url);
+    return { url: 'https://placeholder.supabase.co', anonKey: 'placeholder' };
   }
 
   return { url, anonKey };

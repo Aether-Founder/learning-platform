@@ -79,11 +79,15 @@ export function GradeOnboardingModal({
   const saveProfile = async (grade: string, track: string | null) => {
     setLoading(true);
     try {
-      await updateUserProfile({
+      const result = await updateUserProfile({
         grade_level: grade,
         track: track,
         grade_confirmed_year: schoolYear,
       } as any);
+
+      if (result.error) {
+        throw result.error;
+      }
 
       if (typeof window !== 'undefined') {
         localStorage.setItem('user_grade_level', grade);
@@ -91,9 +95,16 @@ export function GradeOnboardingModal({
         localStorage.setItem('user_grade_confirmed_year', schoolYear);
       }
 
-      onComplete(grade, track);
+      // Call onComplete to close the modal and refresh the page
+      await onComplete(grade, track);
+      
+      // Force a page reload to refresh all data
+      if (typeof window !== 'undefined') {
+        window.location.reload();
+      }
     } catch (e) {
       console.error('Failed to save grade onboarding:', e);
+      alert('Er ging iets mis bij het opslaan. Probeer het opnieuw.');
     } finally {
       setLoading(false);
     }

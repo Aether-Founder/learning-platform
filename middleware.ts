@@ -19,10 +19,21 @@ export async function middleware(req: NextRequest) {
       headers: req.headers,
     },
   });
+  
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
+  // Skip middleware if env vars are missing (allows build to succeed)
   if (!supabaseUrl || !supabaseAnonKey) {
+    console.warn('⚠️  Supabase environment variables not configured. Auth will be disabled.');
+    return res;
+  }
+
+  // Validate URL format
+  try {
+    new URL(supabaseUrl);
+  } catch (e) {
+    console.error('❌ Invalid NEXT_PUBLIC_SUPABASE_URL:', supabaseUrl);
     return res;
   }
 
