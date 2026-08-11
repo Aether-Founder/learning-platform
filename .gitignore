@@ -2,36 +2,54 @@
 # Dependencies
 node_modules/
 
+# Build outputs
+dist/
+build/
+.next/
+.nuxt/
+public/build/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+.ENV
+.ENV.*
+.python-version
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
 # Environment variables
 .env
 .env.local
 .env.*
+!.env.example
 
-# IDE files
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
 
-# Logs
-*.log
-
-# Python specific
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-
-# Build outputs
-dist/
-build/
-*.egg-info/
-
-# OS generated files
-.DS_Store
-Thumbs.db
-
-# Coverage reports
+# Coverage
 coverage/
 htmlcov/
 .coverage
@@ -39,13 +57,14 @@ htmlcov/
 # Temporary files
 *.tmp
 *.temp
+*.bak
 
-# MyPy cache
-.mypy_cache/
+# Database
+*.db
+*.sqlite
+*.sqlite3
 
-# Pytest cache
-.pytest_cache/
-
-# Local configuration
-.env.local
+# Supabase
+supabase/.temp/
+supabase/logs/
 ```

@@ -1,0 +1,24 @@
+=== FILE COUNTS ===
+App files: 68
+Component files: 125
+Lib files: 74
+Migration files: 4
+
+=== PACKAGE.JSON DEPS CHECK ===
+10
+
+=== MIGRATIONS LIST ===
+total 40
+drwxr-xr-x 2 root root  4096 Aug 11 01:18 .
+drwxr-xr-x 3 root root  4096 Aug 10 23:25 ..
+-rw-r--r-- 1 root root 19999 Aug 10 23:25 001_initial_schema.sql
+-rw-r--r-- 1 root root   371 Aug 10 23:25 002_calendar_event_metadata.sql
+-rw-r--r-- 1 root root  2004 Aug 10 23:25 003_test_weeks.sql
+-rw-r--r-- 1 root root  1756 Aug 11 01:18 004_workspace_items.sql
+
+=== STUDY ROUTES CHECK ===
+MISSING
+
+=== TIMESTAMP & MD5 ===
+Tue Aug 11 10:39:02 UTC 2026
+c5a57af85252ba8af9021cef1faa2169  /workspace/package.json
