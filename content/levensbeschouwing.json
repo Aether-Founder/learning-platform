@@ -1,0 +1,839 @@
+{
+  "siteMetadata": {
+    "title": "Levensbeschouwing & Filosofie: H3 Redeneren & Geschiedenis van de Westerse Filosofie",
+    "description": "Volledige leerstof voor Wegen naar Wijsheid H3 (Redeneren en argumenteren) en de Geschiedenis van de Westerse Filosofie (Pythagoras t/m De Beauvoir)."
+  },
+  "summary": "# Samenvatting\n\n## Redeneren en argumenteren\n\n### Waarheidstheorieën\n\nEr zijn drie theorieën over waarheid:\n\n**Correspondentietheorie der waarheid:** Een uitspraak is waar wanneer het 'klopt' met de werkelijkheid. De inhoud van de uitspraak correspondeert met de feiten in de buitenwereld. Beperking: we kunnen het nooit absoluut zeker weten.\n\n**Coherentietheorie van waarheid:** Gericht op samenhang en combinatie van kennis. Een uitspraak is waar als het past binnen een bestaand systeem of theorie. Beperking: als het geheel niet klopt, klopt het niet meer.\n\n**Pragmatische theorie van waarheid:** 'Werkend' of 'resultaat opleverend'. Zolang het werkt, is het waar. Beperking: je weet het eigenlijk nog steeds niet.\n\n### Verifiëren en falsifiëren\n\n- **Verifiëren:** bevestigen dat iets waar is (bijv. alle zwanen onderzoeken om te bewijzen dat ze wit zijn)\n- **Falsifiëren:** bevestigen dat iets niet waar is (bijv. één zwarte zwaan vinden om de stelling 'alle zwanen zijn wit' te weerleggen)\n\n### Argumenten & Syllogismen\n\nEen **syllogisme** is een redenering die bestaat uit (een) premisse(s) en een conclusie.\n- Een **premisse** is een bewering\n- Een **conclusie** is wat volgt uit de bewering\n\nEen syllogisme is **geldig** als de redenering klopt, zelfs als de premissen niet waar zijn. Als de premisse waar is, moet de conclusie ook waar zijn.\n\n### Drogredenen\n\nDrogredenen zijn redeneringen die aannemelijk lijken, maar logisch niet kloppen:\n\n1. **Beroep op autoriteit:** Iets is zo, omdat een autoriteit zegt dat het zo is\n2. **Beroep op vergelijkbare situaties:** Gebruikmaken van een onjuiste vergelijking\n3. **Op de man spelen (ad hominem):** Je tegenstander zwart maken, in plaats van zijn/haar argumenten\n4. **Negatieve associatie:** Iemand verdacht maken zonder echt op het standpunt in te gaan\n5. **Bepaald taalgebruik:** Het gebruik van geladen of manipulatieve woorden\n\n## Geschiedenis van de Westerse Filosofie\n\n### Pythagoras (ca. 570–495 v.Chr.)\n\n- Griekse filosoof, wiskundige en mysticus\n- Bekend van de stelling van Pythagoras\n- Idee: \"alles is getal\" - de structuur van de werkelijkheid is gebaseerd op getalsverhoudingen\n- Gelooftde in zielsverhuizing (reïncarnatie)\n- Vegetarische levensstijl\n\n### Marcus Aurelius (121-180 n.Chr.)\n\n- Romeins keizer en stoïcijnse filosoof\n- Stoïcisme: nadruk op zelfbeheersing, rede en acceptatie van dingen die buiten je macht liggen\n- Belangrijke ideeën:\n  - Focus op wat je kunt controleren\n  - Accepteer de loop van de natuur\n  - Zelfdiscipline & reflectie\n- Schreef het boek *Meditaties* met persoonlijke reflecties\n\n### Augustinus van Hippo (354–430 n.Chr.)\n\n- Belangrijkste denker uit de late oudheid\n- Centraal thema: zoektocht naar waarheid en geluk\n- Echt geluk kan alleen gevonden worden in God: \"Onrustig is ons hart, totdat het rust vindt in U\"\n- **Privatio boni:** Kwaad is het ontbreken van het goede, geen zelfstandige 'ding'\n- Spanning tussen vrije wil en genade\n- Onderscheid tussen 'aardse stad' (eigenbelang) en 'stad van God' (spiritualiteit)\n\n### Desiderius Erasmus (ca. 1466–1536)\n\n- Nederlandse humanist uit de renaissance\n- **Humanisme:** nadruk op waarde en mogelijkheden van de mens, focus op educatie, rede en tolerantie\n- *Lof der Zotheid* (1509): satire om misstanden in kerk en samenleving te bekritiseren\n- Gelooft in dialoog, redelijkheid en gematigdheid\n- Pleit voor kritisch denken\n\n### Friedrich Nietzsche (1844–1900)\n\n- Duitse filosoof en cultuurcriticus\n- **\"God is dood\":** traditionele religieuze waarden hebben hun gezag verloren in de moderne wereld\n- **Übermensch (bovenmens):** vermogen om eigen waarden en normen te scheppen, los van traditie\n- **Wil tot macht:** fundamentele drijfveer in het leven - alles wat leeft streeft naar macht en invloed\n- **Herenmoraal vs. slavenmoraal:**\n  - Herenmoraal: kracht, creativiteit, zelfbepaling\n  - Slavenmoraal: zwakte, angst, schuldgevoel\n\n### Simone de Beauvoir (1908–1986)\n\n- Franse filosoof, schrijfster en feministe\n- **Existentialisme:** mensen zijn fundamenteel vrij, maar verantwoordelijk voor hun keuzes\n- **De Tweede Sekse (1949):** \"Men wordt niet als vrouw geboren, men wordt het\"\n- Geslacht wordt bepaald door sociale en culturele normen, niet door biologie\n- Pleit voor economische en politieke onafhankelijkheid van vrouwen\n- Kritiek op ongelijke machtsverhoudingen\n\n### Kernbegrippen\n\n- **Correspondentietheorie der waarheid:** uitspraak is waar als het klopt met de werkelijkheid\n- **Coherentietheorie van waarheid:** waarheid als samenhang binnen een systeem\n- **Pragmatische theorie van waarheid:** waarheid als 'werkend' of resultaat opleverend\n- **Syllogisme:** redenering met premissen en conclusie\n- **Premisse:** bewering waaruit een conclusie wordt getrokken\n- **Falsifiëren:** bevestigen dat iets niet waar is\n- **Drogreden:** redeneringen die aannemelijk lijken maar logisch niet kloppen\n- **Ad hominem:** op de man spelen\n- **Stoïcisme:** focus op zelfbeheersing en acceptatie\n- **Privatio boni:** kwaad als ontbreken van het goede\n- **Humanisme:** nadruk op menselijke waarde en mogelijkheden\n- **Übermensch:** eigen waarden scheppen los van traditie\n- **Wil tot macht:** fundamentele drijfveer naar macht en invloed\n- **Existentialisme:** fundamentele vrijheid en verantwoordelijkheid",
+  "contentFormat": "textbook",
+  "defaultViewMode": "study",
+  "availableModes": ["simple", "uitleg", "study", "samenvatting", "quiz"],
+  "showTimestamps": false,
+  "showExportButtons": true,
+  "showAnkiExport": true,
+  "showFlashcardsExport": true,
+  "showTranscriptExport": false,
+  "showCopyTranscript": false,
+  "buttons": [
+    {
+      "url": "https://example.com/reader-geschiedenis",
+      "text": "Reader Geschiedenis",
+      "icon": "external-link",
+      "iconType": "name",
+      "variant": "primary",
+      "enabled": true
+    },
+    {
+      "url": "https://example.com/summary-video",
+      "text": "Samenvattingsvideo H3",
+      "icon": "youtube",
+      "iconType": "name",
+      "variant": "secondary",
+      "enabled": true
+    }
+  ],
+  "sections": [
+    {
+      "id": "sec-h3-leerdoelen",
+      "title": "Leerdoelen Wegen naar Wijsheid - Hoofdstuk 3",
+      "blocks": [
+        {
+          "id": "blk-h3-leerdoelen-text",
+          "type": "text",
+          "content": "## Leerdoelen Hoofdstuk 3: Redeneren en argumenteren\n\n**Paragraaf 3.2:**\n- Leerlingen kennen het verschil tussen Waar, Onwaar & Twijfelachtig.\n- Leerlingen kunnen uitleggen wat de begrippen ‘correspondentietheorie der waarheid’ en ‘verifiëren’ betekenen.\n- Leerlingen kunnen uitleggen wat het verschil is tussen bekijken & onderzoeken en beredeneren & afleiden.\n- Leerlingen kunnen uitleggen wat de begrippen ‘coherentietheorie van de waarheid’ en ‘pragmatische theorie van de waarheid’ betekenen.\n\n**Paragraaf 3.3:**\n- Leerlingen kennen het verschil tussen geldige en ongeldige argumenten.\n- Leerlingen kunnen de begrippen ‘premisse’, ‘conclusie’ en ‘syllogisme’ uitleggen.\n- Leerlingen kunnen uitleggen wat ‘falsificeren’ betekent.\n\n**Paragraaf 3.4:**\n- Leerlingen kunnen de drogredenen: beroep op autoriteit, beroep op vergelijkbare situaties, op de man spelen [ad hominem], negatieve associatie en bepaald taalgebruik uitleggen en herkennen in argumenten.\n\n**Hele hoofdstuk (Vaardigheden):**\n- Leerlingen kunnen bedenken en beargumenteren of een redenering geldig is of niet.\n- Leerlingen kunnen bedenken en beargumenteren of een uitspraak waar is of niet.\n- Leerlingen kunnen aan de hand van een voorbeeld een drogreden herkennen en weerleggen."
+        }
+      ],
+      "answers": [],
+      "learningSets": []
+    },
+    {
+      "id": "sec-3-2",
+      "title": "Paragraaf 3.2: Wat is waar?",
+      "blocks": [
+        {
+          "id": "blk-3-2-content-1",
+          "type": "text",
+          "content": "## Wat is waar?\n\n- Er staat een brandweerauto op het schoolplein.\n- Er loopt een brandweerman over het schoolplein.\n- Er was een brand op een school in Haastrecht.\n- Nederlandse brandweerauto’s zijn rood.\n- Nederlandse nummerborden zijn geel.\n- Er was een brandoefening op een school in Haastrecht.\n\n## Verifiëren, bekijken en beredeneren\n\n**Verifiëren** = het vaststellen van de waarheid (bijv. “Nederlandse brandweerauto’s zijn rood”).\n\n**Bekijken (empirisch)** → alle auto’s onderzoeken.\n- *Nadeel 1:* te veel om te tellen.\n- *Nadeel 2:* je weet nooit wanneer je klaar bent.\n\n**Beredeneren (rationeel)** → definitie geven.\n- *Definitie:* een brandweerauto heeft verschillende eigenschappen, waaronder de kleur rood."
+        },
+        {
+          "id": "blk-3-2-content-2",
+          "type": "text",
+          "content": "## De correspondentietheorie van waarheid\n\nEen uitspraak is waar wanneer het ‘klopt’, wanneer het ‘zo is’. De inhoud van de uitspraak ‘correspondeert’ (komt overeen) met de werkelijkheid.\n\n*Beperking:* we kunnen het nooit absoluut zeker weten (empirische en rationele twijfel).\n\n## Alternatief 1: Coherentietheorie\n\n**Coherent** = gericht op samenhang / combinatie van kennis.\n\n*Voorbeeld:* als we de theorie van zwaartekracht kennen, kunnen we beredeneren dat een appel naar beneden valt. Dat past binnen het systeem / de theorie.\n\n*Beperking:* als het geheel niet klopt, klopt het niet meer.\n\n## Alternatief 2: Pragmatische theorie\n\n**Pragmatisch** = ‘werkend’ of ‘resultaat opleverend’.\n\nOftewel: zolang het werkt, is het waar. *Voorbeeld:* placebo-effect.\n\n*Beperking:* je weet het eigenlijk nog steeds niet, en je zult uiteindelijk toch naar de werkelijkheid moeten gaan kijken. Uiteindelijk keer je weer terug bij de correspondentietheorie."
+        },
+        {
+          "id": "blk-3-2-cases",
+          "type": "questions",
+          "title": "Casus: Correspondentie, coherentie of pragmatisch?",
+          "intro": "Koppel de onderstaande casus aan de juiste theorie van de waarheid.",
+          "questions": [
+            {
+              "id": "q-3-2-1",
+              "number": "Casus 1",
+              "text": "In een teamproject besluit de groep dat het handig is om één persoon als leider aan te wijzen. Of die persoon echt de beste leider is, weten ze niet zeker, maar het project verloopt sneller en iedereen weet wat hij moet doen. Daarom vinden ze het een goed idee."
+            },
+            {
+              "id": "q-3-2-2",
+              "number": "Casus 2",
+              "text": "Amir denkt dat hij zijn huiswerk waarschijnlijk vergeten is op school. Hij weet dat hij zijn tas gisteren niet heeft uitgepakt en dat hij vaak zijn schriften op school laat liggen. Deze gedachte past goed bij wat hij al weet over zijn eigen gedrag, dus hij denkt dat het klopt."
+            },
+            {
+              "id": "q-3-2-3",
+              "number": "Casus 3",
+              "text": "Sara zegt dat het morgen gaat regenen. Ze kijkt naar de weersvoorspelling en ziet dat er 90% kans op regen is. De volgende dag regent het inderdaad de hele ochtend. Daarom zegt Sara dat haar uitspraak waar was."
+            }
+          ]
+        }
+      ],
+      "answers": [],
+      "learningSets": []
+    },
+    {
+      "id": "sec-3-3",
+      "title": "Paragraaf 3.3: Argumenten & Syllogismen",
+      "blocks": [
+        {
+          "id": "blk-3-3-content-1",
+          "type": "text",
+          "content": "## Premisse, conclusie en syllogisme\n\nEen **syllogisme** is een redenering die bestaat uit (een) premisse(s) en een conclusie.\n- Een **premisse** is een bewering.\n- Een **conclusie** is wat volgt uit de bewering.\n\n*Voorbeeld:*\n- P1: Alle mensen zijn sterfelijk\n- P2: Socrates is een mens\n- C: Socrates is sterfelijk\n\n## Geldigheid en waarheid\n\nEen syllogisme is **geldig** als de redenering klopt, zelfs als de premissen niet waar zijn. Als de premisse waar is, moet de conclusie ook waar zijn. *'De waarheid van de premissen brengt dus de waarheid van de conclusie met zich mee.'*\n\n*Voorbeeld 1 (geldig & niet waar):*\n- P1: Alle mensen hebben twee benen\n- P2: Buurvrouw Jansen heeft één been\n- C: Buurvrouw Jansen is geen mens\n\n*Voorbeeld 2 (geldig & waar):*\n- P1: Alle mensen zijn sterfelijk\n- P2: Socrates is een mens\n- C: Socrates is sterfelijk"
+        },
+        {
+          "id": "blk-3-3-content-2",
+          "type": "text",
+          "content": "## Voorbeeld: Epicurus en God\n\n- P1: Als God volmaakt is, wil hij het kwaad voorkomen\n- P2: Als God almachtig is, kan hij het kwaad voorkomen\n- P3: Constatering: kwaad bestaat\n\n**C1:** God wil het kwaad niet voorkomen → God is niet volmaakt\n**Of**\n**C2:** God kan het kwaad niet voorkomen → God is niet almachtig\n\n*Antwoord van een religieus persoon:*\nEr is een alternatieve conclusie:\n**C3:** God is voor ons niet te begrijpen\n\n*Is dit een kritiek op de waarheid of de geldigheid van Epicurus’ argument?*\n\n## Verifiëren en falsifiëren\n\n- **Verifiëren:** bevestigen dat iets waar is.\n- **Falsifiëren:** bevestigen dat iets niet waar is.\n\n*Voorbeeld: Zwanen zijn wit*\n- Verifiëren: alle zwanen onderzoeken\n- Falsifiëren: één zwarte zwaan vinden"
+        },
+        {
+          "id": "blk-3-3-q",
+          "type": "questions",
+          "title": "Opdrachten Argumentatieleer",
+          "questions": [
+            {
+              "id": "q-3-3-1",
+              "number": "1",
+              "text": "Bij het argument van Epicurus over God en het kwaad: is de alternatieve conclusie (C3: God is voor ons niet te begrijpen) een kritiek op de *waarheid* of de *geldigheid* van Epicurus’ argument? Licht je antwoord toe."
+            }
+          ]
+        }
+      ],
+      "answers": [],
+      "learningSets": []
+    },
+    {
+      "id": "sec-3-4",
+      "title": "Paragraaf 3.4: Drogredenen",
+      "blocks": [
+        {
+          "id": "blk-3-4-content-1",
+          "type": "text",
+          "content": "## Logica versus argumentatieleer\n\n- **Logica** onderzoekt de geldigheid van redeneringen.\n- **Argumentatieleer** onderzoekt de argumenten die worden gebruikt in discussie / debat. Wat maakt een argument goed? Hoe kun je anderen overtuigen?\n\n## Drogredenen\n\nDrogredenen zijn redeneringen die aannemelijk lijken, maar logisch niet kloppen.\n\n1. **Beroep op autoriteit:** Iets is zo, omdat een autoriteit zegt dat het zo is. (“Het moet van de leraar” / “Iedereen vindt dit”)\n2. **Beroep op vergelijkbare situaties:** Gebruikmaken van een onjuiste vergelijking. (“Jesse heeft een 8 gehaald zonder te leren dus haal ik de toets ook zonder te leren” / “Honger? Jij hebt trek. Kinderen in Afrika hebben pas honger”)\n3. **Op de man spelen (ad hominem):** Je tegenstander zwart maken, in plaats van zijn/haar argumenten.\n4. **Een negatieve associatie:** Sluwere versie van ad hominem: je maakt iemand verdacht zonder echt op iemands standpunt in te gaan. (Bijv. iemand verdacht maken vanwege hun afkomst of partner).\n5. **Bepaald taalgebruik:** Het gebruik van geladen of manipulatieve woorden om een bepaalde reactie op te wekken."
+        },
+        {
+          "id": "blk-3-4-q",
+          "type": "questions",
+          "title": "Opdrachten Drogredenen",
+          "questions": [
+            {
+              "id": "q-3-4-1",
+              "number": "WK Voetbal",
+              "text": "Winnen we deze zomer het WK? Lees de uitspraken en koppel de juiste drogreden:\n- A. “Makkelijk. Het wordt een totale afslachting. De Argentijnen overleven het deze keer niet.”\n- B. “Ja. In ‘88 wonnen we ook het EK, dus waarom nu niet?”\n- C. “Nee. De baas van de FIFA is zo corrupt als wat, dus de scheidsrechters zullen ook wel omgekocht zijn.”\n- D. “Koeman zei in elk geval dat we deze keer een goede kans maken.”\n- E. “Denk je dat ik de toekomst kan voorspellen? Ben je dom?”"
+            }
+          ]
+        }
+      ],
+      "answers": [],
+      "learningSets": []
+    },
+    {
+      "id": "sec-filo-intro",
+      "title": "Introductie: Geschiedenis van de Westerse Filosofie",
+      "blocks": [
+        {
+          "id": "blk-filo-intro-text",
+          "type": "text",
+          "content": "## Overzicht per periode en filosoof\n\nFilosofie is niet alleen theorie, het is het leren nadenken over het leven zelf. In dit werkboek volgen we de ontwikkeling van het westerse denken van de Griekse Oudheid tot de moderne tijd.\n\n- **Griekse Oudheid (700 v.C. – 300 v.C.):** Pythagoras - Wiskunde en filosofie verbonden: alles is getal. Idee van harmonie. Ethiek en levensstijl.\n- **Hellenisme & Romeinen (300 v.C. – 500 n.C.):** Marcus Aurelius - Stoïcisme: focus op wat je kunt controleren. Acceptatie van wat je niet kunt veranderen.\n- **Middeleeuwen (500 – 1500 n.C.):** Augustinus van Hippo - Synthese van christelijk geloof en filosofie. Ideeën over zonde, genade en de menselijke ziel.\n- **Renaissance & Humanisme (15e – 16e eeuw):** Erasmus - Kritiek op bijgeloof en dogma. Pleidooi voor educatie, rede en tolerantie.\n- **Moderne tijd (19e eeuw):** Nietzsche - Kritiek op traditionele moraal en religie. Idee van ‘Übermensch’ en zelfschepping.\n- **Moderne Tijd / Feminisme (20e eeuw):** Simone de Beauvoir - Feminisme en existentiële vrijheid. Analyse van ongelijkheid tussen mannen en vrouwen."
+        }
+      ],
+      "answers": [],
+      "learningSets": []
+    },
+    {
+      "id": "sec-1-1",
+      "title": "Hoofdstuk 1.1 Pythagoras",
+      "blocks": [
+        {
+          "id": "blk-1-1-leerdoelen",
+          "type": "text",
+          "content": "## Leerdoelen 1.1 Pythagoras\n\n- De leerling kan vertellen wie Pythagoras was en waar en wanneer hij leefde.\n- De leerling kan uitleggen wat de stelling van Pythagoras inhoudt en deze herkennen in een rechthoekige driehoek.\n- De leerling kan in eigen woorden beschrijven wat Pythagoras bedoelde met “alles is getal”.\n- De leerling kan twee kenmerken noemen van de leefwijze en overtuigingen van de Pythagoreeërs (zoals regels, vegetarisme of geloof in zielsverhuizing).\n- De leerling kan uitleggen waarom Pythagoras nog steeds belangrijk is voor de wiskunde en wetenschap van nu."
+        },
+        {
+          "id": "blk-1-1-info",
+          "type": "text",
+          "content": "## Informatiestuk: Pythagoras\n\nPythagoras (ca. 570–495 v.Chr.) was een Griekse filosoof, wiskundige en mysticus die leefde in de zesde eeuw voor Christus. Hij werd geboren op het eiland Samos, maar vestigde zich later in de Zuid-Italiaanse stad Croton, waar hij een eigen school stichtte. Deze school was niet alleen een plek om kennis te vergaren, maar ook een leefgemeenschap met strikte regels en rituelen. De volgelingen van Pythagoras, de zogenoemde Pythagoreeërs, geloofden dat wiskunde de sleutel was tot het begrijpen van de werkelijkheid.\n\nPythagoras is vooral bekend vanwege de naar hem vernoemde stelling van Pythagoras. Deze stelt dat in een rechthoekige driehoek het kwadraat van de schuine zijde gelijk is aan de som van de kwadraten van de twee andere zijden. Voor hem was wiskunde niet slechts praktisch, maar een manier om orde en harmonie in de wereld te ontdekken.\n\nEen belangrijk idee van Pythagoras was dat “alles getal is”. Hij geloofde dat de structuur van de werkelijkheid gebaseerd is op getalsverhoudingen. Dit zag hij bijvoorbeeld terug in muziek: harmonieuze klanken ontstaan door eenvoudige verhoudingen tussen tonen (de 'Muziek der sferen').\n\nNaast zijn wiskundige inzichten had Pythagoras ook religieuze en ethische opvattingen. Hij geloofde in zielsverhuizing (reïncarnatie). Daarom pleitte hij voor een zuivere levensstijl, waarin geweldloosheid en zelfdiscipline centraal stonden. Veel Pythagoreeërs waren vegetariër.\n\nDe invloed van Pythagoras reikt ver. Zijn ideeën hebben een grote rol gespeeld in de ontwikkeling van de filosofie, vooral bij latere denkers zoals Plato. Ook in de moderne wetenschap en wiskunde is zijn nalatenschap nog duidelijk zichtbaar."
+        },
+        {
+          "id": "blk-1-1-q",
+          "type": "questions",
+          "title": "Opdrachten Pythagoras",
+          "questions": [
+            {
+              "id": "q-1-1-1",
+              "number": "1A",
+              "text": "Wie was Pythagoras?"
+            },
+            {
+              "id": "q-1-1-2",
+              "number": "1B",
+              "text": "Wat wordt bedoeld met de uitspraak: “Alles is getal”?"
+            },
+            {
+              "id": "q-1-1-3",
+              "number": "1C",
+              "text": "Noem één voorbeeld waarbij Pythagoras verband zag tussen wiskunde en de werkelijkheid."
+            },
+            {
+              "id": "q-1-1-4",
+              "number": "VA",
+              "text": "Vind jij dat “alles getal is”? Leg uit waarom wel/niet."
+            },
+            {
+              "id": "q-1-1-5",
+              "number": "VB",
+              "text": "Noem iets uit jouw eigen leven waarin wiskunde een rol speelt."
+            },
+            {
+              "id": "q-1-1-6",
+              "number": "VC",
+              "text": "Zijn er dingen die je niet met cijfers of wiskunde kunt uitleggen?"
+            }
+          ]
+        }
+      ],
+      "answers": [],
+      "learningSets": []
+    },
+    {
+      "id": "sec-1-2",
+      "title": "Hoofdstuk 1.2 Marcus Aurelius",
+      "blocks": [
+        {
+          "id": "blk-1-2-leerdoelen",
+          "type": "text",
+          "content": "## Leerdoelen 1.2 Marcus Aurelius\n\n- De leerling kan beschrijven wie Marcus Aurelius was, inclusief zijn rol als Romeins keizer en de periode waarin hij leefde.\n- De leerling kan uitleggen wat het stoïcisme inhoudt, en minimaal twee belangrijke ideeën noemen (zoals zelfbeheersing en het accepteren van wat je niet kunt controleren).\n- De leerling kan in eigen woorden uitleggen wat Marcus Aurelius bedoelde met het focussen op wat je kunt controleren.\n- De leerling kan beschrijven wat het boek Meditaties is en welke onderwerpen daarin centraal staan.\n- De leerling kan uitleggen waarom Marcus Aurelius een voorbeeld is van een goede leider, met aandacht voor zijn combinatie van macht, filosofie en zelfdiscipline."
+        },
+        {
+          "id": "blk-1-2-info",
+          "type": "text",
+          "content": "## Informatieblok: Marcus Aurelius\n\nMarcus Aurelius (121-180 n. Chr.) was een Romeins keizer en filosoof, geboren in 121 na Christus in Rome. Hij was de laatste van de “Vijf Goede Keizers” en regeerde van 161 tot 180 na Christus. Marcus is bekend om zijn interesse in stoïcijnse filosofie, een school van denken die nadruk legt op zelfbeheersing, rede en het accepteren van dingen die buiten je macht liggen.\n\n**Het Stoïcisme**\nHet stoïcisme, opgericht door Zeno van Citium, leert dat geluk niet afhankelijk is van externe omstandigheden, maar van hoe je reageert op die omstandigheden. Belangrijke stoïcijnse ideeën volgens Marcus:\n- Focus op wat je kunt controleren: Je gedachten, keuzes en gedrag.\n- Accepteer de loop van de natuur: Alles wat gebeurt, is onderdeel van het grotere geheel.\n- Zelfdiscipline & Reflectie: Dagelijks reflecteren over je acties en intenties.\n\n**Meditaties (Meditationes)**\nMarcus Aurelius schreef zijn gedachten op in een boek genaamd Meditaties. Het boek bevat persoonlijke reflecties over hoe hij een goed leven kan leiden ondanks de druk en uitdagingen van zijn positie. Thema's: vergankelijkheid van het leven, omgaan met tegenslag, en menselijke verantwoordelijkheid.\n\n*“Het geluk van je leven hangt af van de kwaliteit van je gedachten.”*"
+        },
+        {
+          "id": "blk-1-2-q",
+          "type": "questions",
+          "title": "Opdrachten Marcus Aurelius",
+          "questions": [
+            {
+              "id": "q-1-2-1",
+              "number": "4A",
+              "text": "Wanneer was Marcus Aurelius keizer van Rome?"
+            },
+            {
+              "id": "q-1-2-2",
+              "number": "4B",
+              "text": "Noem twee ideeën van Marcus Aurelius uit het stoïcisme."
+            },
+            {
+              "id": "q-1-2-3",
+              "number": "4C",
+              "text": "Waarom schreef Marcus Aurelius zijn Meditaties?"
+            },
+            {
+              "id": "q-1-2-4",
+              "number": "5",
+              "text": "Lees de volgende citaten en kies er één die jou het meest aanspreekt. Leg uit waarom:\na. “Je hebt macht over je geest – niet over gebeurtenissen.”\nb. “Het geluk van je leven hangt af van de kwaliteit van je gedachten.”\nc. “Accepteer alles wat er gebeurt, met innerlijke rust en kalmte.”"
+            },
+            {
+              "id": "q-1-2-5",
+              "number": "6A",
+              "text": "Hoe kun je de ideeën van Marcus Aurelius toepassen op school of thuis?"
+            },
+            {
+              "id": "q-1-2-6",
+              "number": "6B",
+              "text": "Geef een voorbeeld van iets waar je geen controle over hebt en hoe je daar stoïcijns op zou kunnen reageren."
+            },
+            {
+              "id": "q-1-2-7",
+              "number": "7",
+              "text": "Schrijf 5–6 zinnen over een recente situatie waarin je boos, verdrietig of teleurgesteld was. Schrijf eronder hoe Marcus Aurelius zou adviseren om hiermee om te gaan."
+            }
+          ]
+        }
+      ],
+      "answers": [],
+      "learningSets": []
+    },
+    {
+      "id": "sec-1-3",
+      "title": "Hoofdstuk 1.3 Augustinus van Hippo",
+      "blocks": [
+        {
+          "id": "blk-1-3-leerdoelen",
+          "type": "text",
+          "content": "## Leerdoelen 1.3 Augustinus van Hippo\n\n- De leerling kan in eigen woorden uitleggen wat Augustinus bedoelde met de zoektocht naar geluk, en waarom hij vond dat echt geluk alleen bij God te vinden is.\n- De leerling kan uitleggen wat bedoeld wordt met privatio boni (het idee dat kwaad het ontbreken van het goede is).\n- De leerling kan beschrijven wat Augustinus bedoelde met vrije wil en genade, en waarom deze twee volgens hem met elkaar samenhangen.\n- De leerling kan het verschil uitleggen tussen de ‘aardse stad’ en de ‘stad van God’, en dit toepassen op voorbeelden van gedrag of keuzes van mensen."
+        },
+        {
+          "id": "blk-1-3-info",
+          "type": "text",
+          "content": "## Informatiestuk: Augustinus van Hippo\n\nAugustinus van Hippo (354–430 n.Chr.) was een van de belangrijkste denkers uit de late oudheid. Hij groeide op in een gezin met een heidense vader en een christelijke moeder, Monica. In zijn jonge jaren leidde Augustinus een zoekend leven, vooral bezig met carrière, succes en genot. Later beschreef hij deze periode kritisch in zijn beroemde werk *Belijdenissen* (Confessiones).\n\n**Zoektocht naar geluk**\nEen centraal thema is de zoektocht naar waarheid en geluk. Volgens hem zoeken alle mensen naar geluk, maar vaak op de verkeerde plekken (rijkdom, status). Echt geluk kan volgens Augustinus alleen gevonden worden in God. *“Onrustig is ons hart, totdat het rust vindt in U (God).”*\n\n**Goed en kwaad (Privatio Boni)**\nAugustinus zag kwaad niet als iets zelfstandigs, maar als het ontbreken van het goede (*privatio boni*). Kwaad is geen ‘ding’, maar een gebrek aan goedheid, net zoals duister de afwezigheid van licht is.\n\n**Vrije wil en genade**\nAugustinus geloofde dat mensen een vrije wil hebben, maar dat de mens geneigd is tot het kwade (door de zonde). Daarom is Gods genade nodig om het goede te kunnen doen. Dit spanningsveld tussen vrijheid en afhankelijkheid is nog steeds actueel.\n\n**De Civitate Dei**\nIn zijn werk *De stad van God* maakte hij onderscheid tussen twee ‘steden’:\n- **Aardse stad (Civitas Terrena):** Gedreven door eigenbelang en macht.\n- **Goddelijke stad (Civitate Dei):** Gedreven door spiritualiteit en liefde."
+        },
+        {
+          "id": "blk-1-3-q",
+          "type": "questions",
+          "title": "Opdrachten Augustinus van Hippo",
+          "questions": [
+            {
+              "id": "q-1-3-1",
+              "number": "9A",
+              "text": "Wie was Augustinus van Hippo?"
+            },
+            {
+              "id": "q-1-3-2",
+              "number": "9B",
+              "text": "Wat bedoelde Augustinus met de uitspraak: “Onrustig is ons hart, totdat het rust vindt in God”?"
+            },
+            {
+              "id": "q-1-3-3",
+              "number": "9C",
+              "text": "Wat is volgens Augustinus ‘kwaad’?"
+            },
+            {
+              "id": "q-1-3-4",
+              "number": "10A",
+              "text": "Waar zoeken jongeren vandaag de dag geluk? Noem 4 voorbeelden."
+            },
+            {
+              "id": "q-1-3-5",
+              "number": "10B",
+              "text": "Waarom zou Augustinus zeggen dat de genoemde voorbeelden niet genoeg zijn om echt gelukkig te worden?"
+            },
+            {
+              "id": "q-1-3-6",
+              "number": "11A",
+              "text": "Geef je mening, met een voorbeeld, over de vraag of jij echt een vrije wil hebt, of word je beïnvloed (bijv. door social media of algoritmes)?"
+            },
+            {
+              "id": "q-1-3-7",
+              "number": "11B",
+              "text": "Wat zou Augustinus van jouw antwoord vinden?"
+            },
+            {
+              "id": "q-1-3-8",
+              "number": "12",
+              "text": "Noem een voorbeeld van iets dat jij ‘goed’ vindt en iets dat jij ‘kwaad’ vindt. Leg uit of iets ‘goed’ en ‘kwaad’ volgens jou altijd duidelijk uit te leggen is? Wat zou Augustinus van Hippo zeggen over de keuzes die jij maakt?"
+            },
+            {
+              "id": "q-1-3-9",
+              "number": "13",
+              "text": "Filosofische speeddate stellingen: 1. “Geluk vind je alleen in God.” 2. “Kwaad bestaat niet echt.” 3. “Mensen zijn volledig vrij.” Kies er één en beargumenteer je standpunt."
+            }
+          ]
+        }
+      ],
+      "answers": [],
+      "learningSets": []
+    },
+    {
+      "id": "sec-1-4",
+      "title": "Hoofdstuk 1.4 Desiderius Erasmus",
+      "blocks": [
+        {
+          "id": "blk-1-4-leerdoelen",
+          "type": "text",
+          "content": "## Leerdoelen 1.4 Desiderius Erasmus\n\n- De leerling kan beschrijven wie Desiderius Erasmus was, inclusief wanneer hij leefde en waarom hij belangrijk was in de renaissance.\n- De leerling kan uitleggen wat het humanisme inhoudt, en hoe Erasmus dit toepaste.\n- De leerling kan in eigen woorden uitleggen wat Erasmus bekritiseert in Lof der Zotheid, zoals misstanden in de kerk en de samenleving.\n- De leerling kan het belang van kritisch denken volgens Erasmus uitleggen, en dit koppelen aan de huidige tijd (bijvoorbeeld sociale media).\n- De leerling kan uitleggen waarom Erasmus pleitte voor tolerantie, dialoog en vrede, en hoe dit hem onderscheidt van meer radicale hervormers."
+        },
+        {
+          "id": "blk-1-4-info",
+          "type": "text",
+          "content": "## Informatiestuk: Desiderius Erasmus\n\nDesiderius Erasmus (ca. 1466–1536) was een Nederlandse filosoof, theoloog en humanist uit de renaissance. De boekdrukkunst maakte het mogelijk om kennis sneller te verspreiden, en er ontstond een hernieuwde belangstelling voor de klassieke oudheid.\n\n**Humanisme**\nHet humanisme (*Humanitas* = menselijkheid) legde de nadruk op de waarde en mogelijkheden van de mens. Humanisten wilden terug naar de oorspronkelijke bronnen van kennis. Erasmus geloofde dat mensen zichzelf konden ontwikkelen door onderwijs, kritisch denken en morele vorming.\n\n**Lof der Zotheid (1509)**\nIn dit boek laat Erasmus ‘de Zotheid’ zelf aan het woord, die de gebreken van de samenleving en de kerk belachelijk maakt. Hij bekritiseerde onder andere de corruptie binnen de kerk (bijv. de verkoop van aflaten) en het gebrek aan oprechte religiositeit. Door humor en satire te gebruiken, wist Erasmus gevoelige onderwerpen bespreekbaar te maken.\n\n**Hervorming en Tolerantie**\nErasmus wilde hervorming van de kerk, maar hij was geen revolutionair. Hij geloofde in dialoog, redelijkheid en gematigdheid. Voor Erasmus stond vrede centraal. Hij benadrukte het belang van kritisch denken: mensen niet alles zomaar moesten aannemen, maar zelf moesten nadenken. Dit is vandaag de dag nog steeds van groot belang in een tijd van internet en social media."
+        },
+        {
+          "id": "blk-1-4-q",
+          "type": "questions",
+          "title": "Opdrachten Desiderius Erasmus",
+          "questions": [
+            {
+              "id": "q-1-4-1",
+              "number": "14A",
+              "text": "Wie was Desiderius Erasmus?"
+            },
+            {
+              "id": "q-1-4-2",
+              "number": "14B",
+              "text": "Wat bedoelde Erasmus met humanisme?"
+            },
+            {
+              "id": "q-1-4-3",
+              "number": "14C",
+              "text": "Wat was het doel van zijn satire in Lof der Zotheid?"
+            },
+            {
+              "id": "q-1-4-4",
+              "number": "14D",
+              "text": "Waarom probeerde Erasmus hervorming van de kerk van binnenuit, en niet via revolutie?"
+            },
+            {
+              "id": "q-1-4-5",
+              "number": "15A",
+              "text": "Waarom geloven mensen tegenwoordig soms te snel wat ze online zien?"
+            },
+            {
+              "id": "q-1-4-6",
+              "number": "15B",
+              "text": "Wat zou Erasmus zeggen over hoe wij omgaan met informatie vandaag de dag?"
+            },
+            {
+              "id": "q-1-4-7",
+              "number": "15C",
+              "text": "Bedenk een concreet voorbeeld van fake news, misinformatie of iets waar mensen makkelijk in trappen."
+            },
+            {
+              "id": "q-1-4-8",
+              "number": "16",
+              "text": "Creatieve opdracht: Maak een satirische post zoals Erasmus dat vroeger deed (tekst, meme, cartoon). Geef kritiek op iets in de moderne samenleving (bijv. social media, influencers, nepnieuws). Schets of noteer je idee."
+            },
+            {
+              "id": "q-1-4-9",
+              "number": "17",
+              "text": "Vind jij dat satire een goede manier is om kritiek te geven? Waarom wel of niet? Hoe kun jij zelf kritisch denken toepassen in jouw dagelijks leven online? Welke ideeën van Erasmus zijn vandaag nog relevant?"
+            }
+          ]
+        }
+      ],
+      "answers": [],
+      "learningSets": []
+    },
+    {
+      "id": "sec-1-5",
+      "title": "Hoofdstuk 1.5 Friedrich Nietzsche",
+      "blocks": [
+        {
+          "id": "blk-1-5-leerdoelen",
+          "type": "text",
+          "content": "## Leerdoelen 1.5 Friedrich Nietzsche\n\n- De leerling kan beschrijven wie Friedrich Nietzsche was, inclusief wanneer hij leefde en waarom hij belangrijk is in de filosofie.\n- De leerling kan uitleggen wat Nietzsche bedoelde met “God is dood” en waarom dit gevolgen had voor traditionele waarden en moraal.\n- De leerling kan het concept van de Übermensch uitleggen, inclusief wat het betekent om je eigen waarden te creëren en verantwoordelijkheid voor je leven te nemen.\n- De leerling kan het verschil uitleggen tussen slavenmoraal en herenmoraal, en dit koppelen aan voorbeelden van gedrag of keuzes.\n- De leerling kan beschrijven hoe Nietzsche’s ideeën vandaag de dag relevant zijn, bijvoorbeeld bij vragen over identiteit, persoonlijke verantwoordelijkheid en autonomie."
+        },
+        {
+          "id": "blk-1-5-info",
+          "type": "text",
+          "content": "## Informatiestuk: Friedrich Nietzsche\n\nFriedrich Nietzsche (1844–1900) was een Duitse filosoof, dichter en cultuurcriticus. Hij hield zich bezig met fundamentele vragen over moraal, religie, waarheid en de betekenis van het leven.\n\n**“God is dood”**\nHiermee bedoelde hij niet dat een religieus wezen letterlijk gestorven is, maar dat traditionele religieuze waarden en absolute waarheden hun gezag verloren hadden in de moderne wereld (door de Verlichting en wetenschap). De moderne mens moet zelf een moraal gaan ‘scheppen’.\n\n**De Übermensch (bovenmens)**\nDit concept gaat over het vermogen van de mens om zijn eigen waarden en normen te scheppen, los van traditie en externe autoriteit. De bovenmens neemt verantwoordelijkheid voor eigen leven, experimenteert en leeft volgens eigen idealen. Het tegenovergestelde is 'de laatste mens'.\n\n**Wil tot macht (heren- en slavenmoraal)**\nAlles wat leeft, streeft ernaar om macht te vergroten en invloed uit te oefenen.\n- Je volgt de wil tot macht → **herenmoraal** (kracht, creativiteit en zelfbepaling).\n- Je wijst de wil tot macht af → **slavenmoraal** (zwakte, angst en schuldgevoel).\n\nNietzsche’s ideeën daagen uit tot reflectie over persoonlijke ambities, keuzes en verantwoordelijkheden in een wereld vol sociale druk en digitale invloed."
+        },
+        {
+          "id": "blk-1-5-q",
+          "type": "questions",
+          "title": "Opdrachten Friedrich Nietzsche",
+          "questions": [
+            {
+              "id": "q-1-5-1",
+              "number": "18A",
+              "text": "Wie was Friedrich Nietzsche?"
+            },
+            {
+              "id": "q-1-5-2",
+              "number": "18B",
+              "text": "Wat bedoelde Nietzsche met “God is dood”?"
+            },
+            {
+              "id": "q-1-5-3",
+              "number": "18C",
+              "text": "Wat is de betekenis van het concept Übermensch?"
+            },
+            {
+              "id": "q-1-5-4",
+              "number": "18D",
+              "text": "Wat is de wil tot macht volgens Nietzsche?"
+            },
+            {
+              "id": "q-1-5-5",
+              "number": "19",
+              "text": "Stelling: “God is dood”. Ben je het eens of oneens? Onderbouw je mening."
+            },
+            {
+              "id": "q-1-5-6",
+              "number": "20",
+              "text": "Jouw waarden: Welke 3 waarden volg jij meestal automatisch? Welke waarden volg je omdat anderen het van jou verwachten? Welke nieuwe waarden zou jij zelf willen creëren, gebaseerd op jouw persoonlijke overtuiging?"
+            },
+            {
+              "id": "q-1-5-7",
+              "number": "21",
+              "text": "Wat betekent autonomie en zelfbepaling voor jou? Vind je het moeilijk om tegen de verwachtingen van anderen in te gaan? Waarom wel of niet?"
+            },
+            {
+              "id": "q-1-5-8",
+              "number": "22",
+              "text": "Creatief: Maak een korte poster of cartoon waarin je laat zien hoe een bovenmens vandaag zou leven. Schets of noteer je idee."
+            }
+          ]
+        }
+      ],
+      "answers": [],
+      "learningSets": []
+    },
+    {
+      "id": "sec-1-6",
+      "title": "Hoofdstuk 1.6 Simone de Beauvoir",
+      "blocks": [
+        {
+          "id": "blk-1-6-leerdoelen",
+          "type": "text",
+          "content": "## Leerdoelen 1.6 Simone de Beauvoir\n\n- De leerling kan beschrijven wie Simone de Beauvoir was, inclusief haar leven, studie, relatie met Sartre en bijdrage aan existentialisme en feminisme.\n- De leerling kan uitleggen wat De Beauvoir bedoelde met “Men wordt niet als vrouw geboren, men wordt het”, en hoe dit verband houdt met sociale en culturele verwachtingen.\n- De leerling kan de rol van vrijheid en verantwoordelijkheid in haar filosofie uitleggen, met nadruk op hoe vrouwen hun leven zelf kunnen vormgeven los van traditie en maatschappelijke druk.\n- De leerling kan analyseren hoe De Beauvoir kritiek leverde op sociale ongelijkheid, inclusief machtsverhoudingen tussen mannen en vrouwen.\n- De leerling kan verbanden leggen tussen De Beauvoir’s ideeën en de hedendaagse samenleving, bijvoorbeeld bij keuzes over opleiding, carrière, uiterlijk en online gedrag."
+        },
+        {
+          "id": "blk-1-6-info",
+          "type": "text",
+          "content": "## Informatiestuk: Simone de Beauvoir\n\nSimone de Beauvoir (1908–1986) was een Franse filosoof, schrijfster en feministe. Ze speelde een belangrijke rol in de filosofie van het existentialisme en is wereldwijd bekend geworden door haar boek *De Tweede Sekse* (Le Deuxième Sexe, 1949). Ze had een iconische relatie met Jean-Paul Sartre.\n\n**Existentialisme**\nSamen met Sartre werkte ze het existentialisme uit: de overtuiging dat mensen in een fundamenteel vrije positie verkeren, maar ook verantwoordelijk zijn voor hun keuzes. *'L'existence précède l'essence'* (Het bestaan gaat aan het wezen vooraf). We zijn veroordeeld tot een zinloos bestaan, waar we zelf betekenis aan moeten geven.\n\n**De Tweede Sekse (1949)**\nEen centraal concept is de uitspraak: **“Men wordt niet als vrouw geboren, men wordt het”**. Hiermee bedoelde ze dat geslacht niet automatisch bepaalt hoe iemand zich moet gedragen. De sociale en culturele normen maken vrouwen vaak tot “het andere” (l’Autre), terwijl mannen als norm worden gezien. ‘Vrouw-zijn’ is een rol die vrouwen wordt aangeleerd.\n\n**Vrijheid en verantwoordelijkheid**\nVrouwen kunnen pas echt vrij zijn wanneer ze keuzes maken die losstaan van traditie, verwachtingen of sociale druk. Ze pleitte voor economische en politieke onafhankelijkheid. Ze bekritiseerde de ongelijke verdeling van macht tussen mannen en vrouwen, en tussen sociale groepen in bredere zin.\n\nHaar ideeën zijn vandaag de dag nog steeds relevant bij vragen over sociale verwachtingen, carrière, uiterlijk en online presenteren."
+        },
+        {
+          "id": "blk-1-6-q",
+          "type": "questions",
+          "title": "Opdrachten Simone de Beauvoir",
+          "questions": [
+            {
+              "id": "q-1-6-1",
+              "number": "23A",
+              "text": "Wie was Simone de Beauvoir?"
+            },
+            {
+              "id": "q-1-6-2",
+              "number": "23B",
+              "text": "Wat betekent de uitspraak: “Men wordt niet als vrouw geboren, men wordt het”?"
+            },
+            {
+              "id": "q-1-6-3",
+              "number": "23C",
+              "text": "Waarom zijn vrijheid en verantwoordelijkheid belangrijk volgens De Beauvoir?"
+            },
+            {
+              "id": "q-1-6-4",
+              "number": "23D",
+              "text": "Noem een voorbeeld van een sociale verwachting waar jongeren vandaag de dag mee te maken hebben."
+            },
+            {
+              "id": "q-1-6-5",
+              "number": "24",
+              "text": "Stelling: “Jongens en meisjes zijn van nature anders.” of “De maatschappij bepaalt wie jij bent.” Kies je standpunt (eens/oneens) en beargumenteer."
+            },
+            {
+              "id": "q-1-6-6",
+              "number": "25",
+              "text": "Sociale rollen: Maak een lijst van rollen of verwachtingen die je ervaart (school, sport, social media). Welke passen echt bij jou? Welke speel je omdat anderen het verwachten? Bedenk 1–2 manieren om eigen keuzes te maken, los van sociale druk."
+            },
+            {
+              "id": "q-1-6-7",
+              "number": "26",
+              "text": "Creatief: Maak een cartoon waarin je laat zien hoe iemand volledig zijn of haar eigen keuzes kan maken, zonder zich te laten beperken door verwachtingen."
+            },
+            {
+              "id": "q-1-6-8",
+              "number": "27",
+              "text": "Welke sociale verwachtingen wil jij loslaten of aanpassen? Hoe kun jij meer zelfbepaling toepassen? Noem een situatie waarin je vandaag een eigen keuze kunt maken, ook als anderen iets anders verwachten."
+            },
+            {
+              "id": "q-1-6-9",
+              "number": "28",
+              "text": "Bedenk een moderne uitspraak van Simone de Beauvoir over school, social media of vriendschap."
+            }
+          ]
+        }
+      ],
+      "answers": [],
+      "learningSets": []
+    },
+    {
+      "id": "sec-begrippenlijst",
+      "title": "Begrippenlijst & Flashcards",
+      "blocks": [
+        {
+          "id": "blk-begrippen-intro",
+          "type": "text",
+          "content": "## Begrippenlijst\n\nHieronder vind je de belangrijkste begrippen uit Hoofdstuk 3 (Redeneren) en de Geschiedenis van de Westerse Filosofie. Gebruik deze set om flashcards te maken en te oefenen."
+        }
+      ],
+      "answers": [],
+      "learningSets": [
+        {
+          "id": "set-blk-begrippen-main",
+          "title": "Kernbegrippen Filosofie & Redeneren",
+          "description": "30 begrippen",
+          "terms": [
+            {
+              "id": "set-blk-begrippen-main-term-1",
+              "term": "Correspondentietheorie der waarheid",
+              "definition": "Een uitspraak is waar wanneer het ‘klopt’; de inhoud van de uitspraak correspondeert (komt overeen) met de werkelijkheid."
+            },
+            {
+              "id": "set-blk-begrippen-main-term-2",
+              "term": "Coherentietheorie van de waarheid",
+              "definition": "Gericht op samenhang / combinatie van kennis. Een uitspraak is waar als het past binnen een bestaand systeem of theorie."
+            },
+            {
+              "id": "set-blk-begrippen-main-term-3",
+              "term": "Pragmatische theorie van de waarheid",
+              "definition": "‘Werkend’ of ‘resultaat opleverend’. Oftewel: zolang het werkt, is het waar."
+            },
+            {
+              "id": "set-blk-begrippen-main-term-4",
+              "term": "Syllogisme",
+              "definition": "Een redenering die bestaat uit (een) premisse(s) en een conclusie."
+            },
+            {
+              "id": "set-blk-begrippen-main-term-5",
+              "term": "Premisse",
+              "definition": "Een bewering binnen een syllogisme waaruit een conclusie wordt getrokken."
+            },
+            {
+              "id": "set-blk-begrippen-main-term-6",
+              "term": "Falsifiëren",
+              "definition": "Bevestigen dat iets niet waar is (bijvoorbeeld door het vinden van één zwarte zwaan om de stelling 'alle zwanen zijn wit' te weerleggen)."
+            },
+            {
+              "id": "set-blk-begrippen-main-term-7",
+              "term": "Drogreden",
+              "definition": "Redeneringen die aannemelijk lijken, maar logisch niet kloppen."
+            },
+            {
+              "id": "set-blk-begrippen-main-term-8",
+              "term": "Ad hominem",
+              "definition": "Op de man spelen: je tegenstander zwart maken, in plaats van zijn/haar argumenten te weerleggen."
+            },
+            {
+              "id": "set-blk-begrippen-main-term-9",
+              "term": "Stoïcisme",
+              "definition": "Een school van denken (o.a. Marcus Aurelius) die nadruk legt op zelfbeheersing, rede en het accepteren van dingen die buiten je macht liggen."
+            },
+            {
+              "id": "set-blk-begrippen-main-term-10",
+              "term": "Privatio boni",
+              "definition": "Het idee van Augustinus dat kwaad het ontbreken van het goede is; kwaad bestaat niet zelf, maar is een gebrek aan goedheid."
+            },
+            {
+              "id": "set-blk-begrippen-main-term-11",
+              "term": "Humanisme",
+              "definition": "Een stroming uit de renaissance (o.a. Erasmus) die de nadruk legt op de waarde en mogelijkheden van de mens, met focus op educatie, rede en tolerantie."
+            },
+            {
+              "id": "set-blk-begrippen-main-term-12",
+              "term": "Übermensch",
+              "definition": "Nietzsche's concept van de 'bovenmens': het vermogen van de mens om zijn eigen waarden en normen te scheppen, los van traditie en externe autoriteit."
+            },
+            {
+              "id": "set-blk-begrippen-main-term-13",
+              "term": "Wil tot macht",
+              "definition": "Volgens Nietzsche de fundamentele drijfveer in het leven: alles wat leeft streeft ernaar zijn krachten te vergroten en invloed uit te oefenen."
+            },
+            {
+              "id": "set-blk-begrippen-main-term-14",
+              "term": "Existentialisme",
+              "definition": "De overtuiging (o.a. Sartre, De Beauvoir) dat mensen in een fundamenteel vrije positie verkeren, maar ook verantwoordelijk zijn voor hun keuzes en levensloop."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "quiz": {
+    "title": "Filosofie Quiz",
+    "questions": [
+      {
+        "id": 1,
+        "question": "Wat is het kernkenmerk van de correspondentietheorie der waarheid?",
+        "hint": "Denk aan de relatie tussen wat je zegt en wat je buiten in de wereld kunt waarnemen.",
+        "options": [
+          "Een uitspraak is waar als deze logisch past binnen een groter systeem van kennis.",
+          "Een uitspraak is waar als de meerderheid van de mensen het erover eens is.",
+          "Een uitspraak is waar zolang deze in de praktijk nuttige resultaten oplevert.",
+          "Een uitspraak is waar als deze overeenkomt met de feiten in de werkelijkheid."
+        ],
+        "answer": "D",
+        "rationale": "Deze theorie stelt dat waarheid afhankelijk is van de relatie tussen een bewering en de objectieve buitenwereld."
+      },
+      {
+        "id": 2,
+        "question": "Wanneer noemen we een syllogisme in de logica 'geldig'?",
+        "hint": "Focus op de 'vorm' of 'structuur' van de redenering in plaats van de feitelijke inhoud.",
+        "options": [
+          "Wanneer alle beweringen in de redenering feitelijk juist zijn.",
+          "Wanneer de conclusie logisch noodzakelijk volgt uit de gegeven premissen.",
+          "Wanneer de conclusie door middel van zintuiglijke waarneming is geverifieerd.",
+          "Wanneer de spreker overtuigend genoeg is om een publiek te doen geloven."
+        ],
+        "answer": "B",
+        "rationale": "Geldigheid gaat over de structuur van de redenering; als de stappen kloppen, is de redenering geldig, ongeacht of de inhoud feitelijk waar is."
+      },
+      {
+        "id": 3,
+        "question": "Wat bedoelt Friedrich Nietzsche met de uitspraak 'God is dood'?",
+        "hint": "Kijk naar de gevolgen voor onze normen, waarden en de manier waarop we de wereld betekenis geven.",
+        "options": [
+          "Traditionele christelijke waarden en absolute waarheden hebben hun gezag in de moderne wereld verloren.",
+          "God is letterlijk gestorven aan het begin van de Verlichting.",
+          "De wetenschap heeft definitief bewezen dat een biologische godheid niet bestaat.",
+          "Het is voortaan verboden om religieuze praktijken uit te oefenen in de publieke ruimte."
+        ],
+        "answer": "A",
+        "rationale": "Nietzsche wijst op een culturele verschuiving waarbij religie niet langer het centrale morele kompas van de maatschappij is."
+      },
+      {
+        "id": 4,
+        "question": "Wat is een kenmerk van de 'slavenmoraal' in de filosofie van Nietzsche?",
+        "hint": "Denk aan een moraal die reageert op anderen in plaats van uit eigen kracht te handelen.",
+        "options": [
+          "Het volgen van regels uit angst, schuldgevoel of een gevoel van zwakte.",
+          "Het scheppen van eigen waarden gebaseerd op persoonlijke kracht en creativiteit.",
+          "Een fysieke toestand van onderdrukking door een buitenlandse macht.",
+          "De overtuiging dat alleen de slimste mensen de samenleving mogen leiden."
+        ],
+        "answer": "A",
+        "rationale": "Nietzsche stelt dat deze moraal voortkomt uit de reactie van de zwakken op de sterken, waarbij nederigheid en gehoorzaamheid centraal staan."
+      },
+      {
+        "id": 5,
+        "question": "Welke drogreden wordt gebruikt in de stelling: 'Je moet die film niet kijken, want de regisseur is ooit gearresteerd voor diefstal'?",
+        "hint": "Er wordt geprobeerd iets af te wijzen door een negatief stempel op de persoon te plakken.",
+        "options": [
+          "Beroep op autoriteit.",
+          "Beroep op vergelijkbare situaties.",
+          "Negatieve associatie.",
+          "Bepaald taalgebruik."
+        ],
+        "answer": "C",
+        "rationale": "Er wordt geprobeerd de film (het standpunt) verdacht te maken door deze te koppelen aan een negatieve gebeurtenis van de maker, zonder de film zelf te beoordelen."
+      },
+      {
+        "id": 6,
+        "question": "Wat is het belangrijkste doel van een 'Übermensch' volgens Nietzsche?",
+        "hint": "Denk aan autonomie, zelfbepaling en het zijn van je eigen wetgever.",
+        "options": [
+          "Het bereiken van fysieke onsterfelijkheid door middel van wetenschap.",
+          "Zelf verantwoordelijkheid nemen en eigen waarden scheppen los van traditie.",
+          "Het herstellen van de oude christelijke tradities in hun zuivere vorm.",
+          "Macht uitoefenen over anderen door middel van fysiek geweld."
+        ],
+        "answer": "B",
+        "rationale": "De Übermensch overwint de nihilistische leegte na de 'dood van God' door autonoom zin te geven aan het leven."
+      },
+      {
+        "id": 7,
+        "question": "Hoe werkt de methode van 'falsificeren' in de wetenschapsfilosofie?",
+        "hint": "Denk aan het voorbeeld van de zwarte zwaan.",
+        "options": [
+          "Het zoeken naar één bewijs dat aantoont dat een bewering onjuist is.",
+          "Het verzamelen van zoveel mogelijk bewijzen die een theorie ondersteunen.",
+          "Het opzettelijk vervalsen van onderzoeksgegevens om gelijk te krijgen.",
+          "Het negeren van feiten die niet passen binnen je eigen wereldbeeld."
+        ],
+        "answer": "A",
+        "rationale": "Falsificatie stelt dat we nooit zeker weten of iets altijd waar is, maar we kunnen wel met zekerheid vaststellen wanneer iets onwaar is."
+      },
+      {
+        "id": 8,
+        "question": "Wat is een 'premissen' in de context van een syllogisme?",
+        "hint": "Dit zijn de aannames waar je een logische puzzel mee begint.",
+        "options": [
+          "De methode om te controleren of een uitspraak overeenkomt met de werkelijkheid.",
+          "De beweringen die als vertrekpunt dienen voor een redenering.",
+          "Een foutieve redenering die aannemelijk lijkt maar niet klopt.",
+          "Het uiteindelijke resultaat dat onderaan de streep volgt."
+        ],
+        "answer": "B",
+        "rationale": "Premissen vormen de basisinformatie waaruit, indien de redenering geldig is, een conclusie wordt afgeleid."
+      },
+      {
+        "id": 9,
+        "question": "Welke beperking heeft de coherentietheorie van waarheid?",
+        "hint": "Denk aan een perfect sluitend sprookje dat toch niet echt is.",
+        "options": [
+          "Het negeert de rol van menselijke taal in het bereiken van waarheid.",
+          "De theorie vereist dat je elke bewering direct in de praktijk test.",
+          "Een systeem van beweringen kan logisch samenhangen maar als geheel onwaar zijn.",
+          "Het is onmogelijk om te controleren of beweringen met elkaar overeenstemmen."
+        ],
+        "answer": "C",
+        "rationale": "Als de basisaannames van een systeem niet kloppen, helpt de interne logica niet om de externe waarheid te waarborgen."
+      },
+      {
+        "id": 10,
+        "question": "Bij welke drogreden wordt iemand zwart gemaakt om zijn of haar argumenten te verwerpen?",
+        "hint": "Latijnse term hiervoor is 'ad hominem'.",
+        "options": [
+          "Beroep op vergelijkbare situaties.",
+          "Cirkelredenering.",
+          "Beroep op autoriteit.",
+          "Op de man spelen (ad hominem)."
+        ],
+        "answer": "D",
+        "rationale": "Bij ad hominem wordt de geloofwaardigheid van de persoon aangevallen in plaats van de logische kracht van het argument zelf."
+      },
+      {
+        "id": 11,
+        "question": "Volgens Nietzsche streven alle levende wezens ernaar hun invloed te vergroten. Hoe noemt hij dit concept?",
+        "hint": "Het gaat niet alleen om blijven leven, maar om krachtiger worden.",
+        "options": [
+          "De categorische imperatief.",
+          "Het overlevingsinstinct.",
+          "De wil tot waarheid.",
+          "De wil tot macht."
+        ],
+        "answer": "D",
+        "rationale": "Nietzsche ziet de wil tot macht als de fundamentele drijfveer van al het leven, van groei tot zelfexpressie."
+      },
+      {
+        "id": 12,
+        "question": "Bekijk het volgende syllogisme: p1: Alle mensen hebben drie benen. p2: Socrates is een mens. C: Socrates heeft drie benen. Is deze redenering geldig?",
+        "hint": "Vraag jezelf af of de conclusie onvermijdelijk volgt uit de (foute) aannames.",
+        "options": [
+          "Ja, de redenering is zowel geldig als waar.",
+          "Nee, de redenering is ongeldig omdat mensen geen drie benen hebben.",
+          "Nee, want Socrates was een filosoof en geen gewoon mens.",
+          "Ja, de redenering is geldig maar de inhoud is onwaar."
+        ],
+        "answer": "D",
+        "rationale": "De structuur klopt (als A=B en C=A, dan C=B), ook al is de eerste premisse feitelijk onjuist."
+      },
+      {
+        "id": 13,
+        "question": "Wat is een kenmerk van de 'herenmoraal' volgens Nietzsche?",
+        "hint": "Kijk naar eigenschappen die horen bij een leider of een schepper.",
+        "options": [
+          "Het onderdrukken van alle emoties om puur rationeel te kunnen handelen.",
+          "Het streven naar rechtvaardigheid voor de zwaksten in de samenleving.",
+          "Absolute gehoorzaamheid aan goddelijke wetten.",
+          "Waarden als trots, kracht en het durven nemen van risico's."
+        ],
+        "answer": "D",
+        "rationale": "Herenmoraal wordt gedreven door zelfbevestiging en de moed om buiten de gebaande paden van de kudde te treden."
+      },
+      {
+        "id": 14,
+        "question": "Wanneer noemen we een uitspraak 'twijfelachtig'?",
+        "hint": "Denk aan een situatie waarin we het antwoord (nog) niet kunnen weten.",
+        "options": [
+          "Wanneer de uitspraak logisch gezien onmogelijk waar kan zijn.",
+          "Wanneer er op dit moment onvoldoende bewijs is om te bepalen of het waar of onwaar is.",
+          "Wanneer de meeste mensen het er niet mee eens zijn.",
+          "Wanneer een uitspraak alleen in het verleden waar was, maar nu niet meer."
+        ],
+        "answer": "B",
+        "rationale": "Twijfelachtig is een status van onzekerheid door een gebrek aan informatie, niet een definitief oordeel over onjuistheid."
+      },
+      {
+        "id": 15,
+        "question": "Wat is de kern van de pragmatische theorie van waarheid?",
+        "hint": "Focus op de 'werking' en het 'nut' van een bewering.",
+        "options": [
+          "Iets is waar zolang het werkt of resultaat oplevert in de praktijk.",
+          "Waarheid is een onbereikbaar ideaal waar we alleen naar kunnen streven.",
+          "Alleen dat wat wetenschappelijk bewezen is, mag waar worden genoemd.",
+          "Waarheid is een persoonlijke mening die voor iedereen anders is."
+        ],
+        "answer": "A",
+        "rationale": "Pragmatici kijken naar het nut en de gevolgen van een overtuiging als maatstaf voor waarheid."
+      }
+    ]
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "siteMetadata": {
+    "title": "Toetsweekplanning",
+    "description": "Overzicht van alle toetsen met datums, tijden en stof"
+  },
+  "contentFormat": "custom",
+  "defaultViewMode": "simple",
+  "availableModes": ["simple"],
+  "showTimestamps": false,
+  "showExportButtons": false,
+  "showAnkiExport": false,
+  "showFlashcardsExport": false,
+  "showTranscriptExport": false,
+  "showCopyTranscript": false,
+  "buttons": [],
+  "customComponent": "Toetsweekplanning",
+  "sections": [
+    {
+      "id": "toetsweekplanning",
+      "title": "Toetsweekplanning 2026",
+      "blocks": [
+        {
+          "id": "countdown",
+          "type": "custom",
+          "content": "countdown"
+        },
+        {
+          "id": "toets-data",
+          "type": "custom",
+          "content": "toets-data"
+        }
+      ],
+      "answers": []
+    }
+  ],
+  "toetsen": [
+    {
+      "vak": "Levensbeschouwing",
+      "datum": "2026-06-04",
+      "tijd": "09:00-09:50",
+      "stof": "PowerPoints + Paarse boekje, filosofie, geschiedenis van de westerse filosofie"
+    },
+    {
+      "vak": "Aardrijkskunde",
+      "datum": "2026-06-04",
+      "tijd": "11:00-12:00",
+      "stof": "H5 gewapende conflicten"
+    },
+    {
+      "vak": "Natuurkunde",
+      "datum": "2026-06-05",
+      "tijd": "09:00-10:00",
+      "stof": "H4 elektriciteit"
+    },
+    {
+      "vak": "Geschiedenis",
+      "datum": "2026-06-05",
+      "tijd": "11:00-11:45",
+      "stof": "H4 de wereld na 1945"
+    },
+    {
+      "vak": "Duits",
+      "datum": "2026-06-08",
+      "tijd": "09:00-10:15",
+      "stof": "Leestoets"
+    },
+    {
+      "vak": "Beeldende Vorming",
+      "datum": "2026-06-08",
+      "tijd": "11:00-11:45",
+      "stof": "Expo begrippen + PowerPoints"
+    },
+    {
+      "vak": "Economie",
+      "datum": "2026-06-09",
+      "tijd": "09:00-10:00",
+      "stof": "H4 vraag en aanbod"
+    },
+    {
+      "vak": "Nederlands",
+      "datum": "2026-06-09",
+      "tijd": "11:00-11:50",
+      "stof": "Reclame (commercieel vs ideeël), beeld en opmaak, columns, samenvatten, meerkeuzevragen"
+    },
+    {
+      "vak": "Rekenen",
+      "datum": "2026-06-10",
+      "tijd": "09:00-10:00",
+      "stof": "-"
+    },
+    {
+      "vak": "Biologie",
+      "datum": "2026-06-10",
+      "tijd": "11:00-12:00",
+      "stof": "H4 (voortplanting en seksualiteit) 1 t/m 5, H5 (erfelijkheid en evolutie) 1 t/m 3"
+    },
+    {
+      "vak": "Wiskunde",
+      "datum": "2026-06-11",
+      "tijd": "09:00-10:00",
+      "stof": "H11A/B (vergelijkingen en ongelijkheden) + H12A (zicht op toeval) of H12B (cirkels)"
+    },
+    {
+      "vak": "Frans",
+      "datum": "2026-06-11",
+      "tijd": "11:00-12:00",
+      "stof": "Luistertoets"
+    },
+    {
+      "vak": "Engels",
+      "datum": "2026-06-12",
+      "tijd": "09:00-10:00",
+      "stof": "Leestoets"
+    },
+    {
+      "vak": "Scheikunde",
+      "datum": "2026-06-12",
+      "tijd": "11:00-12:00",
+      "stof": "H1 t/m H7 (Natuurwetenschappen, Stoffen op microniveau, Moleculaire stoffen en Zouten, Reacties, Energie-effecten, Mengen en scheiden, Koolwaterstoffen)"
+    }
+  ]
+}

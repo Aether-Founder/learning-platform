@@ -1,0 +1,165 @@
+id,text
+sections,Sections
+bookmarks,Bookmarks
+clear_bookmarks,Clear All
+no_bookmarks,No bookmarks yet
+click_to_add,Click on any paragraph to add bookmark
+study_mode,Leren
+book_mode,Book Mode
+simple_mode,Uitleg
+loading,Loading...
+export,Export
+copy,Copy
+watch_on_youtube,Watch on YouTube
+read_on_substack,Read on Substack
+back_to_main,Back to Main Page
+table_of_contents,Table of Contents
+section,Section
+paragraph,Paragraph
+question,Question
+answer,Answer
+difficulty,Difficulty
+bookmark_added,Bookmark added
+bookmark_removed,Bookmark removed
+all_bookmarks_cleared,All bookmarks cleared
+export_anki,Export to Anki
+export_flashcards,Export Flashcards
+export_transcript,Export Transcript
+copy_transcript,Copy Transcript
+click_to_flip,Click to flip
+space_to_flip,Space to flip
+arrow_keys,Use arrow keys to navigate
+scroll_to_section,Scroll to section
+active_section,Active section
+sub_section,Sub-section
+part,Part
+chapter,Chapter
+unit,Unit
+lesson,Lesson
+topic,Topic
+content,Content
+navigation,Navigation
+settings,Settings
+language,Language
+theme,Theme
+dark_mode,Dark Mode
+light_mode,Light Mode
+search,Search
+search_placeholder,Search content...
+no_results,No results found
+show_timestamps,Show timestamps
+hide_timestamps,Hide timestamps
+view_mode,View Mode
+change_mode,Change viewing mode
+reading_progress,Reading progress
+completed,Completed
+remaining,Remaining
+of,of
+page,Page
+pages,Pages
+word,Word
+words,Words
+minute,Minute
+minutes,Minutes
+read_time,Read time
+estimated_time,Estimated reading time
+bookmark_this,Bookmark this paragraph
+remove_bookmark,Remove bookmark
+go_to_bookmark,Go to bookmark
+bookmarks_list,Bookmarks list
+empty_state_empty,No content available
+empty_state_loading,Loading content...
+error_loading,Error loading content
+retry,Retry
+close,Close
+save,Save
+cancel,Cancel
+confirm,Confirm
+delete,Delete
+edit,Edit
+add,Add
+remove,Remove
+next,Next
+previous,Previous
+first,First
+last,Last
+beginning,Beginning
+end,End
+top,Top
+bottom,Bottom
+scroll_up,Scroll up
+scroll_down,Scroll down
+jump_to,Jump to
+select_language,Select language
+english,English
+dutch,Dutch
+home_title,Toetsweekvoorbereiding
+home_subtitle,Choose a subject below to practise for test week.
+advanced_mode,Advanced
+advanced_mode_description,Study modes and SRS progress
+advanced_home_description,Practice with advanced study modes and local progress tracking.
+advanced_label,Advanced study
+advanced_title,Study dashboard
+advanced_due,Due
+advanced_reviewed,Reviewed
+advanced_accuracy,Accuracy
+advanced_tab_study,Study
+advanced_tab_stats,Progress
+advanced_mode_flashcard,Flashcards
+advanced_mode_multiple-choice,Multiple choice
+advanced_mode_typing,Typing
+advanced_mode_matching,Matching
+advanced_card_progress,Card
+advanced_quality_again,Again
+advanced_quality_hard,Hard
+advanced_quality_good,Good
+advanced_quality_easy,Easy
+advanced_flashcard_keys,Space flips, 1-4 records after reveal.
+advanced_type_placeholder,Type your answer
+advanced_similarity,Similarity
+advanced_continue,Continue
+advanced_check_answer,Check answer
+advanced_match_pairs,Match the pairs
+advanced_attempts,attempts
+advanced_no_cards_due,No cards are due right now.
+advanced_no_cards,No study questions are available for this page.
+advanced_session_complete,Session complete
+advanced_cards,Cards
+advanced_correct,Correct
+advanced_time,Time
+advanced_study_again,Study again
+advanced_sessions,Sessions
+advanced_forecast,7 day forecast
+advanced_card_limit,Card limit
+advanced_fuzzy_threshold,Fuzzy threshold
+advanced_srs_algorithm,SRS algorithm
+advanced_review_mix,Review mix
+advanced_review_mix_all,Due and new
+advanced_review_mix_due,Due only
+advanced_review_mix_new,New only
+book_mode_description,Read with inline Q&A
+study_mode_description,Flashcard mode
+simple_mode_description,Full text view
+questions,Questions
+questions_and_answers,Questions & Answers
+expand_all,Expand all
+expand_all_qa,Expand All Q&A
+collapse_all,Collapse All
+difficulty_easy,Easy
+difficulty_medium,Medium
+difficulty_hard,Hard
+no_paragraphs_available,No paragraphs available in this section.
+link_to_paragraph,Link to this paragraph
+answer_not_provided,Answer not provided
+not_provided,Not provided
+answer_not_provided_hint,Answer not provided. Use this as a self-test prompt.
+show_question,Show Question
+show_answer,Show Answer
+previous_question,Previous question
+next_question,Next question
+shuffle,Shuffle
+shuffled,Shuffled
+reset,Reset
+keyboard_hint,Keyboard: Space to flip, arrow keys to navigate
+copied,Copied
+untitled,Untitled

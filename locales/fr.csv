@@ -1,0 +1,166 @@
+id,text
+sections,Sections
+bookmarks,Favoris
+clear_bookmarks,Tout effacer
+no_bookmarks,Aucun favori pour le moment
+click_to_add,Cliquez sur un paragraphe pour ajouter un favori
+study_mode,Étudier
+book_mode,Mode Livre
+simple_mode,Explication
+loading,Chargement...
+export,Exporter
+copy,Copier
+watch_on_youtube,Regarder sur YouTube
+read_on_substack,Lire sur Substack
+back_to_main,Retour à la page principale
+table_of_contents,Table des matières
+section,Section
+paragraph,Paragraphe
+question,Question
+answer,Réponse
+difficulty,Difficulté
+bookmark_added,Favori ajouté
+bookmark_removed,Favori supprimé
+all_bookmarks_cleared,Tous les favoris effacés
+export_anki,Exporter vers Anki
+export_flashcards,Exporter les Flashcards
+export_transcript,Exporter le transcript
+copy_transcript,Copier le transcript
+click_to_flip,Cliquez pour retourner
+space_to_flip,Espace pour retourner
+arrow_keys,Utilisez les flèches pour naviguer
+scroll_to_section,Défiler vers la section
+active_section,Section active
+sub_section,Sous-section
+part,Partie
+chapter,Chapitre
+unit,Unité
+lesson,Leçon
+topic,Sujet
+content,Contenu
+navigation,Navigation
+settings,Paramètres
+language,Langue
+theme,Thème
+dark_mode,Mode sombre
+light_mode,Mode clair
+search,Rechercher
+search_placeholder,Rechercher du contenu...
+no_results,Aucun résultat trouvé
+show_timestamps,Afficher les horodatages
+hide_timestamps,Masquer les horodatages
+view_mode,Mode d'affichage
+change_mode,Changer le mode d'affichage
+reading_progress,Progression de lecture
+completed,Terminé
+remaining,Restant
+of,de
+page,Page
+pages,Pages
+word,Mot
+words,Mots
+minute,Minute
+minutes,Minutes
+read_time,Temps de lecture
+estimated_time,Temps de lecture estimé
+bookmark_this,Ajouter ce paragraphe aux favoris
+remove_bookmark,Supprimer le favori
+go_to_bookmark,Aller au favori
+bookmarks_list,Liste des favoris
+empty_state_empty,Aucun contenu disponible
+empty_state_loading,Chargement du contenu...
+error_loading,Erreur lors du chargement du contenu
+retry,Réessayer
+close,Fermer
+save,Enregistrer
+cancel,Annuler
+confirm,Confirmer
+delete,Supprimer
+edit,Modifier
+add,Ajouter
+remove,Supprimer
+next,Suivant
+previous,Précédent
+first,Premier
+last,Dernier
+beginning,Début
+end,Fin
+top,Haut
+bottom,Bas
+scroll_up,Défiler vers le haut
+scroll_down,Défiler vers le bas
+jump_to,Aller à
+select_language,Sélectionner la langue
+english,Anglais
+dutch,Néerlandais
+french,Français
+home_title,Préparation aux examens
+home_subtitle,Choisissez une matière ci-dessous pour vous entraîner pour les examens.
+advanced_mode,Avancé
+advanced_mode_description,Modes d'étude et progression SRS
+advanced_home_description,Entraînez-vous avec des modes d'étude avancés et un suivi local.
+advanced_label,Étude avancée
+advanced_title,Tableau de bord d'étude
+advanced_due,À faire
+advanced_reviewed,Révisés
+advanced_accuracy,Précision
+advanced_tab_study,Étudier
+advanced_tab_stats,Progression
+advanced_mode_flashcard,Flashcards
+advanced_mode_multiple-choice,QCM
+advanced_mode_typing,Frappe
+advanced_mode_matching,Association
+advanced_card_progress,Carte
+advanced_quality_again,Encore
+advanced_quality_hard,Difficile
+advanced_quality_good,Bien
+advanced_quality_easy,Facile
+advanced_flashcard_keys,Espace retourne, 1-4 enregistre après révélation.
+advanced_type_placeholder,Tapez votre réponse
+advanced_similarity,Similitude
+advanced_continue,Continuer
+advanced_check_answer,Vérifier la réponse
+advanced_match_pairs,Associez les paires
+advanced_attempts,tentatives
+advanced_no_cards_due,Aucune carte n'est à réviser pour le moment.
+advanced_no_cards,Aucune question d'étude n'est disponible pour cette page.
+advanced_session_complete,Session terminée
+advanced_cards,Cartes
+advanced_correct,Correct
+advanced_time,Temps
+advanced_study_again,Réétudier
+advanced_sessions,Sessions
+advanced_forecast,Prévisions sur 7 jours
+advanced_card_limit,Limite de cartes
+advanced_fuzzy_threshold,Seuil de similarité
+advanced_srs_algorithm,Algorithme SRS
+advanced_review_mix,Mix de révision
+advanced_review_mix_all,À faire et nouveaux
+advanced_review_mix_due,Seulement à faire
+advanced_review_mix_new,Seulement nouveaux
+book_mode_description,Lire avec Q&A en ligne
+study_mode_description,Mode Flashcard
+simple_mode_description,Vue texte complète
+questions,Questions
+questions_and_answers,Questions et Réponses
+expand_all,Tout développer
+expand_all_qa,Développer toutes les Q&A
+collapse_all,Tout réduire
+difficulty_easy,Facile
+difficulty_medium,Moyen
+difficulty_hard,Difficile
+no_paragraphs_available,Aucun paragraphe disponible dans cette section.
+link_to_paragraph,Lien vers ce paragraphe
+answer_not_provided,Réponse non fournie
+not_provided,Non fourni
+answer_not_provided_hint,Réponse non fournie. Utilisez ceci comme invite d'auto-test.
+show_question,Afficher la question
+show_answer,Afficher la réponse
+previous_question,Question précédente
+next_question,Question suivante
+shuffle,Mélanger
+shuffled,Mélangé
+reset,Réinitialiser
+keyboard_hint,Clavier: Espace pour retourner, flèches pour naviguer
+copied,Copié
+untitled,Sans titre

@@ -1,0 +1,1642 @@
+{
+  "siteMetadata": {
+    "title": "Natuurkunde - Hoofdstuk 4: Elektriciteit",
+    "description": "Natuurkunde hoofdstuk 4 over elektriciteit, met uitleg, oefenvragen, bronnen en leerbare begrippen."
+  },
+  "contentFormat": "textbook",
+  "defaultViewMode": "simple",
+  "availableModes": ["simple", "study", "advanced"],
+  "showTimestamps": false,
+  "showExportButtons": false,
+  "showAnkiExport": false,
+  "showFlashcardsExport": false,
+  "showTranscriptExport": false,
+  "showCopyTranscript": false,
+  "buttons": [],
+  "sections": [
+    {
+      "id": "sec-4-1",
+      "title": "§4.1 Spanning, stroomsterkte en energie",
+      "blocks": [
+        {
+          "id": "blk-4-1",
+          "type": "text",
+          "content": "## Elektrisch vermogen en capaciteit\n\n**DOEL** → Je leert rekenen met elektrisch vermogen en capaciteit.\n\n### Spanning, stroomsterkte en energie {#spanning-stroomsterkte-energie}\n\nElektrische apparaten hebben energie nodig. Deze energie wordt geleverd door een spanningsbron. Door een apparaat op een spanningsbron aan te sluiten, gaat er een elektrische stroom door het apparaat lopen.\n\nEen elektrische stroom bestaat uit bewegende elektronen. De spanningsbron levert de *elektrische energie* aan de elektronen. Hoe groter de spanning, hoe meer energie de elektronen meekrijgen. Naarmate er meer elektronen per seconde door een stroomdraad bewegen, is de stroomsterkte groter. Het symbool van spanning is $U$ en de eenheid is volt (V). Het symbool voor stroomsterkte is $I$ en de eenheid is ampère (A).\n\n### Elektrisch vermogen {#elektrisch-vermogen}\n\nDe energie die een apparaat per seconde gebruikt, is het vermogen. Het symbool voor vermogen is $P$ en de eenheid is watt (W). Het vermogen kun je berekenen met de formule $P = E/t$. Hoe groter het vermogen, hoe meer energie het apparaat per seconde gebruikt.\n\nBij elektrische apparaten bepaalt de spanning hoeveel energie de elektronen meekrijgen. De stroomsterkte geeft aan hoeveel elektronen er per seconde door een apparaat gaan. Het *elektrisch vermogen* is dus afhankelijk van de spanning en de stroomsterkte.\n\nHet elektrisch vermogen kun je berekenen met:\n\n$$ P = U \\times I $$\n\n- $P$ elektrisch vermogen in W\n- $U$ spanning in V\n- $I$ stroomsterkte in A\n\n### Capaciteit {#capaciteit}\n\nIn een accu of batterij kun je een bepaalde hoeveelheid energie tijdelijk opslaan. De hoeveelheid opgeslagen energie in een accu wordt bepaald door de spanning en de *capaciteit* van de accu. De capaciteit wordt bepaald door de stroomsterkte die de accu gedurende een bepaalde tijd kan leveren. De capaciteit bereken je door de stroomsterkte in ampère te vermenigvuldigen met de tijd in uur. Het symbool voor capaciteit is $C$ en de eenheid is ampère-uur (Ah)."
+        }
+      ]
+    },
+    {
+      "id": "sec-4-1-q",
+      "title": "§4.1 Opdrachten",
+      "blocks": [
+        {
+          "id": "blk-4-1-q",
+          "type": "questions",
+          "title": "Opdrachten",
+          "intro": "Beantwoord de volgende opgaven over §4.1.",
+          "questions": [
+            {
+              "id": "q-4-1-1",
+              "number": "1",
+              "text": "Met welke grootheid geef je aan hoeveel energie een apparaat per seconde omzet?"
+            },
+            {
+              "id": "q-4-1-2a",
+              "number": "2a",
+              "text": "Waar of niet waar? Met de formule $P = U \\times I$ bereken je het elektrisch vermogen."
+            },
+            {
+              "id": "q-4-1-2b",
+              "number": "2b",
+              "text": "Waar of niet waar? Een accu met een capaciteit van 40 Ah kan gedurende een half uur een stroom van 20 A laten lopen."
+            },
+            {
+              "id": "q-4-1-3a",
+              "number": "3a",
+              "text": "Reken om: $1500 \\text{ W} = \\dots \\text{ kW}$"
+            },
+            {
+              "id": "q-4-1-3b",
+              "number": "3b",
+              "text": "Reken om: $10 \\text{ kV} = \\dots \\text{ V}$"
+            },
+            {
+              "id": "q-4-1-3c",
+              "number": "3c",
+              "text": "Reken om: $50 \\text{ mA} = \\dots \\text{ A}$"
+            },
+            {
+              "id": "q-4-1-4a",
+              "number": "4a",
+              "text": "Een elektrische straalkachel heeft een stand van 1000 W en een stand van 2000 W. Leg uit bij welke stand de kachel per seconde de grootste hoeveelheid elektrische energie in warmte omzet."
+            },
+            {
+              "id": "q-4-1-4b",
+              "number": "4b",
+              "text": "Bereken de stroomsterkte in de kachel bij de stand van 1000 W."
+            },
+            {
+              "id": "q-4-1-4c",
+              "number": "4c",
+              "text": "Bereken hoeveel energie (in J en in kWh) de kachel gebruikt in één uur bij de stand van 1000 W."
+            },
+            {
+              "id": "q-4-1-5a",
+              "number": "5a",
+              "text": "Lees af op welke spanning de batterijoplader werkt (zie afbeelding in tekst)."
+            },
+            {
+              "id": "q-4-1-5b",
+              "number": "5b",
+              "text": "Lees af hoe groot de stroomsterkte in de oplader is."
+            },
+            {
+              "id": "q-4-1-5c",
+              "number": "5c",
+              "text": "Bereken het vermogen van de oplader."
+            },
+            {
+              "id": "q-4-1-6a",
+              "number": "6a",
+              "text": "Op welk tijdstip verbruikt een huishouden de meeste elektrische energie per seconde (zie grafiek)?"
+            },
+            {
+              "id": "q-4-1-6b",
+              "number": "6b",
+              "text": "Wat is het maximale vermogen dat een gemiddeld huishouden op dit tijdstip gebruikt?"
+            },
+            {
+              "id": "q-4-1-7a",
+              "number": "7a",
+              "text": "De batterij van een mobiel heeft een capaciteit van 1800 mAh. Als je de mobiel niet gebruikt, is de batterij na 7,0 dagen leeg. Bereken de stroomsterkte in mA."
+            },
+            {
+              "id": "q-4-1-7b",
+              "number": "7b",
+              "text": "Een oplader laadt de batterij op met een stroomsterkte van 0,90 A. Bereken hoelang het duurt voordat de mobiel is opgeladen."
+            },
+            {
+              "id": "q-4-1-8",
+              "number": "8",
+              "text": "Op een batterij van 1,2 V staat een capaciteit vermeld van 2000 mAh. Op deze batterij laat je een lampje van 0,25 W branden. Bereken hoelang het lampje kan branden op deze batterij."
+            },
+            {
+              "id": "q-4-1-9a",
+              "number": "9a",
+              "text": "Schrijf de formule op waarmee je de capaciteit van een accu kunt berekenen. Gebruik de grootheden $C$, $I$ en $t$."
+            },
+            {
+              "id": "q-4-1-9b",
+              "number": "9b",
+              "text": "Leid met de twee formules voor vermogen af dat voor de energie in een accu geldt: $E = U \\times I \\times t$"
+            },
+            {
+              "id": "q-4-1-9c",
+              "number": "9c",
+              "text": "Een accu van 12 V heeft een capaciteit van 40 Ah. Bereken hoeveel energie in kWh in deze accu is opgeslagen."
+            },
+            {
+              "id": "q-4-1-10a",
+              "number": "10a",
+              "text": "Bereken hoelang een ledlamp van 3,5 W kan branden op een accu van 1 kg (energiedichtheid 0,4 kWh/kg)."
+            },
+            {
+              "id": "q-4-1-10b",
+              "number": "10b",
+              "text": "Bereken hoelang een ledlamp van 3,5 W kan branden op een supercondensator van 1 kg (energiedichtheid 0,05 kWh/kg)."
+            },
+            {
+              "id": "q-4-1-10c",
+              "number": "10c",
+              "text": "In een elektrische auto zit een accu waarin 25 kWh energie is opgeslagen. Bereken hoeveel kg zwaarder deze auto zou zijn als de accu zou worden vervangen door een supercondensator."
+            },
+            {
+              "id": "q-4-1-11a",
+              "number": "11a",
+              "text": "Noem een voordeel van de oplaadtijd van een condensator."
+            },
+            {
+              "id": "q-4-1-11b",
+              "number": "11b",
+              "text": "Noem een voordeel van de ontlaadtijd van een batterij."
+            },
+            {
+              "id": "q-4-1-11c",
+              "number": "11c",
+              "text": "Leg uit welke van de twee een constant vermogen kan leveren."
+            },
+            {
+              "id": "q-4-1-11d",
+              "number": "11d",
+              "text": "Leg uit in welke van de twee de meeste energie kan worden opgeslagen."
+            }
+          ]
+        }
+      ],
+      "answers": [
+        {
+          "questionId": "q-4-1-1",
+          "number": "1",
+          "answer": "Energie per seconde is vermogen."
+        },
+        {
+          "questionId": "q-4-1-2a",
+          "number": "2a",
+          "answer": "Waar."
+        },
+        {
+          "questionId": "q-4-1-2b",
+          "number": "2b",
+          "answer": "Niet waar. 20 A moet 40 A zijn (20 A × 0,5 h = 10 Ah, niet 40 Ah)."
+        },
+        {
+          "questionId": "q-4-1-3a",
+          "number": "3a",
+          "answer": "$1500 \\text{ W} = 1,5 \\text{ kW}$"
+        },
+        {
+          "questionId": "q-4-1-3b",
+          "number": "3b",
+          "answer": "$10 \\text{ kV} = 10 \\,000 \\text{ V}$"
+        },
+        {
+          "questionId": "q-4-1-3c",
+          "number": "3c",
+          "answer": "$50 \\text{ mA} = 0,050 \\text{ A}$"
+        },
+        {
+          "questionId": "q-4-1-4a",
+          "number": "4a",
+          "answer": "In de stand 2000 W wordt de meeste elektrische energie per seconde omgezet in warmte. Watt betekent J per seconde, dus het hoogste getal zet de meeste energie per seconde om."
+        },
+        {
+          "questionId": "q-4-1-4b",
+          "number": "4b",
+          "answer": "$P = 1000 \\text{ W}$, $U = 230 \\text{ V}$\n$P = U \\times I \\rightarrow 1000 = 230 \\times I$\n$I = 1000 / 230 = 4,3 \\text{ A}$"
+        },
+        {
+          "questionId": "q-4-1-4c",
+          "number": "4c",
+          "answer": "$P = 1000 \\text{ W}$, $t = 1 \\text{ h} = 3600 \\text{ s}$\n$E = P \\times t = 1000 \\times 3600 = 3 \\,600 \\,000 \\text{ J}$\n$E = 1 \\text{ kW} \\times 1 \\text{ h} = 1 \\text{ kWh}$"
+        },
+        {
+          "questionId": "q-4-1-5a",
+          "number": "5a",
+          "answer": "5 V (zie afbeelding A in tekst)"
+        },
+        {
+          "questionId": "q-4-1-5b",
+          "number": "5b",
+          "answer": "2 A (zie afbeelding A in tekst)"
+        },
+        {
+          "questionId": "q-4-1-5c",
+          "number": "5c",
+          "answer": "$P = U \\times I = 5 \\times 2 = 10 \\text{ W}$"
+        },
+        {
+          "questionId": "q-4-1-6a",
+          "number": "6a",
+          "answer": "Rond 19:00 uur (zie grafiek B)"
+        },
+        {
+          "questionId": "q-4-1-6b",
+          "number": "6b",
+          "answer": "5 kW (zie grafiek B)"
+        },
+        {
+          "questionId": "q-4-1-7a",
+          "number": "7a",
+          "answer": "Bij 1800 mA is de accu na 1 uur leeg. Na 168 uur (7 dagen) is de stroom: $1800 / 168 = 10,7 \\text{ mA}$"
+        },
+        {
+          "questionId": "q-4-1-7b",
+          "number": "7b",
+          "answer": "$0,9 \\text{ A} = 900 \\text{ mA}$. Oplaadtijd: $1800 / 900 = 2,0 \\text{ uur}$"
+        },
+        {
+          "questionId": "q-4-1-8",
+          "number": "8",
+          "answer": "$P = U \\times I \\rightarrow 0,25 = 5 \\times I \\rightarrow I = 0,05 \\text{ A} = 50 \\text{ mA}$\nDe batterij kan 40 uur lang 50 mA leveren, dus: $2000 / 50 = 40 \\text{ uur}$"
+        },
+        {
+          "questionId": "q-4-1-9a",
+          "number": "9a",
+          "answer": "$C = I \\times t$"
+        },
+        {
+          "questionId": "q-4-1-9b",
+          "number": "9b",
+          "answer": "$E = P \\times t$ en $P = U \\times I$, dus $E = U \\times I \\times t$"
+        },
+        {
+          "questionId": "q-4-1-9c",
+          "number": "9c",
+          "answer": "$E = U \\times I \\times t = 12 \\times 40 \\times 1 = 480 \\text{ Wh} = 0,48 \\text{ kWh}$"
+        },
+        {
+          "questionId": "q-4-1-10a",
+          "number": "10a",
+          "answer": "$0,4 \\text{ kWh} / 0,0035 \\text{ kW} = 114 \\text{ uur}$"
+        },
+        {
+          "questionId": "q-4-1-10b",
+          "number": "10b",
+          "answer": "$0,05 \\text{ kWh} / 0,0035 \\text{ kW} = 14 \\text{ uur}$"
+        },
+        {
+          "questionId": "q-4-1-10c",
+          "number": "10c",
+          "answer": "Accu: $25 / 0,4 = 63 \\text{ kg}$. Condensator: $25 / 0,05 = 500 \\text{ kg}$. Verschil: $500 - 63 = 427 \\text{ kg}$"
+        },
+        {
+          "questionId": "q-4-1-11a",
+          "number": "11a",
+          "answer": "De condensator kan veel sneller opladen dan de batterij."
+        },
+        {
+          "questionId": "q-4-1-11b",
+          "number": "11b",
+          "answer": "De batterij heeft een lange ontlaadtijd en kan dus langer elektrische energie leveren."
+        },
+        {
+          "questionId": "q-4-1-11c",
+          "number": "11c",
+          "answer": "Constant vermogen vereist constante spanning en stroom. Alleen de batterij kan dit leveren."
+        },
+        {
+          "questionId": "q-4-1-11d",
+          "number": "11d",
+          "answer": "$E = U \\times I \\times t$. De batterij behoudt de grootste tijd de grootste spanning, dus kan het meeste energie opslaan."
+        }
+      ]
+    },
+    {
+      "id": "sec-4-2",
+      "title": "§4.2 Weerstand",
+      "blocks": [
+        {
+          "id": "blk-4-2",
+          "type": "text",
+          "content": "## Weerstand\n\n**DOEL** → Je leert wat het verband is tussen spanning en stroomsterkte.\n\n### Weerstand {#weerstand}\n\nDe koplamp van een scooter geeft meer licht dan het achterlicht bij dezelfde accuspanning van 12 V. Door de koplamp loopt namelijk een grotere elektrische stroom dan door het achterlicht. Dat komt doordat de stroom gemakkelijker door de koplamp loopt dan door het achterlicht. Een apparaat dat de stroom gemakkelijk doorlaat, heeft een kleine *elektrische weerstand*. De grootheid weerstand geef je aan met de letter $R$ en de eenheid voor weerstand is ohm ($\\Omega$).\n\n### Weerstand berekenen {#weerstand-berekenen}\n\nBij gelijke spanning zorgt een kleine weerstand voor een grote stroomsterkte en een grote weerstand voor een kleine stroomsterkte. Er is dus een verband tussen spanning, weerstand en stroomsterkte:\n\n$$ R = \\frac{U}{I} $$\n\n- $R$ weerstand in $\\Omega$\n- $U$ spanning in V\n- $I$ stroomsterkte in A\n\n### De wet van Ohm {#wet-van-ohm}\n\nAls de weerstand $R$ van een elektrische component constant is, is er een recht evenredig verband tussen de spanning $U$ en de stroomsterkte $I$. Als de spanning twee keer zo groot wordt, wordt de stroomsterkte ook twee keer zo groot. Dit verband heet de *wet van Ohm*. Een elektrisch onderdeel waarvan de weerstand constant is, noem je een *ohmse weerstand*.\n\nEr zijn ook componenten waarvan de weerstand niet constant is. Als je bijvoorbeeld de spanning over een verwarmingsspiraal twee keer zo groot maakt, wordt de stroomsterkte minder dan twee keer zo groot. Dat komt doordat de weerstand van de spiraal groter is geworden."
+        }
+      ]
+    },
+    {
+      "id": "sec-4-2-q",
+      "title": "§4.2 Opdrachten",
+      "blocks": [
+        {
+          "id": "blk-4-2-q",
+          "type": "questions",
+          "title": "Opdrachten",
+          "intro": "Beantwoord de volgende opgaven over §4.2.",
+          "questions": [
+            {
+              "id": "q-4-2-12",
+              "number": "12",
+              "text": "Hoe heet een weerstand waarbij de spanning en de stroomsterkte recht evenredig zijn?"
+            },
+            {
+              "id": "q-4-2-13",
+              "number": "13",
+              "text": "Wat is de eenheid van weerstand en welke afkorting hoort hierbij?"
+            },
+            {
+              "id": "q-4-2-14a",
+              "number": "14a",
+              "text": "Reken om: $20 \\, \\Omega = \\dots \\text{ k}\\Omega$"
+            },
+            {
+              "id": "q-4-2-14b",
+              "number": "14b",
+              "text": "Reken om: $0,55 \\, \\Omega = \\dots \\text{ m}\\Omega$"
+            },
+            {
+              "id": "q-4-2-14c",
+              "number": "14c",
+              "text": "Reken om: $25 \\text{ M}\\Omega = \\dots \\, \\Omega$"
+            },
+            {
+              "id": "q-4-2-15",
+              "number": "15",
+              "text": "Over een ohmse weerstand van 3,0 $\\Omega$ staat een spanning van 30 V. Bereken de stroomsterkte door deze weerstand."
+            },
+            {
+              "id": "q-4-2-16a",
+              "number": "16a",
+              "text": "Bepaal de waarde van de weerstand uit het (I,U)-diagram (zie afbeelding A)."
+            },
+            {
+              "id": "q-4-2-16b",
+              "number": "16b",
+              "text": "Leg uit of de weerstand een ohmse weerstand is."
+            },
+            {
+              "id": "q-4-2-17a",
+              "number": "17a",
+              "text": "Teken het schakelschema van een ohmse weerstand aangesloten op een batterij met een voltmeter en ampèremeter."
+            },
+            {
+              "id": "q-4-2-17b",
+              "number": "17b",
+              "text": "Bepaal de waarde van de weerstand in $\\Omega$ uit de meteraflezingen."
+            },
+            {
+              "id": "q-4-2-17c",
+              "number": "17c",
+              "text": "Je verdubbelt de spanning. Bereken de stroomsterkte in mA."
+            },
+            {
+              "id": "q-4-2-18a",
+              "number": "18a",
+              "text": "Bepaal de weerstand van de koplamp bij 6,0 V (zie afbeelding C)."
+            },
+            {
+              "id": "q-4-2-18b",
+              "number": "18b",
+              "text": "Leg uit welke lamp de laagste weerstand heeft."
+            },
+            {
+              "id": "q-4-2-18c",
+              "number": "18c",
+              "text": "Leg uit of de wet van Ohm voor deze lampen geldt."
+            },
+            {
+              "id": "q-4-2-19a",
+              "number": "19a",
+              "text": "Een wasmachine heeft een vermogen van 1250 W en is aangesloten op het stopcontact. Bereken de weerstand van de wasmachine."
+            },
+            {
+              "id": "q-4-2-19b",
+              "number": "19b",
+              "text": "Leid met de formule voor elektrisch vermogen en de formule voor de weerstand af dat geldt: $P = U^2 / R$."
+            },
+            {
+              "id": "q-4-2-19c",
+              "number": "19c",
+              "text": "Bereken met de formule van vraag b nogmaals de weerstand van de wasmachine."
+            },
+            {
+              "id": "q-4-2-20a",
+              "number": "20a",
+              "text": "Lees af hoe groot de stroomsterkte is bij 0,80 V (zie afbeelding D)."
+            },
+            {
+              "id": "q-4-2-20b",
+              "number": "20b",
+              "text": "Bepaal de weerstand van het ledlampje bij 1,2 V."
+            },
+            {
+              "id": "q-4-2-20c",
+              "number": "20c",
+              "text": "Leg uit of de weerstand van het ledlampje toeneemt of afneemt als de spanning vanaf 1,0 V toeneemt."
+            },
+            {
+              "id": "q-4-2-21",
+              "number": "21",
+              "text": "Leg voor elk van de componenten A, B en C in het (I,U)-diagram uit wat er met de weerstand gebeurt als de spanning toeneemt (zie afbeelding E)."
+            },
+            {
+              "id": "q-4-2-22a",
+              "number": "22a",
+              "text": "Leg uit op welk tijdstip de weerstand van het lichaam het kleinst is (zie afbeelding F)."
+            },
+            {
+              "id": "q-4-2-22b",
+              "number": "22b",
+              "text": "Leg uit of de kans dat de verdachte op dit tijdstip loog groot of klein is."
+            },
+            {
+              "id": "q-4-2-22c",
+              "number": "22c",
+              "text": "De spanning tussen de twee elektroden is 10 V. Bepaal de weerstand van het lichaam op $t = 40 \\text{ s}$."
+            },
+            {
+              "id": "q-4-2-23a",
+              "number": "23a",
+              "text": "Bepaal de minimale stroomsterkte in het lichaam bij een spanning van 200 V over het lichaam (zie afbeelding G)."
+            },
+            {
+              "id": "q-4-2-23b",
+              "number": "23b",
+              "text": "Leg uit of het lichaam zich gedraagt als een ohmse weerstand."
+            }
+          ]
+        }
+      ],
+      "answers": [
+        {
+          "questionId": "q-4-2-12",
+          "number": "12",
+          "answer": "Een ohmse weerstand."
+        },
+        {
+          "questionId": "q-4-2-13",
+          "number": "13",
+          "answer": "De eenheid is ohm, afkorting $\\Omega$."
+        },
+        {
+          "questionId": "q-4-2-14a",
+          "number": "14a",
+          "answer": "$20 \\, \\Omega = 0,02 \\text{ k}\\Omega$"
+        },
+        {
+          "questionId": "q-4-2-14b",
+          "number": "14b",
+          "answer": "$0,55 \\, \\Omega = 550 \\text{ m}\\Omega$"
+        },
+        {
+          "questionId": "q-4-2-14c",
+          "number": "14c",
+          "answer": "$25 \\text{ M}\\Omega = 25 \\,000 \\,000 \\, \\Omega$"
+        },
+        {
+          "questionId": "q-4-2-15",
+          "number": "15",
+          "answer": "$R = 3 \\, \\Omega$, $U = 30 \\text{ V}$\n$R = U / I \\rightarrow 3 = 30 / I \\rightarrow I = 10 \\text{ A}$"
+        },
+        {
+          "questionId": "q-4-2-16a",
+          "number": "16a",
+          "answer": "Kies een punt: bij $U = 35,0 \\text{ V}$, $I = 160 \\text{ mA} = 0,160 \\text{ A}$\\n$R = U / I = 35,0 / 0,160 = 219 \\, \\Omega$"
+        },
+        {
+          "questionId": "q-4-2-16b",
+          "number": "16b",
+          "answer": "De rechte lijn geeft aan dat spanning en stroom recht evenredig zijn, dus het is een ohmse weerstand."
+        },
+        {
+          "questionId": "q-4-2-17a",
+          "number": "17a",
+          "answer": "*(schema met batterij, weerstand, voltmeter parallel, ampèremeter in serie)*"
+        },
+        {
+          "questionId": "q-4-2-17b",
+          "number": "17b",
+          "answer": "$I = 0,18 \\text{ A}$, $U = 24 \\text{ V}$\\n$R = U / I = 24 / 0,18 = 133 \\, \\Omega$"
+        },
+        {
+          "questionId": "q-4-2-17c",
+          "number": "17c",
+          "answer": "Bij ohmse weerstand: stroom is recht evenredig met spanning. $2 \\times 0,18 = 0,36 \\text{ A} = 360 \\text{ mA}$"
+        },
+        {
+          "questionId": "q-4-2-18a",
+          "number": "18a",
+          "answer": "$U = 6 \\text{ V}$, $I = 0,40 \\text{ A}$\\n$R = 6 / 0,40 = 15 \\, \\Omega$"
+        },
+        {
+          "questionId": "q-4-2-18b",
+          "number": "18b",
+          "answer": "De koplamp heeft grotere stroom bij dezelfde spanning, dus lagere weerstand."
+        },
+        {
+          "questionId": "q-4-2-18c",
+          "number": "18c",
+          "answer": "Nee, de grafiek is geen rechte lijn, dus spanning en stroom zijn niet recht evenredig."
+        },
+        {
+          "questionId": "q-4-2-19a",
+          "number": "19a",
+          "answer": "$P = 1250 \\text{ W}$, $U = 230 \\text{ V}$\\n$I = P / U = 1250 / 230 = 5,4 \\text{ A}$\\n$R = U / I = 230 / 5,4 = 42 \\, \\Omega$"
+        },
+        {
+          "questionId": "q-4-2-19b",
+          "number": "19b",
+          "answer": "$R = U / I \\rightarrow I = U / R$. Invullen in $P = U \\times I$: $P = U \\times (U / R) = U^2 / R$"
+        },
+        {
+          "questionId": "q-4-2-19c",
+          "number": "19c",
+          "answer": "$P = U^2 / R \\rightarrow 1250 = 230^2 / R \\rightarrow R = 230^2 / 1250 = 42 \\, \\Omega$"
+        },
+        {
+          "questionId": "q-4-2-20a",
+          "number": "20a",
+          "answer": "0 mA (bij 0,80 V is er nog geen stroom)"
+        },
+        {
+          "questionId": "q-4-2-20b",
+          "number": "20b",
+          "answer": "$U = 1,2 \\text{ V}$, $I = 7 \\text{ mA} = 0,007 \\text{ A}$\\n$R = 1,2 / 0,007 = 171 \\, \\Omega$"
+        },
+        {
+          "questionId": "q-4-2-20c",
+          "number": "20c",
+          "answer": "De weerstand neemt af omdat de stroom sneller toeneemt dan de spanning vanaf 1 V."
+        },
+        {
+          "questionId": "q-4-2-21",
+          "number": "21",
+          "answer": "Lijn A: weerstand constant (rechte lijn, ohms).\\nLijn B: weerstand neemt toe (stroom te klein voor ohmse).\\nLijn C: weerstand neemt af (stroom te groot voor ohmse)."
+        },
+        {
+          "questionId": "q-4-2-22a",
+          "number": "22a",
+          "answer": "Als de stroom het grootst is, is de weerstand het kleinst. Dit is bij $t = 18 \\text{ s}$."
+        },
+        {
+          "questionId": "q-4-2-22b",
+          "number": "22b",
+          "answer": "Bij lage weerstand zweet je meer, dus grotere kans op liegen (hoewel leugendetectoren wetenschappelijk niet betrouwbaar zijn)."
+        },
+        {
+          "questionId": "q-4-2-22c",
+          "number": "22c",
+          "answer": "$U = 10 \\text{ V}$, $I = 0,3 \\text{ mA} = 0,0003 \\text{ A}$\\n$R = 10 / 0,0003 = 33 \\,333 \\, \\Omega = 33 \\text{ k}\\Omega$"
+        },
+        {
+          "questionId": "q-4-2-23a",
+          "number": "23a",
+          "answer": "$R = 1950 \\, \\Omega$ bij $U = 200 \\text{ V}$\\n$R = U / I \\rightarrow 1950 = 200 / I \\rightarrow I = 0,103 \\text{ A}$"
+        },
+        {
+          "questionId": "q-4-2-23b",
+          "number": "23b",
+          "answer": "Nee, de weerstand verandert als de spanning verandert, dus geen ohmse weerstand."
+        }
+      ]
+    },
+    {
+      "id": "sec-4-3",
+      "title": "§4.3 Elektrische schakelingen",
+      "blocks": [
+        {
+          "id": "blk-4-3",
+          "type": "text",
+          "content": "## Elektrische schakelingen\n\n**DOEL** → Je leert hoe je in een serieschakeling en een parallelschakeling met totale weerstand kunt rekenen.\n\n### Eigenschappen van een serieschakeling {#eigenschappen-serieschakeling}\n\nIn een serieschakeling is er maar één stroomkring. Een serieschakeling heeft de volgende eigenschappen:\n\n1. De stroomsterkte is in elke component even groot: $I_1 = I_2 = I_3$\n2. Wordt de stroomkring op één plek onderbroken, dan loopt er geen stroom meer\n3. De som van de spanningen over de componenten is gelijk aan de totale spanning: $U_{\\text{tot}} = U_1 + U_2 + U_3$\n\n### Totale weerstand van een serieschakeling {#totale-weerstand-serieschakeling}\n\nVoor elke weerstand geldt: $U = I \\times R$. Als je deze formules invult in de formule voor $U_{\\text{tot}}$, krijg je:\n\n$$ R_{\\text{tot}} = R_1 + R_2 + R_3 $$\n\nMet de totale weerstand kun je de stroomsterkte berekenen: $U_{\\text{tot}} = I \\times R_{\\text{tot}}$.\n\n### Eigenschappen van een parallelschakeling {#eigenschappen-parallelschakeling}\n\nIn een parallelschakeling zijn er meerdere stroomkringen. Een parallelschakeling heeft de volgende eigenschappen:\n\n1. De spanning over elke component is gelijk aan de totale spanning: $U_{\\text{tot}} = U_1 = U_2 = U_3$\n2. Wordt de stroomkring van één component onderbroken, dan loopt er nog wel een stroom door de andere componenten\n3. De som van de stroomsterktes is gelijk aan de totale stroomsterkte: $I_{\\text{tot}} = I_1 + I_2 + I_3$\n\n### Totale weerstand van een parallelschakeling {#totale-weerstand-parallelschakeling}\n\nVoor elke weerstand geldt $I = U/R$. Als je deze formules invult in de formule voor $I_{\\text{tot}}$, krijg je:\n\n$$ \\frac{1}{R_{\\text{tot}}} = \\frac{1}{R_1} + \\frac{1}{R_2} + \\frac{1}{R_3} $$\n\nMet de totale weerstand kun je de totale stroomsterkte berekenen: $U_{\\text{tot}} = I_{\\text{tot}} \\times R_{\\text{tot}}$."
+        }
+      ]
+    },
+    {
+      "id": "sec-4-3-q",
+      "title": "§4.3 Opdrachten",
+      "blocks": [
+        {
+          "id": "blk-4-3-q",
+          "type": "questions",
+          "title": "Opdrachten",
+          "intro": "Beantwoord de volgende opgaven over §4.3.",
+          "questions": [
+            {
+              "id": "q-4-3-24",
+              "number": "24",
+              "text": "Schrijf de formule op waarmee je de totale weerstand van vier parallel geschakelde weerstanden kunt berekenen."
+            },
+            {
+              "id": "q-4-3-25a",
+              "number": "25a",
+              "text": "Waar of niet waar? In een serieschakeling is maar één stroomkring."
+            },
+            {
+              "id": "q-4-3-25b",
+              "number": "25b",
+              "text": "Waar of niet waar? In een parallelschakeling geldt: $I_{\\text{tot}} = I_1 + I_2 + I_3$."
+            },
+            {
+              "id": "q-4-3-25c",
+              "number": "25c",
+              "text": "Waar of niet waar? Een voltmeter sluit je in serie aan."
+            },
+            {
+              "id": "q-4-3-25d",
+              "number": "25d",
+              "text": "Waar of niet waar? De totale weerstand van twee parallel geschakelde weerstanden van 100 $\\Omega$ is 200 $\\Omega$."
+            },
+            {
+              "id": "q-4-3-26a",
+              "number": "26a",
+              "text": "Bereken de totale weerstand in schakeling 1 (serie) met $R_1 = 200 \\, \\Omega$, $R_2 = 400 \\, \\Omega$, $R_3 = 360 \\, \\Omega$."
+            },
+            {
+              "id": "q-4-3-26b",
+              "number": "26b",
+              "text": "Bereken de totale weerstand in schakeling 2 (parallel) met dezelfde weerstanden."
+            },
+            {
+              "id": "q-4-3-26c",
+              "number": "26c",
+              "text": "Bereken de stroomsterkte in schakeling 1 bij 10 V."
+            },
+            {
+              "id": "q-4-3-26d",
+              "number": "26d",
+              "text": "Bereken de totale stroomsterkte in schakeling 2 bij 10 V."
+            },
+            {
+              "id": "q-4-3-27a",
+              "number": "27a",
+              "text": "Een waterkoker van 1700 W is aangesloten op 230 V. Bereken de weerstand."
+            },
+            {
+              "id": "q-4-3-27b",
+              "number": "27b",
+              "text": "Een tosti-ijzer van 1000 W is aangesloten op 230 V. Bereken de weerstand."
+            },
+            {
+              "id": "q-4-3-27c",
+              "number": "27c",
+              "text": "Bereken de totale stroomsterkte als beide apparaten parallel zijn aangesloten."
+            },
+            {
+              "id": "q-4-3-27d",
+              "number": "27d",
+              "text": "De stroomsterkte mag maximaal 16 A zijn. Bereken of je ook nog een koffiezetapparaat van 900 W kunt aansluiten."
+            },
+            {
+              "id": "q-4-3-28a",
+              "number": "28a",
+              "text": "Een ledlamp brandt bij 2,1 V met 20 mA. Om deze op 5,0 V aan te sluiten heb je een extra weerstand nodig. Leg uit of je deze in serie of parallel moet schakelen."
+            },
+            {
+              "id": "q-4-3-28b",
+              "number": "28b",
+              "text": "Bereken de weerstand van de ledlamp."
+            },
+            {
+              "id": "q-4-3-28c",
+              "number": "28c",
+              "text": "Bereken de waarde van de extra weerstand."
+            },
+            {
+              "id": "q-4-3-29a",
+              "number": "29a",
+              "text": "Bepaal de waarden van $R_1$ en $R_2$ uit het (I,U)-diagram (zie afbeelding B)."
+            },
+            {
+              "id": "q-4-3-29b",
+              "number": "29b",
+              "text": "Leg uit of de weerstanden parallel of in serie geschakeld zijn."
+            },
+            {
+              "id": "q-4-3-30a",
+              "number": "30a",
+              "text": "Een elektromotor van 1,3 W op 12 V. Bereken de stroomsterkte."
+            },
+            {
+              "id": "q-4-3-30b",
+              "number": "30b",
+              "text": "Bereken de weerstand van de elektromotor."
+            },
+            {
+              "id": "q-4-3-30c",
+              "number": "30c",
+              "text": "Een lamp van 2 W op 5 V. Bereken de stroomsterkte."
+            },
+            {
+              "id": "q-4-3-30d",
+              "number": "30d",
+              "text": "Bereken de totale stroomsterkte in de schakeling."
+            },
+            {
+              "id": "q-4-3-30e",
+              "number": "30e",
+              "text": "Bereken de totale weerstand van de schakeling."
+            },
+            {
+              "id": "q-4-3-30f",
+              "number": "30f",
+              "text": "Bereken de weerstand van de lamp en $R$ samen."
+            },
+            {
+              "id": "q-4-3-31a",
+              "number": "31a",
+              "text": "Bereken de spanning over elke draad als de spanning over de grasmaaier 200 V is en de totale spanning 230 V."
+            },
+            {
+              "id": "q-4-3-31b",
+              "number": "31b",
+              "text": "De stroomsterkte is 5 A. Bereken de weerstand van elke draad."
+            },
+            {
+              "id": "q-4-3-31c",
+              "number": "31c",
+              "text": "Bij 230 V heeft de grasmaaier 1500 W. Bereken hoeveel vermogen te weinig wordt geleverd via het verlengsnoer."
+            },
+            {
+              "id": "q-4-3-32a",
+              "number": "32a",
+              "text": "Teken de dimmerschakeling over en geef aan hoe de stroom loopt."
+            },
+            {
+              "id": "q-4-3-32b",
+              "number": "32b",
+              "text": "Bereken de weerstand van de lamp als de schuif helemaal links staat."
+            },
+            {
+              "id": "q-4-3-32c",
+              "number": "32c",
+              "text": "Leg uit in welke stand de schuifweerstand moet staan om de lamp het minst fel te laten branden."
+            },
+            {
+              "id": "q-4-3-32d",
+              "number": "32d",
+              "text": "Stel dat de lamp ohms is. Bereken de stroomsterkte als de schuif precies in het midden staat."
+            },
+            {
+              "id": "q-4-3-33a",
+              "number": "33a",
+              "text": "Leg uit in welke positie van de knop de weerstand het grootst is."
+            },
+            {
+              "id": "q-4-3-33b",
+              "number": "33b",
+              "text": "De snelheid is recht evenredig met de stroomsterkte. Bij 90 mA is de snelheid maximaal. Bepaal hoeveel procent je de knop moet loslaten voor halve snelheid."
+            }
+          ]
+        }
+      ],
+      "answers": [
+        {
+          "questionId": "q-4-3-24",
+          "number": "24",
+          "answer": "$\\frac{1}{R_{\\text{tot}}} = \\frac{1}{R_1} + \\frac{1}{R_2} + \\frac{1}{R_3} + \\frac{1}{R_4}$"
+        },
+        {
+          "questionId": "q-4-3-25a",
+          "number": "25a",
+          "answer": "Waar."
+        },
+        {
+          "questionId": "q-4-3-25b",
+          "number": "25b",
+          "answer": "Waar."
+        },
+        {
+          "questionId": "q-4-3-25c",
+          "number": "25c",
+          "answer": "Niet waar. Een voltmeter sluit je parallel aan."
+        },
+        {
+          "questionId": "q-4-3-25d",
+          "number": "25d",
+          "answer": "Niet waar. Parallel: $R_{\\text{tot}}$ is kleiner dan de afzonderlijke weerstanden."
+        },
+        {
+          "questionId": "q-4-3-26a",
+          "number": "26a",
+          "answer": "$R_{\\text{tot}} = 200 + 400 + 360 = 960 \\, \\Omega$"
+        },
+        {
+          "questionId": "q-4-3-26b",
+          "number": "26b",
+          "answer": "$\\frac{1}{R_{\\text{tot}}} = \\frac{1}{200} + \\frac{1}{400} + \\frac{1}{360} = 0,0103$\\n$R_{\\text{tot}} = 1 / 0,0103 = 97 \\, \\Omega$"
+        },
+        {
+          "questionId": "q-4-3-26c",
+          "number": "26c",
+          "answer": "$R = 960 \\, \\Omega$, $U = 10 \\text{ V}$\\n$I = U / R = 10 / 960 = 0,0104 \\text{ A}$"
+        },
+        {
+          "questionId": "q-4-3-26d",
+          "number": "26d",
+          "answer": "$R = 97 \\, \\Omega$, $U = 10 \\text{ V}$\\n$I = U / R = 10 / 97 = 0,103 \\text{ A}$"
+        },
+        {
+          "questionId": "q-4-3-27a",
+          "number": "27a",
+          "answer": "$P = U^2 / R \\rightarrow 1700 = 230^2 / R \\rightarrow R = 31,1 \\, \\Omega$"
+        },
+        {
+          "questionId": "q-4-3-27b",
+          "number": "27b",
+          "answer": "$P = U^2 / R \\rightarrow 1000 = 230^2 / R \\rightarrow R = 52,9 \\, \\Omega$"
+        },
+        {
+          "questionId": "q-4-3-27c",
+          "number": "27c",
+          "answer": "$P_{\\text{tot}} = 1000 + 1700 = 2700 \\text{ W}$\\n$I = P / U = 2700 / 230 = 11,7 \\text{ A}$"
+        },
+        {
+          "questionId": "q-4-3-27d",
+          "number": "27d",
+          "answer": "Nog beschikbaar: $16 - 11,7 = 4,3 \\text{ A}$\\n$P = 230 \\times 4,3 = 989 \\text{ W}$. Ja, 900 W past."
+        },
+        {
+          "questionId": "q-4-3-28a",
+          "number": "28a",
+          "answer": "In serie, zodat de spanning zich verdeelt over led en weerstand."
+        },
+        {
+          "questionId": "q-4-3-28b",
+          "number": "28b",
+          "answer": "$I = 20 \\text{ mA} = 0,02 \\text{ A}$, $U = 2,1 \\text{ V}$\\n$R = U / I = 2,1 / 0,02 = 105 \\, \\Omega$"
+        },
+        {
+          "questionId": "q-4-3-28c",
+          "number": "28c",
+          "answer": "$U_R = 5,0 - 2,1 = 2,9 \\text{ V}$, $I = 0,02 \\text{ A}$\\n$R = 2,9 / 0,02 = 145 \\, \\Omega$"
+        },
+        {
+          "questionId": "q-4-3-29a",
+          "number": "29a",
+          "answer": "$R_1$: bij $U = 8 \\text{ V}$, $I = 0,4 \\text{ A} \\rightarrow R_1 = 20 \\, \\Omega$\\n$R_2$: bij $U = 8 \\text{ V}$, $I = 0,26 \\text{ A} \\rightarrow R_2 = 31 \\, \\Omega$"
+        },
+        {
+          "questionId": "q-4-3-29b",
+          "number": "29b",
+          "answer": "De totale weerstand is groter dan beide afzonderlijke weerstanden, dus serie."
+        },
+        {
+          "questionId": "q-4-3-30a",
+          "number": "30a",
+          "answer": "$P = 1,3 \\text{ W}$, $U = 12 \\text{ V}$\\n$I = P / U = 1,3 / 12 = 0,11 \\text{ A}$"
+        },
+        {
+          "questionId": "q-4-3-30b",
+          "number": "30b",
+          "answer": "$R = U / I = 12 / 0,11 = 111 \\, \\Omega$"
+        },
+        {
+          "questionId": "q-4-3-30c",
+          "number": "30c",
+          "answer": "$P = 2 \\text{ W}$, $U = 5 \\text{ V}$\\n$I = P / U = 2 / 5 = 0,40 \\text{ A}$"
+        },
+        {
+          "questionId": "q-4-3-30d",
+          "number": "30d",
+          "answer": "$I_{\\text{tot}} = 0,11 + 0,40 = 0,51 \\text{ A}$"
+        },
+        {
+          "questionId": "q-4-3-30e",
+          "number": "30e",
+          "answer": "$R = U / I = 12 / 0,51 = 23,5 \\, \\Omega \\approx 24 \\, \\Omega$"
+        },
+        {
+          "questionId": "q-4-3-30f",
+          "number": "30f",
+          "answer": "$R = U / I = 12 / 0,40 = 30 \\, \\Omega$"
+        },
+        {
+          "questionId": "q-4-3-31a",
+          "number": "31a",
+          "answer": "$U_{\\text{draden}} = 230 - 200 = 30 \\text{ V}$. Per draad: $15 \\text{ V}$"
+        },
+        {
+          "questionId": "q-4-3-31b",
+          "number": "31b",
+          "answer": "$U = 15 \\text{ V}$, $I = 5 \\text{ A}$\\n$R = U / I = 15 / 5 = 3 \\, \\Omega$"
+        },
+        {
+          "questionId": "q-4-3-31c",
+          "number": "31c",
+          "answer": "$P = 200 \\times 5 = 1000 \\text{ W}$. Tekort: $1500 - 1000 = 500 \\text{ W}$"
+        },
+        {
+          "questionId": "q-4-3-32a",
+          "number": "32a",
+          "answer": "*(schema met 12 V, lamp, schuifweerstand in serie)*"
+        },
+        {
+          "questionId": "q-4-3-32b",
+          "number": "32b",
+          "answer": "$P = 10 \\text{ W}$, $U = 12 \\text{ V}$\\n$R = U^2 / P = 144 / 10 = 14,4 \\, \\Omega$"
+        },
+        {
+          "questionId": "q-4-3-32c",
+          "number": "32c",
+          "answer": "Schuif helemaal rechts (maximale weerstand in serie)."
+        },
+        {
+          "questionId": "q-4-3-32d",
+          "number": "32d",
+          "answer": "$R_{\\text{tot}} = 14,4 + 50 = 64,4 \\, \\Omega$\\n$I = U / R = 12 / 64,4 = 0,19 \\text{ A}$"
+        },
+        {
+          "questionId": "q-4-3-33a",
+          "number": "33a",
+          "answer": "Bij 0% positie (rust) is de stroom kleinst, dus weerstand grootst."
+        },
+        {
+          "questionId": "q-4-3-33b",
+          "number": "33b",
+          "answer": "Halve snelheid = halve stroom = 45 mA. Uit diagram: 45 mA bij ca. 80%."
+        }
+      ]
+    },
+    {
+      "id": "sec-4-4-1",
+      "title": "§4.4 Sensorschakeling",
+      "blocks": [
+        {
+          "id": "blk-4-4-1",
+          "type": "text",
+          "content": "## Sensorschakelingen\n\n**DOEL** → Je leert rekenen aan sensorschakelingen.\n\n### Sensorschakeling\n\nEen sensorschakeling geeft een elektrische spanning af die afhangt van de waarde van de gemeten grootheid, bijvoorbeeld temperatuur, lichtsterkte, afstand, geluidssterkte.\n\n### NTC-weerstand\n\nEen NTC-weerstand (Negative Temperature Coëfficiënt) is temperatuurgevoelig. De weerstand neemt af als de temperatuur stijgt. In een sensorschakeling met een NTC en een vaste weerstand in serie, verandert de spanning over de NTC met de temperatuur."
+        }
+      ]
+    },
+    {
+      "id": "sec-4-4-2",
+      "title": "§4.4 LDR",
+      "blocks": [
+        {
+          "id": "blk-4-4-2",
+          "type": "text",
+          "content": "### LDR\n\nEen LDR (Light Depending Resistor) is lichtgevoelig. Als er meer licht op de LDR valt, neemt de weerstand af. LDR's worden gebruikt in automatische buitenverlichting."
+        }
+      ]
+    },
+    {
+      "id": "sec-4-4-q",
+      "title": "§4.4 Opdrachten",
+      "blocks": [
+        {
+          "id": "blk-4-4-q",
+          "type": "questions",
+          "title": "Opdrachten",
+          "intro": "Beantwoord de volgende opgaven over §4.4.",
+          "questions": [
+            {
+              "id": "q-4-4-34a",
+              "number": "34a",
+              "text": "Wat betekent het symbool van een NTC-weerstand?"
+            },
+            {
+              "id": "q-4-4-34b",
+              "number": "34b",
+              "text": "Wat betekent het symbool van een weerstand?"
+            },
+            {
+              "id": "q-4-4-34c",
+              "number": "34c",
+              "text": "Wat betekent het symbool van een LDR?"
+            },
+            {
+              "id": "q-4-4-35a",
+              "number": "35a",
+              "text": "Geef aan voor welke grootheid de sensor in een vriezer gevoelig is."
+            },
+            {
+              "id": "q-4-4-35b",
+              "number": "35b",
+              "text": "Geef aan voor welke grootheid de sensor in een alarmsysteem met lichtbundel gevoelig is."
+            },
+            {
+              "id": "q-4-4-35c",
+              "number": "35c",
+              "text": "Geef aan voor welke grootheid de sensor in een weegschaal gevoelig is."
+            },
+            {
+              "id": "q-4-4-35d",
+              "number": "35d",
+              "text": "Geef aan voor welke grootheid de sensor in een flitspaal gevoelig is."
+            },
+            {
+              "id": "q-4-4-36a",
+              "number": "36a",
+              "text": "Bij een NTC-sensor: neemt de stroomsterkte toe/af/gelijk als de temperatuur stijgt?"
+            },
+            {
+              "id": "q-4-4-36b",
+              "number": "36b",
+              "text": "Bij een NTC-sensor: neemt de spanning over R toe/af/gelijk als de temperatuur stijgt?"
+            },
+            {
+              "id": "q-4-4-36c",
+              "number": "36c",
+              "text": "Bij een NTC-sensor: neemt de sensorspanning toe/af/gelijk als de temperatuur stijgt?"
+            }
+          ]
+        }
+      ],
+      "answers": [
+        {
+          "questionId": "q-4-4-34a",
+          "number": "34a",
+          "answer": "NTC-weerstand (temperatuurgevoelig)."
+        },
+        {
+          "questionId": "q-4-4-34b",
+          "number": "34b",
+          "answer": "Weerstand."
+        },
+        {
+          "questionId": "q-4-4-34c",
+          "number": "34c",
+          "answer": "LDR (lichtgevoelig)."
+        },
+        {
+          "questionId": "q-4-4-35a",
+          "number": "35a",
+          "answer": "Temperatuur."
+        },
+        {
+          "questionId": "q-4-4-35b",
+          "number": "35b",
+          "answer": "Lichtsterkte."
+        },
+        {
+          "questionId": "q-4-4-35c",
+          "number": "35c",
+          "answer": "(Zwaarte)kracht."
+        },
+        {
+          "questionId": "q-4-4-35d",
+          "number": "35d",
+          "answer": "Snelheid."
+        },
+        {
+          "questionId": "q-4-4-36a",
+          "number": "36a",
+          "answer": "Neemt toe (weerstand NTC neemt af)."
+        },
+        {
+          "questionId": "q-4-4-36b",
+          "number": "36b",
+          "answer": "Neemt toe (stroom neemt toe)."
+        },
+        {
+          "questionId": "q-4-4-36c",
+          "number": "36c",
+          "answer": "Neemt af (totale spanning constant)."
+        }
+      ]
+    },
+    {
+      "id": "sec-4-5-1",
+      "title": "§4.5 Wisselspanning en vermogensverlies",
+      "blocks": [
+        {
+          "id": "blk-4-5-1",
+          "type": "text",
+          "content": "## Transport van elektrische energie\n\n**DOEL** → Je leert over wisselspanning, generators, vermogensverlies en transformatoren.\n\n### Wisselspanning\n\nIn een dynamo wordt bewegingsenergie omgezet in elektrische energie. De opgewekte spanning is een wisselspanning: de spanning verandert periodiek van richting.\n\n### Vermogensverlies\n\nBij transport van elektrische energie gaat energie verloren in de draden (warmte). Het vermogensverlies is:\n\n$$ P_{\\text{verlies}} = I^2 \\times R $$\n\nOm het verlies te beperken, wordt de spanning verhoogd (bij gelijk vermogen wordt de stroom dan kleiner)."
+        }
+      ]
+    },
+    {
+      "id": "sec-4-5-2",
+      "title": "§4.5 Transformatoren",
+      "blocks": [
+        {
+          "id": "blk-4-5-2",
+          "type": "text",
+          "content": "### Transformatoren\n\nEen transformator bestaat uit twee spoelen om een ijzeren kern. De spanning wordt omhoog getransformeerd als de secundaire spoel meer windingen heeft dan de primaire spoel. Bij een ideale transformator geldt:\n\n$$ U_p \\times I_p = U_s \\times I_s $$\n\n- $U_p$ primaire spanning in V\n- $I_p$ primaire stroom in A\n- $U_s$ secundaire spanning in V\n- $I_s$ secundaire stroom in A"
+        }
+      ]
+    },
+    {
+      "id": "sec-4-5-q",
+      "title": "§4.5 Opdrachten",
+      "blocks": [
+        {
+          "id": "blk-4-5-q",
+          "type": "questions",
+          "title": "Opdrachten",
+          "intro": "Beantwoord de volgende opgaven over §4.5.",
+          "questions": [
+            {
+              "id": "q-4-5-45a",
+              "number": "45a",
+              "text": "In welke energievorm wordt bewegingsenergie omgezet in een dynamo?"
+            },
+            {
+              "id": "q-4-5-45b",
+              "number": "45b",
+              "text": "Waarom wordt de spanning bij een elektriciteitscentrale omhoog getransformeerd?"
+            },
+            {
+              "id": "q-4-5-45c",
+              "number": "45c",
+              "text": "Hoe heten de twee spoelen van een transformator?"
+            },
+            {
+              "id": "q-4-5-46a",
+              "number": "46a",
+              "text": "Geef de namen van de onderdelen in de experimentele opstelling (spoel, aansluiting, magneet)."
+            },
+            {
+              "id": "q-4-5-46b",
+              "number": "46b",
+              "text": "Waardoor ontstaat er een wisselspanning over de spoel?"
+            },
+            {
+              "id": "q-4-5-46c",
+              "number": "46c",
+              "text": "Bedenk een manier om de lamp feller te laten branden."
+            },
+            {
+              "id": "q-4-5-47a",
+              "number": "47a",
+              "text": "Noem de onderdelen: primaire spoel, secundaire spoel, ijzeren kern."
+            },
+            {
+              "id": "q-4-5-47b",
+              "number": "47b",
+              "text": "Wat betekent 'ideale transformator'?"
+            },
+            {
+              "id": "q-4-5-47c",
+              "number": "47c",
+              "text": "De oplader levert 0,9 W bij 5,2 V. Bereken de stroomsterkte."
+            },
+            {
+              "id": "q-4-5-47d",
+              "number": "47d",
+              "text": "In 16 uur volledig opladen. Bereken hoeveel energie er is opgeslagen."
+            },
+            {
+              "id": "q-4-5-48a",
+              "number": "48a",
+              "text": "Bereken de stroomsterkte in de stroomkring ($R_{\\text{draad}} = 0,01 \\, \\Omega$, $R_{\\text{apparaat}} = 50 \\, \\Omega$, $U = 230 \\text{ V}$)."
+            },
+            {
+              "id": "q-4-5-48b",
+              "number": "48b",
+              "text": "Bereken de spanning over de draad."
+            },
+            {
+              "id": "q-4-5-48c",
+              "number": "48c",
+              "text": "Bereken de spanning over het apparaat."
+            },
+            {
+              "id": "q-4-5-48d",
+              "number": "48d",
+              "text": "Bereken het vermogen dat in de draad wordt omgezet in warmte."
+            },
+            {
+              "id": "q-4-5-48e",
+              "number": "48e",
+              "text": "Leid de formule $P_{\\text{draad}} = R_{\\text{draad}} \\times I^2$ af."
+            },
+            {
+              "id": "q-4-5-49a",
+              "number": "49a",
+              "text": "Een kabel van 580 km, weerstand per meter $5,0 \\times 10^{-5} \\, \\Omega$. Bereken de totale weerstand."
+            },
+            {
+              "id": "q-4-5-49b",
+              "number": "49b",
+              "text": "Bereken het vermogensverlies bij 700 MW en 900 kV."
+            },
+            {
+              "id": "q-4-5-49c",
+              "number": "49c",
+              "text": "Bereken hoeveel procent van het vermogen wordt omgezet."
+            },
+            {
+              "id": "q-4-5-50a",
+              "number": "50a",
+              "text": "Kabel van 100 m, weerstand per meter 0,01 $\\Omega$. Bereken de weerstand."
+            },
+            {
+              "id": "q-4-5-50b",
+              "number": "50b",
+              "text": "Geleverd vermogen 3680 W bij 230 V. Bereken het vermogen in de schuur zonder transformatoren."
+            },
+            {
+              "id": "q-4-5-50c",
+              "number": "50c",
+              "text": "Spanning omhoog naar 2000 V. Bereken de stroomsterkte bij 3680 W."
+            },
+            {
+              "id": "q-4-5-50d",
+              "number": "50d",
+              "text": "Bereken het vermogen in de schuur met transformatoren."
+            },
+            {
+              "id": "q-4-5-50e",
+              "number": "50e",
+              "text": "Elke transformator heeft 5% verlies. Leg uit of transformatoren zin hebben."
+            },
+            {
+              "id": "q-4-5-51a",
+              "number": "51a",
+              "text": "Leg uit dat een adapter een transformator bevat."
+            },
+            {
+              "id": "q-4-5-51b",
+              "number": "51b",
+              "text": "Bereken het ingangsvermogen (230 V/1,5 A)."
+            },
+            {
+              "id": "q-4-5-51c",
+              "number": "51c",
+              "text": "Bereken het vermogensverlies in procenten (output 16,5 V/3,65 A)."
+            },
+            {
+              "id": "q-4-5-51d",
+              "number": "51d",
+              "text": "Leg uit hoe je aan de adapter merkt dat er vermogensverlies is."
+            }
+          ]
+        }
+      ],
+      "answers": [
+        {
+          "questionId": "q-4-5-45a",
+          "number": "45a",
+          "answer": "Elektrische energie."
+        },
+        {
+          "questionId": "q-4-5-45b",
+          "number": "45b",
+          "answer": "Bij hogere spanning is de stroom kleiner bij gelijk vermogen, dus minder verlies in de draden."
+        },
+        {
+          "questionId": "q-4-5-45c",
+          "number": "45c",
+          "answer": "Primaire spoel en secundaire spoel."
+        },
+        {
+          "questionId": "q-4-5-46a",
+          "number": "46a",
+          "answer": "1: spoel, 2: aansluiting/ledlampje, 3: magneet."
+        },
+        {
+          "questionId": "q-4-5-46b",
+          "number": "46b",
+          "answer": "De magneet bewegt afwisselend in en uit de spoel, waardoor de stroom van richting verandert."
+        },
+        {
+          "questionId": "q-4-5-46c",
+          "number": "46c",
+          "answer": "Meer windingen, sneller bewegen, sterkere magneet."
+        },
+        {
+          "questionId": "q-4-5-47a",
+          "number": "47a",
+          "answer": "1: secundaire spoel, 2: ijzeren kern, 3: primaire spoel."
+        },
+        {
+          "questionId": "q-4-5-47b",
+          "number": "47b",
+          "answer": "Geen vermogensverlies ($P_p = P_s$)."
+        },
+        {
+          "questionId": "q-4-5-47c",
+          "number": "47c",
+          "answer": "$P = 0,9 \\text{ W}$, $U = 5,2 \\text{ V}$\\n$I = P / U = 0,9 / 5,2 = 0,17 \\text{ A}$"
+        },
+        {
+          "questionId": "q-4-5-47d",
+          "number": "47d",
+          "answer": "$I \\times t = 0,17 \\times 16 = 2,72 \\text{ Ah}$ opgeslagen."
+        },
+        {
+          "questionId": "q-4-5-48a",
+          "number": "48a",
+          "answer": "$R_{\\text{tot}} = 0,01 + 50 = 50,01 \\, \\Omega$\\n$I = U / R = 230 / 50,01 = 4,6 \\text{ A}$"
+        },
+        {
+          "questionId": "q-4-5-48b",
+          "number": "48b",
+          "answer": "$U = I \\times R = 4,6 \\times 0,01 = 0,046 \\text{ V}$"
+        },
+        {
+          "questionId": "q-4-5-48c",
+          "number": "48c",
+          "answer": "$U = 230 - 0,046 = 229,95 \\text{ V} \\approx 230 \\text{ V}$"
+        },
+        {
+          "questionId": "q-4-5-48d",
+          "number": "48d",
+          "answer": "$P = U \\times I = 0,046 \\times 4,6 = 0,21 \\text{ W}$"
+        },
+        {
+          "questionId": "q-4-5-48e",
+          "number": "48e",
+          "answer": "$U = R \\times I$. Invullen in $P = U \\times I$: $P = (R \\times I) \\times I = R \\times I^2$"
+        },
+        {
+          "questionId": "q-4-5-49a",
+          "number": "49a",
+          "answer": "$580 \\,000 \\times 5,0 \\times 10^{-5} = 29 \\, \\Omega$"
+        },
+        {
+          "questionId": "q-4-5-49b",
+          "number": "49b",
+          "answer": "$I = P / U = 700 \\,000 \\,000 / 900 \\,000 = 778 \\text{ A}$\\n$P_{\\text{verlies}} = I^2 \\times R = 778^2 \\times 29 = 18 \\text{ MW}$"
+        },
+        {
+          "questionId": "q-4-5-49c",
+          "number": "49c",
+          "answer": "$18 / 700 \\times 100\\% = 2,6\\%$"
+        },
+        {
+          "questionId": "q-4-5-50a",
+          "number": "50a",
+          "answer": "$100 \\times 0,01 = 1 \\, \\Omega$ per kabel, totaal $2 \\, \\Omega$."
+        },
+        {
+          "questionId": "q-4-5-50b",
+          "number": "50b",
+          "answer": "$I = 3680 / 230 = 16 \\text{ A}$\\n$P_{\\text{verlies}} = 2 \\times 16^2 = 512 \\text{ W}$"
+        },
+        {
+          "questionId": "q-4-5-50c",
+          "number": "50c",
+          "answer": "$I = 3680 / 2000 = 1,84 \\text{ A}$"
+        },
+        {
+          "questionId": "q-4-5-50d",
+          "number": "50d",
+          "answer": "$P_{\\text{verlies}} = 2 \\times 1,84^2 = 6,76 \\text{ W}$"
+        },
+        {
+          "questionId": "q-4-5-50e",
+          "number": "50e",
+          "answer": "Zonder: 512 W verlies. Met: $10\\% \\times 3680 = 368 \\text{ W}$ + 6,8 W = 375 W. Ja, zinvol."
+        },
+        {
+          "questionId": "q-4-5-51a",
+          "number": "51a",
+          "answer": "Spanning gaat omlaag (230 V naar 16,5 V), dus bevat een transformator."
+        },
+        {
+          "questionId": "q-4-5-51b",
+          "number": "51b",
+          "answer": "$P = 230 \\times 1,5 = 345 \\text{ W}$"
+        },
+        {
+          "questionId": "q-4-5-51c",
+          "number": "51c",
+          "answer": "$P_{\\text{out}} = 16,5 \\times 3,65 = 60 \\text{ W}$\\nVerlies: $345 - 60 = 285 \\text{ W}$\\nPercentage: $285 / 345 \\times 100\\% = 83\\%$"
+        },
+        {
+          "questionId": "q-4-5-51d",
+          "number": "51d",
+          "answer": "De adapter wordt warm door het vermogensverlies."
+        }
+      ]
+    },
+    {
+      "id": "sec-toets-1",
+      "title": "Toetsvoorbereiding",
+      "blocks": [
+        {
+          "id": "blk-toets-1",
+          "type": "text",
+          "content": "## Toetsvoorbereiding\n\nControleer bij elke paragraaf of je de leerdoelen hebt bereikt. Maak daarna de volgende opdrachten ter voorbereiding op de toets."
+        }
+      ]
+    },
+    {
+      "id": "sec-toets-q",
+      "title": "Toetsvragen",
+      "blocks": [
+        {
+          "id": "blk-toets-q",
+          "type": "questions",
+          "title": "Opdrachten",
+          "intro": "Maak deze toetsopgaven.",
+          "questions": [
+            {
+              "id": "q-toets-1a",
+              "number": "T1a",
+              "text": "Wat is elektrisch vermogen?"
+            },
+            {
+              "id": "q-toets-1b",
+              "number": "T1b",
+              "text": "Twee ledlampen van 4,5 W en 7 W op 230 V. Leg uit in welke lamp de stroomsterkte het grootst is."
+            },
+            {
+              "id": "q-toets-1c",
+              "number": "T1c",
+              "text": "Bereken de weerstand van beide ledlampen."
+            },
+            {
+              "id": "q-toets-1d",
+              "number": "T1d",
+              "text": "De lampen hebben een levensduur van 3000 h. Bereken hoeveel energie de lamp met het minste vermogen kan omzetten."
+            },
+            {
+              "id": "q-toets-2a",
+              "number": "T2a",
+              "text": "Teken een (I,U)-diagram van de metingen in de tabel."
+            },
+            {
+              "id": "q-toets-2b",
+              "number": "T2b",
+              "text": "Leg uit hoe de weerstand verandert als de spanning toeneemt."
+            },
+            {
+              "id": "q-toets-2c",
+              "number": "T2c",
+              "text": "Leg uit of de component een NTC kan zijn."
+            },
+            {
+              "id": "q-toets-3a",
+              "number": "T3a",
+              "text": "Wat betekent een capaciteit van 1,5 Ah?"
+            },
+            {
+              "id": "q-toets-3b",
+              "number": "T3b",
+              "text": "Een boormachine van 600 W op 18 V accu van 1,5 Ah. Bereken hoelang je met maximaal vermogen kunt boren."
+            },
+            {
+              "id": "q-toets-4a",
+              "number": "T4a",
+              "text": "Drie ledlampen in serie, stroom 1,0 mA. Bereken de totale weerstand (gebruik diagram)."
+            },
+            {
+              "id": "q-toets-4b",
+              "number": "T4b",
+              "text": "Bereken hoe groot de spanning van de bron moet zijn."
+            },
+            {
+              "id": "q-toets-5a",
+              "number": "T5a",
+              "text": "13 draden van 12 $\\Omega$ parallel op 12,8 V. Bereken de totale weerstand."
+            },
+            {
+              "id": "q-toets-5b",
+              "number": "T5b",
+              "text": "Bereken de totale stroomsterkte."
+            },
+            {
+              "id": "q-toets-5c",
+              "number": "T5c",
+              "text": "Bereken het vermogen van de achterruitverwarming."
+            },
+            {
+              "id": "q-toets-5d",
+              "number": "T5d",
+              "text": "Een draad doorbrandt. Leg uit of de stroomsterkte kleiner, groter of gelijk blijft."
+            },
+            {
+              "id": "q-toets-6a",
+              "number": "T6a",
+              "text": "NTC-sensor met weerstand R. Leg uit of de spanning over R afneemt of toeneemt bij stijgende temperatuur."
+            },
+            {
+              "id": "q-toets-6b",
+              "number": "T6b",
+              "text": "NTC heeft bij 25 °C een weerstand van 2,2 k$\\Omega$. Maximaal 1,5 mA. Bereken de minimale waarde van R."
+            },
+            {
+              "id": "q-toets-7a",
+              "number": "T7a",
+              "text": "Kabel transporteert 1,0 GW bij 7,6 MW verlies. Bereken hoeveel procent wordt omgezet."
+            },
+            {
+              "id": "q-toets-7b",
+              "number": "T7b",
+              "text": "Kabelweerstand 1,54 $\\Omega$. Bereken bij welke spanning getransporteerd wordt."
+            },
+            {
+              "id": "q-toets-8a",
+              "number": "T8a",
+              "text": "Waarom wordt een inductiekookplaat niet warm zonder pan?"
+            },
+            {
+              "id": "q-toets-8b",
+              "number": "T8b",
+              "text": "Leg uit dat de spanning omlaag getransformeerd moet worden."
+            }
+          ]
+        }
+      ],
+      "answers": [
+        {
+          "questionId": "q-toets-1a",
+          "number": "T1a",
+          "answer": "De energie die een apparaat per seconde gebruikt."
+        },
+        {
+          "questionId": "q-toets-1b",
+          "number": "T1b",
+          "answer": "De 7 W lamp heeft het grootste vermogen, dus grootste stroom bij gelijke spanning."
+        },
+        {
+          "questionId": "q-toets-1c",
+          "number": "T1c",
+          "answer": "$P = U^2 / R \\rightarrow R = U^2 / P$\\nLamp 1: $230^2 / 4,5 = 11 \\,756 \\, \\Omega$\\nLamp 2: $230^2 / 7 = 7 \\,571 \\, \\Omega$"
+        },
+        {
+          "questionId": "q-toets-1d",
+          "number": "T1d",
+          "answer": "$t = 3000 \\text{ h} = 10 \\,800 \\,000 \\text{ s}$\\n$E = 4,5 \\times 10 \\,800 \\,000 = 48 \\,600 \\,000 \\text{ J} = 48,6 \\text{ MJ}$"
+        },
+        {
+          "questionId": "q-toets-2a",
+          "number": "T2a",
+          "answer": "*(grafiek met kromme lijn die afvlakt)*"
+        },
+        {
+          "questionId": "q-toets-2b",
+          "number": "T2b",
+          "answer": "De grafiek vlakt af, dus stroom neemt minder toe dan spanning. Weerstand neemt toe."
+        },
+        {
+          "questionId": "q-toets-2c",
+          "number": "T2c",
+          "answer": "Nee, bij NTC neemt weerstand af bij toenemende spanning/temperatuur."
+        },
+        {
+          "questionId": "q-toets-3a",
+          "number": "T3a",
+          "answer": "De accu kan 1,5 A stroom leveren gedurende 1 uur (of 3 A gedurende 0,5 uur)."
+        },
+        {
+          "questionId": "q-toets-3b",
+          "number": "T3b",
+          "answer": "$I = P / U = 600 / 18 = 33,3 \\text{ A}$\\nTijd: $1,5 / 33,3 = 0,045 \\text{ h} = 2,7 \\text{ min}$"
+        },
+        {
+          "questionId": "q-toets-4a",
+          "number": "T4a",
+          "answer": "Groen: 1,85 V bij 1 mA $\\rightarrow R = 1850 \\, \\Omega$\\nGeel: 1,80 V bij 1 mA $\\rightarrow R = 1800 \\, \\Omega$\\nRood: 1,67 V bij 1 mA $\\rightarrow R = 1670 \\, \\Omega$\\n$R_{\\text{tot}} = 1850 + 1800 + 1670 = 5320 \\, \\Omega$"
+        },
+        {
+          "questionId": "q-toets-4b",
+          "number": "T4b",
+          "answer": "$U = I \\times R = 0,001 \\times 5320 = 5,32 \\text{ V}$"
+        },
+        {
+          "questionId": "q-toets-5a",
+          "number": "T5a",
+          "answer": "$R_{\\text{tot}} = 12 / 13 = 0,92 \\, \\Omega$"
+        },
+        {
+          "questionId": "q-toets-5b",
+          "number": "T5b",
+          "answer": "$I = U / R = 12,8 / 0,92 = 13,9 \\text{ A}$"
+        },
+        {
+          "questionId": "q-toets-5c",
+          "number": "T5c",
+          "answer": "$P = U \\times I = 12,8 \\times 13,9 = 178 \\text{ W}$"
+        },
+        {
+          "questionId": "q-toets-5d",
+          "number": "T5d",
+          "answer": "Minder draden = grotere weerstand = kleinere stroom."
+        },
+        {
+          "questionId": "q-toets-6a",
+          "number": "T6a",
+          "answer": "Temperatuur stijgt $\\rightarrow$ NTC-weerstand daalt $\\rightarrow$ stroom stijgt $\\rightarrow$ spanning over R stijgt."
+        },
+        {
+          "questionId": "q-toets-6b",
+          "number": "T6b",
+          "answer": "$R = U / I = 5 / 0,0015 = 3333 \\, \\Omega = 3,3 \\text{ k}\\Omega$"
+        },
+        {
+          "questionId": "q-toets-7a",
+          "number": "T7a",
+          "answer": "$7,6 / 1000 \\times 100\\% = 0,76\\%$"
+        },
+        {
+          "questionId": "q-toets-7b",
+          "number": "T7b",
+          "answer": "$P_{\\text{verlies}} = U^2 / R \\rightarrow 7 \\,600 \\,000 = U^2 / 1,54$\\n$U = 3421 \\text{ V}$ (spanning over kabel)\\n$I = P_{\\text{verlies}} / U = 7 \\,600 \\,000 / 3421 = 2222 \\text{ A}$\\n$U_{\\text{tot}} = P_{\\text{tot}} / I = 1 \\,000 \\,000 \\,000 / 2222 = 45 \\,000 \\text{ V} = 45 \\text{ kV}$"
+        },
+        {
+          "questionId": "q-toets-8a",
+          "number": "T8a",
+          "answer": "Zonder pan is er geen secundaire spoel, dus geen inductie."
+        },
+        {
+          "questionId": "q-toets-8b",
+          "number": "T8b",
+          "answer": "Grote stroom voor warmte in de pan. Voor grote stroom moet spanning omlaag (bij gelijk vermogen)."
+        }
+      ]
+    }
+  ]
+}

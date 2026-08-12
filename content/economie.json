@@ -1,0 +1,763 @@
+{
+  "siteMetadata": {
+    "title": "Economie",
+    "description": "Leermateriaal voor Economie"
+  },
+  "summary": "### De Vraaglijn (Qv)\nConsumenten zijn de vragers op een markt. De hoeveelheid die ze willen kopen, hangt af van vijf factoren die de **betalingsbereidheid** bepalen:\n1. **Individuele voorkeuren**: Wat je lekker of nuttig vindt.\n2. **Budget**: Hoeveel geld je hebt (hoger inkomen = hogere betalingsbereidheid).\n3. **Substituutgoederen**: Vervangbare producten (bijv. een appel wordt duurder, dus je koopt een peer).\n4. **Complementaire goederen**: Aanvullende producten die je erbij moet kopen (bijv. een printer heeft inkt nodig, een scooter een helm en verzekering).\n5. **Exogene factoren**: Omstandigheden waar je geen invloed op hebt (bijv. warm weer vraagt meer ijs, een lange wachtrij vraagt minder ijs).\n\n**De collectieve vraaglijn (Qv)**\nDe collectieve vraag is de som van alle individuele vragen. We gaan uit van een lineair (recht) verband: hoe hoger de prijs, des te lager de gevraagde hoeveelheid. De lijn loopt in een grafiek daarom van linksboven naar rechtsonder.\n- **Formule**: Qv = ap + b (waarbij 'a' een negatief getal is). Q = quantity (hoeveelheid), v = vraag, p = prijs.\n- **Van individueel naar collectief**: Qv = individuele vraagfunctie (qv) × aantal vragers.\n- **Tekenstappen Qv-lijn**:\n  1. Bereken de **maximale betalingsbereidheid**: vul Qv = 0 in de formule in en los op voor p. Dit is het snijpunt met de verticale (prijs) as.\n  2. Bereken de gevraagde hoeveelheid bij een gratis product: vul p = 0 in de formule in. Dit is het snijpunt met de horizontale (hoeveelheid) as.\n  3. Verbind deze twee punten met een rechte lijn.\n\n### De Aanbodlijn (Qa) en het Marktevenwicht\nAanbieders (producenten) willen winst maken of minimaal hun kosten dekken. Het aanbod wordt beïnvloed door productiekosten (arbeid, transport, energie). Stijgen deze kosten, dan stijgt de verkoopprijs.\n\n**De collectieve aanbodlijn (Qa)**\nHoe hoger de verkoopprijs, des te meer producenten willen aanbieden (winstmotief). De lijn loopt in een grafiek van linksonder naar rechtsboven.\n- **Formule**: Qa = cp + d (waarbij 'c' een positief getal is).\n- **Van individueel naar collectief**: Qa = individuele aanbodfunctie (qa) × aantal aanbieders.\n- **Tekenstappen Qa-lijn**:\n  1. Bereken de **minimale leveringsbereidheid**: vul Qa = 0 in de formule in en los op voor p. Dit is het snijpunt met de verticale as (de prijs waaronder de producent niet levert).\n  2. Bereken het marktevenwicht (zie hieronder) voor een tweede punt, of vul een willekeurige prijs in om een tweede coördinaat te vinden.\n  3. Verbind de punten met een rechte lijn.\n\n**Marktdynamiek en Evenwicht**\n- **Aanbodoverschot**: De prijs is te hoog. Aanbod > Vraag. Er liggen ongeverkochte goederen.\n- **Vraagoverschot**: De prijs is te laag. Vraag > Aanbod. Consumenten krijgen het product niet. De marktreactie hierop is: vragers gaan tegen elkaar opbieden → de prijs stijgt → de gevraagde hoeveelheid daalt en het aanbod stijgt net zolang tot het evenwicht is bereikt.\n- **Marktevenwicht**: Het punt waar de collectieve vraag en het collectieve aanbod gelijk zijn (Qv = Qa).\n- **Evenwichtsprijs (EP)**: De prijs waarbij Qv = Qa.\n- **Evenwichtshoeveelheid (EH)**: De hoeveelheid die bij de EP wordt verhandeld.\n- **Marktomzet**: EP × EH. (Let op: er is geen verschil tussen 'omzet' en 'totale opbrengst').\n\n### Consumenten- en Producentensurplus\nSurplus is het voordeel dat marktpartijen ervaren ten opzichte van hun uiterste grens. In een grafiek zijn dit de oppervlakken van driehoeken.\n- **Consumentensurplus**: Het voordeel voor de koper. Het verschil tussen de maximale betalingsbereidheid en de werkelijke evenwichtsprijs.\n  - *Formule*: (Maximale betalingsbereidheid – werkelijke prijs) × afzet (EH) × 0,5.\n  - *Grafiek*: De driehoek ónder de vraaglijn en bóven de evenwichtsprijs.\n- **Producentensurplus**: Het voordeel voor de verkoper. Het verschil tussen de werkelijke evenwichtsprijs en de minimale leveringsbereidheid.\n  - *Formule*: (Werkelijke prijs – minimale leveringsbereidheid) × afzet (EH) × 0,5.\n  - *Grafiek*: De driehoek bóven de aanbodlijn en ónder de evenwichtsprijs.\n\n### Kosten en Opbrengsten\nBedrijven maken kosten om producten te produceren. Deze worden strikt onderverdeeld in twee soorten:\n1. **Totale Constante Kosten (TCK)**: Kosten die **niet** afhangen van de productiehoeveelheid (bijv. huur, vaste lonen, afschrijving). Deze blijven gelijk, of je nu 0 of 1000 producten maakt.\n2. **Totale Variabele Kosten (TVK)**: Kosten die **wel** direct afhangen van de productiehoeveelheid (bijv. inkoop van grondstoffen, uitzendkrachten, schade-uitkeringen bij een verzekeraar).\n\n**Belangrijke formules en afkortingen** (q = hoeveelheid van één producent):\n- **Totale Opbrengst / Omzet (TO)**: p × q\n- **Totale Kosten (TK)**: TCK + TVK  (of: GTK × q)\n- **Totale Winst (TW)**: TO – TK\n- **Gemiddelde Constante Kosten (GCK)**: TCK / q\n- **Gemiddelde Variabele Kosten (GVK)**: TVK / q\n- **Gemiddelde Totale Kosten (GTK)**: GCK + GVK (of: TK / q). Dit is de **kostprijs** per product.\n\n*Belangrijke regel*: De verkoopprijs (p) moet hoger zijn dan de kostprijs (GTK) om winst te maken. Als de productie (q) stijgt, dalen de GCK, omdat de vaste kosten over meer producten worden verdeeld. Hierdoor daalt ook de GTK (kostprijs).\n\n### Break-Even-Punt (BEP) en Winstberekening\n- **Break-Even-Punt (BEP)**: Het punt waarop een bedrijf geen winst én geen verlies maakt. Hier geldt: **TO = TK** (of: Prijs = GTK, of TW = 0).\n- **Berekenen BEP-afzet**: Stel de TO-formule gelijk aan de TK-formule (bijv. p × q = variabele kosten per stuk × q + TCK) en los op voor q.\n- **Berekenen BEP-omzet**: Vermenigvuldig de gevonden BEP-afzet (q) met de verkoopprijs (p).\n- **Winst berekenen**: Vul de werkelijke verkoopafzet in de formules in: Bereken eerst TO (p × q) en TK (variabele kosten per stuk × q + TCK). Trek vervolgens TK van TO af (TW = TO - TK).\n\n### Verschuivingen van lijnen (uit de toetscontext)\n- **Vraaglijn verschuiven**: Bijvoorbeeld door een daling van het inkomen van consumenten. De gehele Qv-lijn verschuift naar links (er wordt bij elke prijs minder gevraagd).\n- **Aanbodlijn verschuiven**: Bijvoorbeeld door een slechte oogst of strengere regels (vangstbeperking). Het aanbod daalt, de gehele Qa-lijn verschuift naar links. Gevolg: de consumenten hebben minder keuze, waardoor de evenwichtsprijs stijgt.\n- **Vraagverandering door nieuwe producten**: Komt er een nieuw, beter model op de markt (bijv. iPhone 14), dan verschuift de vraaglijn van het oude model (iPhone 13) naar links, omdat de persoonlijke voorkeuren veranderen en concurrentie populairder wordt.",
+  "contentFormat": "textbook",
+  "defaultViewMode": "simple",
+  "availableModes": ["simple", "uitleg", "study", "samenvatting"],
+  "showTimestamps": false,
+  "showExportButtons": false,
+  "showAnkiExport": false,
+  "showFlashcardsExport": false,
+  "showTranscriptExport": false,
+  "showCopyTranscript": false,
+  "buttons": [],
+  "sections": [
+    {
+      "id": "sec-1-1",
+      "title": "§1.1 De vraaglijn",
+      "blocks": [
+        {
+          "id": "blk-1-1-1",
+          "type": "text",
+          "content": "## De vraaglijn\n\nIn de wereld worden heel veel soorten producten verhandeld. Producenten van deze producten zijn de aanbieders en de consumenten zijn de vragers.\n\nHet bedrag dat vragers voor een product willen betalen is heel verschillend. De betalingsbereidheid van consumenten hangt af van vijf factoren."
+        },
+        {
+          "id": "blk-1-1-2",
+          "type": "text",
+          "content": "### Factoren die de betalingsbereidheid bepalen\n\n1. **Individuele voorkeuren**: Lust je geen wortels, dan zal je betalingsbereidheid voor een wortel niet heel hoog zijn.\n2. **Budget**: Heb je heel veel geld dan ben je bereid om meer te betalen voor producten. Heb je echter niet zoveel geld te besteden dan denk je wel twee keer na voor je een product koopt.\n3. **Substituutgoederen**: Dit zijn goederen die je in plaats van het product dat je wilt kopen ook kunt aanschaffen. Merk je dat appels bijvoorbeeld duurder worden, dan kun je ook bananen aanschaffen als je fruit wilt eten.\n4. **Complementaire goederen**: Bij sommige producten heb je echter ook te maken met andere producten die je ook moet aanschaffen als je het product koopt. Zo heb je niks aan een printer als je geen inktlint hebt. Bij een scooter moet je bijvoorbeeld ook een helm en een verzekering aanschaffen wil je er (legaal) op kunnen rijden.\n5. **Exogene factoren**: De laatste factor zijn de dingen waar je geen invloed op hebt. Je individuele vraag naar ijs zal hoger zijn als het warm is. Sta je echter bij Goumans in een lange rij dan zal je vraag weer afnemen."
+        },
+        {
+          "id": "blk-1-1-3",
+          "type": "text",
+          "content": "### De collectieve vraaglijn (Qv)\n\nMet behulp van al deze factoren kun je de vraag naar een product bepalen. Je zult begrijpen dat als de prijs van een product hoger wordt al de factoren ervoor zorgen dat de vraag naar een product afneemt.\n\nVoor de eenvoud doen we alsof de collectieve vraag (de vraag van alle consumenten naar een bepaald product) een lineair verloop heeft. Bij dit lineaire verband kun je een formule bepalen.\n\nDe formule voor de collectieve vraag van consumenten is bijvoorbeeld: Qv = -2p + 80. De afkorting Qv staat voor collectieve vraag. De letter Q is de afkorting voor het Engelse woord \"quantity\", wat in het Nederlands kwantiteit betekent. Dat is weer een net woord voor \"hoeveelheid.\" De v staat voor vraag. De p in de formule is een afkorting voor prijs."
+        },
+        {
+          "id": "blk-1-1-4",
+          "type": "text",
+          "content": "### Tekenstappen Qv-lijn\n\n**Stap 1: Bereken de prijs waarbij consumenten niks meer vragen**\nDit noemen we de maximale betalingsbereidheid. Dit is het punt waarbij de Qv lijn de verticale as snijdt. Hier is Qv gelijk aan 0. Stellen we in onze formule Qv gelijk aan 0 dan krijgen we het volgende: 0 = -2p +80. Deze formule oplossen leidt tot 2p = 80 en dan is de oplossing p = € 40.\n\n**Stap 2: Bereken de gevraagde hoeveelheid als het product gratis is.**\nDit is het punt waarbij de Qv lijn de horizontale as snijdt. Hier is p gelijk aan 0. Dan krijgen we de volgende oplossing voor Qv = -2 x 0 + 80 = 80.\n\n**Stap 3: Zet deze punten in het assenstelsel en verbind de punten in een rechte lijn.**\nJe ziet dat de Qv op de verticale as begint bij een prijs van € 40 en er niks wordt gevraagd. De lijn eindigt op de horizontale as bij een gevraagde hoeveelheid van 80 als het product gratis is. Tussen deze twee punten is een rechte lijn getekend."
+        },
+        {
+          "id": "blk-1-1-q",
+          "type": "questions",
+          "title": "Opdrachten",
+          "intro": "Beantwoord de volgende opdrachten over §1.1.",
+          "questions": [
+            {
+              "id": "q-1-1-1a",
+              "number": "1a",
+              "text": "Gegeven is de collectieve vraagfunctie Qv = -13p + 260. Hierin is Qv de vraag in miljoenen stuks en p de prijs in euro's. Schets de vraaglijn in de onderstaande grafiek."
+            },
+            {
+              "id": "q-1-1-1b",
+              "number": "1b",
+              "text": "Stel dat er 30 mensen zijn die dezelfde individuele vraagfunctie hebben. Wat wordt dan de collectieve vraagfunctie?"
+            },
+            {
+              "id": "q-1-1-2A",
+              "number": "2A",
+              "text": "Geef bij de gebeurtenis A aan of hierdoor de vraag naar appels daalt of stijgt. Verklaar je antwoord. A. De prijs van peren daalt."
+            },
+            {
+              "id": "q-1-1-2B",
+              "number": "2B",
+              "text": "Geef bij de gebeurtenis B aan of hierdoor de vraag naar appels daalt of stijgt. Verklaar je antwoord. B. Het inkomen van de consument stijgt."
+            },
+            {
+              "id": "q-1-1-2C",
+              "number": "2C",
+              "text": "Geef bij de gebeurtenis C aan of hierdoor de vraag naar appels daalt of stijgt. Verklaar je antwoord. C. De kwaliteit van de appels daalt door ongunstig weer."
+            },
+            {
+              "id": "q-1-1-3A",
+              "number": "3A",
+              "text": "Koppel gebeurtenis A van opdracht 2 aan één van de factoren die de individuele vraag beïnvloeden."
+            },
+            {
+              "id": "q-1-1-3B",
+              "number": "3B",
+              "text": "Koppel gebeurtenis B van opdracht 2 aan één van de factoren die de individuele vraag beïnvloeden."
+            },
+            {
+              "id": "q-1-1-3C",
+              "number": "3C",
+              "text": "Koppel gebeurtenis C van opdracht 2 aan één van de factoren die de individuele vraag beïnvloeden."
+            },
+            {
+              "id": "q-1-1-4a",
+              "number": "4a",
+              "text": "Gegeven is de individuele vraagfunctie: qv = -10p + 200. Hierin is qv de individuele vraag in stuks en p de prijs in euro's. Schets de individuele vraaglijn in een assenstelsel."
+            },
+            {
+              "id": "q-1-1-4b",
+              "number": "4b",
+              "text": "Stel dat er 20 mensen zijn die dezelfde individuele vraagfunctie hebben. Wat wordt dan de collectieve vraagfunctie?"
+            },
+            {
+              "id": "q-1-1-5a",
+              "number": "5a",
+              "text": "Gegeven is de collectieve vraagfunctie Qv = -25p + 8.000. Hierin is Qv de vraag in stuks en p de prijs in euro's. Bereken de collectieve vraag bij een prijs van € 120."
+            },
+            {
+              "id": "q-1-1-5b",
+              "number": "5b",
+              "text": "Bereken de maximale prijs / betalingsbereidheid van de consumenten."
+            }
+          ]
+        }
+      ],
+      "answers": [
+        {
+          "questionId": "q-1-1-1a",
+          "number": "1a",
+          "answer": ""
+        },
+        {
+          "questionId": "q-1-1-1b",
+          "number": "1b",
+          "answer": "Qv = qv x aantal vragers\nQv = (-10p + 200) x 20\nQv = -200p + 4.000"
+        },
+        {
+          "questionId": "q-1-1-2A",
+          "number": "2A",
+          "answer": "Daalt. Omdat een peer goedkoper wordt, is het nu minder aantrekkelijk om een appel te kopen"
+        },
+        {
+          "questionId": "q-1-1-2B",
+          "number": "2B",
+          "answer": "Stijgt. Door het hoger inkomen kunnen mensen meer appels kopen."
+        },
+        {
+          "questionId": "q-1-1-2C",
+          "number": "2C",
+          "answer": "Daalt. Het wordt minder aantrekkelijk om een appel te kopen."
+        },
+        {
+          "questionId": "q-1-1-3A",
+          "number": "3A",
+          "answer": "Substituut goederen."
+        },
+        {
+          "questionId": "q-1-1-3B",
+          "number": "3B",
+          "answer": "Het budget."
+        },
+        {
+          "questionId": "q-1-1-3C",
+          "number": "3C",
+          "answer": "Exogene factoren."
+        },
+        {
+          "questionId": "q-1-1-4a",
+          "number": "4a",
+          "answer": ""
+        },
+        {
+          "questionId": "q-1-1-4b",
+          "number": "4b",
+          "answer": "Qv = qv x aantal vragers\nQv = (-10p + 200) x 20\nQv = -200p + 4.000"
+        },
+        {
+          "questionId": "q-1-1-5a",
+          "number": "5a",
+          "answer": "Bij een prijs van € 120 is de vraag: -25 x € 120 + 8.000 = 5.000."
+        },
+        {
+          "questionId": "q-1-1-5b",
+          "number": "5b",
+          "answer": "De betalingsbereidheid / maximale prijs is bij Qv = 0. 0 = -25p + 8.000. Dat leidt tot 8.000 = 25p en dat betekent p = € 320."
+        }
+      ]
+    },
+    {
+      "id": "sec-1-2",
+      "title": "§1.2 De aanbodlijn en het marktevenwicht",
+      "blocks": [
+        {
+          "id": "blk-1-2-1",
+          "type": "text",
+          "content": "## De aanbodlijn en het marktevenwicht\n\nDe aanbieders van producten verkopen deze producten omdat ze in principe zoveel mogelijk winst willen maken. Er zijn ook organisaties die niet het doel hebben om een zo hoog mogelijke winst te behalen maar om in ieder geval genoeg geld te verdienen zodat ze alle kosten kunnen betalen. Denk hierbij aan de overheid, een school maar ook verzekeringsmaatschappij Univé.\n\nBij het bepalen van het aanbod van een aanbieder spelen nog andere zaken een rol. Wat zijn de kosten van het maken van een bepaald product? Een bedrijf heeft te maken met heel veel soorten kosten. Zo heb je arbeidskosten, transportkosten en energiekosten. Nemen deze kosten toe dan zal de verkoopprijs ook stijgen.\n\nHoe hoger de verkoopprijs, des te meer aanbieders willen verkopen. Dit is vrij logisch. Als de kosten van de aanbieders niet stijgen dan zullen ze bij een hogere verkoopprijs meer winst maken en dan willen ze uiteraard meer verkopen. Net als bij de vraaglijn geldt ook hier dat we er voor de eenvoud vanuit gaan dat er sprake is van een lineair verband bij de collectieve aanbodlijn."
+        },
+        {
+          "id": "blk-1-2-2",
+          "type": "text",
+          "content": "### Aanbodoverschot\n\nBij een prijs van € 30 is het aanbod groter dan de vraag. Dit noemen we een aanbodoverschot. Dat betekent dus dat er veel meer spullen in een winkel liggen dan dat consumenten willen kopen."
+        },
+        {
+          "id": "blk-1-2-3",
+          "type": "text",
+          "content": "### Vraagoverschot\n\nBij een prijs van € 15 euro zijn de vragers ten opzichte van de aanbieder in de meerderheid. Dit noemen we een vraagoverschot. Het gevolg is dat heel veel consumenten teleurgesteld worden omdat er te weinig producten zijn."
+        },
+        {
+          "id": "blk-1-2-4",
+          "type": "text",
+          "content": "### Marktevenwicht\n\nDe prijs die bij het vrij bewegen van vraag en aanbod op een markt ontstaat is daar waar de collectieve vraag en het collectieve aanbod in evenwicht zijn. Hier worden zowel de consument als de producent niet teleurgesteld.\n\nDe producent verdient dus € 24 per stuk en verkoopt er 32. Dat betekent dat zijn omzet (het bedrag dat hij verdient met de verkoop van zijn producten) € 24 x 32 = € 768 is. Dit bedrag noemen we ook wel de marktomzet.\n\nHet evenwicht tussen vraag en aanbod is ook uit te rekenen met behulp van formules. De prijs die op deze markt ontstaat is daar waar vraag en aanbod aan elkaar gelijk zijn. Met andere woorden, je gaat de formules aan elkaar stellen: Qv = Qa.\n\nDus -2p + 80 = 2p – 16. Als je deze formule oplost dan weet je dat de P een waarde heeft van 24. De prijs van het product is dus € 24.\n\nDe verkochte hoeveelheid kun je uitrekenen door die 24 in te vullen in één van de vergelijking. Het maakt niet uit in welke. Vul je ze in beide formules in dan moet de uitkomst hetzelfde zijn en kun je controleren of het antwoord juist is.\n\nHiermee hebben we dus het evenwicht uitgerekend waar deze betreffende markt in evenwicht is: het marktevenwicht. De bijbehorende prijs noemen we de evenwichtsprijs en de verkochte hoeveelheid de evenwichtshoeveelheid. Het vermenigvuldigen van deze twee levert, zoals eerder al gezien, de omzet op."
+        },
+        {
+          "id": "blk-1-2-5",
+          "type": "text",
+          "content": "### Minimale leveringsbereidheid\n\nIn de vorige paragraaf hebben we gezien dat veel consumenten meer wilden betalen dan hun betalingsbereidheid. Met het aanbod geldt ongeveer hetzelfde. Bij bijvoorbeeld een prijs van € 24 zijn er aanbieders die meer ontvangen dan het minimale bedrag dat zij willen ontvangen. Dat minimale bedrag noemen we ook de minimale leveringsbereidheid."
+        },
+        {
+          "id": "blk-1-2-6",
+          "type": "text",
+          "content": "### Tekenstappen Qa-lijn\n\n**Stap 1: Bereken de prijs waarbij de producenten pas beginnen met leveren**\nDit noemen we de minimale leveringsbereidheid. Dit is het punt waarbij de Qa lijn de verticale as snijdt. Hier is Qa gelijk aan 0. Stellen we in onze formule Qa gelijk aan 0 dan krijgen we het volgende: 0 = 2p – 16. Deze formule oplossen leidt tot -2p = -16 en dan is de oplossing p = € 8.\n\n**Stap 2: Bereken het marktevenwicht.**\nDit is het punt waarbij de Qa en de Qv lijn elkaar snijdt. Hierbij hoort een evenwichtsprijs (EP) en een evenwichtshoeveelheid (EH). Hierbij geldt de vergelijking: Qa = Qv. De oplossing is als volgt: 2p – 16 = -2p + 80. -> 4p = 96 -> p = 24. Als je de evenwichtsprijs invult in de Qv of Qa functie dan krijg je de evenwichtshoeveelheid. 2 x 24 – 16 = 32.\n\n**Stap 3: Zet deze punten in het assenstelsel en verbind de punten in een rechte lijn.**\nJe ziet dat de Qa op de verticale as begint bij een prijs van € 8 en het snijpunt tussen Qa en Qv ligt op een P van 24 en een Q van 32."
+        },
+        {
+          "id": "blk-1-2-q",
+          "type": "questions",
+          "title": "Opdrachten",
+          "intro": "Beantwoord de volgende opdrachten over §1.2.",
+          "questions": [
+            {
+              "id": "q-1-2-6a",
+              "number": "6a",
+              "text": "Deze vraag gaat door op vraag 1 van de vorige paragraaf. Daar heb je de vraaglijn getekend. Nu gaan we de aanbodlijn toevoegen. De collectieve aanbodvergelijking luidt: Qa = 12p – 120. Hierin is Qa het collectieve aanbod in miljoenen stuks en p de prijs in euro's. Schets de Qa lijn in het assenstelsel van vraag 1."
+            },
+            {
+              "id": "q-1-2-6b",
+              "number": "6b",
+              "text": "Bereken de marktomzet in het marktevenwicht."
+            },
+            {
+              "id": "q-1-2-7",
+              "number": "7",
+              "text": "Stel: bij een prijs van € 2 bestaat een vraagoverschot van appels. Hoe reageert de markt op een vraagoverschot? Zet de zinnen in de juiste chronologische volgorde.\n\nA. De prijs van appels stijgt.\nB. De gevraagde hoeveelheid appels wordt gelijk aan de aangeboden hoeveelheid appels.\nC. Vragers gaan \"tegen elkaar opbieden\" om de gewenste hoeveelheid appels te kunnen kopen.\nD. Een deel van de vragers kan niet voldoende appels kopen."
+            },
+            {
+              "id": "q-1-2-8",
+              "number": "8",
+              "text": "Gegeven is de individuele aanbodfunctie: qa = 10p – 200. Hierin is qa het individuele aanbod in stuks en p de prijs in euro's. Stel dat er 20 producenten zijn die dezelfde individuele aanbodfunctie hebben. Wat wordt dan de collectieve aanbodfunctie?"
+            },
+            {
+              "id": "q-1-2-9a",
+              "number": "9a",
+              "text": "Gegeven is de volgende collectieve aanbodfunctie en vraagfunctie:\nQv= -2p + 80\nQa= 2p – 16\nHierin is Qv de collectieve vraag in miljoen stuks, Qa het collectieve aanbod in miljoenen stuks en p de prijs in euro's. Bereken de maximale betalingsbereidheid van de consument."
+            },
+            {
+              "id": "q-1-2-9b",
+              "number": "9b",
+              "text": "Bereken de minimale leveringsbereidheid van de producent."
+            },
+            {
+              "id": "q-1-2-9c",
+              "number": "9c",
+              "text": "Bereken de evenwichtshoeveelheid en evenwichtsprijs."
+            },
+            {
+              "id": "q-1-2-9d",
+              "number": "9d",
+              "text": "Bereken het marktomzet in evenwicht."
+            },
+            {
+              "id": "q-1-2-10",
+              "number": "10",
+              "text": "De markt van het product Cleaner kan worden weergegeven met de volgende collectieve vraag- en aanbodvergelijkingen:\nQv = -200p + 10.000\nQa = 1.000p – 20.000\nHierin is Qv de collectieve vraag in miljoen stuks per dag, Qa het collectieve aanbod in miljoenen stuks per dag en p de prijs in eurocenten.\nBereken met deze gegevens de marktomzet in het marktevenwicht."
+            }
+          ]
+        }
+      ],
+      "answers": [
+        {
+          "questionId": "q-1-2-6a",
+          "number": "6a",
+          "answer": ""
+        },
+        {
+          "questionId": "q-1-2-6b",
+          "number": "6b",
+          "answer": "De marktomzet is de evenwichtsprijs x evenwichtshoeveelheid.\nOftewel: p x Q\nDus € 15,2 x 62,4 miljoen = € 948.480.000"
+        },
+        {
+          "questionId": "q-1-2-7",
+          "number": "7",
+          "answer": "D, C, A, B"
+        },
+        {
+          "questionId": "q-1-2-8",
+          "number": "8",
+          "answer": "Qa = qa x aantal aanbieders.\nQa = (10p – 200) x 20\nQa = 200p – 4.000"
+        },
+        {
+          "questionId": "q-1-2-9a",
+          "number": "9a",
+          "answer": "Qv = 0 -> 0 = -2p + 80\n2p = 80\np = 40"
+        },
+        {
+          "questionId": "q-1-2-9b",
+          "number": "9b",
+          "answer": "Qa = 0 -> 0 = 2p – 16\n2p = 16\np = 8"
+        },
+        {
+          "questionId": "q-1-2-9c",
+          "number": "9c",
+          "answer": "Qa = Qv\n2p – 16 = -2p + 80\n4p = 96\np = 24\nInvullen in Qa of Qv geeft:\n-2 x 24 + 80 = 32 miljoen."
+        },
+        {
+          "questionId": "q-1-2-9d",
+          "number": "9d",
+          "answer": "Marktomzet = Evenwichtsprijs x evenwichtshoeveelheid\n€ 24 x 32 miljoen = € 768 miljoen"
+        },
+        {
+          "questionId": "q-1-2-10",
+          "number": "10",
+          "answer": "Qv = Qa\n-200p + 10.000 = 1.000p – 20.000\n-1.200p = -30.000\np = 25 (cent)\nQa = 1.000p – 20.000\nQa = 1.000 × 25 – 20.000 = 5.000 miljoen\nOmzet = p x Q\nOmzet = € 0,25 × 5 miljard = € 1,25 miljard"
+        }
+      ]
+    },
+    {
+      "id": "sec-1-3",
+      "title": "§1.3 Consumenten- en producentensurplus",
+      "blocks": [
+        {
+          "id": "blk-1-3-1",
+          "type": "text",
+          "content": "## Consumenten- en producentensurplus\n\nIn de vorige twee paragrafen hebben we het gehad over de vraag- en aanbodlijnen. Aan de hand van de bijbehorende vraag een aanbodfuncties: Qv = -2p + 80 en Qa = 2p – 16, kan je uitrekenen dat het marktevenwicht ontstaat bij een prijs van € 24,- en een hoeveelheid van 32."
+        },
+        {
+          "id": "blk-1-3-2",
+          "type": "text",
+          "content": "### Betalingsbereidheid\n\nVeel consumenten zouden voor deze producten meer willen betalen dan de werkelijke € 24,-. Deze consumenten hebben dus een hogere betalingsbereidheid dan ze voor het product moeten betalen. De consument heeft dus een voordeel. Dit noemen we het consumentensurplus.\n\nHet consumentensurplus is het verschil tussen de betalingsbereidheid voor een product van de consument en de daadwerkelijke prijs die voor dat product betaald moet worden.\n\nOm het consumentensurplus uit te rekenen kan je de volgende formule gebruiken: (Maximale betalingsbereidheid – werkelijke prijs) x afzet x 0,5. De 0,5 aan het eind komt omdat het consumentensurplus een driehoek is. Om de oppervlakte van een driehoek te berekenen dien je de lengte x breedte x 0,5 te doen.\n\nHet consumentensurplus in bovenstaand voorbeeld zal dan zijn: (€ 40-€ 24) x 32 x 0,5 = € 256,-"
+        },
+        {
+          "id": "blk-1-3-3",
+          "type": "text",
+          "content": "### Producentensurplus\n\nNaast het consumentensurplus kennen we ook het producentensurplus. Veel bedrijven zijn bereid om het product te leveren tegen een lagere prijs van de werkelijke prijs. Zij hebben dus een lagere minimale leveringsbereidheid. Het producenten surplus is het verschil tussen de werkelijke prijs en de minimale leveringsbereidheid.\n\nOm het producenten surplus uit te rekenen kan je de volgende formule gebruiken: (Werkelijke prijs – minimale leveringsbereidheid) x afzet x 0,5. Ook hier reken je een driehoek uit en dien je dus op het einde x 0,5 te doen.\n\nHet producenten surplus in dit voorbeeld is dus: (€ 24 - € 8) x 32 x 0,5 = € 256,-\n\nHet consumenten- en producenten surplus kan je ook in een grafiek arceren. Het consumentensurplus is de driehoek tussen de vraaglijn en het marktevenwicht. Het producentensurplus is de driehoek tussen de aanbodlijn en het marktevenwicht."
+        },
+        {
+          "id": "blk-1-3-q",
+          "type": "questions",
+          "title": "Opdrachten",
+          "intro": "Beantwoord de volgende opdrachten over §1.3.",
+          "questions": [
+            {
+              "id": "q-1-3-11a",
+              "number": "11a",
+              "text": "Deze vraag gaat door op vraag 1 en 6. Daar waren de volgende collectieve aanbodfunctie en vraagfuncties gegeven:\nQv = -13p + 260\nQa = 12p – 120\nHierbij is Qv de gevraagde hoeveelheid in miljoenen stuks, Qa de aangeboden hoeveelheid in miljoenen stuks en de p in euro's en de hoeveelheid in miljoenen stuks. Bereken het consumentensurplus in het marktevenwicht en arceer dit in het assenstelsel van vraag 1."
+            },
+            {
+              "id": "q-1-3-11b",
+              "number": "11b",
+              "text": "Bereken het producentensurplus in het marktevenwicht en arceer dit in het assenstelsel van vraag 1."
+            },
+            {
+              "id": "q-1-3-12a",
+              "number": "12a",
+              "text": "Bekijk bron 6 (grafiek met collectieve vraag). Arceer het consumentensurplus bij een prijs van € 200."
+            },
+            {
+              "id": "q-1-3-12b",
+              "number": "12b",
+              "text": "Bereken het consumentensurplus bij een prijs van € 200."
+            },
+            {
+              "id": "q-1-3-13a",
+              "number": "13a",
+              "text": "Bekijk bron 7 (grafiek met collectieve aanbod). Arceer het producentensurplus bij een prijs van € 500."
+            },
+            {
+              "id": "q-1-3-13b",
+              "number": "13b",
+              "text": "Bereken het producentensurplus bij een prijs van € 500."
+            },
+            {
+              "id": "q-1-3-14a",
+              "number": "14a",
+              "text": "Gegeven is de volgende collectieve aanbod en vraagfunctie:\nQa = 180p – 600\nQv = -120p + 1.200\nHierbij is Qv de gevraagde hoeveelheid in miljoenen stuks, Qa de aangeboden hoeveelheid in miljoenen stuks en de p in euro's en de hoeveelheid in miljoenen stuks. Bereken de omzet in het marktevenwicht."
+            },
+            {
+              "id": "q-1-3-14b",
+              "number": "14b",
+              "text": "Bereken het consumentensurplus"
+            },
+            {
+              "id": "q-1-3-14c",
+              "number": "14c",
+              "text": "Bereken het producentensurplus"
+            }
+          ]
+        }
+      ],
+      "answers": [
+        {
+          "questionId": "q-1-3-11a",
+          "number": "11a",
+          "answer": "Het consumentensurplus is de oppervlakte tussen de vraaglijn en het marktevenwicht.\nConsumentensurplus is de oppervlakte van een driehoek.\nOppervlakte driehoek: basis x hoogte x ½.\nBasis: verkochte hoeveelheid (62,4 miljoen)\nHoogte: betalingsbereidheid - prijs (€ 20 - € 15,2 = € 4,80)\nConsumentensurplus: 62,4 miljoen x € 4,80 x ½ = € 149.760.000.\nIn de onderstaande grafiek is de rode arcering het consumentensurplus."
+        },
+        {
+          "questionId": "q-1-3-11b",
+          "number": "11b",
+          "answer": "Het producentensurplus is de oppervlakte tussen de aanbodlijn en het marktevenwicht.\nProducentensurplus is de oppervlakte van een driehoek.\nOppervlakte driehoek: basis x hoogte x ½.\nBasis: verkochte hoeveelheid (62,4 miljoen)\nHoogte: prijs – leveringsbereidheid (€ 15,20 - € 10 = € 5,20)\nProducentensurplus: 62,4 miljoen x € 5,20 x ½ = € 162.240.000.\nIn de grafiek bij vraag a is de blauwe arcering het producentensurplus."
+        },
+        {
+          "questionId": "q-1-3-12a",
+          "number": "12a",
+          "answer": ""
+        },
+        {
+          "questionId": "q-1-3-12b",
+          "number": "12b",
+          "answer": "Bij een prijs van € 200 is de vraag: 3.000.\nDe betalingsbereidheid / maximale prijs is € 300.\nHet consumentensurplus is dan (€ 300 - € 200) x 3.000 x ½ = € 150.000"
+        },
+        {
+          "questionId": "q-1-3-13a",
+          "number": "13a",
+          "answer": ""
+        },
+        {
+          "questionId": "q-1-3-13b",
+          "number": "13b",
+          "answer": "(€ 500 - € 300) x 6.000 x ½ = € 600.000"
+        },
+        {
+          "questionId": "q-1-3-14a",
+          "number": "14a",
+          "answer": "Qa = Qv\n180p – 600 = -120p + 1.200\n300p = 1.800\np = 6\nInvullen in Qa geeft: 180 x 6 – 600 = 480 miljoen\nMarktomzet wordt: € 6 x 480 miljoen = 2.880 miljoen euro"
+        },
+        {
+          "questionId": "q-1-3-14b",
+          "number": "14b",
+          "answer": "Qv = 0 -> 0 = -120p + 1200\n120p = 1200\np = 10\n(€ 10 – € 6) x 480 miljoen x 0,5 = € 960 miljoen."
+        },
+        {
+          "questionId": "q-1-3-14c",
+          "number": "14c",
+          "answer": "Qa = 0 -> 0 = 180p – 600\n-180p = - 600\np = 3,33\n(€ 6 – € 3,33) x 480 miljoen x 0,5 = € 640,8 miljoen."
+        }
+      ]
+    },
+    {
+      "id": "sec-4",
+      "title": "§4 Kosten en opbrengsten",
+      "blocks": [
+        {
+          "id": "blk-4-1",
+          "type": "text",
+          "content": "## Kosten en opbrengsten\n\nBedrijven willen zoveel mogelijk producten verkopen om een zo hoog mogelijke omzet te genereren. In een eerder paragraaf heb je geleerd dat je de omzet berekent door de prijs van het product te vermenigvuldigen met de verkochte hoeveelheid. De omzet noemen we ook wel de totale opbrengst. Vaak korten we dit af met TO. Maar dat zijn niet de enige afkortingen die we gebruiken. De prijs korten we af met p en de verkochte hoeveelheid met q. Een kleine letter q staat voor de verkochte hoeveelheid van één producent. In de eerste paragrafen zagen we de hoofdletter Q. Deze staat voor de productie van alle aanbieders bij elkaar.\n\nDe formule voor de totale opbrengst luidt dus TO = p x q."
+        },
+        {
+          "id": "blk-4-2",
+          "type": "text",
+          "content": "### Variabele en constante kosten\n\nHet is niet zo dat de baas van het bedrijf de omzet in zijn zak kan steken. Er zijn namelijk ook nog kosten voor het bedrijf. De kosten kunnen we onderverdelen in variabele en constante kosten. Er is een essentieel verschil tussen deze twee.\n\nVariabele kosten zijn kosten die afhangen van het aantal producten dat verkocht wordt. Constante kosten zijn kosten die niet afhangen van het aantal geproduceerde producten.\n\nLaten we dit bekijken bij een winkel die spijkerbroeken verkoopt. Voor er ook maar één spijkerbroek is verkocht heeft het bedrijf al kosten aan de huur van het pand en het loon van de mensen in vaste dienst. Dit zijn dus de vaste kosten van het bedrijf. Voorbeelden van variabele kosten zijn de ingekochte spijkerbroeken en het loon van een uitzendkracht als het heel goed met de verkoop van de spijkerbroeken gaat.\n\nVaak is het zo dat als er meer verkocht wordt de constante kosten niet toenemen. De variabele kosten zullen echter wel toenemen. Dit is zo als we kijken naar de totale variabele en totale constante kosten. Dit kunnen we afkorten met TVK (totale variabele kosten) en TCK (totale constante kosten). Bij elkaar opgeteld zijn dit de Totale Kosten (TK)."
+        },
+        {
+          "id": "blk-4-3",
+          "type": "text",
+          "content": "### Gemiddelde kosten\n\nWe kunnen de variabele en constante kosten echter ook per product bekijken. Dan moeten we de totale variabele en totale constante kosten delen door het aantal producten dat geproduceerd is. We hebben dan de Gemiddelde Variabele Kosten (GVK) en Gemiddelde Constante Kosten (GCK). Tel je de GVK en GCK bij elkaar op dan heb je de Gemiddelde Totale Kosten (GTK), dit noemen we ook wel de kostprijs van een product. Dan weet je wat het kost om één product te maken. Het is natuurlijk dan wel belangrijk dat de verkoopprijs van het product hoger is anders maak je geen winst."
+        },
+        {
+          "id": "blk-4-4",
+          "type": "text",
+          "content": "### Totale winst\n\nHaal je van de totale opbrengsten de totale kosten af dan heb je de Totale Winst (TW). Deze winst kan de eigenaar van het bedrijf in zijn zak steken."
+        },
+        {
+          "id": "blk-4-5",
+          "type": "text",
+          "content": "### Formules overzicht\n\nIn het onderstaande overzicht kun je nogmaals zien hoe je de verschillende kosten kunt uitrekenen:\nTO = p x q\nTK = GTK x q of TCK + TVK\nTW = TO – TK\nTCK = GCK x q\nTVK = GVK x q\nGCK = TCK / q\nGVK = TVK / q\nGTK = GCK + GVK of TK / q"
+        },
+        {
+          "id": "blk-4-q",
+          "type": "questions",
+          "title": "Opdrachten",
+          "intro": "Beantwoord de volgende opdrachten over §4.",
+          "questions": [
+            {
+              "id": "q-4-15a",
+              "number": "15a",
+              "text": "Een bedrijf heeft de volgende formules:\nTO = 600q\nTK = 30.000 + 2q²\nHierin zijn TO de totale opbrengsten, TK de totale kosten en is q het aantal producten dat het bedrijf produceert. Bereken de totale opbrengst bij een productie van 100 stuks."
+            },
+            {
+              "id": "q-4-15b",
+              "number": "15b",
+              "text": "Bereken de totale kosten bij een productie van 100 stuks."
+            },
+            {
+              "id": "q-4-15c",
+              "number": "15c",
+              "text": "Bereken de winst bij een productie van 100 stuks."
+            },
+            {
+              "id": "q-4-15d",
+              "number": "15d",
+              "text": "Bereken de gemiddelde constante kosten (GCK) bij een productie van 40 stuks."
+            },
+            {
+              "id": "q-4-15e",
+              "number": "15e",
+              "text": "Bereken de totale variabele kosten (TVK) bij een productie van 50 stuks."
+            },
+            {
+              "id": "q-4-15f",
+              "number": "15f",
+              "text": "Bereken de gemiddelde totale kosten (GTK) bij een productie van 80 stuks."
+            },
+            {
+              "id": "q-4-16a",
+              "number": "16a",
+              "text": "Gegeven is de kostenformule TK = 0,5q² + 400. Hierin zijn TK de totale kosten in euro's en q het aantal producten. Bereken de totale kosten bij een productie van 10 stuks."
+            },
+            {
+              "id": "q-4-16b",
+              "number": "16b",
+              "text": "Bereken de totale constante kosten bij een productie van 15 stuks."
+            },
+            {
+              "id": "q-4-16c",
+              "number": "16c",
+              "text": "Bereken de constante kosten per product bij een productie van 20 stuks."
+            },
+            {
+              "id": "q-4-16d",
+              "number": "16d",
+              "text": "Bereken de totale variabele kosten bij een productie van 25 stuks."
+            },
+            {
+              "id": "q-4-16e",
+              "number": "16e",
+              "text": "Bereken de variabele kosten per product bij een productie van 30 stuks."
+            },
+            {
+              "id": "q-4-16f",
+              "number": "16f",
+              "text": "Bereken de gemiddelde totale kosten bij een productie van 40 stuks."
+            },
+            {
+              "id": "q-4-17",
+              "number": "17",
+              "text": "Gegeven zijn de volgende formules: TO = 20q en TK = 7,5q + 5.000. Hierin is TO de totale opbrengst in euro's, TK de totale kosten in euro's en q het aantal verkochte producten. Vul de tabel in bron 8 verder in.\n\nBron 8 Kosten en opbrengsten\nq | TO | TVK | TCK | TK | GVK | GCK | GTK | TW\n100 | | | | | | | |\n200 | | | | | | | |\n300 | | | | | | | |\n400 | | | | | | | |\n500 | | | | | | | |"
+            },
+            {
+              "id": "q-4-18",
+              "number": "18",
+              "text": "Lees bron 9. Geef bij Code Cube een voorbeeld van vaste kosten en een voorbeeld van variabele kosten.\n\nBron 9 Beste jonge ondernemers\nJessica Eijgelsheim en Sharina Kiesebrink staan in de top 25 van beste jonge ondernemers. Zij hebben een websitepakket voor kinderen samengesteld. Kinderen vanaf 8 jaar kunnen met de Code Qube, een zeshoek waaraan twee tablets zijn bevestigd, spelenderwijs een eigen website leren bouwen. Stap voor stap puzzelen ze hun eigen website in elkaar door coderegels op de magnetische oppervlakken van de Qube te plakken. De Code Qube was hun afstudeerproject voor hun opleiding Communication & Multimedia Design. Vervolgens gebruikten zij de Qube om een bedrijf op te starten. Met hun websitetool bieden ze echt iets nieuws ten opzichte van de codeerpakketten die al op de markt zijn voor de basisschool. De leerlingen gaan in plaats van digitaal, fysiek aan de slag met de code. De code wordt hierdoor inzichtelijk gemaakt en het proces wordt visueel zichtbaar op de Code Qube. Daarnaast werken leerlingen niet alleen, maar bouwen zij samen aan de website."
+            },
+            {
+              "id": "q-4-19a",
+              "number": "19a",
+              "text": "Bakker Verdiest bakt en verkoopt dagelijks 400 broden met een verkoopprijs van € 2 per brood. De variabele kosten zijn € 0,22 per brood. De vaste kosten zijn € 140 per dag. Bereken de omzet van bakker Verdiest."
+            },
+            {
+              "id": "q-4-19b",
+              "number": "19b",
+              "text": "Bereken de totale kosten per dag voor bakker Verdiest."
+            },
+            {
+              "id": "q-4-19c",
+              "number": "19c",
+              "text": "Bereken de winst per dag voor bakker Verdiest."
+            },
+            {
+              "id": "q-4-19d",
+              "number": "19d",
+              "text": "Bereken de kostprijs per brood."
+            },
+            {
+              "id": "q-4-19e",
+              "number": "19e",
+              "text": "Leg uit dat de kostprijs daalt als hij per dag meer broden gaat bakken."
+            },
+            {
+              "id": "q-4-19f",
+              "number": "19f",
+              "text": "Stel de TK-formule van Bakker Verdiest op."
+            },
+            {
+              "id": "q-4-20a",
+              "number": "20a",
+              "text": "Verzekeringsmaatschappij SureForever verkoopt scooterverzekeringen. Het volgende is bekend:\n• Qv = -100p + 15.000\n• p = prijs van een scooterverzekering per jaar in euro's.\n• Qv = aantal scooterverzekeringen.\n• De variabele kosten per verzekering zijn € 40.\n• De vaste kosten van SureForever zijn € 180.000 per jaar.\n• SureForever verkoopt de scooterverzekering voor € 70.\nBereken de omzet van SureForever."
+            },
+            {
+              "id": "q-4-20b",
+              "number": "20b",
+              "text": "Stel de TK-formule van SureForever op."
+            },
+            {
+              "id": "q-4-20c",
+              "number": "20c",
+              "text": "Bereken de winst van SureForever."
+            },
+            {
+              "id": "q-4-20d",
+              "number": "20d",
+              "text": "Behoren de uitkeringen bij schade tot de variabele of vaste kosten? Leg uit."
+            },
+            {
+              "id": "q-4-21a",
+              "number": "21a",
+              "text": "Lees bron 10. Geef een voorbeeld van vaste kosten bij visser Schols.\n\nBron 10 Visser Schols in problemen\nOm het uitsterven van kabeljauw te voorkomen, wordt de vangst beperkt. De Nederlandse kabeljauwvissers moeten een aantal schepen uit de vaart nemen. Na de vangstbeperking stijgt de prijs van kabeljauw op de markt van € 5 naar € 8. Visser Schols ving en verkocht vóór de vangstbeperking 100.000 kilogram kabeljauw per jaar. Zijn constante kosten bedroegen € 300.000 per jaar en zijn variabele kosten € 1,50 per kg kabeljauw. Schols moet zijn vangst en verkoop gaan beperken tot 40.000 kg kabeljauw per jaar. Hij kan zijn constante kosten terugbrengen tot € 250.000 per jaar en zijn variabele kosten tot € 1,25 per kg.\n\nAls gevolg van de dure kabeljauw worden nieuwe vissoorten aangeboden. Sommige consumenten vervangen de kabeljauw op hun bord door een nieuwe vissoort."
+            },
+            {
+              "id": "q-4-21b",
+              "number": "21b",
+              "text": "Geef een voorbeeld van variabele kosten bij visser Schols."
+            },
+            {
+              "id": "q-4-21c",
+              "number": "21c",
+              "text": "Bereken de totale winst van visser Schols voor de vangstbeperking."
+            },
+            {
+              "id": "q-4-21d",
+              "number": "21d",
+              "text": "Bereken de totale winst van visser Schols na de vangstbeperking."
+            },
+            {
+              "id": "q-4-21e",
+              "number": "21e",
+              "text": "Wat is het gevolg voor de prijs van kabeljauw? Verklaar je antwoord."
+            }
+          ]
+        }
+      ],
+      "answers": [
+        {
+          "questionId": "q-4-15a",
+          "number": "15a",
+          "answer": "600 x 100 = € 60.000"
+        },
+        {
+          "questionId": "q-4-15b",
+          "number": "15b",
+          "answer": "30.000 + 2 x 100² = € 50.000"
+        },
+        {
+          "questionId": "q-4-15c",
+          "number": "15c",
+          "answer": "€ 60.000 - € 50.000 = € 10.000"
+        },
+        {
+          "questionId": "q-4-15d",
+          "number": "15d",
+          "answer": "€ 30.000 / 40 = €750"
+        },
+        {
+          "questionId": "q-4-15e",
+          "number": "15e",
+          "answer": "2 x 50² = € 5.000"
+        },
+        {
+          "questionId": "q-4-15f",
+          "number": "15f",
+          "answer": "30.000 + 2 x 80² =€ 42.800\n€42.800 / 80 = € 535"
+        },
+        {
+          "questionId": "q-4-16a",
+          "number": "16a",
+          "answer": "0,5 x 10² + 400 = € 450."
+        },
+        {
+          "questionId": "q-4-16b",
+          "number": "16b",
+          "answer": "€ 400."
+        },
+        {
+          "questionId": "q-4-16c",
+          "number": "16c",
+          "answer": "€ 400 / 20 = € 20."
+        },
+        {
+          "questionId": "q-4-16d",
+          "number": "16d",
+          "answer": "0,5 x 25² = € 312,50."
+        },
+        {
+          "questionId": "q-4-16e",
+          "number": "16e",
+          "answer": "0,5 x 30² = € 450. Per product is dat € 450 / 30 = € 15."
+        },
+        {
+          "questionId": "q-4-16f",
+          "number": "16f",
+          "answer": "0,5 x 40² + 400 = € 1.200. Per product is dat € 1.200 / 40 = € 30."
+        },
+        {
+          "questionId": "q-4-17",
+          "number": "17",
+          "answer": "q | TO | TVK | TCK | TK | GVK | GCK | GTK | TW\n100 | 2.000 | 750 | 5.000 | 5.750 | 7,50 | 50 | 57,50 | -3.750\n200 | 4.000 | 1.500 | 5.000 | 6.500 | 7,50 | 25 | 32,50 | -2.500\n300 | 6.000 | 2.250 | 5.000 | 7.250 | 7,50 | 16,67 | 24,17 | -1.250\n400 | 8.000 | 3.000 | 5.000 | 8.000 | 7,50 | 12,50 | 20 | 0\n500 | 10.000 | 3.750 | 5.000 | 8.750 | 7,50 | 10 | 17,50 | 1.250"
+        },
+        {
+          "questionId": "q-4-18",
+          "number": "18",
+          "answer": "Vaste kosten = onderhoud aan de website\nVariabele kosten = kosten van het maken van de attributen (fysieke code regels)"
+        },
+        {
+          "questionId": "q-4-19a",
+          "number": "19a",
+          "answer": "€ 2 x 400 = € 800."
+        },
+        {
+          "questionId": "q-4-19b",
+          "number": "19b",
+          "answer": "€ 0,22 x 400 + € 140 = € 228."
+        },
+        {
+          "questionId": "q-4-19c",
+          "number": "19c",
+          "answer": "€ 800 - € 228 = € 572."
+        },
+        {
+          "questionId": "q-4-19d",
+          "number": "19d",
+          "answer": "€ 228 / 400 = € 0,57. De kostprijs is de GTK."
+        },
+        {
+          "questionId": "q-4-19e",
+          "number": "19e",
+          "answer": "Als Bakker Verdiest meer broden per dag bakt kunnen de vaste kosten verdeeld worden over meer broden en word het aandeel van de vaste kosten per product minder en daarmee de kostprijs ook."
+        },
+        {
+          "questionId": "q-4-19f",
+          "number": "19f",
+          "answer": "TK = 0,22q + 400."
+        },
+        {
+          "questionId": "q-4-20a",
+          "number": "20a",
+          "answer": "Q = -100 x 70 + 15.000 = 8.000\nTO = € 70 x 8.000 = € 560.000."
+        },
+        {
+          "questionId": "q-4-20b",
+          "number": "20b",
+          "answer": "TK = 40q + 180.000."
+        },
+        {
+          "questionId": "q-4-20c",
+          "number": "20c",
+          "answer": "TK = 40 x 8.000 + 180.000 = € 500.000.\nTW = € 560.000 - € 500.000 = € 60.000."
+        },
+        {
+          "questionId": "q-4-20d",
+          "number": "20d",
+          "answer": "Het uitkeren van schade is een variabele kosten. Dit hangt namelijk af van de hoeveelheid schadeclaims er zijn. Dit staat niet van tevoren vast."
+        },
+        {
+          "questionId": "q-4-21a",
+          "number": "21a",
+          "answer": "Loonkosten."
+        },
+        {
+          "questionId": "q-4-21b",
+          "number": "21b",
+          "answer": "Benzinekosten."
+        },
+        {
+          "questionId": "q-4-21c",
+          "number": "21c",
+          "answer": "TO = € 5,- x 100.000 = € 500.000.\nTK = € 1,50q + € 300.000.\nTK = € 1,5 x 100.000 + € 300.000 = € 450.000.\nTW = € 500.000 - € 450.000 = € 50.000."
+        },
+        {
+          "questionId": "q-4-21d",
+          "number": "21d",
+          "answer": "TO = € 8,- x 40.000 = € 320.000.\nTK = € 1,25q + € 250.000.\nTK = € 1,25 x 40.000 + € 250.000 = € 300.000.\nTW = € 320.000 - € 300.000 = € 20.000."
+        },
+        {
+          "questionId": "q-4-21e",
+          "number": "21e",
+          "answer": "Doordat de vraag naar kabeljauw afneemt zal de prijs ook afnemen tot er een nieuw evenwicht op de markt komt."
+        }
+      ]
+    }
+  ]
+}

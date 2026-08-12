@@ -1,0 +1,223 @@
+[
+  {
+    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
+    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
+    "eventType": "mode_switch",
+    "timestamp": 1780389309591,
+    "data": {
+      "from": "simple",
+      "to": "study"
+    }
+  },
+  {
+    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
+    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
+    "eventType": "mode_switch",
+    "timestamp": 1780389356246,
+    "data": {
+      "from": "study",
+      "to": "samenvatting"
+    }
+  },
+  {
+    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
+    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
+    "eventType": "session_end",
+    "timestamp": 1780389362905,
+    "data": {
+      "duration": 72483
+    }
+  },
+  {
+    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
+    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
+    "eventType": "session_start",
+    "timestamp": 1780389366930,
+    "data": {
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
+      "language": "en",
+      "screenResolution": "1280x800"
+    }
+  },
+  {
+    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
+    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
+    "eventType": "page_view",
+    "timestamp": 1780389366931,
+    "data": {
+      "path": "/economie",
+      "referrer": "http://localhost:3000/aardrijkskunde-h5"
+    }
+  },
+  {
+    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
+    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
+    "eventType": "session_end",
+    "timestamp": 1780389388572,
+    "data": {
+      "duration": 21641
+    }
+  },
+  {
+    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
+    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
+    "eventType": "session_start",
+    "timestamp": 1780389389951,
+    "data": {
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
+      "language": "en",
+      "screenResolution": "1280x800"
+    }
+  },
+  {
+    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
+    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
+    "eventType": "page_view",
+    "timestamp": 1780389389951,
+    "data": {
+      "path": "/aardrijkskunde-h5",
+      "referrer": "http://localhost:3000/economie"
+    }
+  },
+  {
+    "userId": "ba9710ba-93c2-455b-8433-16935ac82404",
+    "sessionId": "3abab317-88ae-4da2-bcc5-8a009b7c6450",
+    "eventType": "session_start",
+    "timestamp": 1780389479213,
+    "data": {
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
+      "language": "en",
+      "screenResolution": "1280x800"
+    }
+  },
+  {
+    "userId": "ba9710ba-93c2-455b-8433-16935ac82404",
+    "sessionId": "3abab317-88ae-4da2-bcc5-8a009b7c6450",
+    "eventType": "mode_switch",
+    "timestamp": 1780389493252,
+    "data": {
+      "from": "simple",
+      "to": "samenvatting"
+    }
+  },
+  {
+    "userId": "ba9710ba-93c2-455b-8433-16935ac82404",
+    "sessionId": "3abab317-88ae-4da2-bcc5-8a009b7c6450",
+    "eventType": "mode_switch",
+    "timestamp": 1780389546911,
+    "data": {
+      "from": "samenvatting",
+      "to": "alles-leren-2-dagen"
+    }
+  },
+  {
+    "userId": "ba9710ba-93c2-455b-8433-16935ac82404",
+    "sessionId": "3abab317-88ae-4da2-bcc5-8a009b7c6450",
+    "eventType": "mode_switch",
+    "timestamp": 1780389547745,
+    "data": {
+      "from": "alles-leren-2-dagen",
+      "to": "complete-oefentoets"
+    }
+  },
+  {
+    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
+    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
+    "eventType": "session_end",
+    "timestamp": 1780389628521,
+    "data": {
+      "duration": 238568
+    }
+  },
+  {
+    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
+    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
+    "eventType": "session_start",
+    "timestamp": 1780389632151,
+    "data": {
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
+      "language": "en",
+      "screenResolution": "1280x800"
+    }
+  },
+  {
+    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
+    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
+    "eventType": "session_start",
+    "timestamp": 1780389632152,
+    "data": {
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
+      "language": "en",
+      "screenResolution": "1280x800"
+    }
+  },
+  {
+    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
+    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
+    "eventType": "mode_switch",
+    "timestamp": 1780389655212,
+    "data": {
+      "from": "simple",
+      "to": "samenvatting"
+    }
+  },
+  {
+    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
+    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
+    "eventType": "session_end",
+    "timestamp": 1780389656951,
+    "data": {
+      "duration": 24799
+    }
+  },
+  {
+    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
+    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
+    "eventType": "session_start",
+    "timestamp": 1780389660557,
+    "data": {
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
+      "language": "en",
+      "screenResolution": "1280x800"
+    }
+  },
+  {
+    "userId": "a70699fb-1979-4e03-8506-cdc45c469744",
+    "sessionId": "cb28d583-f434-499e-8379-4aaa2e8f06ea",
+    "eventType": "mode_switch",
+    "timestamp": 1780389663271,
+    "data": {
+      "from": "study",
+      "to": "simple"
+    }
+  },
+  {
+    "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
+    "sessionId": "534c5b5d-c0df-4d56-9bbb-a6cbb0cc023c",
+    "eventType": "page_view",
+    "timestamp": 1785419528507,
+    "data": {
+      "path": "/toetsweekvoorbereiding/aardrijkskunde-h5",
+      "referrer": ""
+    }
+  },
+  {
+    "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
+    "sessionId": "534c5b5d-c0df-4d56-9bbb-a6cbb0cc023c",
+    "eventType": "mode_switch",
+    "timestamp": 1785419531202,
+    "data": {
+      "from": "simple",
+      "to": "study"
+    }
+  },
+  {
+    "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
+    "sessionId": "534c5b5d-c0df-4d56-9bbb-a6cbb0cc023c",
+    "eventType": "session_end",
+    "timestamp": 1785419541903,
+    "data": {
+      "duration": 13397
+    }
+  }
+]

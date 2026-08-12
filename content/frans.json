@@ -1,0 +1,17 @@
+{
+  "siteMetadata": {
+    "title": "Frans",
+    "description": "Leermateriaal voor Frans"
+  },
+  "contentFormat": "textbook",
+  "defaultViewMode": "simple",
+  "availableModes": ["simple"],
+  "showTimestamps": false,
+  "showExportButtons": false,
+  "showAnkiExport": false,
+  "showFlashcardsExport": false,
+  "showTranscriptExport": false,
+  "showCopyTranscript": false,
+  "buttons": [],
+  "sections": []
+}

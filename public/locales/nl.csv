@@ -1,0 +1,165 @@
+id,text
+sections,Secties
+bookmarks,Bladwijzers
+clear_bookmarks,Wis alles
+no_bookmarks,Nog geen bladwijzers
+click_to_add,Klik op een paragraaf om bladwijzer toe te voegen
+study_mode,Leren
+book_mode,Boek Modus
+simple_mode,Uitleg
+loading,Laden...
+export,Exporteren
+copy,Kopiëren
+watch_on_youtube,Bekijk op YouTube
+read_on_substack,Lees op Substack
+back_to_main,Terug naar hoofdpagina
+table_of_contents,Inhoudsopgave
+section,Sectie
+paragraph,Paragraaf
+question,Vraag
+answer,Antwoord
+difficulty,Moeilijkheidsgraad
+bookmark_added,Bladwijzer toegevoegd
+bookmark_removed,Bladwijzer verwijderd
+all_bookmarks_cleared,Alle bladwijzers gewist
+export_anki,Exporteer naar Anki
+export_flashcards,Exporteer Flashcards
+export_transcript,Exporteer Transcript
+copy_transcript,Kopieer Transcript
+click_to_flip,Klik om te omdraaien
+space_to_flip,Spatie om te omdraaien
+arrow_keys,Gebruik pijltjestoetsen om te navigeren
+scroll_to_section,Scroll naar sectie
+active_section,Actieve sectie
+sub_section,Sub-sectie
+part,Deel
+chapter,Hoofdstuk
+unit,Eenheid
+lesson,Les
+topic,Onderwerp
+content,Inhoud
+navigation,Navigatie
+settings,Instellingen
+language,Taal
+theme,Thema
+dark_mode,Donkere modus
+light_mode,Lichte modus
+search,Zoeken
+search_placeholder,Zoek inhoud...
+no_results,Geen resultaten gevonden
+show_timestamps,Toon tijdstempels
+hide_timestamps,Verberg tijdstempels
+view_mode,Weergave modus
+change_mode,Wijzig weergave modus
+reading_progress,Leesvoortgang
+completed,Voltooid
+remaining,Resterend
+of,van
+page,Pagina
+pages,Pagina's
+word,Word
+words,Words
+minute,Minuut
+minutes,Minuten
+read_time,Leestijd
+estimated_time,Geschatte leestijd
+bookmark_this,Bladwijzer toevoegen aan deze paragraaf
+remove_bookmark,Verwijder bladwijzer
+go_to_bookmark,Ga naar bladwijzer
+bookmarks_list,Bladwijzerslijst
+empty_state_empty,Geen inhoud beschikbaar
+empty_state_loading,Inhoud laden...
+error_loading,Fout bij laden van inhoud
+retry,Opnieuw proberen
+close,Sluiten
+save,Opslaan
+cancel,Annuleren
+confirm,Bevestigen
+delete,Verwijderen
+edit,Bewerken
+add,Toevoegen
+remove,Verwijderen
+next,Volgende
+previous,Vorige
+first,Eerste
+last,Laatste
+beginning,Begin
+end,Einde
+top,Boven
+bottom,Onder
+scroll_up,Scroll omhoog
+scroll_down,Scroll omlaag
+jump_to,Spring naar
+select_language,Selecteer taal
+english,Engels
+dutch,Nederlands
+home_title,Toetsweekvoorbereiding
+home_subtitle,Kies hieronder een vak om te oefenen voor de toetsweek.
+advanced_mode,Geavanceerd
+advanced_mode_description,Studiemodi en SRS-voortgang
+advanced_home_description,Oefen met geavanceerde studiemodi en lokale voortgang.
+advanced_label,Geavanceerd studeren
+advanced_title,Studiedashboard
+advanced_due,Vandaag
+advanced_reviewed,Gedaan
+advanced_accuracy,Nauwkeurigheid
+advanced_tab_study,Studeren
+advanced_tab_stats,Voortgang
+advanced_mode_flashcard,Flashcards
+advanced_mode_multiple-choice,Meerkeuze
+advanced_mode_typing,Typen
+advanced_mode_matching,Koppelen
+advanced_card_progress,Kaart
+advanced_quality_again,Opnieuw
+advanced_quality_hard,Moeilijk
+advanced_quality_good,Goed
+advanced_quality_easy,Makkelijk
+advanced_flashcard_keys,Spatie draait om, 1-4 registreert na het omdraaien.
+advanced_type_placeholder,Typ je antwoord
+advanced_similarity,Overeenkomst
+advanced_continue,Verder
+advanced_check_answer,Controleer antwoord
+advanced_match_pairs,Koppel de paren
+advanced_attempts,pogingen
+advanced_no_cards_due,Er zijn nu geen kaarten om te herhalen.
+advanced_no_cards,Er zijn geen studievragen beschikbaar voor deze pagina.
+advanced_session_complete,Sessie voltooid
+advanced_cards,Kaarten
+advanced_correct,Goed
+advanced_time,Tijd
+advanced_study_again,Opnieuw studeren
+advanced_sessions,Sessies
+advanced_forecast,Vooruitblik van 7 dagen
+advanced_card_limit,Aantal kaarten
+advanced_fuzzy_threshold,Fuzzy-drempel
+advanced_srs_algorithm,SRS-algoritme
+advanced_review_mix,Herhaalmix
+advanced_review_mix_all,Vandaag en nieuw
+advanced_review_mix_due,Alleen vandaag
+advanced_review_mix_new,Alleen nieuw
+book_mode_description,Lezen met vragen en antwoorden in de tekst
+study_mode_description,Flashcardmodus
+simple_mode_description,Volledige tekstweergave
+questions,Vragen
+questions_and_answers,Vragen en antwoorden
+expand_all,Alles uitklappen
+expand_all_qa,Alle vragen uitklappen
+collapse_all,Alles inklappen
+difficulty_easy,Makkelijk
+difficulty_medium,Gemiddeld
+difficulty_hard,Moeilijk
+no_paragraphs_available,Geen paragrafen beschikbaar in deze sectie.
+link_to_paragraph,Link naar deze paragraaf
+answer_not_provided,Antwoord niet beschikbaar
+not_provided,Niet beschikbaar
+answer_not_provided_hint,Antwoord niet beschikbaar. Gebruik dit als oefenvraag.
+show_question,Toon vraag
+show_answer,Toon antwoord
+previous_question,Vorige vraag
+next_question,Volgende vraag
+shuffle,Schudden
+shuffled,Geschud
+reset,Opnieuw
+keyboard_hint,Toetsenbord: spatie om te draaien, pijltjestoetsen om te navigeren
+copied,Gekopieerd
+untitled,Zonder titel

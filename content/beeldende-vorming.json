@@ -1,0 +1,588 @@
+{
+  "siteMetadata": {
+    "title": "Beeldende Vorming",
+    "description": "Leermateriaal voor Beeldende Vorming"
+  },
+  "contentFormat": "textbook",
+  "defaultViewMode": "simple",
+  "availableModes": ["simple", "uitleg", "study"],
+  "showTimestamps": false,
+  "showExportButtons": false,
+  "showAnkiExport": false,
+  "showFlashcardsExport": false,
+  "showTranscriptExport": false,
+  "showCopyTranscript": false,
+  "buttons": [],
+  "enableImageLearning": true,
+  "learningSet": {
+    "title": "Beeldende Vorming Begrippen",
+    "terms": [
+      {
+        "id": "term-collage",
+        "term": "Collage",
+        "definition": "Een collage is een tweedimensionaal kunstwerk waarbij de kunstenaar de voorstelling grotendeels door middel van 'knippen en plakken' heeft samengesteld.",
+        "image": "/assets/collage.png"
+      },
+      {
+        "id": "term-voorstelling",
+        "term": "Voorstelling",
+        "definition": "De voorstelling is dat wat er op het kunstwerk te zien is en wat het voorstelt.",
+        "image": "/assets/voorstelling.png"
+      },
+      {
+        "id": "term-waarneming",
+        "term": "Naar de waarneming",
+        "definition": "Werken naar de waarneming betekent dat je tekent, schildert of boetseert wat je ziet.",
+        "image": "/assets/naar-de-waarneming.png"
+      },
+      {
+        "id": "term-fantasie",
+        "term": "Naar de fantasie",
+        "definition": "Werken naar de fantasie betekent dat je tekent, schildert of boetseert wat je zelf verzint.",
+        "image": "/assets/naar-de-fantasie.png"
+      },
+      {
+        "id": "term-stilleven",
+        "term": "Stilleven",
+        "definition": "Een stilleven is een voorstelling van levenloze voorwerpen.",
+        "image": "/assets/stilleven-l.png"
+      },
+      {
+        "id": "term-sfeer",
+        "term": "Sfeer",
+        "definition": "Sfeer is de stemming in een voorstelling.",
+        "image": "/assets/sfeer.png"
+      },
+      {
+        "id": "term-compositie",
+        "term": "Compositie",
+        "definition": "Compositie is de manier waarop vormen en figuren op een plat vlak of in de ruimte zijn geordend.",
+        "image": "/assets/compositie.png"
+      },
+      {
+        "id": "term-uitsnede",
+        "term": "Uitsnede",
+        "definition": "Bij een uitsnede zie je een klein stuk van een grotere voorstelling.",
+        "image": "/assets/uitsnede.png"
+      },
+      {
+        "id": "term-primaire-kleuren",
+        "term": "Primaire kleuren",
+        "definition": "De primaire kleuren zijn rood, geel en blauw.",
+        "image": "/assets/primaire-kleuren.png"
+      },
+      {
+        "id": "term-secundaire-kleuren",
+        "term": "Secundaire kleuren",
+        "definition": "De secundaire kleuren zijn groen, oranje en paars.",
+        "image": "/assets/secundaire-kleuren.png"
+      },
+      {
+        "id": "term-tertiaire-kleuren",
+        "term": "Tertiaire kleuren",
+        "definition": "Tertiaire kleuren ontstaan als je een primaire kleur en een secundaire kleur mengt of als je twee primaire kleuren in ongelijke hoeveelheden mengt.",
+        "image": "/assets/tertiaire-kleuren.png"
+      },
+      {
+        "id": "term-2d-vorm",
+        "term": "Tweedimensionale vorm",
+        "definition": "Een tweedimensionale vorm is een platte vorm, met een lengte en een breedte.",
+        "image": "/assets/tweedimensionale-vorm.png"
+      },
+      {
+        "id": "term-3d-vorm",
+        "term": "Driedimensionale vorm",
+        "definition": "Een driedimensionale vorm is een ruimtelijke vorm, met een lengte, een breedte en een diepte.",
+        "image": "/assets/driedimensionale-vorm.png"
+      },
+      {
+        "id": "term-geometrische-vorm",
+        "term": "Geometrische vorm",
+        "definition": "Geometrische vormen zijn meetkundige (wiskundige) vormen.",
+        "image": "/assets/geometrische-vorm.png"
+      },
+      {
+        "id": "term-organische-vorm",
+        "term": "Organische vorm",
+        "definition": "Organische vormen zijn vloeiend, golvend en sierlijk.",
+        "image": "/assets/organische-vorm.png"
+      },
+      {
+        "id": "term-textuur",
+        "term": "Textuur",
+        "definition": "Het voelbare oppervlak van een ruimtelijke vorm noem je textuur.",
+        "image": "/assets/textuur.png"
+      },
+      {
+        "id": "term-stofuitdrukking",
+        "term": "Stofuitdrukking",
+        "definition": "Stofuitdrukking is de manier waarop je in een tekening of schilderij materialen (stoffen) weergeeft.",
+        "image": "/assets/stofuitdrukking.png"
+      },
+      {
+        "id": "term-figuratieve-vorm",
+        "term": "Figuratieve vorm",
+        "definition": "Vormen in kunstwerken zijn figuratief als ze de zichtbare werkelijkheid verbeelden, zoals mensen, dieren, planten of gebouwen.",
+        "image": "/assets/figuratieve-vorm.png"
+      },
+      {
+        "id": "term-gestileerde-vorm",
+        "term": "Gestileerde vorm",
+        "definition": "Gestileerde vormen zijn vereenvoudigde vormen, waarbij details zijn weggelaten.",
+        "image": "/assets/gestileerde-vorm.png"
+      },
+      {
+        "id": "term-licht-donker-kleur",
+        "term": "Licht-donkercontrast (kleur)",
+        "definition": "Een licht-donkercontrast ontstaat als je lichte en donkere kleuren bij elkaar zet.",
+        "image": "/assets/licht-donkercontrast(kleur).png"
+      },
+      {
+        "id": "term-eigen-schaduw",
+        "term": "Eigen schaduw",
+        "definition": "Eigen schaduw is de schaduw die op de niet belichte kant van een voorwerp of figuur valt.",
+        "image": "/assets/eigen-schaduw.png"
+      },
+      {
+        "id": "term-slagschaduw",
+        "term": "Slagschaduw",
+        "definition": "Slagschaduw is de schaduw van een voorwerp of figuur die op de grond, op een muur of op een ander voorwerp valt.",
+        "image": "/assets/slagschaduw.png"
+      },
+      {
+        "id": "term-licht-donker-licht",
+        "term": "Licht-donkercontrast (licht)",
+        "definition": "Een licht-donker contrast is een tegenstelling tussen lichte en donkere delen in de voorstelling.",
+        "image": "/assets/licht-donker-contrast(licht).png"
+      },
+      {
+        "id": "term-ruimtesuggestie",
+        "term": "Ruimtesuggestie",
+        "definition": "Ruimtesuggestie is het gebruik van technieken om de indruk van ruimte te geven op een plat vlak, zoals een tekening of een schilderij.",
+        "image": "/assets/ruimtesuggestie.png"
+      },
+      {
+        "id": "term-afsnijding",
+        "term": "Afsnijding",
+        "definition": "Afsnijding houdt in dat delen van de voorstelling niet helemaal zichtbaar zijn omdat ze worden afgesneden door de rand van het beeldvlak.",
+        "image": "/assets/afsnijding.png"
+      },
+      {
+        "id": "term-overlapping",
+        "term": "Overlapping",
+        "definition": "Bij overlapping staan voorwerpen of figuren in de voorstelling gedeeltelijk voor of achter elkaar.",
+        "image": "/assets/overlapping.png"
+      },
+      {
+        "id": "term-verkleining",
+        "term": "Verkleining",
+        "definition": "Als je voorwerpen of figuren die verder weg staan kleiner tekent dan voorwerpen of figuren die dichterbij staan, ontstaat er meer diepte in je tekening of schilderij.",
+        "image": "/assets/verkleining.png"
+      },
+      {
+        "id": "term-planperspectief",
+        "term": "Planperspectief",
+        "definition": "Planperspectief is de indeling van je voorstelling in verschillende horizontale lagen, die 'plans' worden genoemd.",
+        "image": "/assets/planperspectief.png"
+      },
+      {
+        "id": "term-atmosferisch-perspectief",
+        "term": "Atmosferisch perspectief",
+        "definition": "Bij atmosferisch perspectief wordt wat ver weg is, vager afgebeeld.",
+        "image": "/assets/atmosferisch-perspectief.png"
+      },
+      {
+        "id": "term-centraalperspectief",
+        "term": "Centraalperspectief",
+        "definition": "Centraalperspectief is een vorm van lijnperspectief met éen vluchtpunt op de horizon.",
+        "image": "/assets/centraalperspectief.png"
+      },
+      {
+        "id": "term-contour",
+        "term": "Contour",
+        "definition": "Contour is een ander woord voor omtreklijn.",
+        "image": "/assets/contour.png"
+      },
+      {
+        "id": "term-assemblage",
+        "term": "Assemblage",
+        "definition": "Assembleren betekent samenvoegen.",
+        "image": "/assets/assemblage.png"
+      },
+      {
+        "id": "term-architectuur",
+        "term": "Architectuur",
+        "definition": "Architectuur is de kunst van het ontwerpen van gebouwen.",
+        "image": "/assets/architectuur.png"
+      },
+      {
+        "id": "term-portret",
+        "term": "Portret",
+        "definition": "Een portret is een voorstelling van een persoon.",
+        "image": "/assets/portret-l.png"
+      },
+      {
+        "id": "term-landschap",
+        "term": "Landschap",
+        "definition": "Een tekening of schilderij met de landelijke omgeving als onderwerp, noem je een landschap.",
+        "image": "/assets/landschap.png"
+      },
+      {
+        "id": "term-kleurcontrast",
+        "term": "Kleurcontrast",
+        "definition": "Een kleurcontrast is een tegenstelling tussen kleuren.",
+        "image": "/assets/kleurcontrast.png"
+      },
+      {
+        "id": "term-complementair-kleurcontrast",
+        "term": "Complementair kleurcontrast",
+        "definition": "Een complementair kleurcontrast ontstaat als je twee kleuren die tegenover elkaar staan in de kleurencirkel bij elkaar zet.",
+        "image": "/assets/complementair-kleurcontrast.png"
+      },
+      {
+        "id": "term-warm-koudcontrast",
+        "term": "Warm-koudcontrast",
+        "definition": "Een warm-koudcontrast ontstaat als je warme en koude kleuren bij elkaar zet.",
+        "image": "/assets/warm-koudcontrast.png"
+      },
+      {
+        "id": "term-lijnperspectief",
+        "term": "Lijnperspectief",
+        "definition": "Lijnperspectief is een meetkundige manier om in het platte vlak van een tekening of schilderij diepte te verbeelden.",
+        "image": "/assets/lijnperspectief.png"
+      },
+      {
+        "id": "term-horizon",
+        "term": "Horizon",
+        "definition": "De horizon is de denkbeeldige scheidingslijn tussen aarde/water en lucht.",
+        "image": "/assets/horizon.png"
+      },
+      {
+        "id": "term-kikvorsperspectief",
+        "term": "Kikvorsperspectief",
+        "definition": "Kikvorsperspectief betekent dat je voor een tekening of een foto een heel laag standpunt kiest met een heel lage horizon.",
+        "image": "/assets/kikvorsperspectief.png"
+      },
+      {
+        "id": "term-vogelvluchtperspectief",
+        "term": "Vogelvluchtperspectief",
+        "definition": "Vogelvluchtperspectief betekent dat je voor een tekening of foto een heel hoog standpunt kiest met een heel hoge horizon.",
+        "image": "/assets/vogelvluchtperspectief.png"
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "sec-jaar-1-2",
+      "title": "Jaar 1 & 2",
+      "blocks": [
+        {
+          "id": "blk-collage",
+          "type": "text",
+          "content": "## Collage\n\nColler is Frans voor plakken of lijmen.\nEen collage is een tweedimensionaal kunstwerk\nwaarbij de kunstenaar de voorstelling grotendeels\ndoor middel van 'knippen en plakken' heeft\nsamengesteld. Collages kunnen bestaan uit\nallerlei materialen zoals foto's, fragmenten uit\nkranten, opschriften, karton en textiel. Ze zijn\nsoms aangevuld met teken- en schilderwerk.\nEen fotomontage is een collage van bestaande\nfoto's die tot een nieuw beeld zijn samengesteld.\nFotomontages worden meestal met computer-\nsoftware gemaakt.",
+          "image": "/assets/collage.png",
+          "caption": "Pablo Picasso\nFemmes à leur toilette\n(Vrouwen maken hun toilet)\n(1937-1938)"
+        },
+        {
+          "id": "blk-voorstelling",
+          "type": "text",
+          "content": "## Voorstelling\n\nDe voorstelling is dat wat er op het kunst-\nwerk te zien is en wat het voorstelt. Als\nje de voorstelling van een kunstwerk bekijkt,\nvraag je je dan ook af wat het onderwerp is\nen of er een verhaal wordt verteld.",
+          "image": "/assets/voorstelling.png",
+          "caption": "John William Waterhouse\nThe Lady of Shalott (1888)"
+        },
+        {
+          "id": "blk-waarneming",
+          "type": "text",
+          "content": "## Naar de waarneming\n\nWerken naar de waarneming betekent dat je\ntekent, schildert of boetseert wat je ziet.\nJe moet het onderwerp (bijvoorbeeld\neen stilleven, een landschap of een persoon)\ndaarbij aandachtig bestuderen.",
+          "image": "/assets/naar-de-waarneming.png",
+          "caption": "John Singer Sargent\nClaude Monet Painting by the Edge of a Wood\n(1885)"
+        },
+        {
+          "id": "blk-fantasie",
+          "type": "text",
+          "content": "## Naar de fantasie\n\nWerken naar de fantasie betekent dat je tekent,\nschildert of boetseert wat je zelf verzint.\nEen voorstelling die naar de fantasie is gemaakt,\nbestaat niet in werkelijkheid.",
+          "image": "/assets/naar-de-fantasie.png",
+          "caption": "Salvador Dalí\nLa tentación de San Antonio\n(De verzoeking van de heilige Antonius)\n(1946)"
+        },
+        {
+          "id": "blk-stilleven",
+          "type": "text",
+          "content": "## Stilleven\n\nEen stilleven is een voorstelling van levenloze\nvoorwerpen. Je ziet bijvoorbeeld, bloemen,\netenswaren of serviesgoed.\nIn een vanitasstilleven zie je voorwerpen die\nde eindigheid van het leven symboliseren, zoals\nbijvoorbeeld een schedel en een uitgedoofde\nkaars.\nEen pronkstilleven is bedoeld om de rijkdom\nen geleerdheid van de opdrachtgever te laten\nzien, met voorwerpen zoals zilveren schalen,\nglazen van kristal, landkaarten, boeken of\nmuziekinstrumenten.",
+          "imageLeft": "/assets/stilleven-l.png",
+          "imageRight": "/assets/stilleven-r.png",
+          "captionLeft": "Harmen Steenwijck\nVanitas-stilleven (ca.1650)",
+          "captionRight": "Willem Kalf\nPronkstilleven (1678)"
+        },
+        {
+          "id": "blk-sfeer",
+          "type": "text",
+          "content": "## Sfeer\n\nSfeer is de stemming in een voorstelling.\nEen voorstelling kan bijvoorbeeld een vrolijke,\ndroevige of uitbundige sfeer hebben.\nGezichtsuitdrukkingen, lichaamshoudingen,\nmaar ook lichtval en kleur dragen bij aan de\nsfeer in een voorstelling.",
+          "image": "/assets/sfeer.png",
+          "caption": "Carel Willink\nSimeon de pilaarheilige (1939)"
+        },
+        {
+          "id": "blk-compositie",
+          "type": "text",
+          "content": "## Compositie\n\nCompositie is de manier waarop vormen en\nfiguren op een plat vlak of in de ruimte zijn\ngeordend. Een ander woord voor compositie\nis ordening.",
+          "image": "/assets/compositie.png",
+          "caption": "Jacoba van Heemskerck\nBild no. 68 (1917)"
+        },
+        {
+          "id": "blk-uitsnede",
+          "type": "text",
+          "content": "## Uitsnede\n\nBij een uitsnede zie je een klein stuk van een\ngrotere voorstelling. De compositie wordt dan\nsterker, omdat minder sterke delen worden\nweggelaten. Het onderwerp komt meer naar\nvoren. Een uitsnede waarmee je heel dicht bij\nhet onderwerp komt, noem je een close-up.",
+          "image": "/assets/uitsnede.png",
+          "caption": "Lotusbloem\nBeijing, China (2013)"
+        },
+        {
+          "id": "blk-primaire-kleuren",
+          "type": "text",
+          "content": "## Primaire kleuren\n\nDe primaire kleuren zijn rood, geel en blauw.\nZe worden ook wel de basiskleuren genoemd,\nomdat je met deze kleuren de meeste andere\nkleuren kunt mengen. Je kunt de primaire\nkleuren niet maken door andere kleuren te\nmengen.",
+          "image": "/assets/primaire-kleuren.png",
+          "caption": "Gerrit Rietveld\nRood-blauwe stoel\n(ontwerp 1918, in productie vanaf 1973)"
+        },
+        {
+          "id": "blk-secundaire-kleuren",
+          "type": "text",
+          "content": "## Secundaire kleuren\n\nDe secundaire kleuren zijn groen, oranje en paars.\nZe ontstaan als je twee primaire kleuren in\nongeveer gelijke hoeveelheden mengt.\nZo maak je oranje (rood en geel), groen (geel\nen blauw) en paars (rood en blauw).",
+          "image": "/assets/secundaire-kleuren.png",
+          "caption": "Paul Gauguin\nCompotier sur une chaise de jardin\n(Fruitschaal op een tuinstoel) (ca. 1890)"
+        },
+        {
+          "id": "blk-tertiaire-kleuren",
+          "type": "text",
+          "content": "## Tertiaire kleuren\n\nTertiaire kleuren ontstaan als je een primaire\nkleur en een secundaire kleur mengt of als je\ntwee primaire kleuren in ongelijke hoeveelheden\nmengt. Als je bijvoorbeeld groen mengt met\nmeer blauw dan geel, ontstaat een blauwgroene\nkleur. In de kleurencirkel zie je zes tertiaire\nkleuren.",
+          "image": "/assets/tertiaire-kleuren.png",
+          "caption": "Maarten Deckers\nHouten schutting (2017)"
+        },
+        {
+          "id": "blk-2d-vorm",
+          "type": "text",
+          "content": "## Tweedimensionale vorm\n\nEen tweedimensionale vorm is een platte\nvorm, met een lengte en een breedte.\nEen vierkant of een cirkel zijn voorbeelden\nvan tweedimensionale vormen.",
+          "image": "/assets/tweedimensionale-vorm.png",
+          "caption": "Kazimir Malevich\nSuprematistisch schilderij met zwart\ntrapezium en rood vierkant (1915)"
+        },
+        {
+          "id": "blk-3d-vorm",
+          "type": "text",
+          "content": "## Driedimensionale vorm\n\nEen driedimensionale vorm is een ruimtelijke\nvorm, met een lengte, een breedte en een diepte.\nEen beeldhouwwerk en een gebouw zijn\nvoorbeelden van driedimensionale vormen.",
+          "image": "/assets/driedimensionale-vorm.png",
+          "caption": "Alexander Calder\nFlamingo (1974)"
+        },
+        {
+          "id": "blk-geometrische-vorm",
+          "type": "text",
+          "content": "## Geometrische vorm\n\nGeometrische vormen zijn meetkundige\n(wiskundige) vormen. Ze kunnen plat of ruimte-\nlijk zijn. Voorbeelden van platte geometrische\nvormen zijn het vierkant, de cirkel en de drie-\nhoek. Voorbeelden van ruimtelijke geometrische\nvormen zijn de kubus, de bol, de cilinder en\nde piramide.\nGeometrische vormen gebruik je ook als je met\neen tekening begint. Dan noem je deze vormen\nbasisvormen. Een hoofd schets je bijvoorbeeld\neerst als een ovaal of als een eivorm. Later werk\nje die met details uit.",
+          "image": "/assets/geometrische-vorm.png",
+          "caption": "Peter Eisenman\nDenkmal für die ermordeten Juden Europas\n(Holocaustmonument) (2005)"
+        },
+        {
+          "id": "blk-organische-vorm",
+          "type": "text",
+          "content": "## Organische vorm\n\nOrganische vormen zijn vloeiend, golvend\nen sierlijk. Ze kunnen plat of ruimtelijk zijn.\nOrganische vormen zijn vaak natuurlijke\nvormen, zoals de vormen van mensen, planten\nen dieren.",
+          "image": "/assets/organische-vorm.png",
+          "caption": "Broche van goud\nParijs (ca. 1900-1910)"
+        },
+        {
+          "id": "blk-textuur",
+          "type": "text",
+          "content": "## Textuur\n\nHet voelbare oppervlak van een ruimtelijke\nvorm noem je textuur. Het oppervlak kan\nbijvoorbeeld hard, zacht, ruw, glad, glibberig\nof harig aanvoelen.",
+          "image": "/assets/textuur.png",
+          "caption": "Meret Oppenheim\nDas Eichhörnchen (Eekhoorn)\n(1969)"
+        },
+        {
+          "id": "blk-stofuitdrukking",
+          "type": "text",
+          "content": "## Stofuitdrukking\n\nStofuitdrukking is de manier waarop je in\neen tekening of schilderij materialen (stoffen)\nweergeeft. Je laat dan bijvoorbeeld glas,\nmetaal, haar en kleding en er zo echt mogelijk\nuitzien.",
+          "image": "/assets/stofuitdrukking.png",
+          "caption": "Willem Claesz. Heda\nStilleven met vergulde bokaal\n(1635)"
+        },
+        {
+          "id": "blk-figuratieve-vorm",
+          "type": "text",
+          "content": "## Figuratieve vorm\n\nVormen in kunstwerken zijn figuratief als\nze de zichtbare werkelijkheid verbeelden,\nzoals mensen, dieren, planten of gebouwen.\nFiguratief is afgeleid van het woord figuur.",
+          "image": "/assets/figuratieve-vorm.png",
+          "caption": "Louise Bourgeois\nMaman (Mama) (1999)"
+        },
+        {
+          "id": "blk-gestileerde-vorm",
+          "type": "text",
+          "content": "## Gestileerde vorm\n\nGestileerde vormen zijn vereenvoudigde\nvormen, waarbij details zijn weggelaten.\nDe oorspronkelijke vorm is nog wel duidelijk\nherkenbaar.",
+          "image": "/assets/gestileerde-vorm.png",
+          "caption": "Keith Haring\nSans titre (silhouettes empilées)\n(Zonder titel, gestapelde silhouetten)\n(1986)"
+        },
+        {
+          "id": "blk-licht-donker-kleur",
+          "type": "text",
+          "content": "## Licht-donkercontrast (kleur)\n\nEen licht-donkercontrast ontstaat als\nje lichte en donkere kleuren bij elkaar zet.\nDe lichte kleuren lijken dan nog lichter.\nMet licht-donkercontrasten kun je bepaalde\nonderdelen benadrukken en krijg je extra\nsfeer in een schilderij, tekening of foto.",
+          "image": "/assets/licht-donkercontrast(kleur).png",
+          "caption": "Gustave Caillebotte\nPortrait d'un homme (Portret van een man)\n(1880)"
+        },
+        {
+          "id": "blk-eigen-schaduw",
+          "type": "text",
+          "content": "## Eigen schaduw\n\nEigen schaduw is de schaduw die op de\nniet belichte kant van een voorwerp of figuur\nvalt. Door het gebruik van eigen schaduw\nzie je dat voorwerpen of figuren ruimtelijk\nzijn.",
+          "image": "/assets/eigen-schaduw.png",
+          "caption": "Anish Kapoor\nLeviathan (2011)"
+        },
+        {
+          "id": "blk-slagschaduw",
+          "type": "text",
+          "content": "## Slagschaduw\n\nSlagschaduw is de schaduw van een voorwerp\nof figuur die op de grond, op een muur of op\neen ander voorwerp valt. In de vorm van de\nslagschaduw kun je het voorwerp of de figuur\nherkennen. Slagschaduwen bevinden zich aan\nde tegenovergestelde kant van de lichtbron.",
+          "image": "/assets/slagschaduw.png",
+          "caption": "Tom Barrett\nWisconsin State Fair Park Exposition Center\n(taken from the sky lift) (2017)"
+        },
+        {
+          "id": "blk-licht-donker-licht",
+          "type": "text",
+          "content": "## Licht-donkercontrast (licht)\n\nEen licht-donker contrast is een\ntegenstelling tussen lichte en donkere\ndelen in de voorstelling.",
+          "image": "/assets/licht-donker-contrast(licht).png",
+          "caption": "Georges Seurat\nUn dimanche à la Grande Jatte\n(Een zondag op La Grande Jatte)\n(1884-1886)"
+        },
+        {
+          "id": "blk-ruimtesuggestie",
+          "type": "text",
+          "content": "## Ruimtesuggestie\n\nRuimtesuggestie is het gebruik van technieken\nom de indruk van ruimte te geven op een plat vlak,\nzoals een tekening of een schilderij.",
+          "image": "/assets/ruimtesuggestie.png",
+          "caption": "Caspar Adriaensz. van Wittel\nPiazza Navona (1699)"
+        },
+        {
+          "id": "blk-afsnijding",
+          "type": "text",
+          "content": "## Afsnijding\n\nAfsnijding houdt in dat delen van de voorstelling\nniet helemaal zichtbaar zijn omdat ze worden\nafgesneden door de rand van het beeldvlak.\nHierdoor lijkt het alsof de voorstelling buiten\nhet beeldvlak verder gaat. Afsnijding geeft een\nsterke indruk van ruimte als je het toepast op\ngrote vormen op de voorgrond of aan de zijkant\nvan de voorstelling.",
+          "image": "/assets/afsnijding.png",
+          "caption": "Gustave Caillebotte\nRue de Paris, temps de pluie\n(Straat in Parijs, regenachtige dag)\n(1877)"
+        },
+        {
+          "id": "blk-overlapping",
+          "type": "text",
+          "content": "## Overlapping\n\nBij overlapping staan voorwerpen of figuren\nin de voorstelling gedeeltelijk voor of achter\nelkaar. De achterste vormen of figuren lijken\ndaardoor verder weg. Door overlapping ontstaat\ner meer diepte in je tekening of schilderij.",
+          "image": "/assets/overlapping.png",
+          "caption": "Edgar Degas\nChez la modiste\n(Bij de hoedenmaakster)\n(1882)"
+        },
+        {
+          "id": "blk-verkleining",
+          "type": "text",
+          "content": "## Verkleining\n\nAls je voorwerpen of figuren die verder\nweg staan kleiner tekent dan voorwerpen\nof figuren die dichterbij staan, ontstaat\ner meer diepte in je tekening of schilderij.",
+          "image": "/assets/verkleining.png",
+          "caption": "René Magritte\nGolconde (Golconda)\n(1953)"
+        },
+        {
+          "id": "blk-planperspectief",
+          "type": "text",
+          "content": "## Planperspectief\n\nPlanperspectief is de indeling van je voorstelling\nin verschillende horizontale lagen, die 'plans'\nworden genoemd. Meestal is er een voorgrond,\nmiddenplan en een achtergrond. Door de\nindeling in 'plans' ontstaat diepte.",
+          "image": "/assets/planperspectief.png",
+          "caption": "Karel du Jardin\nItaliaans landschap met geitenmelkster\n(1652)"
+        },
+        {
+          "id": "blk-atmosferisch-perspectief",
+          "type": "text",
+          "content": "## Atmosferisch perspectief\n\nBij atmosferisch perspectief wordt wat\nver weg is, vager afgebeeld. Deze techniek wordt\nvaak toegepast bij landschappen. In de verte\nzie je weinig details en worden de kleuren\nblauw- of grijsachtig. Door atmosferisch\nperspectief ontstaat veel diepte in de voorstelling.",
+          "image": "/assets/atmosferisch-perspectief.png",
+          "caption": "Paul Cézanne\nMont Sainte-Victoire et le viaduct de la vallée\nde la rivière de l'Arc (Mont Sainte-Victoire\nen het viaduct in de vallei van de rivier l'Arc)\n(1882-1885)"
+        },
+        {
+          "id": "blk-centraalperspectief",
+          "type": "text",
+          "content": "## Centraalperspectief\n\nCentraalperspectief is een vorm van lijnperspectief\nmet éen vluchtpunt op de horizon. Het vluchtpunt\nteken je in het midden (centrum) van een tekening\nof schilderij.",
+          "image": "/assets/centraalperspectief.png",
+          "caption": "Fra Carnevale\nIdeale Stad (1480-1484)"
+        },
+        {
+          "id": "blk-contour",
+          "type": "text",
+          "content": "## Contour\n\nContour is een ander woord voor omtreklijn.\nAls je schetst, dan teken je met dunne contouren.\nSoms worden contouren met opzet versterkt\nom vormen en figuren duidelijker te maken.\nDit zie je bijvoorbeeld in strip- en animatie-\ntekeningen of in het werk van kunstenaars die\nde striptekening als voorbeeld hebben gebruikt.",
+          "image": "/assets/contour.png",
+          "caption": "Roy Lichtenstein\nAs I opened fire (1964)"
+        }
+      ],
+      "answers": []
+    },
+    {
+      "id": "sec-jaar-3",
+      "title": "Jaar 3",
+      "blocks": [
+        {
+          "id": "blk-assemblage",
+          "type": "text",
+          "content": "## Assemblage\n\nAssembleren betekent samenvoegen.\nEen assemblage is een driedimensionaal\nkunstwerk waarbij de kunstenaar bestaande\nvoorwerpen of vormen tot een nieuwe\nvoorstelling heeft samengevoegd.",
+          "image": "/assets/assemblage.png",
+          "caption": "Lubo Kristek\nIm vorzeitig geklonten Zeitalter\neines Planeten (In het voortijdig gekloonde\ntijdperk van een planeet) (2003)"
+        },
+        {
+          "id": "blk-architectuur",
+          "type": "text",
+          "content": "## Architectuur\n\nArchitectuur is de kunst van het ontwerpen van\ngebouwen. Architecten ontwerpen soms ook\nparken, pleinen of wijken. Een architect werkt\nmeestal in opdracht en heeft daarbij te maken met\nvoorschriften van de overheid en wensen van\nopdrachtgevers.",
+          "image": "/assets/architectuur.png",
+          "caption": "O.M.A.\nDe Rotterdam (1997-2013)"
+        },
+        {
+          "id": "blk-portret",
+          "type": "text",
+          "content": "## Portret\n\nEen portret is een voorstelling van een persoon.\nEen portret kan alleen het gezicht zijn, maar ook\nvan top tot teen (ten voeten uit). Als je het gezicht\nrecht van voren ziet, noem je dat en face. Zie je\nhet gezicht van opzij, dan noem je dat en profil.\nEen gezicht dat je van schuin opzij ziet, noem je\nà trois quarts (driekwart). Een groepsportret\nis een voorstelling met portretten van meerdere\npersonen.",
+          "imageLeft": "/assets/portret-l.png",
+          "imageRight": "/assets/portret-r.png",
+          "captionLeft": "John Singer Sargent\nDr. Pozzi at Home (1881)",
+          "captionRight": "Camille Claudel\nGigante (Tête de brigand)\nGigant (Kop van een rover)\n(1886)"
+        },
+        {
+          "id": "blk-landschap",
+          "type": "text",
+          "content": "## Landschap\n\nEen tekening of schilderij met de landelijke\nomgeving als onderwerp, noem je een landschap.\nEr zijn bijvoorbeeld boerenlandschappen,\nrivierlandschappen en zeegezichten.",
+          "image": "/assets/landschap.png",
+          "caption": "Edvard Munch\nZomeravond aan het strand (1902-1903)"
+        },
+        {
+          "id": "blk-kleurcontrast",
+          "type": "text",
+          "content": "## Kleurcontrast\n\nEen kleurcontrast is een tegenstelling tussen\nkleuren. Door kleuren te gebruiken met\nverschillende eigenschappen, zoals warme\nen koude kleuren of lichte en donkere kleuren,\nkun je onderdelen in een kunstwerk extra\nlaten opvallen.",
+          "image": "/assets/kleurcontrast.png",
+          "caption": "Odilon Redon\nEvocation de Roussel\n(Evocatie van Roussel)\n(ca. 1912)"
+        },
+        {
+          "id": "blk-complementair-kleurcontrast",
+          "type": "text",
+          "content": "## Complementair kleurcontrast\n\nEen complementair kleurcontrast ontstaat als\nje twee kleuren die tegenover elkaar staan in de\nkleurencirkel bij elkaar zet. Bij elke primaire kleur\nhoort een secundaire kleur die complementair\nis: rood-groen, blauw-oranje en geel-paars.\nBij een complementair kleurcontrast lijken de\nkleuren elkaar te versterken.",
+          "image": "/assets/complementair-kleurcontrast.png",
+          "caption": "Vincent van Gogh\nLa Berceuse (De Wiegster, portret\nvan Augustine-Alix Pellicot Roulin)\n(1889)"
+        },
+        {
+          "id": "blk-warm-koudcontrast",
+          "type": "text",
+          "content": "## Warm-koudcontrast\n\nEen warm-koudcontrast ontstaat als je warme\nen koude kleuren bij elkaar zet. Warme kleuren\nzijn bijvoorbeeld rood, oranje en oranjegeel.\nKoude kleuren zijn blauw, blauwpaars en\nblauwgroen. Warme kleuren lijken in een\nschilderij naar voren te komen, koude kleuren\nlijken meer naar de achtergrond te gaan.",
+          "image": "/assets/warm-koudcontrast.png",
+          "caption": "William Turner\nInverary Pier, Loch Fyne: Morning\n(ca. 1845)"
+        },
+        {
+          "id": "blk-lijnperspectief",
+          "type": "text",
+          "content": "## Lijnperspectief\n\nLijnperspectief is een meetkundige manier om\nin het platte vlak van een tekening of schilderij\ndiepte te verbeelden. Je gebruikt het om\nbijvoorbeeld gebouwen te tekenen zoals je\ndie vanuit een bepaald standpunt ziet. Alle\nhorizontale lijnen die in werkelijkheid evenwijdig\nlopen - en waar je schuin tegenaan kijkt -\nontmoeten elkaar in een denkbeeldig punt op\nde horizon. Dat punt noem je vluchtpunt of\nverdwijnpunt.",
+          "image": "/assets/lijnperspectief.png",
+          "caption": "Lijnperspectief"
+        },
+        {
+          "id": "blk-horizon",
+          "type": "text",
+          "content": "## Horizon\n\nDe horizon is de denkbeeldige scheidingslijn\ntussen aarde/water en lucht. Met de horizon\nbepaal je je standpunt ten opzichte van de\nvoorstelling die je wilt tekenen. De horizon is\naltijd gelijk aan je ooghoogte. Sta je hoog, dan\nmoet je de horizon dus hoog tekenen. Sta je\nlaag, dan ligt de horizon ook laag. Je hebt de\nhorizon als hulplijn altijd nodig om je standpunt\nte bepalen, ook als je hem niet kunt zien.",
+          "image": "/assets/horizon.png",
+          "caption": "Jacob van Ruisdael\nGezicht op Haarlem met bleekvelden\n(ca. 1670-1675)"
+        },
+        {
+          "id": "blk-kikvorsperspectief",
+          "type": "text",
+          "content": "## Kikvorsperspectief\n\nKikvorsperspectief betekent dat je voor een\ntekening of een foto een heel laag standpunt kiest\nmet een heel lage horizon. Je ziet de wereld\nvanuit het standpunt van een kikker. Voorwerpen\nen figuren bekijk je van onderaf.",
+          "image": "/assets/kikvorsperspectief.png",
+          "caption": "Dorische tempel\nSegesta, Sicilië (430-420 v.Chr.)"
+        },
+        {
+          "id": "blk-vogelvluchtperspectief",
+          "type": "text",
+          "content": "## Vogelvluchtperspectief\n\nVogelvluchtperspectief betekent dat je voor\neen tekening of foto een heel hoog standpunt\nkiest met een heel hoge horizon. Je ziet de\nwereld vanuit het standpunt van een hoog\nvliegende vogel. Voorwerpen en figuren bekijk\nje van bovenaf.",
+          "image": "/assets/vogelvluchtperspectief.png",
+          "caption": "Chinese Muur\nChina (1368-1644)"
+        }
+      ],
+      "answers": []
+    }
+  ]
+}

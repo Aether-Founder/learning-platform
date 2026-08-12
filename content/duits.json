@@ -1,0 +1,17 @@
+{
+  "siteMetadata": {
+    "title": "Duits",
+    "description": "Leermateriaal voor Duits"
+  },
+  "contentFormat": "textbook",
+  "defaultViewMode": "simple",
+  "availableModes": ["simple"],
+  "showTimestamps": false,
+  "showExportButtons": false,
+  "showAnkiExport": false,
+  "showFlashcardsExport": false,
+  "showTranscriptExport": false,
+  "showCopyTranscript": false,
+  "buttons": [],
+  "sections": []
+}

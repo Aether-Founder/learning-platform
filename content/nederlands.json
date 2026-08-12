@@ -1,0 +1,98 @@
+{
+  "siteMetadata": {
+    "title": "Nederlands",
+    "description": "Leermateriaal voor Nederlands - Hoofdstuk 4 en 5 Lezen"
+  },
+  "summary": "Dit hoofdstuk behandelt twee belangrijke onderwerpen binnen het vak Nederlands: reclame en samenvatten. Bij reclame leer je het onderscheid tussen commerciële en ideële reclame, en de functie van beeld en opmaak in reclameteksten. Ook leer je wat een column is. Bij samenvatten komen vier soorten samenvattingsopdrachten aan bod die je op het eindexamen kunt tegenkomen: het beoordelen van samenvattingen, het vaststellen van de hoofdgedachte, het samenvatten van de inhoud van een tekst of tekstdeel, en het samenvatten van informatie in een schema. Daarnaast leer je een strategie voor het beantwoorden van meerkeuzevragen.",
+  "contentFormat": "textbook",
+  "defaultViewMode": "simple",
+  "availableModes": ["simple", "uitleg", "study", "samenvatting"],
+  "showTimestamps": false,
+  "showExportButtons": false,
+  "showAnkiExport": false,
+  "showFlashcardsExport": false,
+  "showTranscriptExport": false,
+  "showCopyTranscript": false,
+  "buttons": [],
+  "sections": [
+    {
+      "id": "sec-4-3",
+      "title": "§4.3 Lezen",
+      "blocks": [
+        {
+          "id": "blk-4-3-objectives",
+          "type": "text",
+          "content": "## Leerdoelen\n\nIn deze paragraaf leer je:\n• wat het verschil is tussen commerciële en ideële reclame;\n• de functie van beeld en opmaak in reclames herkennen;\n• wat een column is."
+        },
+        {
+          "id": "blk-4-3-content-1",
+          "type": "text",
+          "content": "## Leertekst: Reclame\n\nHet voornaamste tekstdoel van reclame is activeren. De maker wil dat je iets gaat doen, zoals het geadverteerde product kopen of een goed doel steunen, of dat je juist iets niet gaat doen. Bijvoorbeeld dat je verkeerd gedrag gaat vermijden of afleren.\n\nAls je naar de bedoeling kijkt, kun je twee soorten reclame onderscheiden:\n• commerciële reclame: deze heeft als doel mensen tot iets over te halen om er geld aan te verdienen;\n• ideële reclame: deze heeft geen commercieel doel maar wil het gedrag van mensen beïnvloeden met een boodschap over een maatschappelijk onderwerp."
+        },
+        {
+          "id": "blk-4-3-content-2",
+          "type": "text",
+          "content": "### Beeld en opmaak\n\nIn de meeste reclames wordt eerst geprobeerd je interesse te wekken om je dan over te halen om in actie te komen. De aandacht trekken gebeurt meestal met beeld en opmaak (of lay-out); het beeld is soms zelfs belangrijker dan de tekst.\n\n• Met beeld wordt de afbeelding bedoeld die in de tekst staat. Het beeld kan verschillende functies hebben: het kan alleen bedoeld zijn om de aandacht te trekken, het kan gebruikt worden als illustratie of voorbeeld, of om informatie toe te voegen die niet in de tekst staat.\n• Bij opmaak hoort alles wat de schrijver doet met de manier waarop de tekst eruitziet: de verdeling van tekst over de bladzijde, de keuze van lettertype en lettergrootte, en het gebruik van kleur. In veel reclameteksten staan woorden of zinnen groter of in een andere kleur, waardoor ze meteen opvallen."
+        },
+        {
+          "id": "blk-4-3-content-3",
+          "type": "text",
+          "content": "### Begrippen\n\ncommerciële reclame = reclame die als doel heeft mensen tot iets over te halen om er geld aan te verdienen\n\nideële reclame = reclame die geen commercieel doel heeft maar het gedrag van mensen wil beïnvloeden met een boodschap over een maatschappelijk onderwerp\n\nbeeld en opmaak = lay-out"
+        },
+        {
+          "id": "blk-4-3-content-4",
+          "type": "text",
+          "content": "## Leertekst: Column\n\nColumns zijn korte teksten van dezelfde auteur die je regelmatig en op een vaste plaats in een (online) krant of tijdschrift ziet, of die je in gesproken vorm op radio of tv hoort.\n\nDe inhoud van columns kan enorm verschillen. Dit komt omdat je als schrijver zelf bepaalt over welk onderwerp je schrijft. Dat kan daarom variëren van een persoonlijke belevenis waarop je inzoomt, tot een reactie op een politiek of maatschappelijk verschijnsel of op een gebeurtenis die je heeft getroffen.\n\nIn bijna elke column speelt de mening van de schrijver een belangrijke rol. Het voornaamste tekstdoel is overtuigen of amuseren, maar in veel columns zijn de tekstdoelen vermengd."
+        },
+        {
+          "id": "blk-4-3-content-5",
+          "type": "text",
+          "content": "### Begrippen\n\ncolumn = korte tekst van dezelfde auteur die je regelmatig en op een vaste plaats in een (online) krant of tijdschrift ziet of die je in gesproken vorm op radio of tv hoort"
+        }
+      ],
+      "answers": []
+    },
+    {
+      "id": "sec-5-3",
+      "title": "§5.3 Lezen",
+      "blocks": [
+        {
+          "id": "blk-5-3-objectives",
+          "type": "text",
+          "content": "## Leerdoelen\n\nIn deze paragraaf leer je:\n• welke vier soorten samenvattingsopdrachten je op het eindexamen tegen kunt komen;\n• een tekst op verschillende manieren samenvatten;\n• een aanpak om meerkeuzevragen te beantwoorden."
+        },
+        {
+          "id": "blk-5-3-content-1",
+          "type": "text",
+          "content": "## Leertekst: Samenvattingsopdrachten in het eindexamen\n\nIn het eindexamen Nederlands kom je vier soorten samenvattingsopdrachten tegen:\n\n1 Opdrachten waarin je samenvattingen beoordeelt\nBijvoorbeeld:\n• Welke drie van onderstaande uitspraken zouden in een beknopte samenvatting van tekst 1 moeten worden opgenomen, gelet op de strekking van de tekst? Noteer de drie cijfers die voor de betreffende uitspraken staan.\n• Welke zinnen zouden (niet) opgenomen moeten worden in een samenvatting van de tekst?\n• Noteer de nummers van de vier zinnen die zeker in een samenvatting van de tekst moeten worden opgenomen."
+        },
+        {
+          "id": "blk-5-3-content-2",
+          "type": "text",
+          "content": "2 Opdrachten waarin je de hoofdgedachte vaststelt\nBijvoorbeeld:\n• Welke van onderstaande formuleringen geeft het best de hoofdgedachte van de tekst weer?\n• Geef de hoofdgedachte van tekst 3 weer in één zin. Gebruik voor je antwoord niet meer dan vijftien woorden.\n• Wat is de hoofdgedachte van het tekstgedeelte dat bestaat uit alinea 3 en 4? Geef antwoord in een of meer volledige zinnen en gebruik voor je antwoord niet meer dan vijftien woorden."
+        },
+        {
+          "id": "blk-5-3-content-3",
+          "type": "text",
+          "content": "3 Opdrachten wherein je de inhoud van een tekst of tekstdeel samenvat\nBijvoorbeeld:\n• Vat de argumentatie van Frans de Waal samen waarmee hij volgens de tekst dit standpunt ondersteunt. Geef antwoord in een of meer volledige zinnen en gebruik voor je antwoord niet meer dan vijftig woorden.\n• Vat alinea 2, 3 en 4 van tekst 2 samen. Besteed aandacht aan zowel het beschreven verschijnsel als het standpunt dat daarover in de tekst wordt ingenomen. Geef antwoord in een of meer volledige zinnen en gebruik voor je antwoord niet meer dan dertig woorden.\n• Vat samen welke twee argumenten de tekst geeft tegen de bedoelde hulp. Geef antwoord in een of meer volledige zinnen en gebruik voor je antwoord niet meer dan dertig woorden."
+        },
+        {
+          "id": "blk-5-3-content-4",
+          "type": "text",
+          "content": "4 Opdrachten waarin je informatie uit een tekst samenvat in een schema\nBij deze opdrachten wordt meestal naar een argumentatie gevraagd. In het schema is het standpunt vaak al ingevuld; in het schema wordt aangegeven welke elementen van de argumentatie je moet aanvullen."
+        },
+        {
+          "id": "blk-5-3-content-5",
+          "type": "text",
+          "content": "### Strategie meerkeuzevragen\n\nVooral bij opdrachten waarin je samenvattingen beoordeelt, kom je meerkeuzevragen tegen. Moet je een meerkeuzevraag beantwoorden, dan kun je als volgt te werk gaan:\n1 Lees de vraag en formuleer zelf het antwoord. Kijk daarna of jouw antwoord bij de keuzeantwoorden staat.\n2 Ga verder met de volgende vragen als je een vraag niet kunt beantwoorden. Ga aan het eind terug naar de vragen die je hebt overgeslagen. Waarschijnlijk heb je nu een beter zicht op de tekst.\n3 Gebruik de wegstreepstrategie als je twijfelt over een antwoord. Streep de antwoorden weg die zeker niet goed zijn.\n4 Twijfel je nog? Ga af op je eerste indruk. Kruis in ieder geval áltijd een antwoord aan."
+        },
+        {
+          "id": "blk-5-3-content-6",
+          "type": "text",
+          "content": "### Begrippen\n\nsamenvattingsopdracht = opdracht in het eindexamen waarin je samenvattingen beoordeelt, de hoofdgedachte vaststelt, de inhoud van een tekst of tekstdeel samenvat of waarin je de informatie uit een tekst samenvat in een schema\n\nmeerkeuzevraag = vraag waarbij je moet kiezen tussen meerdere antwoorden"
+        }
+      ],
+      "answers": []
+    }
+  ]
+}

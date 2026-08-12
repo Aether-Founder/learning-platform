@@ -1,0 +1,178 @@
+Content JSON guide for the study platform
+=========================================
+
+Put subject files in the content folder as .json files. The filename becomes the page URL.
+Example: content/elektriciteit.json becomes /elektriciteit.
+
+Basic page structure
+--------------------
+{
+  "siteMetadata": {
+    "title": "Hoofdstuk 4 - Elektriciteit",
+    "description": "Korte beschrijving voor de homepagina."
+  },
+  "contentFormat": "textbook",
+  "defaultViewMode": "simple",
+  "availableModes": ["simple", "study", "advanced"],
+  "resources": [],
+  "sections": []
+}
+
+Use "simple" as defaultViewMode. Old files that still contain "book" will still load, but new files should not use book mode.
+
+Sections and text
+-----------------
+Each section is one visible part in the table of contents.
+
+{
+  "id": "sec-4-1",
+  "title": "Paragraaf 4.1 Spanning",
+  "blocks": [
+    {
+      "id": "blk-4-1-text",
+      "type": "text",
+      "content": "## Spanning\n\nMarkdown text goes here. You can use **bold**, lists, tables, LaTeX like $P = U \\times I$, and images with Markdown."
+    }
+  ],
+  "answers": []
+}
+
+Images
+------
+Option 1: add an image block.
+
+{
+  "id": "blk-circuit-image",
+  "type": "image",
+  "src": "/resources/elektriciteit/schakeling.png",
+  "alt": "Schakeling met lampje en batterij",
+  "caption": "Voorbeeld van een serieschakeling."
+}
+
+Option 2: use Markdown inside a text block.
+
+![Schakeling](/resources/elektriciteit/schakeling.png)
+
+Put local files in public/resources/<subject-name>/ so the URL starts with /resources/...
+
+Questions and answers
+---------------------
+Questions are used for study mode when they have matching answers.
+
+{
+  "id": "blk-4-1-questions",
+  "type": "questions",
+  "intro": "Oefenvragen bij paragraaf 4.1.",
+  "questions": [
+    {
+      "id": "q-4-1-1",
+      "number": "1",
+      "text": "Wat is elektrisch vermogen?"
+    }
+  ]
+}
+
+Answers go on the same section:
+
+"answers": [
+  {
+    "questionId": "q-4-1-1",
+    "number": "1",
+    "answer": "De energie die een apparaat per seconde omzet."
+  }
+]
+
+Separate learning sets
+----------------------
+Study mode automatically makes separate learning sets from sections and question blocks. For more control, add explicit learning sets to a section or paragraph.
+
+Section-level example:
+
+{
+  "id": "sec-4-1",
+  "title": "Paragraaf 4.1 Spanning",
+  "learningSets": [
+    {
+      "id": "set-4-1-begrippen",
+      "title": "Begrippen 4.1",
+      "description": "Alle begrippen van paragraaf 4.1",
+      "terms": [
+        {
+          "id": "term-spanning",
+          "term": "Spanning",
+          "definition": "De energie die elektronen meekrijgen van een spanningsbron."
+        },
+        {
+          "id": "term-stroomsterkte",
+          "term": "Stroomsterkte",
+          "definition": "Hoeveel lading er per seconde door een draad stroomt."
+        }
+      ]
+    }
+  ],
+  "blocks": [],
+  "answers": []
+}
+
+Paragraph-style example:
+
+{
+  "id": "sec-biologie-4",
+  "title": "Hoofdstuk 4",
+  "paragraphs": [
+    {
+      "id": "par-4-1",
+      "title": "Paragraaf 4.1 Geslachtsorganen",
+      "content": "Uitlegtekst...",
+      "learningSet": {
+        "id": "set-4-1",
+        "title": "Begrippen paragraaf 4.1",
+        "terms": [
+          {
+            "term": "Voortplantingsstelsel",
+            "definition": "Alle organen die een rol spelen bij voortplanting."
+          }
+        ]
+      },
+      "questions": []
+    }
+  ]
+}
+
+In study mode, students can select one or multiple learning sets before starting. If no set is selected, the app studies all terms.
+
+Sources and resources
+---------------------
+Use top-level resources for the whole subject, or section.resources for one paragraph/section.
+
+"resources": [
+  {
+    "id": "ppt-h4",
+    "type": "powerpoint",
+    "title": "PowerPoint hoofdstuk 4",
+    "url": "/resources/elektriciteit/hoofdstuk-4.pptx",
+    "description": "Slides from class."
+  },
+  {
+    "id": "pdf-formules",
+    "type": "pdf",
+    "title": "Formuleblad",
+    "url": "/resources/elektriciteit/formuleblad.pdf"
+  },
+  {
+    "id": "note-toets",
+    "type": "note",
+    "title": "Toetsnotities",
+    "text": "Let extra op vermogen, weerstand en schakelingen."
+  }
+]
+
+Supported resource types: powerpoint, pdf, image, docx, link, note.
+PDF and image files can preview directly. Public web PowerPoint URLs can preview through the Office viewer. Local PowerPoint files still show as organised source cards with an Open link.
+
+Safety rules
+------------
+- Every id should be unique inside the JSON file.
+- Keep URLs to local files under /resources/<subject-name>/ when possible.
+- Missing or old fields should not break the app, but new files should use simple/study/advanced modes only.
+- For study mode, each term needs a non-empty term and definition.

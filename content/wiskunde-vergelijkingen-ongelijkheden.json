@@ -1,0 +1,1106 @@
+{
+  "siteMetadata": {
+    "title": "Wiskunde - Hoofdstuk 11B: Vergelijkingen en ongelijkheden",
+    "description": "Wiskunde hoofdstuk 11B over vergelijkingen en ongelijkheden, met uitleg, opdrachten en leerbare begrippen."
+  },
+  "contentFormat": "textbook",
+  "defaultViewMode": "simple",
+  "availableModes": ["simple", "study", "advanced"],
+  "showTimestamps": false,
+  "showExportButtons": false,
+  "showAnkiExport": false,
+  "showFlashcardsExport": false,
+  "showTranscriptExport": false,
+  "showCopyTranscript": false,
+  "buttons": [],
+  "sections": [
+    {
+      "id": "sec-intro",
+      "title": "§11B Inleiding",
+      "blocks": [
+        {
+          "id": "blk-intro",
+          "type": "text",
+          "content": "# Vergelijkingen en ongelijkheden 11B\n\n## In dit hoofdstuk\n\nIn klas 2 heb je lineaire en kwadratische vergelijkingen opgelost. In hoofdstuk 4 heb je bij het oplossen van kwadratische vergelijkingen de *abc*-formule leren gebruiken.\n\nIn dit hoofdstuk ga je ook leren hoe je andere soorten vergelijkingen oplost.\nVerder leer je in dit hoofdstuk hoe je de coördinaten van de snijpunten van een parabool en een lijn berekent. De discriminant van de vergelijking die ontstaat bij het berekenen van de snijpunten kun je gebruiken om vast te stellen hoe een parabool en lijn ten opzichte van elkaar liggen.\nOngelijkheden kun je oplossen met behulp van grafieken. De intervalnotatie die je hebt leren kennen in hoofdstuk 8, wordt daarvoor uitgebreid.\n\n> Dit hoofdstuk is bedoeld voor leerlingen die in de bovenbouw verdergaan met wiskunde B."
+        }
+      ]
+    },
+    {
+      "id": "sec-voorkennis",
+      "title": "§11B Voorkennis",
+      "blocks": [
+        {
+          "id": "blk-voorkennis",
+          "type": "text",
+          "content": "## Voorkennis\n\n**V1** Bereken zonder rekenmachine.\n**a** $\\sqrt[3]{8}$\n**b** $\\sqrt[3]{-1}$\n**c** $\\sqrt[3]{-27}$\n**d** $\\sqrt[3]{1000}$\n\n> Het getal $\\sqrt[3]{24}$ is geen geheel getal, want er is geen geheel getal waarvan de derde macht gelijk aan 24 is.\n> Met de rekenmachine vind je dat $\\sqrt[3]{24} \\approx 2,88$.\n> Je kunt ook de derdemachtswortel van een negatief getal uitrekenen. Zo is $\\sqrt[3]{-216} = -6$, want $(-6)^3 = -216$."
+        },
+        {
+          "id": "blk-voorkennis-q",
+          "type": "questions",
+          "title": "Opdrachten",
+          "intro": "Voorkennis opgaven",
+          "questions": [
+            {
+              "id": "q-v1-intro",
+              "number": "V1",
+              "text": "Bereken zonder rekenmachine:"
+            },
+            {
+              "id": "q-v1a",
+              "number": "V1a",
+              "text": "$\\sqrt[3]{8}$"
+            },
+            {
+              "id": "q-v1b",
+              "number": "V1b",
+              "text": "$\\sqrt[3]{-1}$"
+            },
+            {
+              "id": "q-v1c",
+              "number": "V1c",
+              "text": "$\\sqrt[3]{-27}$"
+            },
+            {
+              "id": "q-v1d",
+              "number": "V1d",
+              "text": "$\\sqrt[3]{1000}$"
+            },
+            {
+              "id": "q-v2-intro",
+              "number": "V2",
+              "text": "Geef een benadering in twee decimalen:"
+            },
+            {
+              "id": "q-v2a",
+              "number": "V2a",
+              "text": "$\\sqrt[3]{18}$"
+            },
+            {
+              "id": "q-v2b",
+              "number": "V2b",
+              "text": "$\\sqrt[3]{-100}$"
+            },
+            {
+              "id": "q-v2c",
+              "number": "V2c",
+              "text": "$\\sqrt[3]{-8,5}$"
+            },
+            {
+              "id": "q-v2d",
+              "number": "V2d",
+              "text": "$\\sqrt[3]{0,8}$"
+            },
+            {
+              "id": "q-v3",
+              "number": "V3",
+              "text": "Op de getallenlijnen zijn intervallen aangegeven. Koppel ze aan elkaar en vul de intervalnotatie verder in."
+            },
+            {
+              "id": "q-v4-intro",
+              "number": "V4",
+              "text": "Los de ongelijkheden op:"
+            },
+            {
+              "id": "q-v4a",
+              "number": "V4a",
+              "text": "$5x - 6 > 3x + 9$"
+            },
+            {
+              "id": "q-v4b",
+              "number": "V4b",
+              "text": "$-7x + 8 < -7 - 2x$"
+            },
+            {
+              "id": "q-v4c",
+              "number": "V4c",
+              "text": "$4x > x - 30$"
+            },
+            {
+              "id": "q-v4d",
+              "number": "V4d",
+              "text": "$4 - x < 18 + 2x$"
+            },
+            {
+              "id": "q-v5-intro",
+              "number": "V5",
+              "text": "Gegeven is de functie $f(x) = 2x^2 + x - \\frac{1}{2}$."
+            },
+            {
+              "id": "q-v5a",
+              "number": "V5a",
+              "text": "Leg uit dat de parabool bij de functie $f$ de $y$-as snijdt in het punt $(0, -\\frac{1}{2})$."
+            },
+            {
+              "id": "q-v5b",
+              "number": "V5b",
+              "text": "Los de vergelijking $2x^2 + x - \\frac{1}{2} = -\\frac{1}{2}$ op."
+            },
+            {
+              "id": "q-v5c",
+              "number": "V5c",
+              "text": "Bereken met de *abc*-formule de coördinaten van de snijpunten van de parabool met de $x$-as."
+            },
+            {
+              "id": "q-v6",
+              "number": "V6",
+              "text": "Geef voor elk aan welke oplosmethode is gebruikt: Nienke (ontbinden in factoren), Rien (bordje leggen), Daan (kwadraat afsplitsen)"
+            },
+            {
+              "id": "q-v7-intro",
+              "number": "V7",
+              "text": "Los de vergelijkingen op:"
+            },
+            {
+              "id": "q-v7a",
+              "number": "V7a",
+              "text": "$x^2 - 11x + 24 = 0$"
+            },
+            {
+              "id": "q-v7b",
+              "number": "V7b",
+              "text": "$(x - 3)^2 - 2 = 14$"
+            },
+            {
+              "id": "q-v7c",
+              "number": "V7c",
+              "text": "$x^2 + 7x = 8$"
+            },
+            {
+              "id": "q-v7d",
+              "number": "V7d",
+              "text": "$-x^2 + 6x + 3 = 11$"
+            },
+            {
+              "id": "q-v7e",
+              "number": "V7e",
+              "text": "$x^2 + x = 12 + 2x$"
+            },
+            {
+              "id": "q-v7f",
+              "number": "V7f",
+              "text": "$3x^2 - 8x - 3 = 0$"
+            },
+            {
+              "id": "q-v8-intro",
+              "number": "V8",
+              "text": "In de figuur zijn de grafieken van de functies $f(x) = -x^2$, $g(x) = x^3$ en $h(x) = x^4$ geschetst."
+            },
+            {
+              "id": "q-v8a",
+              "number": "V8a",
+              "text": "Zoek bij iedere functie de juiste grafiek."
+            },
+            {
+              "id": "q-v8b",
+              "number": "V8b",
+              "text": "Geef bij elke grafiek aan hoeveel snijpunten deze heeft met de lijn $y = -10$."
+            },
+            {
+              "id": "q-v8c",
+              "number": "V8c",
+              "text": "Welke grafiek heeft geen snijpunt met de lijn $y = 10$?"
+            }
+          ]
+        }
+      ],
+      "answers": [
+        {
+          "questionId": "q-v1-intro",
+          "answer": ""
+        },
+        {
+          "questionId": "q-v1a",
+          "answer": "$2$"
+        },
+        {
+          "questionId": "q-v1b",
+          "answer": "$-1$"
+        },
+        {
+          "questionId": "q-v1c",
+          "answer": "$-3$"
+        },
+        {
+          "questionId": "q-v1d",
+          "answer": "$10$"
+        },
+        {
+          "questionId": "q-v2a",
+          "answer": "$2,62$"
+        },
+        {
+          "questionId": "q-v2b",
+          "answer": "$-4,64$"
+        },
+        {
+          "questionId": "q-v2c",
+          "answer": "$-2,04$"
+        },
+        {
+          "questionId": "q-v2d",
+          "answer": "$0,93$"
+        },
+        {
+          "questionId": "q-v3",
+          "answer": "Interval notaties correct gekoppeld"
+        },
+        {
+          "questionId": "q-v4a",
+          "answer": "$x > 7,5$"
+        },
+        {
+          "questionId": "q-v4b",
+          "answer": "$x > 3$"
+        },
+        {
+          "questionId": "q-v4c",
+          "answer": "$x > -10$"
+        },
+        {
+          "questionId": "q-v4d",
+          "answer": "$x > -\\frac{14}{3}$"
+        },
+        {
+          "questionId": "q-v5a",
+          "answer": "$f(0) = 2(0)^2 + 0 - \\frac{1}{2} = -\\frac{1}{2}$"
+        },
+        {
+          "questionId": "q-v5b",
+          "answer": "$x = 0$ of $x = -1$"
+        },
+        {
+          "questionId": "q-v5c",
+          "answer": "$(-1, 0)$ en $(0.5, 0)$"
+        },
+        {
+          "questionId": "q-v6",
+          "answer": "Nienke: ontbinden in factoren, Rien: bordje leggen, Daan: kwadraat afsplitsen"
+        },
+        {
+          "questionId": "q-v7a",
+          "answer": "$x = 3$ of $x = 8$"
+        },
+        {
+          "questionId": "q-v7b",
+          "answer": "$x = 3 + 4 = 7$ of $x = 3 - 4 = -1$"
+        },
+        {
+          "questionId": "q-v7c",
+          "answer": "$x = 1$ of $x = -8$"
+        },
+        {
+          "questionId": "q-v7d",
+          "answer": "$x = 3 + \\sqrt{12}$ of $x = 3 - \\sqrt{12}$"
+        },
+        {
+          "questionId": "q-v7e",
+          "answer": "$x = 3$ of $x = -4$"
+        },
+        {
+          "questionId": "q-v7f",
+          "answer": "$x = 3$ of $x = -\\frac{1}{3}$"
+        },
+        {
+          "questionId": "q-v8a",
+          "answer": "$f(x) = -x^2$ is de bergparabool, $g(x) = x^3$ is S-vormig, $h(x) = x^4$ is bergparabool"
+        },
+        {
+          "questionId": "q-v8b",
+          "answer": "$f(x)$: 2 snijpunten, $g(x)$: 1 snijpunt, $h(x)$: 2 snijpunten"
+        },
+        {
+          "questionId": "q-v8c",
+          "answer": "$f(x) = -x^2$ heeft geen snijpunt met $y = 10$"
+        }
+      ]
+    },
+    {
+      "id": "sec-11b-1",
+      "title": "§11B.1 Gebroken vergelijkingen",
+      "blocks": [
+        {
+          "id": "blk-11b-1-intro",
+          "type": "text",
+          "content": "## 11B.1 Gebroken vergelijkingen\n\n**Je leert**\n*   wat een gebroken vergelijking is\n*   hoe je een gebroken vergelijking oplost\n\n**Leerroutes**\n*   ondersteunend: 1—2—3—04—4—5—06—7\n*   basis: 1—2—3—4—5—6—7—8\n*   uitdagend: 1—2—4—5—7—8—U1—U2\n\nOp de maaltijd staat hoelang je het product in de magnetron moet verwarmen.\nDe bereidingstijd in minuten bereken je met\n\\[ bereidingstijd = \\frac{4000}{vermogen} \\]\nHierin is het vermogen in watt (W). In de magnetron van Halina heeft deze maaltijd vijf minuten bereidingstijd nodig.\n*   Hoe groot is het vermogen van deze magnetron?"
+        },
+        {
+          "id": "blk-11b-1-theorie",
+          "type": "text",
+          "content": "### Theorie\nEen vergelijking als $\\frac{36}{3 - 4a} = 12$ of als $\\frac{45}{2p - 7} + 2 = 7$, met de variabele in de noemer van de breuk, noem je een **gebroken vergelijking**. Een gebroken vergelijking los je meestal op met bordjes. Het bordje leg je dan op de noemer van de breuk. Soms moet je de vergelijking eerst vereenvoudigen door de breuk te isoleren.\n\n### Voorbeeld\nLos op: $\\frac{45}{2p - 7} + 2 = 7$\n\n**Oplossing**\n$\\frac{45}{2p - 7} = 5$ \\\n*(breuk geïsoleerd)*\n\n$\\frac{45}{9} = 5$ \\\n*(bordje gelegd)*\n\n$2p - 7 = 9$ \\\n$2p = 16$ \\\n$p = 8$"
+        },
+        {
+          "id": "blk-11b-1-aanpak",
+          "type": "text",
+          "content": "### Aanpak\n**Hoe los je een gebroken vergelijking op?**\n1. Isoleer indien nodig de breuk zodat deze alleen komt te staan.\n2. Als de variabele alleen in de noemer van de breuk staat, gebruik dan bordjes.\nStaan er aan beide kanten van het gelijkteken variabelen, vermenigvuldig dan links en rechts van het gelijkteken met de noemer van de breuk. Gebruik daarbij haakjes.\n3. Los de vergelijking verder op.\n\n### Voorbeeld\nLos op: $x = \\frac{6}{x + 2} - 1$\n\n**Oplossing**\n1. $x + 1 = \\frac{6}{x + 2}$\n2. $(x + 2)(x + 1) = \\frac{6}{x + 2} \\cdot (x + 2)$\n3. $x^2 + 3x + 2 = 6$\n   $x^2 + 3x - 4 = 0$\n   $(x + 4)(x - 1) = 0$\n   $x + 4 = 0$ of $x - 1 = 0$\n   $x = -4$ of $x = 1$"
+        },
+        {
+          "id": "blk-11b-1-q",
+          "type": "questions",
+          "title": "Opdrachten",
+          "intro": "Opgaven over gebroken vergelijkingen",
+          "questions": [
+            {
+              "id": "q-11b-1-1",
+              "number": "1",
+              "text": "In het assenstelsel is de grafiek van de gebroken functie $f(x) = \\frac{12}{x}$ getekend. a) Wat gebeurt er met de waarde van $f(x)$ als je $x$ steeds verder van 0 kiest? b) Bereken $f(1000)$ en $f(-1000)$. c) Leg uit waarom $f(0)$ niet bestaat. d) Wat gebeurt er met de waarde van $f(x)$ als je $x$ steeds dichter bij 0 kiest? e) Los de vergelijking $\\frac{12}{x} = 12000$ op."
+            },
+            {
+              "id": "q-11b-1-2",
+              "number": "2",
+              "text": "Gegeven is de gebroken functie $f(x) = \\frac{72}{x - 5}$. a) Jordy wil de vergelijking $\\frac{72}{x - 5} = 6$ oplossen. Hij legt een bordje op $x - 5$. Leg uit waarom het getal 12 op de plaats van het bordje komt. Welke waarde voor $x$ vindt hij vervolgens? b) Los op dezelfde manier $\\frac{72}{x - 5} = 8$ en $\\frac{72}{x - 5} = 144$ op."
+            },
+            {
+              "id": "q-11b-1-3",
+              "number": "3",
+              "text": "a) Leg uit hoe in het voorbeeld de breuk geïsoleerd wordt. b) Hoe weet je dat het getal 9 op het bordje moet staan? c) Los op dezelfde manier $\\frac{45}{2p - 7} + 5 = 8$ op."
+            },
+            {
+              "id": "q-11b-1-4",
+              "number": "4",
+              "text": "Los de vergelijkingen op: a) $\\frac{18}{2x + 1} = 2$, b) $\\frac{-16}{6a - 10} = -8$, c) $\\frac{100}{-7 + 2p} = -4$, d) $\\frac{45}{11 - 4x} + 7 = 12$, e) $18 + \\frac{70}{3m + 1} = 4$, f) $1 - \\frac{20}{4a} = 5$"
+            },
+            {
+              "id": "q-11b-1-5",
+              "number": "5",
+              "text": "Gegeven zijn $f(x) = \\frac{8}{x}$ en $g(x) = x + 2$. a) Teken de grafieken van $f$ en $g$ in één assenstelsel. b) Lees de coördinaten van de snijpunten af. c) Salih wil de coördinaten van de snijpunten berekenen. Hij stelt de functievoorschriften aan elkaar gelijk. d) Los de vergelijking op. e) Heb je voor $x$ dezelfde waarden gevonden als bij opdracht b?"
+            },
+            {
+              "id": "q-11b-1-6",
+              "number": "6",
+              "text": "Los de vergelijkingen op: a) $x - 2 = \\frac{3}{x}$, b) $\\frac{-40}{x - 12} = x + 2$, c) $x + 7 = \\frac{-9}{x - 3}$, d) $\\frac{10}{x + 3} - 3 = -1$"
+            },
+            {
+              "id": "q-11b-1-7",
+              "number": "7",
+              "text": "Tjerk gaat de vergelijking $x - 2 = 4 - \\frac{5}{x}$ oplossen. a) Welke bewerking heeft hij in stap 1 gedaan? b) Los de vergelijking verder op. c) Los de vergelijkingen op: A $x = 1 + \\frac{30}{x}$, B $\\frac{50}{x - 1} + 2 = x - 4$, C $\\frac{8}{x + 3} - 10 = x - 14$, D $x + 10 = 20 - \\frac{36}{x + 2}$"
+            },
+            {
+              "id": "q-11b-1-8",
+              "number": "8",
+              "text": "Een maaltijd is op kamertemperatuur en wordt in de diepvries gelegd. De temperatuur $T$ in $^\\circ\\text{C}$ van de maaltijd kun je berekenen met de functie $T(u) = \\frac{35}{0,5u + 1} - 20$. a) Bereken hoeveel graden de kamertemperatuur is. b) Na hoeveel uur is de temperatuur van de maaltijd $-10^\\circ\\text{C}$?"
+            }
+          ]
+        }
+      ],
+      "answers": [
+        {
+          "questionId": "q-11b-1-1",
+          "answer": "a) $f(x)$ wordt kleiner, b) $f(1000) = 0,012$, $f(-1000) = -0,012$, c) delen door 0 is niet mogelijk, d) $f(x)$ wordt heel groot, e) $x = 0,001$"
+        },
+        {
+          "questionId": "q-11b-1-2",
+          "answer": "a) $x - 5 = 12$, dus $x = 17$, b) $x = 14$ en $x = 5,5$"
+        },
+        {
+          "questionId": "q-11b-1-3",
+          "answer": "a) door 2 af te trekken, b) $45/5 = 9$, c) $p = 11$"
+        },
+        {
+          "questionId": "q-11b-1-4",
+          "answer": "a) $x = 3,5$, b) $a = 4$, c) $p = 8,5$, d) $x = 2$, e) $m = -4$, f) $a = -5$"
+        },
+        {
+          "questionId": "q-11b-1-5",
+          "answer": "a) en b) snijpunten bij $x = 2$ en $x = -4$, d) $x = 2$ of $x = -4$, e) ja"
+        },
+        {
+          "questionId": "q-11b-1-6",
+          "answer": "a) $x = 3$ of $x = -1$, b) $x = -2$ of $x = 22$, c) $x = 0$ of $x = 6$, d) $x = -2$"
+        },
+        {
+          "questionId": "q-11b-1-7",
+          "answer": "a) 6 aftrekken, b) $x = 1$ of $x = 5$, c) A: $x = 6$ of $x = -5$, B: $x = 6$ of $x = -4$, C: $x = 4$ of $x = -7$, D: $x = 2$ of $x = -8$"
+        },
+        {
+          "questionId": "q-11b-1-8",
+          "answer": "a) $15^\\circ\\text{C}$, b) 5 uur"
+        }
+      ]
+    },
+    {
+      "id": "sec-11b-2",
+      "title": "§11B.2 Exponentiële en wortelvergelijkingen",
+      "blocks": [
+        {
+          "id": "blk-11b-2-intro",
+          "type": "text",
+          "content": "## 11B.2 Exponentiële en wortelvergelijkingen\n\n**Je leert**\n*   wat een exponentiële en een wortelvergelijking is\n*   hoe je een exponentiële en een wortelvergelijking oplost\n\n**Leerroutes**\n*   ondersteunend: 9—10—11—012—13—014—14\n*   basis: 9—10—11—12—13—14—15\n*   uitdagend: 9—10—12—14—15—U3—U4"
+        },
+        {
+          "id": "blk-11b-2-theorie-exp",
+          "type": "text",
+          "content": "### Theorie\nEen vergelijking als $7 \\cdot 3^x = 567$ of als $3^{x-5} + 4 = 31$ met de variabele in de exponent van de macht, noem je een **exponentiële vergelijking**. Bij het oplossen van een exponentiële vergelijking schrijf je beide kanten van het gelijkteken als een macht met hetzelfde grondtal en leg je een bordje op de exponent van de macht. Maak zo nodig een tabel met machten van dat grondtal. Soms moet je de vergelijking eerst vereenvoudigen door de macht te isoleren.\n\n### Voorbeeld\nLos op: $3^{x-5} + 4 = 85$\n\n**Oplossing**\n$3^{x-5} = 81$ \\\n*(macht geïsoleerd)*\n$3^{x-5} = 3^4$ \\\n*(81 als macht van 3 geschreven)*\n$x - 5 = 4$ \\\n*(bordje gelegd op x - 5)*\n$x = 9$"
+        },
+        {
+          "id": "blk-11b-2-theorie-wortel",
+          "type": "text",
+          "content": "### Theorie\nEen vergelijking als $42 - 3\\sqrt{x} = 24$ of als $\\sqrt{125 - 4x} + 1 = 8$ met de variabele onder het wortelteken, noem je een **wortelvergelijking**. Oplossen van wortelvergelijkingen doe je meestal met bordjes. Soms moet je de vergelijking eerst vereenvoudigen door de wortel te isoleren.\n\n### Voorbeeld 1\nLos op: $\\sqrt{125 - 4x} + 1 = 8$\n**Oplossing**\n$\\sqrt{125 - 4x} = 7$ \\\n*(wortel geïsoleerd)*\n$\\sqrt{49} = 7$ \\\n*(bordje gelegd)*\n$125 - 4x = 49$\n$4x = 76$\n$x = 19$\n\n### Voorbeeld 2\nLos op: $\\frac{44}{\\sqrt{k} - 7} = 11$\n**Oplossing**\n$\\frac{44}{4} = 11$\n$\\sqrt{k} - 7 = 4$ \\\n*(wortel geïsoleerd)*\n$\\sqrt{16} = 4$ \\\n*(bordje gelegd)*\n$k - 7 = 16$\n$k = 23$"
+        },
+        {
+          "id": "blk-11b-2-q",
+          "type": "questions",
+          "title": "Opdrachten",
+          "intro": "Opgaven over exponentiële en wortelvergelijkingen",
+          "questions": [
+            {
+              "id": "q-11b-2-9",
+              "number": "9",
+              "text": "In een sloot verdubbelt het aantal algen zich per dag. Neem aan dat op een gegeven moment een $\\text{m}^3$ water 8000 algen bevat. Bij de grafiek hoort de functie $N(t) = 8000 \\cdot 2^t$. a) Hoeveel algen per $\\text{m}^3$ water zijn er na tien dagen? b) Leg uit dat je de vergelijking $8000 \\cdot 2^t = 64\\,000$ kunt vereenvoudigen tot $2^t = 8$. c) Schrijf 8 als macht van 2. d) Na hoeveel dagen is het aantal algen gegroeid tot 64 000? e) Los op $N(t) = 256\\,000$."
+            },
+            {
+              "id": "q-11b-2-10",
+              "number": "10",
+              "text": "Hugo gaat de vergelijking $20 \\cdot 3^x = 1620$ oplossen. a) Leg uit dat deze vergelijking te schrijven is als $3^x = 81$. b) Hugo maakt een tabel van machten met grondtal 3. c) Welke oplossing krijgt hij? d) Los de vergelijkingen op: A $3^x = 729$, B $12 \\cdot 3^x = 108$, C $5 + 3^x = 248$, D $8 \\cdot 3^{x-1} = 648$"
+            },
+            {
+              "id": "q-11b-2-11",
+              "number": "11",
+              "text": "Om $2^{4t+1} - 1 = 7$ op te kunnen lossen, vereenvoudig je eerst de vergelijking. a) Isoleer de macht. b) Maak een tabel met machten van 2. c) Leg een bordje op $4t + 1$ en los de vergelijking op. d) Los de vergelijkingen op: A $3 \\cdot 2^{5-t} = 3072$, B $2^{2x} = 256$, C $4 \\cdot 2^b - 1000 = 1048$, D $256 : 2^{0,5t} = 4$"
+            },
+            {
+              "id": "q-11b-2-12",
+              "number": "12",
+              "text": "Los de vergelijkingen op: a) $4^{x-5} - 4 = 60$, b) $4^{10u-25} = 1024$, c) $25 \\cdot 4^{m+1} = 400$, d) $2000 - 4^{2r} = -2096$"
+            },
+            {
+              "id": "q-11b-2-13",
+              "number": "13",
+              "text": "In het assenstelsel is de grafiek van de functie $f(x) = \\sqrt{x - 4}$ getekend. a) Bij welke waarden van $x$ kun je een functiewaarde berekenen? b) Bereken $f(85)$. c) Los de vergelijking $\\sqrt{x - 4} = 6$ op."
+            },
+            {
+              "id": "q-11b-2-14",
+              "number": "14",
+              "text": "Los de vergelijkingen op: a) $\\sqrt{5x + 9} = 13$, b) $\\sqrt{4a - 12} + 2 = 4$, c) $\\frac{12}{\\sqrt{x} + 9} = 6$, d) $8\\sqrt{3p + 2} = 40$, e) $100 - \\sqrt{\\frac{1}{2}d + 8} = 78$, f) $\\frac{\\sqrt{4 - 4m}}{2} + 3 = 8$"
+            },
+            {
+              "id": "q-11b-2-15",
+              "number": "15",
+              "text": "Hoe hoger je staat, hoe verder je kunt kijken. Met de formule $a = \\sqrt{13h}$ kun je de kijkafstand $a$ in kilometers berekenen bij een hoogte $h$ in meters. a) Bovenop de Eiffeltoren kun je 63 kilometer ver kijken. Bereken hoeveel meter hoog je dan staat. b) Kun je, als je twee keer zo hoog staat, ook twee keer zo ver kijken? Leg je antwoord uit."
+            }
+          ]
+        }
+      ],
+      "answers": [
+        {
+          "questionId": "q-11b-2-9",
+          "answer": "a) 8.192.000, b) delen door 8000, c) $2^3$, d) 3 dagen, e) 5 dagen"
+        },
+        {
+          "questionId": "q-11b-2-10",
+          "answer": "a) delen door 20, b) tabel met machten van 3, c) $x = 4$, d) A: $x = 6$, B: $x = 2$, C: $x = 5$, D: $x = 3$"
+        },
+        {
+          "questionId": "q-11b-2-11",
+          "answer": "a) $2^{4t+1} = 8$, b) tabel met machten van 2, c) $t = 0,5$, d) A: $t = 2$, B: $x = 4$, C: $b = 8$, D: $t = 4$"
+        },
+        {
+          "questionId": "q-11b-2-12",
+          "answer": "a) $x = 7$, b) $u = 3$, c) $m = 1$, d) $r = 4$"
+        },
+        {
+          "questionId": "q-11b-2-13",
+          "answer": "a) $x \\ge 4$, b) 9, c) $x = 40$"
+        },
+        {
+          "questionId": "q-11b-2-14",
+          "answer": "a) $x = 32$, b) $a = 4$, c) $x = 1$, d) $p = 6$, e) $d = 4480$, f) $m = -3$"
+        },
+        {
+          "questionId": "q-11b-2-15",
+          "answer": "a) 305 meter, b) nee, de wortelfunctie is niet lineair"
+        }
+      ]
+    },
+    {
+      "id": "sec-11b-3",
+      "title": "§11B.3 Parabool en lijn",
+      "blocks": [
+        {
+          "id": "blk-11b-3-intro",
+          "type": "text",
+          "content": "## 11B.3 Parabool en lijn\n\n**Je leert**\n*   hoe je de coördinaten van de snijpunten van een parabool en een lijn berekent\n*   hoe je berekent hoeveel punten een parabool en een lijn gemeenschappelijk hebben\n\n**Leerroutes**\n*   ondersteunend: 16—017—18—19—20—021—21\n*   basis: 16—17—18—19—20—21—22\n*   uitdagend: 16—18—19—21—22—U5—U6"
+        },
+        {
+          "id": "blk-11b-3-aanpak",
+          "type": "text",
+          "content": "### Aanpak\n**Hoe bereken je de coördinaten van de snijpunten van een parabool en een lijn?**\n1. Stel de bijbehorende functievoorschriften aan elkaar gelijk.\n2. Bereken de $x$-coördinaten van de snijpunten door de verkregen vergelijking op te lossen.\n3. Bereken de $y$-coördinaten van de snijpunten door de gevonden $x$-coördinaten in te vullen in één van de functievoorschriften.\n4. Controleer de coördinaten van de gevonden punten door de $x$-coördinaten ook in het andere functievoorschrift in te vullen."
+        },
+        {
+          "id": "blk-11b-3-voorbeelden",
+          "type": "text",
+          "content": "### Voorbeeld 1\nBereken de coördinaten van de snijpunten van de grafieken bij $f(x) = x^2 - 4x$ en $g(x) = 12 - 3x$.\n**Oplossing**\n1. $x^2 - 4x = 12 - 3x$\n2. $x^2 - x - 12 = 0$\n   $(x - 4)(x + 3) = 0$\n   $x - 4 = 0$ of $x + 3 = 0$\n   $x = 4$ of $x = -3$\n3. $f(4) = 0$ en $f(-3) = 21$\n4. Controle $g(4) = 0$ en $g(-3) = 21$\n   De coördinaten zijn $(4, 0)$ en $(-3, 21)$.\n\n### Voorbeeld 2\nBereken de coördinaten van de snijpunten van de grafieken bij $f(x) = 2x^2 - 3x$ en $g(x) = 2x - 2$.\n**Oplossing**\n1. $2x^2 - 3x = 2x - 2$\n2. $2x^2 - 5x + 2 = 0$\n   $D = (-5)^2 - 4 \\times 2 \\times 2 = 9$\n   $x = \\frac{-(-5) + \\sqrt{9}}{2 \\times 2} = 2$ of $x = \\frac{-(-5) - \\sqrt{9}}{2 \\times 2} = \\frac{1}{2}$\n3. $f(2) = 2$ en $f(\\frac{1}{2}) = -1$\n4. Controle $g(2) = 2$ en $g(\\frac{1}{2}) = -1$\n   De coördinaten zijn $(2, 2)$ en $(\\frac{1}{2}, -1)$."
+        },
+        {
+          "id": "blk-11b-3-theorie",
+          "type": "text",
+          "content": "### Theorie\nDe grafieken van een kwadratische functie $f$ en een lineaire functie $g$ kunnen elkaar **snijden** of elkaar **raken**. Het is ook mogelijk dat deze twee grafieken **geen punt gemeenschappelijk** hebben.\nOm dat te onderzoeken, herleid je de vergelijking $f(x) = g(x)$ op nul.\nBepaal van deze vergelijking de waarde van de discriminant $D$.\n$D > 0$: de grafieken van $f$ en $g$ snijden elkaar en er zijn twee snijpunten.\n$D = 0$: de grafieken van $f$ en $g$ raken elkaar.\n$D < 0$: de grafieken van $f$ en $g$ hebben geen punt gemeenschappelijk."
+        },
+        {
+          "id": "blk-11b-3-q",
+          "type": "questions",
+          "title": "Opdrachten",
+          "intro": "Opgaven over parabool en lijn",
+          "questions": [
+            {
+              "id": "q-11b-3-16",
+              "number": "16",
+              "text": "Je ziet de grafieken van de functies $f(x) = 4 - x^2$ en $g(x) = 1 - 0,5x$. a) Los de vergelijking $4 - x^2 = 1 - 0,5x$ op en bereken de $x$-coördinaten van de snijpunten. b) Bereken de $y$-coördinaten van de snijpunten door de gevonden $x$-coördinaten in het functievoorschrift van $f$ in te vullen. c) Controleer je antwoorden door de gevonden $x$-coördinaten in het functievoorschrift van $g$ in te vullen. d) Schrijf de coördinaten van de snijpunten op."
+            },
+            {
+              "id": "q-11b-3-17",
+              "number": "17",
+              "text": "In het assenstelsel zijn de grafieken van de functies $f(x) = \\frac{1}{2}x^2 - 2x + 1$ en $g(x) = 2x - 5$ getekend. a) Bereken de coördinaten van de snijpunten van de grafieken van $f$ en $g$. b) Bereken ook de coördinaten van de snijpunten van de parabool met de lijn $y = 5\\frac{1}{2} - 2x$."
+            },
+            {
+              "id": "q-11b-3-18",
+              "number": "18",
+              "text": "Bereken de coördinaten van de snijpunten van de grafieken van de functies $f$ en $g$: a) $f(x) = x^2 - 2x$ en $g(x) = 24 - 4x$, b) $f(x) = x(x + 2)$ en $g(x) = 2x + 9$, c) $f(x) = 2x^2 + 4x - 5$ en $g(x) = x - 3$"
+            },
+            {
+              "id": "q-11b-3-19",
+              "number": "19",
+              "text": "In de figuur zijn de grafieken van de functies $f(x) = 4x^2 - 10x + 7$ en $g(x) = 2x - 2$ geschetst. a) Stel de functievoorschriften aan elkaar gelijk. b) Los deze vergelijking met de $abc$-formule op. c) Hoe kun je aan de discriminant zien dat de grafieken van de functies maar één punt gemeenschappelijk hebben? d) Bereken de coördinaten van dit punt."
+            },
+            {
+              "id": "q-11b-3-20",
+              "number": "20",
+              "text": "Gegeven zijn de functies $f(x) = -x^2 + x$ en $g(x) = 2x - 2$. a) Herleid de vergelijking $f(x) = g(x)$ op nul. b) Bepaal van de verkregen vergelijking de discriminant. c) Geef aan of de grafieken van $f$ en $g$ elkaar snijden, raken of dat ze geen punt gemeenschappelijk hebben."
+            },
+            {
+              "id": "q-11b-3-21",
+              "number": "21",
+              "text": "Bepaal of de grafieken van de functies $f$ en $g$ elkaar snijden, raken of geen punt gemeenschappelijk hebben: a) $f(x) = x^2 - 6x + 6$ en $g(x) = -\\frac{1}{2}x - 2$, b) $f(x) = 2x^2 + 4x + 5$ en $g(x) = 2 - x$, c) $f(x) = -x^2 - 2,5x$ en $g(x) = 1,5x + 4$"
+            },
+            {
+              "id": "q-11b-3-22",
+              "number": "22",
+              "text": "In de figuur zijn de grafieken van de functies $f(x) = 3x^2 - 6x$ en $g(x) = -x - 2$ geschetst. Het lijkt of de parabool en de lijn elkaar raken. Zoek uit of dat zo is."
+            }
+          ]
+        }
+      ],
+      "answers": [
+        {
+          "questionId": "q-11b-3-16",
+          "answer": "a) $x = \\sqrt{6}$ of $x = -\\sqrt{6}$, b) $y = -2$, c) controle oké, d) $(\\sqrt{6}, -2)$ en $(-\\sqrt{6}, -2)$"
+        },
+        {
+          "questionId": "q-11b-3-17",
+          "answer": "a) $(6, 7)$ en $(2, -1)$, b) $(4, -2,5)$"
+        },
+        {
+          "questionId": "q-11b-3-18",
+          "answer": "a) $(6, 0)$ en $(-4, 40)$, b) $(3, 15)$ en $(-3, 3)$, c) geen snijpunten"
+        },
+        {
+          "questionId": "q-11b-3-19",
+          "answer": "a) $4x^2 - 12x + 9 = 0$, b) $x = 1,5$, c) $D = 0$, d) $(1,5, 1)$"
+        },
+        {
+          "questionId": "q-11b-3-20",
+          "answer": "a) $x^2 + x - 2 = 0$, b) $D = 9$, c) snijden"
+        },
+        {
+          "questionId": "q-11b-3-21",
+          "answer": "a) snijden, b) geen punt gemeenschappelijk, c) raken"
+        },
+        {
+          "questionId": "q-11b-3-22",
+          "answer": "niet raken, snijden bij $x = -1$ en $x = 2$"
+        }
+      ]
+    },
+    {
+      "id": "sec-11b-4",
+      "title": "§11B.4 Intervallen",
+      "blocks": [
+        {
+          "id": "blk-11b-4-intro",
+          "type": "text",
+          "content": "## 11B.4 Intervallen\n\n**Je leert**\n*   hoe je intervallen in de ongelijkheidsnotatie en in de intervalnotatie schrijft\n\n**Leerroutes**\n*   ondersteunend: 23—24—25—26—27—028—29—030—30\n*   basis: 23—24—25—26—27—28—29—30—31\n*   uitdagend: 23—25—26—27—29—30—31—U7—U8"
+        },
+        {
+          "id": "blk-11b-4-theorie",
+          "type": "text",
+          "content": "### Theorie\nEen interval kun je in de **ongelijkheidsnotatie** en in de **intervalnotatie** schrijven. Bij de intervalnotatie gebruik je rechte haken en punthaken. De rechte haak betekent: het getal telt wel mee. De punthaak betekent: het getal telt niet mee. Bij de pijl gebruik je een punthaak.\n\n### Voorbeeld\n| ongelijkheidsnotatie | intervalnotatie |\n| :--- | :--- |\n| $x > -1,8$ | $\\langle -1,8 ; \\rightarrow \\rangle$ |\n| $x < 9$ | $\\langle \\leftarrow, 9 \\rangle$ |\n| $x \\ge 1$ | $[ 1, \\rightarrow \\rangle$ |\n| $x \\le -3,5$ | $\\langle \\leftarrow ; -3,5 ]$ |"
+        },
+        {
+          "id": "blk-11b-4-theorie-uitgebreid",
+          "type": "text",
+          "content": "### Theorie\nDe volgende afspraken gelden voor de intervalnotatie.\nVoor een interval tussen twee getallen:\n$-2 < x < 2$, dit noteer je als $\\langle -2, 2 \\rangle$.\n$-2 \\le x \\le 2$, dit noteer je als $[-2, 2]$.\nVoor twee losse intervallen:\n$x < -2$ of $x > 2$, dit noteer je als $\\langle \\leftarrow, -2 \\rangle \\cup \\langle 2, \\rightarrow \\rangle$.\n$x \\le -2$ of $x \\ge 2$, dit noteer je als $\\langle \\leftarrow, -2 ] \\cup [ 2, \\rightarrow \\rangle$.\nAls $x$ elke waarde mag aannemen, noteer je dit als $\\langle \\leftarrow, \\rightarrow \\rangle$.\nJe zegt ook wel dat $x$ dan tot de verzameling $\\mathbb{R}$ behoort.\nIn de verzameling $\\mathbb{R}$ zitten alle **reële getallen**, dit zijn alle getallen die als breuk te schrijven zijn en getallen als $\\pi$ en $\\sqrt{2}$."
+        },
+        {
+          "id": "blk-11b-4-q",
+          "type": "questions",
+          "title": "Opdrachten",
+          "intro": "Opgaven over intervallen",
+          "questions": [
+            {
+              "id": "q-11b-4-23",
+              "number": "23",
+              "text": "In de figuur zijn de grafieken bij $f(x) = 2x + 1$ en $g(x) = 17 - 3x$ geschetst. a) Los de ongelijkheid $2x + 1 \\ge 17 - 3x$ op. b) Welk getal moet op de puntjes staan? c) Wat betekent een dicht rondje? d) Vul in: De oplossing schrijf je in de intervalnotatie als $[... , \\rightarrow \\rangle$."
+            },
+            {
+              "id": "q-11b-4-24",
+              "number": "24",
+              "text": "Op de getallenlijnen zijn intervallen aangegeven. Schrijf deze intervallen in zowel de ongelijkheidsnotatie als in de intervalnotatie."
+            },
+            {
+              "id": "q-11b-4-25",
+              "number": "25",
+              "text": "Schrijf in de intervalnotatie: a) $x > 13$, b) $x \\ge -5$, c) $x < -2,5$, d) $x \\le 20$"
+            },
+            {
+              "id": "q-11b-4-26",
+              "number": "26",
+              "text": "Het interval op de getallenlijn stelt alle getallen $x$ voor waarbij $x$ groter is dan 2 én kleiner dan of gelijk aan 6. a) Schrijf het interval in de intervalnotatie. b) Geef twee waarden voor $x$ die op dit interval liggen. c) Leg uit dat je voor deze getallen kunt schrijven $2 < x$. d) Vul in: Omdat op het interval geldt dat $2 < x$ en $x \\le 6$, kun je het interval in de ongelijkheidsnotatie schrijven als ... < $x \\le$ ...."
+            },
+            {
+              "id": "q-11b-4-27",
+              "number": "27",
+              "text": "In het assenstelsel zijn de grafieken van $f$ en $g$ getekend. a) Lees af bij welke twee waarden van $x$ geldt $f(x) = g(x)$. b) Voor welke waarden van $x$ geldt $f(x) \\le g(x)$? c) Leg uit waarom de oplossing van $f(x) > g(x)$ uit twee losse intervallen bestaat. d) Vul in: je kunt de oplossing $x < ...$ of $x > ...$ ook in de intervalnotatie schrijven als $\\langle \\leftarrow, ... \\rangle$ en $\\langle ..., \\rightarrow \\rangle$."
+            },
+            {
+              "id": "q-11b-4-28",
+              "number": "28",
+              "text": "a) Schrijf bij de getallenlijnen het interval in zowel de ongelijkheidsnotatie als in de intervalnotatie. b) Schrijf in de intervalnotatie: A $2 < x < 14$, B $x \\le 0$ of $x \\ge 3$, C $x < -5$ of $x \\ge 10$, D $-3 \\le x < 2,5$"
+            },
+            {
+              "id": "q-11b-4-29",
+              "number": "29",
+              "text": "Schrijf bij elke getallenlijn het interval in zowel de ongelijkheidsnotatie als in de intervalnotatie."
+            },
+            {
+              "id": "q-11b-4-30",
+              "number": "30",
+              "text": "De parabool hoort bij de kwadratische functie $f$ en de lijn hoort bij de lineaire functie $g$. Schrijf de oplossing van elke ongelijkheid in zowel de ongelijkheidsnotatie als in de intervalnotatie: a) $f(x) < g(x)$, b) $f(x) \\ge g(x)$, c) $f(x) < 0$, d) $f(x) > 0$, e) $g(x) \\ge 4$, f) $g(x) < 2\\frac{1}{2}$"
+            },
+            {
+              "id": "q-11b-4-31",
+              "number": "31",
+              "text": "De grafieken van de functies $f$ en $g$ raken elkaar. Geef de oplossing van elke ongelijkheid: a) $f(x) > g(x)$, b) $f(x) \\ge g(x)$, c) $f(x) < g(x)$, d) $f(x) \\le g(x)$"
+            }
+          ]
+        }
+      ],
+      "answers": [
+        {
+          "questionId": "q-11b-4-23",
+          "answer": "a) $x \\ge 3,2$, b) 3,2, c) getal telt mee, d) $[3,2, \\rightarrow \\rangle$"
+        },
+        {
+          "questionId": "q-11b-4-25",
+          "answer": "a) $\\langle 13, \\rightarrow \\rangle$, b) $[-5, \\rightarrow \\rangle$, c) $\\langle \\leftarrow, -2,5 \\rangle$, d) $\\langle \\leftarrow, 20]$"
+        },
+        {
+          "questionId": "q-11b-4-26",
+          "answer": "a) $\\langle 2, 6]$, b) bijv. 3 en 5, c) want 2 is niet inbegrepen, d) $2 < x \\le 6$"
+        },
+        {
+          "questionId": "q-11b-4-28",
+          "answer": "A: $\\langle 2, 14 \\rangle$, B: $\\langle \\leftarrow, 0] \\cup [3, \\rightarrow \\rangle$, C: $\\langle \\leftarrow, -5 \\rangle \\cup [10, \\rightarrow \\rangle$, D: $[-3, 2,5)$"
+        }
+      ]
+    },
+    {
+      "id": "sec-11b-5",
+      "title": "§11B.5 Kwadratische ongelijkheden",
+      "blocks": [
+        {
+          "id": "blk-11b-5-intro",
+          "type": "text",
+          "content": "## 11B.5 Kwadratische ongelijkheden\n\n**Je leert**\n*   hoe je een kwadratische ongelijkheid met grafieken oplost\n\n**Leerroutes**\n*   ondersteunend: 32—033—34—035—35—36—37—38\n*   basis: 32—33—34—35—36—37—38—39\n*   uitdagend: 32—33—35—36—38—39—U9—U10"
+        },
+        {
+          "id": "blk-11b-5-aanpak",
+          "type": "text",
+          "content": "### Aanpak\n**Hoe los je een ongelijkheid op met grafieken?**\n1. Stel de vergelijking op die bij de ongelijkheid past.\n2. Los de vergelijking op en bereken de coördinaten van de snijpunten van de grafieken.\n3. Schets in één figuur de bijbehorende grafieken.\n4. Lees uit de bijbehorende grafieken de oplossing van de ongelijkheid af.\n\n### Voorbeeld\nLos op: $x^2 + 2x - 3 > x - 1$\n\n**Oplossing**\n1. $x^2 + 2x - 3 = x - 1$\n2. $x^2 + x - 2 = 0$\n   $(x + 2)(x - 1) = 0$\n   $x + 2 = 0$ of $x - 1 = 0$\n   $x = -2$ of $x = 1$\n   Snijpunten $(-2, -3)$ en $(1, 0)$.\n3. De grafieken zijn een dalparabool en een stijgende lijn.\n4. In de schets zie je dat de parabool links van $-2$ en rechts van $1$ hoger dan de lijn ligt.\n   De oplossing van de ongelijkheid is $x < -2$ of $x > 1$.\n   In de intervalnotatie geschreven $\\langle \\leftarrow, -2 \\rangle \\cup \\langle 1, \\rightarrow \\rangle$."
+        },
+        {
+          "id": "blk-11b-5-theorie",
+          "type": "text",
+          "content": "### Theorie\nBij het oplossen van een ongelijkheid is niet altijd een schets van de grafieken nodig. Nadat je de bijbehorende vergelijking opgelost hebt, kun je soms door redeneren de oplossing vinden.\n\n### Voorbeeld\nLos door redeneren op: $2x^2 \\ge 128$\n\n**Oplossing**\n$2x^2 = 128$\n$x^2 = 64$\n$x = -8$ of $x = 8$\n\nVoor $x^2 = 64$ geldt:\nElk getal kleiner dan $-8$ is in het kwadraat groter dan 64.\nDat geldt ook voor elk getal groter dan 8.\nDe oplossing van de ongelijkheid is $\\langle \\leftarrow, -8 ] \\cup [ 8, \\rightarrow \\rangle$."
+        },
+        {
+          "id": "blk-11b-5-q",
+          "type": "questions",
+          "title": "Opdrachten",
+          "intro": "Opgaven over kwadratische ongelijkheden",
+          "questions": [
+            {
+              "id": "q-11b-5-32",
+              "number": "32",
+              "text": "Susan gaat de ongelijkheid $x^2 - 10 < -x - 4$ oplossen. a) Los de vergelijking $x^2 - 10 = -x - 4$ op. b) Vul in: de grafieken in de schets horen bij de functies $f(x) = x^2 - 10$ en $g(x) = \\dots$. c) Vul in: de grafiek van $f$ ligt lager dan die van $g$ bij waarden van $x$ die liggen tussen ... en .... d) Schrijf de oplossing van de ongelijkheid in de intervalnotatie."
+            },
+            {
+              "id": "q-11b-5-33",
+              "number": "33",
+              "text": "Je gaat de ongelijkheid $x^2 - 3x > x - 3$ oplossen. a) Schrijf de vergelijking op die bij de ongelijkheid past. b) Los de vergelijking op en bereken de coördinaten van de snijpunten. c) Schets de grafieken. d) Lees de oplossing af en schrijf deze in de intervalnotatie."
+            },
+            {
+              "id": "q-11b-5-34",
+              "number": "34",
+              "text": "Los met de schets van het voorbeeld de ongelijkheid $x^2 + 2x - 3 < x - 1$ op. Schrijf de oplossing in de intervalnotatie."
+            },
+            {
+              "id": "q-11b-5-35",
+              "number": "35",
+              "text": "Los de ongelijkheden op en schrijf de oplossingen in de intervalnotatie: a) $2x^2 > 4x + 6$, b) $x^2 - 28 \\ge -3x$, c) $(x + 2)(x - 1) \\le 2x$, d) $x^2 - 3x - 6 > x - 1$"
+            },
+            {
+              "id": "q-11b-5-36",
+              "number": "36",
+              "text": "In een kas worden tomaten geteeld. De totale opbrengst $TO$ in euro's hangt af van het aantal planten volgens de formule $TO = -0,04a^2 + 5a$. Voor de totale kosten $TK$ geldt $TK = 0,6a + 40$. a) Bereken bij welke aantallen tomatenplanten de totale opbrengst gelijk is aan de totale kosten. b) Bij welke aantallen tomatenplanten is er winst?"
+            },
+            {
+              "id": "q-11b-5-37",
+              "number": "37",
+              "text": "Gegeven is de functie $f(x) = x^2$. a) Leg uit waarom de ongelijkheid $x^2 < -4$ geen oplossingen heeft. b) Zoek bij elke ongelijkheid de juiste oplossing: A $x^2 > 4$, B $x^2 > 0$, C $x^2 < 16$, D $x^2 > -2$, E $\\langle -4, 4 \\rangle$, F $\\langle \\leftarrow, -2 \\rangle \\cup \\langle 2, \\rightarrow \\rangle$, G $\\mathbb{R}$, H $\\langle \\leftarrow, 0 \\rangle \\cup \\langle 0, \\rightarrow \\rangle$"
+            },
+            {
+              "id": "q-11b-5-38",
+              "number": "38",
+              "text": "Los de ongelijkheden door redeneren op en schrijf de oplossingen in de intervalnotatie: a) $x^2 > 49$, b) $0,5x^2 < 18$, c) $x^2 + 4 \\le 0$, d) $3x^2 \\ge 75$, e) $2 - 3x^2 < 2$, f) $(x + 2)^2 \\ge -4$"
+            },
+            {
+              "id": "q-11b-5-39",
+              "number": "39",
+              "text": "Los de ongelijkheden op en schrijf de oplossingen in de intervalnotatie: a) $3x + 10 > -2$, b) $x^2 - 4x - 12 \\ge 0$, c) $x(x + 2) + 3 > 1$, d) $-x^2 + 2x + 3 \\le 4$, e) $2x^2 + 1 < -1$, f) $(x - 6)^2 + 3 \\le 19$"
+            }
+          ]
+        }
+      ],
+      "answers": [
+        {
+          "questionId": "q-11b-5-32",
+          "answer": "a) $x = 2$ of $x = -3$, b) $-x - 4$, c) $-3$ en $2$, d) $\\langle -3, 2 \\rangle$"
+        },
+        {
+          "questionId": "q-11b-5-33",
+          "answer": "a) $x^2 - 3x = x - 3$, b) $x = 0$ of $x = 4$, c) dalparabool en stijgende lijn, d) $x < 0$ of $x > 4$, oftewel $\\langle \\leftarrow, 0 \\rangle \\cup \\langle 4, \\rightarrow \\rangle$"
+        },
+        {
+          "questionId": "q-11b-5-34",
+          "answer": "$[-2, 1]$"
+        },
+        {
+          "questionId": "q-11b-5-35",
+          "answer": "a) $x < -1$ of $x > 3$, b) $x \\le -7$ of $x \\ge 4$, c) $-2 \\le x \\le 1$, d) $x < -2$ of $x > 4$"
+        },
+        {
+          "questionId": "q-11b-5-36",
+          "answer": "a) 10 of 100 planten, b) tussen 10 en 100 planten"
+        },
+        {
+          "questionId": "q-11b-5-37",
+          "answer": "a) kwadraat is nooit negatief, b) A-F, $x^2 > -2$ heeft $\\mathbb{R}$ als oplossing"
+        },
+        {
+          "questionId": "q-11b-5-38",
+          "answer": "a) $x < -7$ of $x > 7$, b) $-6 < x < 6$, c) geen oplossing, d) $x \\le -5$ of $x \\ge 5$, e) $x \\neq 0$, f) $\\mathbb{R}$"
+        },
+        {
+          "questionId": "q-11b-5-39",
+          "answer": "a) $x > -4$, b) $x \\le -2$ of $x \\ge 6$, c) $x < -3$ of $x > 1$, d) $-1 \\le x \\le 3$, e) geen oplossing, f) $2 \\le x \\le 10$"
+        }
+      ]
+    },
+    {
+      "id": "sec-11b-6",
+      "title": "§11B.6 Machtsvergelijkingen en -ongelijkheden",
+      "blocks": [
+        {
+          "id": "blk-11b-6-intro",
+          "type": "text",
+          "content": "## 11B.6 Machtsvergelijkingen en -ongelijkheden\n\n**Je leert**\n*   wat een machtsvergelijking is\n*   hoe je een machtsvergelijking oplost\n*   hoe je een machtsongelijkheid oplost\n\n**Leerroutes**\n*   ondersteunend: 40—41—042—43—44—045—46\n*   basis: 40—41—42—43—44—45—46\n*   uitdagend: 40—42—43—44—46—U11—U12"
+        },
+        {
+          "id": "blk-11b-6-theorie",
+          "type": "text",
+          "content": "### Theorie\nEen vergelijking als $2p^5 = -64$ of als $8a^3 - 120 = 392$ waarbij het grondtal van een macht een variabele is, noem je een **machtsvergelijking**. In eenvoudige gevallen kun je een machtsvergelijking met bordjes oplossen.\nVereenvoudig de vergelijking tot de vorm $x^n = c$ door de macht te isoleren.\n> Bij een oneven exponent $n$ is er altijd één oplossing.\n> Bij een even exponent $n$ is het mogelijk dat er geen, één of twee oplossingen zijn.\n\n### Voorbeeld 1\nLos op: $6k^3 = 48$\n**Oplossing**\n$k^3 = 8$\nDe exponent 3 is oneven.\nEr is één oplossing.\n$k = 2$, want $2^3 = 8$.\n\n### Voorbeeld 2\nLos op: $2x^4 = 162$\n**Oplossing**\n$x^4 = 81$\nDe exponent 4 is even.\nEr zijn twee oplossingen.\n$x = -3$ of $x = 3$, want $(-3)^4 = 81$ en $3^4 = 81$."
+        },
+        {
+          "id": "blk-11b-6-theorie-wortel",
+          "type": "text",
+          "content": "### Theorie\nDe wortel $x = \\sqrt[n]{c}$ met $n > 2$ heet een **hogere machtswortel**.\nDe oplossing van $x^n = c$ met $n$ oneven is $x = \\sqrt[n]{c}$.\nDe oplossingen van $x^n = c$ met $n$ even en $c > 0$ zijn $x = -\\sqrt[n]{c}$ en $x = \\sqrt[n]{c}$.\nDe oplossing van $x^n = 0$ is $x = 0$.\n\n### Voorbeeld\nLos op: $p^4 - 3 = 6$\n**Oplossing**\n$p^4 = 9$\nDe exponent 4 is even.\nEr zijn twee oplossingen.\n$p = -\\sqrt[4]{9} \\approx -1,73$ of $p = \\sqrt[4]{9} \\approx 1,73$"
+        },
+        {
+          "id": "blk-11b-6-q",
+          "type": "questions",
+          "title": "Opdrachten",
+          "intro": "Opgaven over machtsvergelijkingen en -ongelijkheden",
+          "questions": [
+            {
+              "id": "q-11b-6-40",
+              "number": "40",
+              "text": "De grafieken horen bij de functies $f(x) = x^3$, $g(x) = x^4$, $h(x) = x^5$ en $i(x) = x^6$. a) Zoek bij iedere functie de juiste grafiek. b) Geef van elke grafiek aan hoeveel snijpunten deze heeft met de lijn $y = 4$."
+            },
+            {
+              "id": "q-11b-6-41",
+              "number": "41",
+              "text": "a) Hoeveel snijpunten heeft de grafiek van $f(x) = x^3$ met de lijn $y = -64$? b) Los de vergelijking $x^3 = -64$ op. c) Hoeveel oplossingen heeft de vergelijking $x^4 = 16$? d) Geef de oplossingen van de vergelijking $x^4 = 16$. e) Waarom heeft de vergelijking $x^4 = -10$ geen oplossingen? f) Van de vergelijking $x^n = c$ is bekend dat deze geen oplossingen heeft. Wat kun je zeggen over de waarde van $n$ en van $c$?"
+            },
+            {
+              "id": "q-11b-6-42",
+              "number": "42",
+              "text": "Los indien mogelijk de vergelijkingen op: a) $3x^6 = 192$, b) $2p^5 = -64$, c) $120 - a^3 = 56$, d) $100 - x^4 = 181$, e) $x^5 + 4 = 36$, f) $300 - t^4 = 219$"
+            },
+            {
+              "id": "q-11b-6-43",
+              "number": "43",
+              "text": "a) Waarom heeft $x^3 = 20$ maar één oplossing? b) De exacte oplossing van $x^3 = 20$ is $x = \\sqrt[3]{20}$. Geef een benadering in twee decimalen. c) De vergelijking $x^4 = 20$ heeft als exacte oplossingen $x = -\\sqrt[4]{20}$ en $x = \\sqrt[4]{20}$. Benader deze oplossingen in twee decimalen."
+            },
+            {
+              "id": "q-11b-6-44",
+              "number": "44",
+              "text": "Los indien mogelijk de vergelijkingen op. Geef een exact antwoord en een benadering in twee decimalen: a) $2x^3 = 200$, b) $1000x^4 = 0,1$, c) $100 - 5x^6 = 100$, d) $0,5x^7 + 100 = 50$, e) $10x^8 + 650 = 350$, f) $1000 - 2,5x^5 = 1250$"
+            },
+            {
+              "id": "q-11b-6-45",
+              "number": "45",
+              "text": "In de figuur zijn de grafieken bij de ongelijkheden $2x^3 \\le 250$ en $0,5x^4 > 648$ geschetst. a) Welke schets hoort bij welke ongelijkheid? b) Los de vergelijking $2x^3 = 250$ op. c) Schrijf de oplossing van de ongelijkheid $2x^3 \\le 250$ in de intervalnotatie. d) Los de vergelijking $0,5x^4 = 648$ op. e) Schrijf de oplossing van de ongelijkheid $0,5x^4 > 648$ in de intervalnotatie."
+            },
+            {
+              "id": "q-11b-6-46",
+              "number": "46",
+              "text": "Los de ongelijkheden op en schrijf de oplossingen in de intervalnotatie: a) $10x^5 > 320$, b) $0,25x^4 \\le 2500$, c) $3x^6 \\ge -18$, d) $0,04x^7 < 3125$"
+            }
+          ]
+        }
+      ],
+      "answers": [
+        {
+          "questionId": "q-11b-6-40",
+          "answer": "a) $f$: S-vorm, $g$: U-vorm, $h$: S-vorm, $i$: U-vorm, b) $f$: 1, $g$: 2, $h$: 1, $i$: 2"
+        },
+        {
+          "questionId": "q-11b-6-41",
+          "answer": "a) 1, b) $x = -4$, c) 2, d) $x = -2$ en $x = 2$, e) even macht kan niet negatief zijn, f) $n$ even en $c < 0$"
+        },
+        {
+          "questionId": "q-11b-6-42",
+          "answer": "a) $x = \\pm 2$, b) $p = -2$, c) $a = 4$, d) geen oplossing, e) $x = 2$, f) $t = \\pm 3$"
+        },
+        {
+          "questionId": "q-11b-6-43",
+          "answer": "a) oneven exponent, b) 2,71, c) $\\pm 2,11$"
+        },
+        {
+          "questionId": "q-11b-6-44",
+          "answer": "a) $x = \\sqrt[3]{100} \\approx 4,64$, b) $x = \\pm 0,1$, c) $x = 0$, d) geen oplossing, e) geen oplossing, f) $x = -2$"
+        },
+        {
+          "questionId": "q-11b-6-45",
+          "answer": "a) A: $2x^3$, B: $0,5x^4$, b) $x = 5$, c) $\\langle \\leftarrow, 5]$, d) $x = \\pm 6$, e) $\\langle \\leftarrow, -6 \\rangle \\cup \\langle 6, \\rightarrow \\rangle$"
+        },
+        {
+          "questionId": "q-11b-6-46",
+          "answer": "a) $x > 2$, b) $-10 \\le x \\le 10$, c) $\\mathbb{R}$, d) $x < 5$"
+        }
+      ]
+    },
+    {
+      "id": "sec-11b-7",
+      "title": "§11B.7 Gemengde opdrachten",
+      "blocks": [
+        {
+          "id": "blk-11b-7-intro",
+          "type": "text",
+          "content": "## 11B.7 Gemengde opdrachten"
+        },
+        {
+          "id": "blk-11b-7-q",
+          "type": "questions",
+          "title": "Opdrachten",
+          "intro": "Gemengde opdrachten",
+          "questions": [
+            {
+              "id": "q-11b-7-47",
+              "number": "47",
+              "text": "Tijdens een rattenplaag in een stad geldt voor het aantal ratten de formule $R = 120 + 90 \\cdot 2^{0,5t}$. a) Hoeveel ratten zijn er aan het begin? b) Berekenen wanneer het aantal ratten gelijk is aan 3000. c) Bereken in hoeveel weken tijd het aantal ratten toeneemt van 5880 tot 23 160."
+            },
+            {
+              "id": "q-11b-7-48",
+              "number": "48",
+              "text": "Los indien mogelijk de vergelijkingen op: a) $3\\sqrt{4c - 1} = 15$, b) $0,5 \\cdot 2^{m-5} = 4$, c) $36 = \\frac{18}{2x - 5}$, d) $-\\sqrt{2p + 3} = 6$, e) $d = \\frac{15}{d - 2}$, f) $2x^4 + 8 = 520$, g) $\\frac{8}{4 + w} = 2w + 10$, h) $0,5x^5 - 18 = 3$"
+            },
+            {
+              "id": "q-11b-7-49",
+              "number": "49",
+              "text": "De machtsvergelijking $3x^n + 56 = 6200$ heeft $x = 2$ als oplossing. Bereken $n$."
+            },
+            {
+              "id": "q-11b-7-50",
+              "number": "50",
+              "text": "Los de ongelijkheden op: a) $x^2 + 4x < 3x + 6$, b) $(4 - x)(x - 2) \\ge 3$, c) $3x^4 \\ge 243$, d) $\\frac{1}{3}x^3 < -9$"
+            },
+            {
+              "id": "q-11b-7-51",
+              "number": "51",
+              "text": "In de figuur zijn de grafieken van de functies $f(x) = x^2 - 8x + 17$ en $g(x) = -x^2 + 8x - 13$ geschetst. Bereken voor welke waarde van $c$ geldt dat $f(x) \\ge c$ dezelfde oplossing heeft als $g(x) \\le c$."
+            },
+            {
+              "id": "q-11b-7-52",
+              "number": "52",
+              "text": "In een schaaktoernooi spelen alle deelnemers precies één keer tegen elkaar. a) Leg uit dat je met de functie $W(d) = \\frac{d(d - 1)}{2}$ het aantal wedstrijden $W$ met $d$ deelnemers kunt uitrekenen. b) Hoeveel wedstrijden zijn er bij zes deelnemers? c) Hoeveel deelnemers zijn er bij 66 wedstrijden? d) Hoeveel deelnemers heb je minstens nodig voor minimaal 100 wedstrijden?"
+            },
+            {
+              "id": "q-11b-7-53",
+              "number": "53",
+              "text": "Gegeven zijn de functies $f(x) = -0,5x^2$ en $g(x) = p - x$. a) Bereken voor welke waarde van $p$ de grafieken van $f$ en $g$ elkaar raken. b) Geef in die situatie de oplossing van $g(x) \\ge f(x)$ in de intervalnotatie."
+            },
+            {
+              "id": "q-11b-7-54",
+              "number": "54",
+              "text": "In de figuur is de grafiek van $f(x) = \\frac{36}{\\sqrt{16 - 2x}}$ geschetst. a) Bereken in welk punt de grafiek de verticale as snijdt. b) Los de vergelijking $f(x) = 18$ op. c) Los de ongelijkheid $f(x) \\le 6$ op en schrijf de oplossing in de intervalnotatie."
+            }
+          ]
+        }
+      ],
+      "answers": [
+        {
+          "questionId": "q-11b-7-47",
+          "answer": "a) 210, b) 8 weken, c) 2 weken"
+        },
+        {
+          "questionId": "q-11b-7-48",
+          "answer": "a) $c = 4$, b) $m = 7$, c) $x = 5,5$, d) geen oplossing, e) $d = 5$ of $d = -3$, f) $x = \\pm 4$, g) $w = 1$ of $w = -6$, h) $x = \\sqrt[5]{42} \\approx 2,11$"
+        },
+        {
+          "questionId": "q-11b-7-49",
+          "answer": "$n = 6$"
+        },
+        {
+          "questionId": "q-11b-7-50",
+          "answer": "a) $-2 < x < 3$, b) $x \\le 1$ of $x \\ge 3$, c) $x \\le -3$ of $x \\ge 3$, d) $x < -3$"
+        },
+        {
+          "questionId": "q-11b-7-52",
+          "answer": "a) combinaties zonder herhaling, b) 15, c) 12, d) 15"
+        },
+        {
+          "questionId": "q-11b-7-53",
+          "answer": "a) $p = 0$, b) $\\mathbb{R}$"
+        },
+        {
+          "questionId": "q-11b-7-54",
+          "answer": "a) $(0, 9)$, b) $x = 6$, c) $[6, 8)$"
+        }
+      ]
+    },
+    {
+      "id": "sec-samenvatting",
+      "title": "§11B Samenvatting",
+      "blocks": [
+        {
+          "id": "blk-samenvatting",
+          "type": "text",
+          "content": "## Samenvatting\n\n### Theorie\n**Gebroken vergelijking, exponentiële vergelijking, wortelvergelijking en machtsvergelijking**\nBij een gebroken vergelijking zoals $\\frac{45}{2p - 7} + 2 = 7$ staat de variabele in de noemer van de breuk.\nBij een exponentiële vergelijking zoals $3 \\cdot 2^x = 48$ staat de variabele in de exponent van de macht.\nBij een wortelvergelijking zoals $\\sqrt{12 - x} = 3$ staat de variabele onder het wortelteken.\nBij een machtsvergelijking zoals $2p^5 = 64$ is de variabele het grondtal van de macht."
+        }
+      ]
+    },
+    {
+      "id": "sec-test",
+      "title": "§11B Test jezelf",
+      "blocks": [
+        {
+          "id": "blk-test-intro",
+          "type": "text",
+          "content": "## Test jezelf"
+        },
+        {
+          "id": "blk-test-q",
+          "type": "questions",
+          "title": "Opdrachten",
+          "intro": "Test opgaven",
+          "questions": [
+            {
+              "id": "q-test-1",
+              "number": "T1",
+              "text": "Los de vergelijkingen op: a) $\\frac{24}{5b - 3} = 4$, b) $1 + \\frac{30}{7h} = 6$, c) $\\frac{12}{x - 2} = x - 6$, d) $\\frac{2}{x} - 3 = -2x + 1$"
+            },
+            {
+              "id": "q-test-2",
+              "number": "T2",
+              "text": "Bij een proef koelt de temperatuur in een kweekbak af volgens het functievoorschrift $T(t) = 20 + \\frac{24}{\\frac{1}{2}t + 2}$. a) Hoeveel graden is de temperatuur aan het begin? b) Bereken de temperatuur na 8 minuten. c) Hoe hoog zal uiteindelijk de temperatuur worden? d) Wanneer moet het verwarmingselement worden ingeschakeld?"
+            },
+            {
+              "id": "q-test-3",
+              "number": "T3",
+              "text": "Los de vergelijkingen op: a) $7^{2a} = 343$, b) $2 \\cdot 7^p = 4802$, c) $7^{3k - 1} - 1 = 2400$, d) $7^{-2 + 5a} = 49$"
+            },
+            {
+              "id": "q-test-4",
+              "number": "T4",
+              "text": "Bij een klok bepaalt de lengte van de slinger de slingertijd. Met de functie $T(l) = 2\\sqrt{l}$ bereken je $T$ de slingertijd in seconden bij een lengte $l$ in meters. a) Bereken de lengte van de slinger in cm bij een slingertijd van 1,4 seconden. b) Wordt bij een twee keer zo lange slinger, de slingertijd ook twee keer zo groot?"
+            },
+            {
+              "id": "q-test-5",
+              "number": "T5",
+              "text": "Los de vergelijkingen op: a) $4\\sqrt{t + 1} = 12$, b) $\\frac{32}{4\\sqrt{2u}} + 2 = 4$, c) $27 - 3\\sqrt{3a} = 0$, d) $\\frac{\\sqrt{6 - c}}{8} + 5 = 6$"
+            },
+            {
+              "id": "q-test-6",
+              "number": "T6",
+              "text": "In de figuur zijn de grafieken van de functies $f(x) = -x^2 + 3x + 10$ en $g(x) = -3x - 6$ getekend. a) Bereken de coördinaten van de snijpunten. b) Laat zien dat $h(x) = -3x + 19$ de parabool raakt. c) Bereken de coördinaten van het raakpunt."
+            },
+            {
+              "id": "q-test-7",
+              "number": "T7",
+              "text": "a) Schrijf bij de getallenlijnen het interval in zowel de ongelijkheidsnotatie als in de intervalnotatie. b) Schrijf in de intervalnotatie: A $x \\ge 3$, B $x < -9$, C $x \\le 7$ of $x \\ge 13$, D alle waarden van $x$"
+            },
+            {
+              "id": "q-test-8",
+              "number": "T8",
+              "text": "Een cilindervormige kaars past precies in een kubus. De inhoud bereken je met $I = 0,8z^3$. a) Bereken de inhoud bij ribben van 6 cm. b) Bereken de ribbe als de inhoud $100 \\text{ cm}^3$ is. c) Bereken de ribbe als de lege ruimte $50 \\text{ cm}^3$ is."
+            },
+            {
+              "id": "q-test-9",
+              "number": "T9",
+              "text": "Los de ongelijkheden op: a) $5x^2 + 9 \\ge 89$, b) $x^2 + 3x < 2x + 30$, c) $3x^6 \\ge 192$, d) $0,5x^5 < -512$"
+            },
+            {
+              "id": "q-test-10",
+              "number": "T10",
+              "text": "Van de functies $f(x) = -20x^2$, $g(x) = x^3$, $h(x) = x^4$ en $i(x) = -0,01x^5$ zijn de grafieken geschetst. a) Zoek bij iedere functie de juiste grafiek. b) Welke ongelijkheden hebben dezelfde oplossing?"
+            }
+          ]
+        }
+      ],
+      "answers": [
+        {
+          "questionId": "q-test-1",
+          "answer": "a) $b = 1,4$, b) $h = 1$, c) $x = 6$ of $x = 0$, d) $x = 1$ of $x = -2$"
+        },
+        {
+          "questionId": "q-test-2",
+          "answer": "a) $32^\\circ\\text{C}$, b) $24^\\circ\\text{C}$, c) $20^\\circ\\text{C}$, d) na 6 minuten"
+        },
+        {
+          "questionId": "q-test-3",
+          "answer": "a) $a = 1,5$, b) $p = 3$, c) $k = 2$, d) $a = 1,2$"
+        },
+        {
+          "questionId": "q-test-4",
+          "answer": "a) 49 cm, b) nee, de wortelfunctie is niet lineair"
+        },
+        {
+          "questionId": "q-test-5",
+          "answer": "a) $t = 8$, b) $u = 2$, c) $a = 27$, d) $c = -58$"
+        },
+        {
+          "questionId": "q-test-6",
+          "answer": "a) $(-2, 0)$ en $(5, -21)$, b) $D = 0$, c) $(3, 10)$"
+        },
+        {
+          "questionId": "q-test-8",
+          "answer": "a) $172,8 \\text{ cm}^3$, b) 5 cm, c) 5,4 cm"
+        },
+        {
+          "questionId": "q-test-9",
+          "answer": "a) $x \\le -4$ of $x \\ge 4$, b) $-6 < x < 5$, c) $x \\le -2$ of $x \\ge 2$, d) $x < -10$"
+        }
+      ]
+    }
+  ]
+}

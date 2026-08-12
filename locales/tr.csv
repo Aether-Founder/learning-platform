@@ -1,0 +1,166 @@
+id,text
+sections,Bölümler
+bookmarks,Yer İmleri
+clear_bookmarks,Tümünü Temizle
+no_bookmarks,Henüz yer imi yok
+click_to_add,Yer imi eklemek için bir paragrafa tıklayın
+study_mode,Çalış
+book_mode,Kitap Modu
+simple_mode,Açıklama
+loading,Yükleniyor...
+export,Dışa Aktar
+copy,Kopyala
+watch_on_youtube,YouTube'da İzle
+read_on_substack,Substack'ta Oku
+back_to_main,Ana Sayfaya Dön
+table_of_contents,İçindekiler
+section,Bölüm
+paragraph,Paragraf
+question,Soru
+answer,Cevap
+difficulty,Zorluk
+bookmark_added,Yer imi eklendi
+bookmark_removed,Yer imi kaldırıldı
+all_bookmarks_cleared,Tüm yer imleri temizlendi
+export_anki,Anki'ye Dışa Aktar
+export_flashcards,Flashcard'ları Dışa Aktar
+export_transcript,Transkripti Dışa Aktar
+copy_transcript,Transkripti Kopyala
+click_to_flip,Çevirmek için tıkla
+space_to_flip,Çevirmek için boşluk tuşu
+arrow_keys,Navigasyon için ok tuşlarını kullan
+scroll_to_section,Bölüme kaydır
+active_section,Aktif bölüm
+sub_section,Alt bölüm
+part,Parça
+chapter,Bölüm
+unit,Birim
+lesson,Ders
+topic,Konu
+content,İçerik
+navigation,Navigasyon
+settings,Ayarlar
+language,Dil
+theme,Tema
+dark_mode,Karanlık Mod
+light_mode,Aydınlık Mod
+search,Ara
+search_placeholder,İçerik ara...
+no_results,Sonuç bulunamadı
+show_timestamps,Zaman damgalarını göster
+hide_timestamps,Zaman damgalarını gizle
+view_mode,Görünüm modu
+change_mode,Görünüm modunu değiştir
+reading_progress,Okuma ilerlemesi
+completed,Tamamlandı
+remaining,Kalan
+of,/
+page,Sayfa
+pages,Sayfalar
+word,Kelime
+words,Kelimeler
+minute,Dakika
+minutes,Dakika
+read_time,Okuma süresi
+estimated_time,Tahmini okuma süresi
+bookmark_this,Bu paragrafı yer imlerine ekle
+remove_bookmark,Yer imini kaldır
+go_to_bookmark,Yer imine git
+bookmarks_list,Yer imleri listesi
+empty_state_empty,İçerik mevcut değil
+empty_state_loading,İçerik yükleniyor...
+error_loading,İçerik yüklenirken hata
+retry,Tekrar dene
+close,Kapat
+save,Kaydet
+cancel,İptal
+confirm,Onayla
+delete,Sil
+edit,Düzenle
+add,Ekle
+remove,Kaldır
+next,Sonraki
+previous,Önceki
+first,İlk
+last,Son
+beginning,Başlangıç
+end,Son
+top,Üst
+bottom,Alt
+scroll_up,Yukarı kaydır
+scroll_down,Aşağı kaydır
+jump_atla
+select_language,Dil seç
+english,İngilizce
+dutch,Flemenkçe
+turkish,Türkçe
+home_title,Sınav Hazırlığı
+home_subtitle,Sınav haftası için çalışmak için aşağıdan bir ders seçin.
+advanced_mode,Gelişmiş
+advanced_mode_description,Çalışma modları ve SRS ilerlemesi
+advanced_home_description,Gelişmiş çalışma modları ve yerel ilerleme takibi ile çalışın.
+advanced_label,Gelişmiş çalışma
+advanced_title,Çalışma paneli
+advanced_due,Bekleyen
+advanced_reviewed,İncelenen
+advanced_accuracy,Doğruluk
+advanced_tab_study,Çalış
+advanced_tab_stats,İlerleme
+advanced_mode_flashcard,Flashcard'lar
+advanced_mode_multiple-choice,Çoktan seçmeli
+advanced_mode_typing,Yazma
+advanced_mode_matching,Eşleştirme
+advanced_card_progress,Kart
+advanced_quality_again,Tekrar
+advanced_quality_hard,Zor
+advanced_quality_good,İyi
+advanced_quality_easy,Kolay
+advanced_flashcard_keys,Boşluk çevirir, 1-4 açıklamadan sonra kaydeder.
+advanced_type_placeholder,Cevabınızı yazın
+advanced_similarity,Benzerlik
+advanced_continue,Devam et
+advanced_check_answer,Cevabı kontrol et
+advanced_match_pairs,Çiftleri eşleştir
+advanced_attempts,deneme
+advanced_no_cards_due,Şu anda bekleyen kart yok.
+advanced_no_cards,Bu sayfa için çalışma sorusu mevcut değil.
+advanced_session_complete,Oturum tamamlandı
+advanced_cards,Kartlar
+advanced_correct,Doğru
+advanced_time,Zaman
+advanced_study_again,Tekrar çalış
+advanced_sessions,Oturumlar
+advanced_forecast,7 günlük tahmin
+advanced_card_limit,Kart limiti
+advanced_fuzzy_threshold,Bulanık eşik
+advanced_srs_algorithm,SRS algoritması
+advanced_review_mix,İnceleme karışımı
+advanced_review_mix_all,Bekleyen ve yeni
+advanced_review_mix_due,Sadece bekleyen
+advanced_review_mix_new,Sadece yeni
+book_mode_description,Satır içi soru-cevap ile oku
+study_mode_description,Flashcard modu
+simple_mode_description,Tam metin görünümü
+questions,Sorular
+questions_and_answers,Sorular ve Cevaplar
+expand_all,Tümünü genişlet
+expand_all_qa,Tüm soruları genişlet
+collapse_all,Tümünü daralt
+difficulty_easy,Kolay
+difficulty_medium,Orta
+difficulty_hard,Zor
+no_paragraphs_available,Bu bölümde paragraf mevcut değil.
+link_to_paragraph,Bu paragrafa link
+answer_not_provided,Cevap sağlanmadı
+not_provided,Sağlanmadı
+answer_not_provided_hint,Cevap sağlanmadı. Bunu otomatik test istemi olarak kullanın.
+show_question,Soruyu göster
+show_answer,Cevabı göster
+previous_question,Önceki soru
+next_question,Sonraki soru
+shuffle,Karıştır
+shuffled,Karıştırıldı
+reset,Sıfırla
+keyboard_hint,Klavye: Çevirmek için boşluk, navigasyon için ok tuşları
+copied,Kopyalandı
+untitled,Başlıksız

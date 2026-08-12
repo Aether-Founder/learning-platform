@@ -1,0 +1,26 @@
+{
+  "534c5b5d-c0df-4d56-9bbb-a6cbb0cc023c": {
+    "id": "534c5b5d-c0df-4d56-9bbb-a6cbb0cc023c",
+    "userId": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
+    "startTime": 1785419531202,
+    "endTime": 1785419541903,
+    "duration": 13397,
+    "events": [
+      {
+        "eventType": "mode_switch",
+        "timestamp": 1785419531202,
+        "data": {
+          "from": "simple",
+          "to": "study"
+        }
+      },
+      {
+        "eventType": "session_end",
+        "timestamp": 1785419541903,
+        "data": {
+          "duration": 13397
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "siteMetadata": {
+    "title": "Engels - Leesvaardigheid",
+    "description": "Leermateriaal voor Engels - Leesvaardigheid en leesstrategieën"
+  },
+  "summary": "Dit hoofdstuk behandelt leesvaardigheid en leesstrategieën voor Engelse teksten. Je leert de gouden tip voor leestoetsen: altijd vragen waar je antwoord in de tekst staat. Daarnaast leer je hoe je leesopdrachten aanpakt met een stappenplan: oriënterend lezen, opdrachten lezen, leesstrategieën toepassen (skimmen, scannen, intensief lezen) en vragen beantwoorden. Ook leer je wat je moet doen bij onbekende woorden (raden door de zin te vertalen) en hoe je efficiënt een woordenboek gebruikt. Totaal komen verschillende vraagsoorten aan bod: meerkeuzevragen, waar/niet waar-vragen, invulvragen, vragen over specifieke alinea's en open vragen, elk met een eigen aanpak.",
+  "contentFormat": "textbook",
+  "defaultViewMode": "simple",
+  "availableModes": ["simple", "uitleg", "study", "samenvatting"],
+  "showTimestamps": false,
+  "showExportButtons": false,
+  "showAnkiExport": false,
+  "showFlashcardsExport": false,
+  "showTranscriptExport": false,
+  "showCopyTranscript": false,
+  "buttons": [
+    {
+      "url": "https://learnenglishteens.britishcouncil.org/skills/reading/c1-reading",
+      "text": "British Council - Reading Practice",
+      "icon": "external-link",
+      "iconType": "name",
+      "variant": "primary",
+      "enabled": true,
+      "openInNewTab": true
+    },
+    {
+      "url": "https://www.cambridgeenglish.org/learning-english/activities-for-learners/c1r001-forensic-linguistics",
+      "text": "Cambridge English - Forensic Linguistics",
+      "icon": "external-link",
+      "iconType": "name",
+      "variant": "secondary",
+      "enabled": true,
+      "openInNewTab": true
+    }
+  ],
+  "sections": [
+    {
+      "id": "sec-reading-intro",
+      "title": "Leesvaardigheid - Reading Skills",
+      "blocks": [
+        {
+          "id": "blk-reading-intro",
+          "type": "text",
+          "content": "## Leesvaardigheid\n\nDit is een oefening voor het verbeteren van je leesvaardigheid in het Engels. Hieronder vind je strategieën en tips voor het aanpakken van leesopdrachten en leestoetsen."
+        }
+      ],
+      "answers": []
+    },
+    {
+      "id": "sec-golden-tip",
+      "title": "De gouden tip voor leestoetsen",
+      "blocks": [
+        {
+          "id": "blk-golden-tip",
+          "type": "text",
+          "content": "## De gouden tip voor leestoetsen\n\nStel jezelf altijd deze vraag:\n\n**Waar staat mijn antwoord in de tekst?**\n\nAls je dit niet kunt beantwoorden, is je antwoord meestal fout."
+        }
+      ],
+      "answers": []
+    },
+    {
+      "id": "sec-approach",
+      "title": "Hoe pak je leesopdrachten aan?",
+      "blocks": [
+        {
+          "id": "blk-approach-1",
+          "type": "text",
+          "content": "## Hoe pak je leesopdrachten aan?\n\n### Stappenplan:\n1. Oriënterend lezen\n2. Opdracht(en) lezen\n3. Leesstrategie toepassen (skimmen / scannen / intensief lezen)\n4. Vraag beantwoorden"
+        },
+        {
+          "id": "blk-approach-2",
+          "type": "text",
+          "content": "### Oriënterend lezen\n\nVoordat je de tekst en opdrachten gaat lezen, kijk je naar…\n• …de titel van de tekst\n• …de inleiding / 1e alinea\n• …de tussenkopjes\n• …de plaatjes\n• …opvallende teksten\n• …de bron / schrijver\n\nDit heet oriënterend lezen. Hierna ga je de opdracht(en) lezen."
+        },
+        {
+          "id": "blk-approach-3",
+          "type": "text",
+          "content": "### Leesstrategieën\n\n**Skimmen**: snel door de tekst gaan om te weten waar het over gaat\n• Sla onbekende woorden en details over.\n• Lees opvallende teksten (tussenkopjes e.d.)\n• Lees de eerste zin van elke alinea.\n\n**Scannen**: zoeken naar bepaalde informatie\n• Je zoekt bijvoorbeeld naar een getal, prijs, of telefoonnummer.\n• Sla de rest over.\n\n**Intensief lezen**: de hele tekst regel voor regel doorlezen"
+        }
+      ],
+      "answers": []
+    },
+    {
+      "id": "sec-unknown-words",
+      "title": "Wat doe je bij onbekende woorden?",
+      "blocks": [
+        {
+          "id": "blk-unknown-words-1",
+          "type": "text",
+          "content": "## Wat doe je bij onbekende woorden?\n\nHet opzoeken van onbekende woorden kost veel tijd. Vaak kun je de betekenis door logisch nadenken raden.\n\nWaarschijnlijk ken je deze woorden niet:\n• Eccentric\n• Murky\n• Debris\n• Censure\n• Frugal"
+        },
+        {
+          "id": "blk-unknown-words-2",
+          "type": "text",
+          "content": "### Raad de betekenis door de zin te vertalen\n\n**Eccentric**\nOur football team's goal keeper does eccentric things; he never wears socks and he always kicks the ball exactly thirteen times as a warm-up.\nA. normale\nB. rare\n\n**Murky**\nAfter the rain, the river was murky; in fact, the water was so dirty you couldn't see the bottom.\nA. troebel\nB. bodemloos\nC. helder\n\n**Debris**\nThe debris on the stadium floor included old tickets, empty Coca-Cola cans and cigarettes.\nA. producten\nB. papier\nC. afval\n\n**Censure**\nThe coach always censures his players, but he never tells them how good they are.\nA. waarderen\nB. kritiek geven\nC. kiezen\n\n**Frugal**\nThe man and his wife agreed to be very frugal in their shopping because they wanted to save enough money to buy a house.\nA. zuinig\nB. verspillend\nC. geïnteresseerd"
+        }
+      ],
+      "answers": []
+    },
+    {
+      "id": "sec-dictionary",
+      "title": "Hoe gebruik je een woordenboek?",
+      "blocks": [
+        {
+          "id": "blk-dictionary-1",
+          "type": "text",
+          "content": "## Hoe gebruik je een woordenboek?\n\nJe gebruikt een woordenboek…\n\n**NIET**\n• … voor elk onbekend woordje\n• … in elke zin\n\n**WEL**\n• … als het nodig is om de vraag te begrijpen / beantwoorden.\n• … als je anders het hele stuk niet begrijpt."
+        },
+        {
+          "id": "blk-dictionary-2",
+          "type": "text",
+          "content": "### Tips bij het gebruiken van een woordenboek\n\n• De woorden staan op alfabetische volgorde (a, b, c … x, y, z)\n• Bedenk welke vertaling het meest logisch is in de zin\n• Zoek naar de 'stam' van het woord\n  o He is extremely smart → zoek naar extreme\n  o It was touchable → zoek naar touch\n  o We travelled to Spain → zoek naar travel"
+        },
+        {
+          "id": "blk-dictionary-3",
+          "type": "text",
+          "content": "### Oefening\n\nWat betekenen de dikgedrukte woorden in deze tekst? Gebruik een woordenboek (EN - NL).\n\n\"For the second time, a monkey **triggered** (1) a fire alarm at the Great Ape Research Center. The monkey had seen a zookeeper do it and learnt how to **duplicate** (2) his method. 'I am not surprised that the monkey can do this', **lead** (3) scientist Sue Summer said last month.\"\n\n1. triggered → laten afgaan\n2. duplicate → kopiëren\n3. lead → leidinggevende"
+        }
+      ],
+      "answers": []
+    },
+    {
+      "id": "sec-question-types",
+      "title": "Vraagsoorten",
+      "blocks": [
+        {
+          "id": "blk-question-types-1",
+          "type": "text",
+          "content": "## Vraagsoorten\n\nOp leestoetsen komen verschillende soorten vragen voor:\n1. Meerkeuze (a, b, c, d)\n2. Waar / niet waar -vragen\n3. Invulvragen\n4. Vraag over specifieke alinea\n5. Open vragen"
+        },
+        {
+          "id": "blk-multiple-choice",
+          "type": "text",
+          "content": "## Meerkeuzevragen - Hoe pak je ze aan?\n\n1. Markeer de zin(nen) of alinea(('s) waar het om gaat\n   • 1 of meer alinea's genoemd → antwoord staat in dat hele gedeelte\n   • 1 zin genoemd → antwoord staat in de rest van de alinea\n\n2. Lees het gemarkeerde gedeelte en onderstreep signaalwoorden en dubbele punten (daar staat vaak het antwoord)\n\n3. Onzin-antwoorden eruit halen (meestal 2 van de 4)\n\n4. Vergelijk de andere antwoorden met het gemarkeerde gedeelte\n\n5. Kies het allerbeste antwoord\n\n6. Controleer je antwoord\n   • Past het in de hele tekst?\n   • Kloppen alle onderdelen?"
+        },
+        {
+          "id": "blk-true-false",
+          "type": "text",
+          "content": "## Waar / niet waar -vragen - Hoe pak je ze aan?\n\n1. Markeer de alinea(('s) waar het om gaat\n\n2. Lees het gemarkeerde gedeelte en onderstreep signaalwoorden en dubbele punten.\n\nEen bewering is pas waar of juist als alles klopt, dus:\n\n3. Controleer of elk deel van de bewering klopt. Onderstreep waar het staat.\n\nBewering: Gerben komt altijd te laat en Mieke houdt niet van katten.\n• Is hij echt altijd te laat, of is hij heel soms toch op tijd?\n• Houdt ze echt van geen enkele kat, of is er één vervelende kat?"
+        },
+        {
+          "id": "blk-fill-in",
+          "type": "text",
+          "content": "## Invulvragen - Hoe pak je ze aan?\n\n1. Begrijp de mogelijke antwoorden\n\n2. Lees tot het gat + één zin verder\n\n3. Onzin-antwoorden eruit halen (meestal 2 van de 4)\n\n4. Vergelijk de andere antwoorden met het gemarkeerde gedeelte\n   • Let op signaalwoorden: and, but, because, however, since, enz.\n\n5. Kies het allerbeste antwoord\n\n6. Controleer je antwoord\n   • Past het in de hele tekst?"
+        }
+      ],
+      "answers": []
+    }
+  ]
+}

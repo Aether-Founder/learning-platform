@@ -1,0 +1,74 @@
+{
+  "a737a508-b49d-4072-9c2f-b7b711e726c0": {
+    "id": "a737a508-b49d-4072-9c2f-b7b711e726c0",
+    "name": "Anonymous",
+    "firstSeen": 1779373659635,
+    "lastSeen": 1779914994887,
+    "sessionCount": 15,
+    "totalDuration": 6014939
+  },
+  "ba9710ba-93c2-455b-8433-16935ac82404": {
+    "id": "ba9710ba-93c2-455b-8433-16935ac82404",
+    "name": "Anonymous",
+    "firstSeen": 1779373856657,
+    "lastSeen": 1780389547745,
+    "sessionCount": 28,
+    "totalDuration": 5794226
+  },
+  "47efc87b-1c32-4bc4-9ee2-0e68375c3467": {
+    "id": "47efc87b-1c32-4bc4-9ee2-0e68375c3467",
+    "name": "Anonymous",
+    "firstSeen": 1779638659834,
+    "lastSeen": 1779638732098,
+    "sessionCount": 2,
+    "totalDuration": 37153
+  },
+  "fe8a4db2-82b3-4c55-ba77-d7f2553be6b2": {
+    "id": "fe8a4db2-82b3-4c55-ba77-d7f2553be6b2",
+    "name": "Anonymous",
+    "firstSeen": 1779711985770,
+    "lastSeen": 1779712991768,
+    "sessionCount": 2,
+    "totalDuration": 999802
+  },
+  "aea079e3-1ddf-4122-bb6b-1442ade15807": {
+    "id": "aea079e3-1ddf-4122-bb6b-1442ade15807",
+    "name": "Anonymous",
+    "firstSeen": 1779790724642,
+    "lastSeen": 1779798303740,
+    "sessionCount": 11,
+    "totalDuration": 4152207
+  },
+  "85391ac9-43c2-4503-a02f-9294ded27761": {
+    "id": "85391ac9-43c2-4503-a02f-9294ded27761",
+    "name": "Anonymous",
+    "firstSeen": 1779811780716,
+    "lastSeen": 1779812428212,
+    "sessionCount": 1,
+    "totalDuration": 174902
+  },
+  "e2ef74d1-3645-474b-877b-9cd2f98621e2": {
+    "id": "e2ef74d1-3645-474b-877b-9cd2f98621e2",
+    "name": "Anonymous",
+    "firstSeen": 1779822366917,
+    "lastSeen": 1779824293272,
+    "sessionCount": 4,
+    "totalDuration": 1317993
+  },
+  "a70699fb-1979-4e03-8506-cdc45c469744": {
+    "id": "a70699fb-1979-4e03-8506-cdc45c469744",
+    "name": "Anonymous",
+    "firstSeen": 1780389165177,
+    "lastSeen": 1780389663271,
+    "sessionCount": 4,
+    "totalDuration": 470981
+  },
+  "939f852c-dc55-46ee-a0f3-f1fcb81ffc32": {
+    "id": "939f852c-dc55-46ee-a0f3-f1fcb81ffc32",
+    "name": "Anonymous",
+    "firstSeen": 1785419528507,
+    "lastSeen": 1785419541903,
+    "sessionCount": 2,
+    "totalDuration": 13397
+  }
+}

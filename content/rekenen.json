@@ -1,0 +1,402 @@
+{
+  "siteMetadata": {
+    "title": "Rekentoets 3VWO - Compleet Overzicht Referentieniveau 3F",
+    "description": "Uitgebreide rekentoets voor 3vwo met opdrachten over Getallen, Verhoudingen, Meten & Meetkunde, en Verbanden. Inclusief stapsgewijze uitwerkingen en exacte DWO-invoerantwoorden."
+  },
+  "contentFormat": "textbook",
+  "defaultViewMode": "study",
+  "availableModes": ["simple", "uitleg", "study", "advanced"],
+  "showTimestamps": false,
+  "showExportButtons": true,
+  "showAnkiExport": true,
+  "showFlashcardsExport": true,
+  "showTranscriptExport": false,
+  "showCopyTranscript": false,
+  "buttons": [
+    {
+      "url": "https://www.digitalewiskundeomgeving.nl",
+      "text": "Oefen in app.dwo",
+      "icon": "external-link",
+      "iconType": "name",
+      "variant": "primary",
+      "enabled": true
+    }
+  ],
+  "sections": [
+    {
+      "id": "sec-getallen",
+      "title": "Domein 1: Getallen",
+      "blocks": [
+        {
+          "id": "blk-getallen-intro",
+          "type": "text",
+          "content": "## Getallen (Niveau 3F / VWO)\nDit domein omvat het rekenen met breuken, decimalen, machten, wortels en de juiste volgorde van bewerkingen. Let bij app.dwo op het gebruik van exacte antwoorden (breuken) of de gevraagde afronding. Gebruik een komma als decimaalteken."
+        },
+        {
+          "id": "blk-getallen-q",
+          "type": "questions",
+          "title": "Opdrachten Getallen",
+          "intro": "Maak de onderstaande opgaven. Geef het antwoord exact of rond af volgens de instructie.",
+          "questions": [
+            {
+              "id": "q-g-1",
+              "number": "1A",
+              "text": "Bereken exact: $(3\\frac{3}{4} - 2,5) : 1\\frac{1}{6}$. Geef je antwoord als een breuk in de eenvoudigste vorm."
+            },
+            {
+              "id": "q-g-2",
+              "number": "1B",
+              "text": "Bereken en schrijf het antwoord in de wetenschappelijke notatie: $\\frac{4,8 \\cdot 10^6 \\cdot 2,5 \\cdot 10^{-4}}{1,2 \\cdot 10^3}$."
+            },
+            {
+              "id": "q-g-3",
+              "number": "1C",
+              "text": "Vereenvoudig exact: $\\sqrt{50} + 2\\sqrt{8} - \\sqrt{18}$. Gebruik de notatie `a*sqrt(b)` in DWO."
+            },
+            {
+              "id": "q-g-4",
+              "number": "1D",
+              "text": "Bereken de waarde van: $-3^2 + (-3)^2 - \\sqrt{9} \\cdot (-2)$."
+            },
+            {
+              "id": "q-g-5",
+              "number": "1E",
+              "text": "Een kubus heeft een volume van 64 cm³. Bereken de totale oppervlakte van deze kubus in cm²."
+            },
+            {
+              "id": "q-g-6",
+              "number": "1F",
+              "text": "Schrijf $0,00045$ als een breuk in de eenvoudigste vorm."
+            }
+          ]
+        }
+      ],
+      "answers": [
+        {
+          "questionId": "q-g-1",
+          "solution": "Stap 1: Zet om naar breuken: $3\\frac{3}{4} = \\frac{15}{4}$ en $2,5 = \\frac{5}{2} = \\frac{10}{4}$.\nStap 2: Trek af: $\\frac{15}{4} - \\frac{10}{4} = \\frac{5}{4}$.\nStap 3: Deel door $1\\frac{1}{6}$ (wat $\\frac{7}{6}$ is): $\\frac{5}{4} \\cdot \\frac{6}{7} = \\frac{30}{28}$.\nStap 4: Vereenvoudig de breuk: $\\frac{30}{28} = \\frac{15}{14}$.",
+          "dwoAnswer": "15/14"
+        },
+        {
+          "questionId": "q-g-2",
+          "solution": "Stap 1: Vermenigvuldig de tellers: $4,8 \\cdot 2,5 = 12$ en $10^6 \\cdot 10^{-4} = 10^2$.\nStap 2: Deel door de noemer: $\\frac{12}{1,2} = 10$ en $\\frac{10^2}{10^3} = 10^{-1}$.\nStap 3: Combineer: $10 \\cdot 10^{-1} = 1 \\cdot 10^0 = 1$. In wetenschappelijke notatie is dit $1,0 \\cdot 10^0$.",
+          "dwoAnswer": "1,0 * 10^0"
+        },
+        {
+          "questionId": "q-g-3",
+          "solution": "Stap 1: Vereenvoudig elke wortel: $\\sqrt{50} = \\sqrt{25 \\cdot 2} = 5\\sqrt{2}$.\nStap 2: $2\\sqrt{8} = 2\\sqrt{4 \\cdot 2} = 2 \\cdot 2\\sqrt{2} = 4\\sqrt{2}$.\nStap 3: $\\sqrt{18} = \\sqrt{9 \\cdot 2} = 3\\sqrt{2}$.\nStap 4: Tel op en trek af: $5\\sqrt{2} + 4\\sqrt{2} - 3\\sqrt{2} = 6\\sqrt{2}$.",
+          "dwoAnswer": "6*sqrt(2)"
+        },
+        {
+          "questionId": "q-g-4",
+          "solution": "Stap 1: Bereken $-3^2$ (let op: het minteken staat buiten de macht): $-9$.\nStap 2: Bereken $(-3)^2$: $9$.\nStap 3: Bereken $\\sqrt{9} \\cdot (-2) = 3 \\cdot (-2) = -6$.\nStap 4: Vul in: $-9 + 9 - (-6) = 0 + 6 = 6$.",
+          "dwoAnswer": "6"
+        },
+        {
+          "questionId": "q-g-5",
+          "solution": "Stap 1: Bereken de zijde van de kubus: $\\sqrt[3]{64} = 4$ cm.\nStap 2: Een kubus heeft 6 zijvlakken.\nStap 3: Oppervlakte één zijvlak = $4 \\cdot 4 = 16$ cm².\nStap 4: Totale oppervlakte = $6 \\cdot 16 = 96$ cm².",
+          "dwoAnswer": "96"
+        },
+        {
+          "questionId": "q-g-6",
+          "solution": "Stap 1: Schrijf als breuk: $\\frac{45}{100000}$.\nStap 2: Deel teller en noemer door 5: $\\frac{9}{20000}$.\nStap 3: 9 en 20000 hebben geen gemeenschappelijke delers meer.",
+          "dwoAnswer": "9/20000"
+        }
+      ]
+    },
+    {
+      "id": "sec-verhoudingen",
+      "title": "Domein 2: Verhoudingen",
+      "blocks": [
+        {
+          "id": "blk-verhoudingen-intro",
+          "type": "text",
+          "content": "## Verhoudingen (Niveau 3F / VWO)\nDit domein behandelt procenten, samengestelde interest, groeifactoren en schaal. Bij terugrekenen met procenten deel je door de groeifactor. Let op het verschil tussen lengteschaal en oppervlakteschaal."
+        },
+        {
+          "id": "blk-verhoudingen-q",
+          "type": "questions",
+          "title": "Opdrachten Verhoudingen",
+          "intro": "Rond geldbedragen af op 2 decimalen, tenzij anders vermeld.",
+          "questions": [
+            {
+              "id": "q-v-1",
+              "number": "2A",
+              "text": "Een smartphone kostte oorspronkelijk € 450,00. De prijs daalt eerst met 15% en daarna nog eens met 10% van de nieuwe prijs. Wat is de eindprijs?"
+            },
+            {
+              "id": "q-v-2",
+              "number": "2B",
+              "text": "Je zet € 2000,00 op een spaarrekening met een rente van 2,5% per jaar. Hoeveel geld heb je na 3 jaar? Rond af op 2 decimalen."
+            },
+            {
+              "id": "q-v-3",
+              "number": "2C",
+              "text": "Op een topografische kaart met een schaal van 1:50.000 is een meer 12 cm² groot. Wat is de werkelijke oppervlakte van dit meer in km²?"
+            },
+            {
+              "id": "q-v-4",
+              "number": "2D",
+              "text": "Verdeel € 120,00 in de verhouding 2 : 3 : 5. Hoeveel euro is het grootste deel?"
+            },
+            {
+              "id": "q-v-5",
+              "number": "2E",
+              "text": "Een plant groeit exponentieel. Na 2 weken is hij 10 cm hoog, na 5 weken is hij 27 cm hoog. Bereken de wekelijkse groeifactor. Rond af op 2 decimalen."
+            },
+            {
+              "id": "q-v-6",
+              "number": "2F",
+              "text": "Van een groep van 250 mensen heeft 4% een bepaalde eigenschap. Hoeveel mensen zijn dat?"
+            }
+          ]
+        }
+      ],
+      "answers": [
+        {
+          "questionId": "q-v-1",
+          "solution": "Stap 1: Eerste daling: groeifactor is $0,85$. Nieuwe prijs = $450 \\cdot 0,85 = 382,50$.\nStap 2: Tweede daling: groeifactor is $0,90$. Eindprijs = $382,50 \\cdot 0,90 = 344,25$.",
+          "dwoAnswer": "344,25"
+        },
+        {
+          "questionId": "q-v-2",
+          "solution": "Stap 1: Bepaal de groeifactor per jaar: $1 + \\frac{2,5}{100} = 1,025$.\nStap 2: Bereken het bedrag na 3 jaar: $2000 \\cdot 1,025^3$.\nStap 3: $2000 \\cdot 1,07689... \\approx 2153,78$ (Let op: $1,025^3 \\approx 1,0768906$, $2000 \\cdot 1,0768906 = 2153,7812$).",
+          "dwoAnswer": "2153,78"
+        },
+        {
+          "questionId": "q-v-3",
+          "solution": "Stap 1: De oppervlakteschaal is het kwadraat van de lengteschaal: $(50.000)^2 = 2.500.000.000$.\nStap 2: Werkelijke oppervlakte in cm² = $12 \\cdot 2.500.000.000 = 30.000.000.000$ cm².\nStap 3: Reken om naar m² (deel door $10.000$): $3.000.000$ m².\nStap 4: Reken om naar km² (deel door $1.000.000$): $3$ km².",
+          "dwoAnswer": "3"
+        },
+        {
+          "questionId": "q-v-4",
+          "solution": "Stap 1: Tel het aantal delen op: $2 + 3 + 5 = 10$ delen.\nStap 2: Bereken de waarde van één deel: $120 / 10 = 12$ euro.\nStap 3: Het grootste deel is 5 delen: $5 \\cdot 12 = 60$ euro.",
+          "dwoAnswer": "60"
+        },
+        {
+          "questionId": "q-v-5",
+          "solution": "Stap 1: Stel de formule op: $10 \\cdot g^3 = 27$ (want van week 2 naar week 5 is 3 weken verschil).\nStap 2: Deel door 10: $g^3 = 2,7$.\nStap 3: Neem de derdemachtswortel: $g = \\sqrt[3]{2,7} \\approx 1,392$.",
+          "dwoAnswer": "1,39"
+        },
+        {
+          "questionId": "q-v-6",
+          "solution": "Stap 1: Bereken 4% van 250.\nStap 2: $250 \\cdot 0,04 = 10$.",
+          "dwoAnswer": "10"
+        }
+      ]
+    },
+    {
+      "id": "sec-meten",
+      "title": "Domein 3: Meten & Meetkunde",
+      "blocks": [
+        {
+          "id": "blk-meten-intro",
+          "type": "text",
+          "content": "## Meten & Meetkunde (Niveau 3F / VWO)\nDit domein gaat over het omrekenen van eenheden (inclusief samengestelde eenheden zoals km/h naar m/s), de stelling van Pythagoras in 2D en 3D, en het berekenen van oppervlakte en inhoud van ruimtefiguren."
+        },
+        {
+          "id": "blk-meten-q",
+          "type": "questions",
+          "title": "Opdrachten Meten & Meetkunde",
+          "intro": "Rond af volgens de instructie in de vraag. Gebruik waar nodig $\\pi \\approx 3,14$.",
+          "questions": [
+            {
+              "id": "q-m-1",
+              "number": "3A",
+              "text": "Reken een snelheid van 90 km/h om naar m/s."
+            },
+            {
+              "id": "q-m-2",
+              "number": "3B",
+              "text": "Een zwembad is 10 m lang, 5 m breed en 2 m diep. Hoeveel liter water past erin als het volledig gevuld is?"
+            },
+            {
+              "id": "q-m-3",
+              "number": "3C",
+              "text": "Een ladder van 5 m leunt tegen een verticale muur. De voet van de ladder staat 1,4 m van de muur. Hoe hoog reikt de ladder tegen de muur? Geef het antwoord in meters."
+            },
+            {
+              "id": "q-m-4",
+              "number": "3D",
+              "text": "Bereken de lengte van de ruimtediagonaal van een balk met afmetingen 3 cm, 4 cm en 12 cm."
+            },
+            {
+              "id": "q-m-5",
+              "number": "3E",
+              "text": "Een cilinder heeft een straal van 3 cm en een hoogte van 10 cm. Bereken de inhoud in cm³. Rond af op 2 decimalen."
+            },
+            {
+              "id": "q-m-6",
+              "number": "3F",
+              "text": "Een cirkel heeft een omtrek van 31,4 cm. Bereken de straal van deze cirkel in cm. (Gebruik $\\pi \\approx 3,14$)."
+            }
+          ]
+        }
+      ],
+      "answers": [
+        {
+          "questionId": "q-m-1",
+          "solution": "Stap 1: Deel de waarde in km/h door 3,6 om m/s te krijgen.\nStap 2: $90 / 3,6 = 25$.",
+          "dwoAnswer": "25"
+        },
+        {
+          "questionId": "q-m-2",
+          "solution": "Stap 1: Bereken het volume in m³: $10 \\cdot 5 \\cdot 2 = 100$ m³.\nStap 2: Weet dat 1 m³ gelijk is aan 1000 liter.\nStap 3: $100 \\cdot 1000 = 100.000$ liter.",
+          "dwoAnswer": "100000"
+        },
+        {
+          "questionId": "q-m-3",
+          "solution": "Stap 1: Gebruik de stelling van Pythagoras: $a^2 + b^2 = c^2$, waarbij $c$ de ladder is.\nStap 2: $h^2 + 1,4^2 = 5^2 \\Rightarrow h^2 + 1,96 = 25$.\nStap 3: $h^2 = 25 - 1,96 = 23,04$.\nStap 4: $h = \\sqrt{23,04} = 4,8$ m.",
+          "dwoAnswer": "4,8"
+        },
+        {
+          "questionId": "q-m-4",
+          "solution": "Stap 1: Formule voor ruimtediagonaal $d = \\sqrt{l^2 + b^2 + h^2}$.\nStap 2: $d = \\sqrt{3^2 + 4^2 + 12^2} = \\sqrt{9 + 16 + 144}$.\nStap 3: $d = \\sqrt{169} = 13$ cm.",
+          "dwoAnswer": "13"
+        },
+        {
+          "questionId": "q-m-5",
+          "solution": "Stap 1: Formule inhoud cilinder: $V = \\pi \\cdot r^2 \\cdot h$.\nStap 2: Vul in: $V = \\pi \\cdot 3^2 \\cdot 10 = 90\\pi$.\nStap 3: Bereken: $90 \\cdot 3,14159... \\approx 282,743...$",
+          "dwoAnswer": "282,74"
+        },
+        {
+          "questionId": "q-m-6",
+          "solution": "Stap 1: Formule omtrek cirkel: $O = 2 \\cdot \\pi \\cdot r$.\nStap 2: Vul in: $31,4 = 2 \\cdot 3,14 \\cdot r$.\nStap 3: $31,4 = 6,28 \\cdot r$.\nStap 4: $r = 31,4 / 6,28 = 5$.",
+          "dwoAnswer": "5"
+        }
+      ]
+    },
+    {
+      "id": "sec-verbanden",
+      "title": "Domein 4: Verbanden",
+      "blocks": [
+        {
+          "id": "blk-verbanden-intro",
+          "type": "text",
+          "content": "## Verbanden (Niveau 3F / VWO)\nDit domein behandelt lineaire en exponentiële verbanden, het opstellen van formules, het berekenen van snijpunten, het omschrijven van formules en het bepalen van centrummaten (gemiddelde, mediaan, modus)."
+        },
+        {
+          "id": "blk-verbanden-q",
+          "type": "questions",
+          "title": "Opdrachten Verbanden",
+          "intro": "Schrijf formules in de vorm `y = ...` of zoals gevraagd. Gebruik `*` voor vermenigvuldigen en `^` voor machten.",
+          "questions": [
+            {
+              "id": "q-ve-1",
+              "number": "4A",
+              "text": "Stel de formule op van de lijn die door de punten (1, 3) en (4, 12) gaat."
+            },
+            {
+              "id": "q-ve-2",
+              "number": "4B",
+              "text": "Een exponentiële grafiek gaat door de punten (0, 5) en (2, 20). Stel de bijbehorende formule op."
+            },
+            {
+              "id": "q-ve-3",
+              "number": "4C",
+              "text": "Bereken de coördinaten van het snijpunt van de lijnen $y = 2x + 1$ en $y = -x + 7$. Geef je antwoord als `(x, y)`."
+            },
+            {
+              "id": "q-ve-4",
+              "number": "4D",
+              "text": "Gegeven is de volgende reeks getallen: 3, 5, 5, 7, 10. Wat is de mediaan van deze reeks?"
+            },
+            {
+              "id": "q-ve-5",
+              "number": "4E",
+              "text": "Maak $v$ vrij uit de formule $F = \\frac{1}{2} m v^2$. Neem aan dat $v$ positief is. Gebruik de notatie `sqrt(...)`."
+            },
+            {
+              "id": "q-ve-6",
+              "number": "4F",
+              "text": "Een taxi rekent € 3,50 starttarief en € 2,20 per gereden kilometer. Wat zijn de totale kosten voor een rit van 15 km?"
+            }
+          ]
+        }
+      ],
+      "answers": [
+        {
+          "questionId": "q-ve-1",
+          "solution": "Stap 1: Bereken de richtingscoëfficiënt (rc): $\\frac{12 - 3}{4 - 1} = \\frac{9}{3} = 3$.\nStap 2: De formule is $y = 3x + b$.\nStap 3: Vul punt (1, 3) in: $3 = 3(1) + b \\Rightarrow b = 0$.\nStap 4: De formule is $y = 3x$.",
+          "dwoAnswer": "y = 3x"
+        },
+        {
+          "questionId": "q-ve-2",
+          "solution": "Stap 1: De algemene formule is $y = b \\cdot g^x$.\nStap 2: Uit punt (0, 5) volgt dat het startgetal $b = 5$.\nStap 3: Vul punt (2, 20) in: $20 = 5 \\cdot g^2$.\nStap 4: Deel door 5: $g^2 = 4 \\Rightarrow g = 2$ (groeifactor is positief).\nStap 5: De formule is $y = 5 \\cdot 2^x$.",
+          "dwoAnswer": "y = 5 * 2^x"
+        },
+        {
+          "questionId": "q-ve-3",
+          "solution": "Stap 1: Stel de formules aan elkaar gelijk: $2x + 1 = -x + 7$.\nStap 2: Tel $x$ op bij beide kanten: $3x + 1 = 7$.\nStap 3: Trek 1 af: $3x = 6 \\Rightarrow x = 2$.\nStap 4: Vul $x = 2$ in één van de formules in: $y = 2(2) + 1 = 5$.\nStap 5: Het snijpunt is (2, 5).",
+          "dwoAnswer": "(2, 5)"
+        },
+        {
+          "questionId": "q-ve-4",
+          "solution": "Stap 1: Zet de getallen op volgorde van klein naar groot: 3, 5, 5, 7, 10.\nStap 2: De mediaan is de middelste waarde in deze geordende reeks.\nStap 3: De middelste waarde (de 3e) is 5.",
+          "dwoAnswer": "5"
+        },
+        {
+          "questionId": "q-ve-5",
+          "solution": "Stap 1: Vermenigvuldig beide kanten met 2: $2F = m v^2$.\nStap 2: Deel door $m$: $v^2 = \\frac{2F}{m}$.\nStap 3: Neem de wortel aan beide kanten (v is positief): $v = \\sqrt{\\frac{2F}{m}}$.",
+          "dwoAnswer": "sqrt((2*F)/m)"
+        },
+        {
+          "questionId": "q-ve-6",
+          "solution": "Stap 1: Stel de lineaire formule op: $K = 3,50 + 2,20 \\cdot a$ (waarbij $a$ het aantal km is).\nStap 2: Vul $a = 15$ in: $K = 3,50 + 2,20 \\cdot 15$.\nStap 3: Bereken: $2,20 \\cdot 15 = 33$.\nStap 4: $K = 3,50 + 33 = 36,50$.",
+          "dwoAnswer": "36,50"
+        }
+      ]
+    },
+    {
+      "id": "sec-begrippen",
+      "title": "Begrippenlijst & Formules",
+      "blocks": [
+        {
+          "id": "blk-begrippen-intro",
+          "type": "text",
+          "content": "## Belangrijke Begrippen en Formules\nGebruik deze sectie om je kennis op te frissen voordat je aan de toets begint. Deze termen worden vaak gevraagd in de verschillende domeinen."
+        }
+      ],
+      "answers": [],
+      "learningSets": [
+        {
+          "id": "set-begrippen-rekenen-3f",
+          "title": "Rekenen 3F Kernbegrippen",
+          "description": "24 essentiële begrippen en formules",
+          "terms": [
+            {
+              "id": "set-begrippen-rekenen-3f-term-1",
+              "term": "Wetenschappelijke notatie",
+              "definition": "Een getal schrijven als $a \\cdot 10^n$, waarbij $1 \\leq a < 10$ en $n$ een geheel getal is."
+            },
+            {
+              "id": "set-begrippen-rekenen-3f-term-2",
+              "term": "Groeifactor",
+              "definition": "Het getal waarmee je een waarde vermenigvuldigt om de volgende waarde in een exponentieel verband te krijgen."
+            },
+            {
+              "id": "set-begrippen-rekenen-3f-term-3",
+              "term": "Oppervlakteschaal",
+              "definition": "Het kwadraat van de lengteschaal. Als de lengteschaal 1:n is, is de oppervlakteschaal 1:n²."
+            },
+            {
+              "id": "set-begrippen-rekenen-3f-term-4",
+              "term": "Stelling van Pythagoras",
+              "definition": "In een rechthoekige driehoek geldt: $a^2 + b^2 = c^2$, waarbij $c$ de schuine zijde (hypotenusa) is."
+            },
+            {
+              "id": "set-begrippen-rekenen-3f-term-5",
+              "term": "Ruimtediagonaal balk",
+              "definition": "De lengte van de diagonaal door een balk bereken je met $d = \\sqrt{l^2 + b^2 + h^2}$."
+            },
+            {
+              "id": "set-begrippen-rekenen-3f-term-6",
+              "term": "Mediaan",
+              "definition": "De middelste waarde van een op volgorde gezette reeks getallen."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
