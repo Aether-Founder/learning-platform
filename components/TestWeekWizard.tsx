@@ -16,6 +16,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { CalendarIcon, Loader2 } from 'lucide-react';
 import { format } from 'date-fns';
 import { nl } from 'date-fns/locale';
+import { fetchJson } from '@/lib/errors';
 
 interface TestWeekWizardProps {
   isOpen: boolean;
@@ -109,7 +110,7 @@ export function TestWeekWizard({ isOpen, onClose, onComplete }: TestWeekWizardPr
 
       // Add selected subjects
       for (const subject of selectedSubjects) {
-        await fetch(`/api/testweeks/${data.testWeek.id}/subjects`, {
+        await fetchJson(`/api/testweeks/${data.testWeek.id}/subjects`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -6,6 +6,8 @@ import type {
   Term,
   UserTermProgress,
 } from '@/types/learning-platform';
+import { readStoredJson, writeStoredJson } from '../errors';
+import { logger } from '../logger';
 import {
   computeSrsStatus,
   defaultSrsProgress,
@@ -75,15 +77,12 @@ export function loadProgressStore(studySetId: string): ProgressStore {
   if (typeof window === 'undefined') {
     return { progress: {}, sessions: [] };
   }
+  const allProgress = readStoredJson<Record<string, Record<string, UserTermProgress>>>(
+    PROGRESS_KEY,
+    {}
+  );
+  const allSessions = readStoredJson<Record<string, StudySession[]>>(SESSIONS_KEY, {});
   try {
-    const allProgress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}') as Record<
-      string,
-      Record<string, UserTermProgress>
-    >;
-    const allSessions = JSON.parse(localStorage.getItem(SESSIONS_KEY) || '{}') as Record<
-      string,
-      StudySession[]
-    >;
     const progress = Object.fromEntries(
       Object.entries(allProgress[studySetId] || {}).map(([termId, raw]) => [
         termId,
@@ -96,54 +95,51 @@ export function loadProgressStore(studySetId: string): ProgressStore {
       endTime: s.endTime ? new Date(s.endTime) : undefined,
     }));
     return { progress, sessions };
-  } catch {
+  } catch (error) {
+    logger.error('Failed to revive stored progress, resetting study set state', error, {
+      studySetId,
+    });
     return { progress: {}, sessions: [] };
   }
 }
 
-export function saveProgressForSet(studySetId: string, progress: Record<string, UserTermProgress>) {
-  if (typeof window === 'undefined') return;
-  const all = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+export function saveProgressForSet(
+  studySetId: string,
+  progress: Record<string, UserTermProgress>
+): boolean {
+  const all = readStoredJson<Record<string, Record<string, UserTermProgress>>>(PROGRESS_KEY, {});
   all[studySetId] = progress;
-  localStorage.setItem(PROGRESS_KEY, JSON.stringify(all));
+  return writeStoredJson(PROGRESS_KEY, all);
 }
 
-export function saveSession(studySetId: string, session: StudySession) {
-  if (typeof window === 'undefined') return;
-  const all = JSON.parse(localStorage.getItem(SESSIONS_KEY) || '{}');
+export function saveSession(studySetId: string, session: StudySession): boolean {
+  const all = readStoredJson<Record<string, StudySession[]>>(SESSIONS_KEY, {});
   const list: StudySession[] = all[studySetId] || [];
   list.push(session);
   all[studySetId] = list.slice(-50);
-  localStorage.setItem(SESSIONS_KEY, JSON.stringify(all));
+  return writeStoredJson(SESSIONS_KEY, all);
 }
 
-export function resetProgressForSet(studySetId: string) {
-  if (typeof window === 'undefined') return;
-  const all = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+export function resetProgressForSet(studySetId: string): boolean {
+  const all = readStoredJson<Record<string, Record<string, UserTermProgress>>>(PROGRESS_KEY, {});
   delete all[studySetId];
-  localStorage.setItem(PROGRESS_KEY, JSON.stringify(all));
+  return writeStoredJson(PROGRESS_KEY, all);
 }
 
 export function loadSettings(studySetId: string): StudySettings | null {
-  if (typeof window === 'undefined') return null;
-  try {
-    const all = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');
-    const raw = all[studySetId];
-    if (!raw) return null;
-    return {
-      ...raw,
-      examDate: raw.examDate ? new Date(raw.examDate) : undefined,
-    };
-  } catch {
-    return null;
-  }
+  const all = readStoredJson<Record<string, StudySettings>>(SETTINGS_KEY, {});
+  const raw = all[studySetId];
+  if (!raw) return null;
+  return {
+    ...raw,
+    examDate: raw.examDate ? new Date(raw.examDate) : undefined,
+  };
 }
 
-export function saveSettings(studySetId: string, settings: StudySettings) {
-  if (typeof window === 'undefined') return;
-  const all = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');
+export function saveSettings(studySetId: string, settings: StudySettings): boolean {
+  const all = readStoredJson<Record<string, StudySettings>>(SETTINGS_KEY, {});
   all[studySetId] = settings;
-  localStorage.setItem(SETTINGS_KEY, JSON.stringify(all));
+  return writeStoredJson(SETTINGS_KEY, all);
 }
 
 export function startSession(

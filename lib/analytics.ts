@@ -1,4 +1,6 @@
 import { useEffect, useRef } from 'react';
+import { fetchJson, getErrorMessage, readStoredJson } from './errors';
+import { logger } from './logger';
 
 // Generate a random UUID for anonymous user tracking
 function generateUUID(): string {
@@ -13,16 +15,7 @@ function generateUUID(): string {
 function getUserData(): { name?: string; email?: string } {
   if (typeof window === 'undefined') return {};
 
-  try {
-    const userData = localStorage.getItem('user_data');
-    if (userData) {
-      return JSON.parse(userData);
-    }
-  } catch (error) {
-    console.error('Failed to parse user data:', error);
-  }
-
-  return {};
+  return readStoredJson<{ name?: string; email?: string }>('user_data', {});
 }
 
 // Get or create anonymous user ID from localStorage
@@ -78,19 +71,27 @@ export interface AnalyticsEvent {
   data?: Record<string, any>;
 }
 
-// Send event to analytics API
-async function trackEvent(event: AnalyticsEvent): Promise<void> {
+/**
+ * Send an event to the analytics API. Tracking is best effort and never throws,
+ * but transport failures and non-2xx responses are logged instead of ignored.
+ * Returns whether the event was accepted.
+ */
+async function trackEvent(event: AnalyticsEvent): Promise<boolean> {
   try {
-    await fetch('/api/analytics/track', {
+    await fetchJson('/api/analytics/track', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(event),
     });
+    return true;
   } catch (error) {
-    // Silent fail - don't disrupt user experience
-    console.error('Analytics tracking failed:', error);
+    logger.warn('Analytics tracking failed', {
+      eventType: event.eventType,
+      reason: getErrorMessage(error),
+    });
+    return false;
   }
 }
 

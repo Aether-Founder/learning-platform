@@ -18,6 +18,8 @@ import { MarkdownRenderer } from '@/components/MarkdownRenderer';
 import { useTranslation } from '@/lib/i18n';
 import { useBookmarks } from '@/hooks/useBookmarks';
 import { getSectionTitle } from '@/lib/section-title';
+import { fetchJson, readStoredJson, writeStoredJson } from '@/lib/errors';
+import { logger } from '@/lib/logger';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState, useRef, useMemo, useCallback } from 'react';
 import { ChevronRight } from 'lucide-react';
@@ -240,52 +242,52 @@ export default function Page({ params }: { params: { page: string } }) {
       const queryMode = searchParams.get('mode') as ViewMode | null;
 
       // 1. Try localStorage cache → instant first paint
-      try {
-        const cachedRaw = localStorage.getItem(cacheKey);
-        if (cachedRaw) {
-          const cached = JSON.parse(cachedRaw);
-          if (!cancelled) {
-            applyLoadedData(
-              cached,
-              queryMode,
-              setData,
-              setIsParagraphContent,
-              setIsTextbookContent,
-              setIsCustomContent,
-              setAvailableModes,
-              setViewMode,
-              setVisibleSections,
-              setIsLoading,
-              CHUNK_SIZE
-            );
-          }
-          // Still fetch fresh in background to keep cache up-to-date
-          fetch(`/api/content/page/${params.page}`, { cache: 'no-store' })
-            .then((r) => (r.ok ? r.json() : null))
-            .then((fresh) => {
-              if (fresh && !cancelled) {
-                try {
-                  localStorage.setItem(cacheKey, JSON.stringify(fresh));
-                } catch {}
-                applyLoadedData(
-                  fresh,
-                  queryMode,
-                  setData,
-                  setIsParagraphContent,
-                  setIsTextbookContent,
-                  setIsCustomContent,
-                  setAvailableModes,
-                  setViewMode,
-                  setVisibleSections,
-                  setIsLoading,
-                  CHUNK_SIZE
-                );
-              }
-            })
-            .catch(() => {});
-          return;
+      const cached = readStoredJson<any>(cacheKey, null);
+      if (cached) {
+        if (!cancelled) {
+          applyLoadedData(
+            cached,
+            queryMode,
+            setData,
+            setIsParagraphContent,
+            setIsTextbookContent,
+            setIsCustomContent,
+            setAvailableModes,
+            setViewMode,
+            setVisibleSections,
+            setIsLoading,
+            CHUNK_SIZE
+          );
         }
-      } catch {}
+        // Still fetch fresh in background to keep cache up-to-date
+        fetchJson<any>(`/api/content/page/${params.page}`, { cache: 'no-store' })
+          .then((fresh) => {
+            if (fresh && !cancelled) {
+              writeStoredJson(cacheKey, fresh);
+              applyLoadedData(
+                fresh,
+                queryMode,
+                setData,
+                setIsParagraphContent,
+                setIsTextbookContent,
+                setIsCustomContent,
+                setAvailableModes,
+                setViewMode,
+                setVisibleSections,
+                setIsLoading,
+                CHUNK_SIZE
+              );
+            }
+          })
+          .catch((err) => {
+            // Cached content is already displayed, so keep the page usable.
+            logger.warn('Background content refresh failed, keeping cached page', {
+              page: params.page,
+              reason: err instanceof Error ? err.message : String(err),
+            });
+          });
+        return;
+      }
 
       // 2. No cache → fetch from API route
       try {
@@ -298,9 +300,7 @@ export default function Page({ params }: { params: { page: string } }) {
         if (cancelled) return;
 
         // Persist to cache
-        try {
-          localStorage.setItem(cacheKey, JSON.stringify(loadedData));
-        } catch {}
+        writeStoredJson(cacheKey, loadedData);
 
         applyLoadedData(
           loadedData,
@@ -316,7 +316,7 @@ export default function Page({ params }: { params: { page: string } }) {
           CHUNK_SIZE
         );
       } catch (err) {
-        console.error('Error loading data:', err);
+        logger.error('Error loading page content', err, { page: params.page });
         if (!cancelled) {
           setLoadError(true);
           setIsLoading(false);

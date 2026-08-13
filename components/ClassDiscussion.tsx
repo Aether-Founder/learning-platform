@@ -8,6 +8,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Send, MessageSquare, Pin, Search, MoreHorizontal } from 'lucide-react';
+import { fetchJson, getErrorMessage } from '@/lib/errors';
+import { logger } from '@/lib/logger';
 
 interface DiscussionMessage {
   id: string;
@@ -38,22 +40,25 @@ export function ClassDiscussion({ classId, userId, isTeacher }: ClassDiscussionP
   const [searchQuery, setSearchQuery] = useState('');
   const [replyTo, setReplyTo] = useState<DiscussionMessage | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [error, setError] = useState('');
 
   const fetchMessages = useCallback(async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`/api/classes/${classId}/discussions`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const data = await fetchJson<{ messages?: DiscussionMessage[] }>(
+        `/api/classes/${classId}/discussions`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-      if (response.ok) {
-        const data = await response.json();
-        setMessages(data.messages || []);
-      }
-    } catch (error) {
-      console.error('Failed to fetch discussions:', error);
+      setMessages(data.messages || []);
+      setError('');
+    } catch (err) {
+      logger.error('Failed to fetch discussions', err, { classId });
+      setError(getErrorMessage(err, 'Berichten konden niet worden geladen'));
     } finally {
       setLoading(false);
     }
@@ -76,9 +81,10 @@ export function ClassDiscussion({ classId, userId, isTeacher }: ClassDiscussionP
   const handleSendMessage = async () => {
     if (!newMessage.trim()) return;
 
+    setError('');
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`/api/classes/${classId}/discussions`, {
+      await fetchJson(`/api/classes/${classId}/discussions`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -90,49 +96,48 @@ export function ClassDiscussion({ classId, userId, isTeacher }: ClassDiscussionP
         }),
       });
 
-      if (response.ok) {
-        setNewMessage('');
-        setReplyTo(null);
-        fetchMessages();
-      }
-    } catch (error) {
-      console.error('Failed to send message:', error);
+      setNewMessage('');
+      setReplyTo(null);
+      fetchMessages();
+    } catch (err) {
+      logger.error('Failed to send message', err, { classId, userId });
+      setError(getErrorMessage(err, 'Bericht kon niet worden verzonden'));
     }
   };
 
   const handlePinMessage = async (messageId: string) => {
+    setError('');
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`/api/classes/${classId}/discussions/${messageId}/pin`, {
+      await fetchJson(`/api/classes/${classId}/discussions/${messageId}/pin`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      if (response.ok) {
-        fetchMessages();
-      }
-    } catch (error) {
-      console.error('Failed to pin message:', error);
+      fetchMessages();
+    } catch (err) {
+      logger.error('Failed to pin message', err, { classId, messageId });
+      setError(getErrorMessage(err, 'Bericht kon niet worden vastgezet'));
     }
   };
 
   const handleDeleteMessage = async (messageId: string) => {
+    setError('');
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`/api/classes/${classId}/discussions/${messageId}`, {
+      await fetchJson(`/api/classes/${classId}/discussions/${messageId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      if (response.ok) {
-        fetchMessages();
-      }
-    } catch (error) {
-      console.error('Failed to delete message:', error);
+      fetchMessages();
+    } catch (err) {
+      logger.error('Failed to delete message', err, { classId, messageId });
+      setError(getErrorMessage(err, 'Bericht kon niet worden verwijderd'));
     }
   };
 
@@ -276,6 +281,11 @@ export function ClassDiscussion({ classId, userId, isTeacher }: ClassDiscussionP
               <Send className="w-4 h-4" />
             </Button>
           </div>
+          {error && (
+            <p role="alert" className="mt-2 text-sm text-destructive">
+              {error}
+            </p>
+          )}
         </CardContent>
       </Card>
     </div>

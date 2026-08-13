@@ -1,5 +1,6 @@
 import db from './db';
 import { generateId } from './auth';
+import { logger } from './logger';
 
 export interface StudySet {
   id: string;
@@ -290,7 +291,8 @@ export function getStudyCardsByStudySetId(studySetId: string): StudyCard[] {
             createdAt: term.createdAt || new Date().toISOString(),
           }));
       }
-    } catch {
+    } catch (error) {
+      logger.error('Failed to parse legacy terms for study set', error, { studySetId });
       return [];
     }
   }

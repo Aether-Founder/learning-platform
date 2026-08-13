@@ -15,6 +15,8 @@ import {
 } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ChevronLeft, ChevronRight, Users, Settings, Check } from 'lucide-react';
+import { fetchJson, getErrorMessage } from '@/lib/errors';
+import { logger } from '@/lib/logger';
 
 interface ClassCreationWizardProps {
   userId: string;
@@ -25,6 +27,7 @@ interface ClassCreationWizardProps {
 export function ClassCreationWizard({ onComplete, onCancel }: ClassCreationWizardProps) {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const [classData, setClassData] = useState({
     name: '',
@@ -57,9 +60,10 @@ export function ClassCreationWizard({ onComplete, onCancel }: ClassCreationWizar
 
   const handleSubmit = async () => {
     setLoading(true);
+    setError('');
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('/api/classes', {
+      const data = await fetchJson<{ class: { id: string } }>('/api/classes', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -77,12 +81,10 @@ export function ClassCreationWizard({ onComplete, onCancel }: ClassCreationWizar
         }),
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        onComplete?.(data.class.id);
-      }
-    } catch (error) {
-      console.error('Failed to create class:', error);
+      onComplete?.(data.class.id);
+    } catch (err) {
+      logger.error('Failed to create class', err);
+      setError(getErrorMessage(err, 'Klas kon niet worden aangemaakt'));
     } finally {
       setLoading(false);
     }
@@ -310,6 +312,12 @@ export function ClassCreationWizard({ onComplete, onCancel }: ClassCreationWizar
           {step === 2 && renderStep2()}
           {step === 3 && renderStep3()}
         </div>
+
+        {error && (
+          <p role="alert" className="mt-4 text-sm text-destructive">
+            {error}
+          </p>
+        )}
 
         <div className="flex justify-between mt-8">
           <div className="flex gap-2">

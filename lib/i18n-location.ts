@@ -1,4 +1,6 @@
 import type { Language } from './i18n-config';
+import { getErrorMessage } from './errors';
+import { logger } from './logger';
 
 const DUTCH_TIMEZONES: readonly string[] = ['Europe/Amsterdam', 'Europe/Brussels'];
 const DUTCH_REGIONS: readonly string[] = ['NL', 'BE'];
@@ -23,9 +25,7 @@ export function detectLanguageFromLocation(): Language {
 
     const regions = navigator.languages?.length
       ? new Set(
-          navigator.languages
-            .map((locale) => locale.split('-')[1]?.toUpperCase())
-            .filter(Boolean)
+          navigator.languages.map((locale) => locale.split('-')[1]?.toUpperCase()).filter(Boolean)
         )
       : new Set<string>();
     if (DUTCH_REGIONS.some((region) => regions.has(region))) {
@@ -33,7 +33,10 @@ export function detectLanguageFromLocation(): Language {
     }
 
     return 'en';
-  } catch {
+  } catch (error) {
+    logger.warn('Language detection failed, defaulting to English', {
+      reason: getErrorMessage(error),
+    });
     return 'en';
   }
 }

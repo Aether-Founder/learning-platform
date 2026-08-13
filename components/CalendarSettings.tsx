@@ -12,6 +12,8 @@ import {
 } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { Settings, Calendar as CalendarIcon } from 'lucide-react';
+import { fetchJson, getErrorMessage } from '@/lib/errors';
+import { logger } from '@/lib/logger';
 
 type CalendarView = 'day' | 'week' | 'workweek' | 'month' | 'agenda';
 type FirstDayOfWeek = 0 | 1 | 2 | 3 | 4 | 5 | 6;
@@ -28,39 +30,47 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
   const [startHour, setStartHour] = useState(8);
   const [endHour, setEndHour] = useState(20);
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     fetchSettings();
   }, [userId]);
 
   const fetchSettings = async () => {
+    setError('');
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('/api/calendar/settings', {
+      const data = await fetchJson<{
+        defaultView?: CalendarView;
+        firstDayOfWeek?: FirstDayOfWeek;
+        showWeekends?: boolean;
+        showWeekNumbers?: boolean;
+        startHour?: number;
+        endHour?: number;
+      }>('/api/calendar/settings', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        setDefaultView(data.defaultView || 'month');
-        setFirstDayOfWeek(data.firstDayOfWeek || 1);
-        setShowWeekends(data.showWeekends !== false);
-        setShowWeekNumbers(data.showWeekNumbers !== false);
-        setStartHour(data.startHour || 8);
-        setEndHour(data.endHour || 20);
-      }
-    } catch (error) {
-      console.error('Failed to fetch calendar settings:', error);
+      setDefaultView(data.defaultView || 'month');
+      setFirstDayOfWeek(data.firstDayOfWeek || 1);
+      setShowWeekends(data.showWeekends !== false);
+      setShowWeekNumbers(data.showWeekNumbers !== false);
+      setStartHour(data.startHour || 8);
+      setEndHour(data.endHour || 20);
+    } catch (err) {
+      logger.error('Failed to fetch calendar settings', err, { userId });
+      setError(getErrorMessage(err, 'Instellingen konden niet worden geladen'));
     }
   };
 
   const saveSettings = async () => {
     setSaving(true);
+    setError('');
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('/api/calendar/settings', {
+      await fetchJson('/api/calendar/settings', {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -75,12 +85,9 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
           endHour,
         }),
       });
-
-      if (response.ok) {
-        // Settings saved successfully
-      }
-    } catch (error) {
-      console.error('Failed to save calendar settings:', error);
+    } catch (err) {
+      logger.error('Failed to save calendar settings', err, { userId });
+      setError(getErrorMessage(err, 'Instellingen konden niet worden opgeslagen'));
     } finally {
       setSaving(false);
     }
@@ -104,6 +111,12 @@ export function CalendarSettings({ userId }: CalendarSettingsProps) {
           {saving ? 'Opslaan...' : 'Opslaan'}
         </Button>
       </div>
+
+      {error && (
+        <p role="alert" className="text-sm text-destructive">
+          {error}
+        </p>
+      )}
 
       <Card>
         <CardHeader>
