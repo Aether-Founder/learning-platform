@@ -2,8 +2,19 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import db from './db';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
 const SALT_ROUNDS = 10;
+const MIN_JWT_SECRET_LENGTH = 32;
+
+function getJwtSecret(): string {
+  const secret = process.env.JWT_SECRET;
+  if (!secret) {
+    throw new Error('JWT_SECRET environment variable is not set');
+  }
+  if (process.env.NODE_ENV === 'production' && secret.length < MIN_JWT_SECRET_LENGTH) {
+    throw new Error(`JWT_SECRET must be at least ${MIN_JWT_SECRET_LENGTH} characters long`);
+  }
+  return secret;
+}
 
 export interface User {
   id: string;
@@ -49,9 +60,10 @@ export async function verifyPassword(password: string, hash: string): Promise<bo
 
 // Generate JWT tokens
 export function generateTokens(userId: string): AuthTokens {
-  const accessToken = jwt.sign({ userId }, JWT_SECRET, { expiresIn: '15m' });
+  const secret = getJwtSecret();
+  const accessToken = jwt.sign({ userId }, secret, { expiresIn: '15m' });
 
-  const refreshToken = jwt.sign({ userId }, JWT_SECRET, { expiresIn: '7d' });
+  const refreshToken = jwt.sign({ userId }, secret, { expiresIn: '7d' });
 
   return { accessToken, refreshToken };
 }
@@ -59,7 +71,7 @@ export function generateTokens(userId: string): AuthTokens {
 // Verify JWT token
 export function verifyToken(token: string): { userId: string } | null {
   try {
-    const decoded = jwt.verify(token, JWT_SECRET) as { userId: string };
+    const decoded = jwt.verify(token, getJwtSecret()) as { userId: string };
     return decoded;
   } catch {
     return null;
