@@ -5,6 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Flame, BookOpen, Trophy, Clock, Target, TrendingUp, Calendar } from 'lucide-react';
+import { fetchJson, getErrorMessage } from '@/lib/errors';
+import { logger } from '@/lib/logger';
 
 interface UserAnalytics {
   userId: string;
@@ -30,20 +32,25 @@ interface AnalyticsDashboardProps {
 export function AnalyticsDashboard({ userId: _userId }: AnalyticsDashboardProps) {
   const [analytics, setAnalytics] = useState<UserAnalytics | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [timeRange, setTimeRange] = useState<'day' | 'week' | 'month' | 'year'>('week');
 
   const loadAnalytics = useCallback(async () => {
+    setError('');
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`/api/analytics?timeRange=${timeRange}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const data = await response.json();
+      const data = await fetchJson<{ analytics: UserAnalytics }>(
+        `/api/analytics?timeRange=${timeRange}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setAnalytics(data.analytics);
-    } catch (error) {
-      console.error('Error loading analytics:', error);
+    } catch (err) {
+      logger.error('Error loading analytics', err, { timeRange });
+      setError(getErrorMessage(err, 'Analytics konden niet worden geladen'));
     } finally {
       setLoading(false);
     }
@@ -57,6 +64,17 @@ export function AnalyticsDashboard({ userId: _userId }: AnalyticsDashboardProps)
     return (
       <div className="flex items-center justify-center py-12">
         <div className="text-muted-foreground">Laden...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center gap-3 py-12">
+        <p className="text-destructive">{error}</p>
+        <Button variant="outline" onClick={loadAnalytics}>
+          Opnieuw proberen
+        </Button>
       </div>
     );
   }

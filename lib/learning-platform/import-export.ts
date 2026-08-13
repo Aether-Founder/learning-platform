@@ -1,4 +1,5 @@
 import type { StudySet, Term } from '@/types/learning-platform';
+import { getErrorMessage } from '../errors';
 import { createId } from './question-generator';
 
 export interface ParsedCards {
@@ -106,8 +107,11 @@ export function parseCardsFromJson(
       })
       .filter(Boolean) as Term[];
     return { terms, warnings };
-  } catch {
-    return { terms: [], warnings: ['JSON kon niet worden gelezen.'] };
+  } catch (error) {
+    return {
+      terms: [],
+      warnings: [`JSON kon niet worden gelezen: ${getErrorMessage(error, 'onbekende fout')}`],
+    };
   }
 }
 

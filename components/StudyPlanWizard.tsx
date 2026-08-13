@@ -17,6 +17,8 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Calendar } from '@/components/ui/calendar';
 import { Badge } from '@/components/ui/badge';
 import { ChevronLeft, ChevronRight, BookOpen, Clock, Target, Check } from 'lucide-react';
+import { fetchJson, getErrorMessage } from '@/lib/errors';
+import { logger } from '@/lib/logger';
 
 interface StudyPlanWizardProps {
   userId: string;
@@ -27,6 +29,7 @@ interface StudyPlanWizardProps {
 export function StudyPlanWizard({ userId: _userId, onComplete, onCancel }: StudyPlanWizardProps) {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const [planData, setPlanData] = useState({
     title: '',
@@ -59,9 +62,10 @@ export function StudyPlanWizard({ userId: _userId, onComplete, onCancel }: Study
 
   const handleSubmit = async () => {
     setLoading(true);
+    setError('');
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('/api/studyplans', {
+      const data = await fetchJson<{ studyPlan: { id: string } }>('/api/studyplans', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -78,12 +82,10 @@ export function StudyPlanWizard({ userId: _userId, onComplete, onCancel }: Study
         }),
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        onComplete?.(data.studyPlan.id);
-      }
-    } catch (error) {
-      console.error('Failed to create study plan:', error);
+      onComplete?.(data.studyPlan.id);
+    } catch (err) {
+      logger.error('Failed to create study plan', err);
+      setError(getErrorMessage(err, 'Studieplan kon niet worden aangemaakt'));
     } finally {
       setLoading(false);
     }
@@ -301,6 +303,12 @@ export function StudyPlanWizard({ userId: _userId, onComplete, onCancel }: Study
           {step === 3 && renderStep3()}
           {step === 4 && renderStep4()}
         </div>
+
+        {error && (
+          <p role="alert" className="mt-4 text-sm text-destructive">
+            {error}
+          </p>
+        )}
 
         <div className="flex justify-between mt-8">
           <div className="flex gap-2">

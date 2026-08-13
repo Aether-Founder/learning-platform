@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Trophy, Lock, Flame, BookOpen, Users, Target } from 'lucide-react';
+import { fetchJson, getErrorMessage } from '@/lib/errors';
+import { logger } from '@/lib/logger';
 
 interface Achievement {
   id: string;
@@ -35,24 +37,29 @@ export function Achievements({ userId }: AchievementsProps) {
   const [filter, setFilter] = useState<'all' | 'unlocked' | 'locked'>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     loadAchievements();
   }, [userId]);
 
   const loadAchievements = async () => {
+    setError('');
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('/api/achievements', {
+      const data = await fetchJson<{
+        achievements?: Achievement[];
+        definitions?: AchievementDefinition[];
+      }>('/api/achievements', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      const data = await response.json();
       setAchievements(data.achievements || []);
       setDefinitions(data.definitions || []);
-    } catch (error) {
-      console.error('Error loading achievements:', error);
+    } catch (err) {
+      logger.error('Error loading achievements', err, { userId });
+      setError(getErrorMessage(err, 'Prestaties konden niet worden geladen'));
     } finally {
       setLoading(false);
     }
@@ -108,6 +115,17 @@ export function Achievements({ userId }: AchievementsProps) {
     return (
       <div className="flex items-center justify-center py-12">
         <div className="text-muted-foreground">Laden...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center gap-3 py-12">
+        <p className="text-destructive">{error}</p>
+        <Button variant="outline" onClick={loadAchievements}>
+          Opnieuw proberen
+        </Button>
       </div>
     );
   }

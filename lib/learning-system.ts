@@ -1,3 +1,5 @@
+import { readStoredJson, writeStoredJson } from './errors';
+
 export type StudyModeId = 'flashcard' | 'multiple-choice' | 'typing' | 'matching';
 export type ResponseQuality = 'again' | 'hard' | 'good' | 'easy';
 export type CardType = 'basic' | 'cloze' | 'image-occlusion';
@@ -519,28 +521,29 @@ export function forecastDueCards(
 }
 
 export function loadLearningState(): LearningState {
-  if (typeof window === 'undefined') {
-    return { sets: [], progress: {}, stats: defaultStats, preferences: defaultPreferences };
-  }
-  try {
-    const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || '');
-    return {
-      sets: parsed.sets || [],
-      progress: parsed.progress || {},
-      stats: {
-        ...defaultStats,
-        ...(parsed.stats || {}),
-        responses: { ...defaultStats.responses, ...(parsed.stats?.responses || {}) },
-      },
-      preferences: { ...defaultPreferences, ...(parsed.preferences || {}) },
-    };
-  } catch {
-    return { sets: [], progress: {}, stats: defaultStats, preferences: defaultPreferences };
-  }
+  const empty: LearningState = {
+    sets: [],
+    progress: {},
+    stats: defaultStats,
+    preferences: defaultPreferences,
+  };
+  const parsed = readStoredJson<Partial<LearningState> | null>(STORAGE_KEY, null);
+  if (!parsed) return empty;
+
+  return {
+    sets: parsed.sets || [],
+    progress: parsed.progress || {},
+    stats: {
+      ...defaultStats,
+      ...(parsed.stats || {}),
+      responses: { ...defaultStats.responses, ...(parsed.stats?.responses || {}) },
+    },
+    preferences: { ...defaultPreferences, ...(parsed.preferences || {}) },
+  };
 }
 
-export function saveLearningState(state: LearningState) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+export function saveLearningState(state: LearningState): boolean {
+  return writeStoredJson(STORAGE_KEY, state);
 }
 
 export function exportLearningState(state: LearningState) {

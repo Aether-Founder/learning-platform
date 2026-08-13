@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { MarkdownContent } from './shared/MarkdownContent';
 import { useTranslation } from '@/lib/i18n';
+import { readStoredJson, writeStoredJson } from '@/lib/errors';
 import { useLearningPlatformStore } from '@/store/useLearningPlatformStore';
 import { LearnMode } from './modes/LearnMode';
 import { McqOnlyMode } from './modes/McqOnlyMode';
@@ -148,25 +149,19 @@ const SETS_KEY = 'standalone-learning-platform-v1';
 const FOLDERS_KEY = 'aether-folders-v2';
 
 export function loadUserProfile(): UserAccountProfile {
-  if (typeof window === 'undefined') return defaultProfile();
-  try {
-    const raw = localStorage.getItem(USER_PROFILE_KEY);
-    if (!raw) return defaultProfile();
-    const p = JSON.parse(raw);
-    return {
-      username: p.username || '',
-      schoolLevel: p.schoolLevel || 'VWO',
-      year: p.year || 5,
-      schoolProfile: p.schoolProfile || 'NT',
-      selectedSubjects:
-        Array.isArray(p.selectedSubjects) && p.selectedSubjects.length > 0
-          ? p.selectedSubjects
-          : PROFILE_RECOMMENDED_SUBJECTS.NT,
-      isOnboarded: Boolean(p.isOnboarded),
-    };
-  } catch {
-    return defaultProfile();
-  }
+  const p = readStoredJson<Record<string, any> | null>(USER_PROFILE_KEY, null);
+  if (!p) return defaultProfile();
+  return {
+    username: p.username || '',
+    schoolLevel: p.schoolLevel || 'VWO',
+    year: p.year || 5,
+    schoolProfile: p.schoolProfile || 'NT',
+    selectedSubjects:
+      Array.isArray(p.selectedSubjects) && p.selectedSubjects.length > 0
+        ? p.selectedSubjects
+        : PROFILE_RECOMMENDED_SUBJECTS.NT,
+    isOnboarded: Boolean(p.isOnboarded),
+  };
 }
 
 function defaultProfile(): UserAccountProfile {
@@ -180,35 +175,24 @@ function defaultProfile(): UserAccountProfile {
   };
 }
 
-export function saveUserProfile(profile: UserAccountProfile) {
-  if (typeof window !== 'undefined')
-    localStorage.setItem(USER_PROFILE_KEY, JSON.stringify(profile));
+export function saveUserProfile(profile: UserAccountProfile): boolean {
+  return writeStoredJson(USER_PROFILE_KEY, profile);
 }
 
 export function loadSets(): LocalStudySet[] {
-  if (typeof window === 'undefined') return [];
-  try {
-    return JSON.parse(localStorage.getItem(SETS_KEY) || '[]');
-  } catch {
-    return [];
-  }
+  return readStoredJson<LocalStudySet[]>(SETS_KEY, []);
 }
 
-export function saveSets(sets: LocalStudySet[]) {
-  if (typeof window !== 'undefined') localStorage.setItem(SETS_KEY, JSON.stringify(sets));
+export function saveSets(sets: LocalStudySet[]): boolean {
+  return writeStoredJson(SETS_KEY, sets);
 }
 
 export function loadFolders(): LocalFolder[] {
-  if (typeof window === 'undefined') return [];
-  try {
-    return JSON.parse(localStorage.getItem(FOLDERS_KEY) || '[]');
-  } catch {
-    return [];
-  }
+  return readStoredJson<LocalFolder[]>(FOLDERS_KEY, []);
 }
 
-export function saveFolders(folders: LocalFolder[]) {
-  if (typeof window !== 'undefined') localStorage.setItem(FOLDERS_KEY, JSON.stringify(folders));
+export function saveFolders(folders: LocalFolder[]): boolean {
+  return writeStoredJson(FOLDERS_KEY, folders);
 }
 
 // ─── Utilities ────────────────────────────────────────────────────────────────
@@ -592,7 +576,8 @@ function ImportPanel({
       <div className="p-5 space-y-4">
         <p className="text-xs text-muted-foreground">
           {t('lp_import_help_prefix')} <strong>{t('lp_import_tab')}</strong>{' '}
-          {t('lp_import_help_mid')} <strong>{t('lp_import_newline')}</strong> {t('lp_import_help_end')}
+          {t('lp_import_help_mid')} <strong>{t('lp_import_newline')}</strong>{' '}
+          {t('lp_import_help_end')}
         </p>
 
         {/* Separator pickers */}
@@ -1654,8 +1639,7 @@ function Meter({ value }: { value: number }) {
   );
 }
 
-type MainScreen =
-  'home' | 'library' | 'create' | 'folders' | 'study-detail';
+type MainScreen = 'home' | 'library' | 'create' | 'folders' | 'study-detail';
 
 const DEFAULT_PROFILE: UserAccountProfile = {
   username: '',
@@ -1983,7 +1967,10 @@ export function StandaloneLearningPlatform({
               </h1>
               <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
                 {t('lp_review_prompt', undefined, {
-                  n: sets.reduce((sum, s) => sum + s.cards.filter((c) => c.attempts === 0).length, 0),
+                  n: sets.reduce(
+                    (sum, s) => sum + s.cards.filter((c) => c.attempts === 0).length,
+                    0
+                  ),
                   title: sets.length > 0 ? sets[0].title : t('lp_first_set'),
                 })}
               </p>

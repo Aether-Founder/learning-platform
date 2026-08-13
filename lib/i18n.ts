@@ -1,11 +1,8 @@
 import { useSyncExternalStore } from 'react';
-import {
-  DEFAULT_LANGUAGE,
-  LANGUAGES,
-  STORAGE_KEY,
-  type Language,
-} from './i18n-config';
+import { DEFAULT_LANGUAGE, LANGUAGES, STORAGE_KEY, type Language } from './i18n-config';
 import { detectLanguageFromLocation } from './i18n-location';
+import { fetchJson, getErrorMessage } from './errors';
+import { logger } from './logger';
 
 export type { Language };
 
@@ -36,11 +33,8 @@ class I18n {
   }
 
   private applyDocumentLanguage(language: Language): void {
-    try {
-      document.documentElement.lang = language;
-    } catch {
-      /* server */
-    }
+    if (typeof document === 'undefined') return;
+    document.documentElement.lang = language;
   }
 
   private async loadTranslations(): Promise<void> {
@@ -53,9 +47,10 @@ class I18n {
 
       const responses = await Promise.all(
         LANGUAGES.map((code) =>
-          fetch(`/locales/${code}.json`)
-            .then((response) => (response.ok ? response.json() : {}))
-            .catch(() => ({}))
+          fetchJson<Translation>(`/locales/${code}.json`).catch((error) => {
+            logger.error('Failed to load locale file', error, { locale: code });
+            return {} as Translation;
+          })
         )
       );
 
@@ -64,7 +59,7 @@ class I18n {
           dict && typeof dict === 'object' ? (dict as Translation) : {};
       });
     } catch (error) {
-      console.error('Failed to load translations:', error);
+      logger.error('Failed to load translations', error);
     } finally {
       this.loaded = true;
       this.version += 1;
@@ -109,8 +104,8 @@ class I18n {
     this.currentLanguage = language;
     try {
       localStorage.setItem(STORAGE_KEY, language);
-    } catch {
-      /* storage unavailable */
+    } catch (error) {
+      logger.warn('Failed to persist language preference', { reason: getErrorMessage(error) });
     }
     this.applyDocumentLanguage(language);
     this.version += 1;

@@ -1,3 +1,4 @@
+import { readStoredJson, writeStoredJson } from '../errors';
 import { logger } from '../logger';
 
 export interface OfflineReviewEvent {
@@ -12,22 +13,19 @@ export interface OfflineReviewEvent {
 const OUTBOX_STORAGE_KEY = 'aether_review_outbox_v1';
 
 export function getOfflineOutbox(): OfflineReviewEvent[] {
-  if (typeof window === 'undefined') return [];
-  try {
-    const raw = localStorage.getItem(OUTBOX_STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch (error) {
-    logger.error('Failed to parse offline review outbox', error);
-    return [];
-  }
+  return readStoredJson<OfflineReviewEvent[]>(OUTBOX_STORAGE_KEY, []);
 }
 
 export function addReviewToOutbox(event: Omit<OfflineReviewEvent, 'synced'>): OfflineReviewEvent {
   const outbox = getOfflineOutbox();
   const entry: OfflineReviewEvent = { ...event, synced: false };
   outbox.push(entry);
-  if (typeof window !== 'undefined') {
-    localStorage.setItem(OUTBOX_STORAGE_KEY, JSON.stringify(outbox));
+  if (!writeStoredJson(OUTBOX_STORAGE_KEY, outbox)) {
+    logger.error('Review event could not be queued for sync', undefined, {
+      id: event.id,
+      cardId: event.cardId,
+    });
+    return entry;
   }
   logger.info('Added review event to offline outbox', {
     id: event.id,
@@ -37,9 +35,15 @@ export function addReviewToOutbox(event: Omit<OfflineReviewEvent, 'synced'>): Of
   return entry;
 }
 
-export function clearSyncedReviews(syncedIds: string[]): void {
-  if (typeof window === 'undefined') return;
+/** Returns true when the pruned outbox was persisted. */
+export function clearSyncedReviews(syncedIds: string[]): boolean {
   const outbox = getOfflineOutbox().filter((item) => !syncedIds.includes(item.id));
-  localStorage.setItem(OUTBOX_STORAGE_KEY, JSON.stringify(outbox));
+  if (!writeStoredJson(OUTBOX_STORAGE_KEY, outbox)) {
+    logger.error('Failed to clear synced review events from outbox', undefined, {
+      count: syncedIds.length,
+    });
+    return false;
+  }
   logger.info('Cleared synced review events from outbox', { count: syncedIds.length });
+  return true;
 }

@@ -1,20 +1,33 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
+import { logger } from '@/lib/logger';
 
 export const dynamic = 'force-dynamic';
 
 const DATA_DIR = path.join(process.cwd(), 'data', 'analytics');
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
 
-// Read JSON file
+// Read JSON file. Missing files read as empty; unreadable or corrupt files fail loudly.
 async function readJsonFile(filename: string) {
   const filePath = path.join(DATA_DIR, filename);
+  const empty = filename === 'events.json' ? [] : {};
+
+  let data: string;
   try {
-    const data = await fs.readFile(filePath, 'utf-8');
+    data = await fs.readFile(filePath, 'utf-8');
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException)?.code === 'ENOENT') return empty;
+    throw error;
+  }
+
+  if (!data.trim()) return empty;
+
+  try {
     return JSON.parse(data);
-  } catch {
-    return filename === 'events.json' ? [] : {};
+  } catch (error) {
+    logger.error('Corrupt analytics data file', error, { filename });
+    throw error;
   }
 }
 
@@ -120,7 +133,7 @@ export async function GET(request: NextRequest) {
       recentEvents: events.slice(-50).reverse(),
     });
   } catch (error) {
-    console.error('Analytics dashboard error:', error);
+    logger.error('Analytics dashboard failed', error, { route: '/api/analytics/dashboard' });
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

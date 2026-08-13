@@ -13,6 +13,8 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Folder, FolderOpen, Plus, Edit, Trash2, ChevronRight, ChevronDown } from 'lucide-react';
+import { fetchJson, getErrorMessage } from '@/lib/errors';
+import { logger } from '@/lib/logger';
 
 interface StudySet {
   id: string;
@@ -43,6 +45,7 @@ export function FolderSystem({ userId, onStudySetClick }: FolderSystemProps) {
   const [editingName, setEditingName] = useState('');
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [selectedParentId, setSelectedParentId] = useState<string | null>(null);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     fetchFolders();
@@ -50,20 +53,19 @@ export function FolderSystem({ userId, onStudySetClick }: FolderSystemProps) {
 
   const fetchFolders = async () => {
     setLoading(true);
+    setError('');
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('/api/studysets/folders', {
+      const data = await fetchJson<{ folders?: Folder[] }>('/api/studysets/folders', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        setFolders(data.folders || []);
-      }
-    } catch (error) {
-      console.error('Failed to fetch folders:', error);
+      setFolders(data.folders || []);
+    } catch (err) {
+      logger.error('Failed to fetch folders', err, { userId });
+      setError(getErrorMessage(err, 'Mappen konden niet worden geladen'));
     } finally {
       setLoading(false);
     }
@@ -84,9 +86,10 @@ export function FolderSystem({ userId, onStudySetClick }: FolderSystemProps) {
   const handleCreateFolder = async () => {
     if (!newFolderName.trim()) return;
 
+    setError('');
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('/api/studysets/folders', {
+      await fetchJson('/api/studysets/folders', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -98,41 +101,41 @@ export function FolderSystem({ userId, onStudySetClick }: FolderSystemProps) {
         }),
       });
 
-      if (response.ok) {
-        setNewFolderName('');
-        setShowCreateDialog(false);
-        setSelectedParentId(null);
-        fetchFolders();
-      }
-    } catch (error) {
-      console.error('Failed to create folder:', error);
+      setNewFolderName('');
+      setShowCreateDialog(false);
+      setSelectedParentId(null);
+      fetchFolders();
+    } catch (err) {
+      logger.error('Failed to create folder', err, { userId });
+      setError(getErrorMessage(err, 'Map kon niet worden aangemaakt'));
     }
   };
 
   const handleDeleteFolder = async (folderId: string) => {
+    setError('');
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`/api/studysets/folders/${folderId}`, {
+      await fetchJson(`/api/studysets/folders/${folderId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      if (response.ok) {
-        fetchFolders();
-      }
-    } catch (error) {
-      console.error('Failed to delete folder:', error);
+      fetchFolders();
+    } catch (err) {
+      logger.error('Failed to delete folder', err, { userId, folderId });
+      setError(getErrorMessage(err, 'Map kon niet worden verwijderd'));
     }
   };
 
   const handleRenameFolder = async (folderId: string) => {
     if (!editingName.trim()) return;
 
+    setError('');
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`/api/studysets/folders/${folderId}`, {
+      await fetchJson(`/api/studysets/folders/${folderId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -143,13 +146,12 @@ export function FolderSystem({ userId, onStudySetClick }: FolderSystemProps) {
         }),
       });
 
-      if (response.ok) {
-        setEditingFolder(null);
-        setEditingName('');
-        fetchFolders();
-      }
-    } catch (error) {
-      console.error('Failed to rename folder:', error);
+      setEditingFolder(null);
+      setEditingName('');
+      fetchFolders();
+    } catch (err) {
+      logger.error('Failed to rename folder', err, { userId, folderId });
+      setError(getErrorMessage(err, 'Map kon niet worden hernoemd'));
     }
   };
 
@@ -324,6 +326,11 @@ export function FolderSystem({ userId, onStudySetClick }: FolderSystemProps) {
         </div>
       </CardHeader>
       <CardContent>
+        {error && (
+          <p role="alert" className="mb-4 text-sm text-destructive">
+            {error}
+          </p>
+        )}
         {rootFolders.length === 0 ? (
           <div className="text-center py-8 text-muted-foreground">
             <Folder className="w-12 h-12 mx-auto mb-4 opacity-50" />

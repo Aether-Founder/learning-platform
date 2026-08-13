@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { getErrorMessage, readStoredJson, writeStoredJson } from '@/lib/errors';
+import { logger } from '@/lib/logger';
 
 // ============================================================
 // CONFIGURABLE LOGO SIZES (change these values to adjust logos)
@@ -20,22 +22,11 @@ type HiddenState = {
 };
 
 function loadHidden(): HiddenState {
-  if (typeof window === 'undefined') return { quizlet: false, studygo: false };
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) return JSON.parse(raw) as HiddenState;
-  } catch {
-    // ignore
-  }
-  return { quizlet: false, studygo: false };
+  return readStoredJson<HiddenState>(STORAGE_KEY, { quizlet: false, studygo: false });
 }
 
 function saveHidden(state: HiddenState) {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  } catch {
-    // ignore
-  }
+  writeStoredJson(STORAGE_KEY, state);
 }
 
 export default function PlatformBanner() {
@@ -49,9 +40,12 @@ export default function PlatformBanner() {
   useEffect(() => {
     setHidden(loadHidden());
     setMounted(true);
-    const onboardingShown = localStorage.getItem(ONBOARDING_KEY);
-    if (!onboardingShown) {
-      setShowOnboarding(true);
+    try {
+      if (!localStorage.getItem(ONBOARDING_KEY)) {
+        setShowOnboarding(true);
+      }
+    } catch (error) {
+      logger.warn('Could not read onboarding state', { reason: getErrorMessage(error) });
     }
   }, []);
 
@@ -59,8 +53,8 @@ export default function PlatformBanner() {
     setShowOnboarding(false);
     try {
       localStorage.setItem(ONBOARDING_KEY, 'true');
-    } catch {
-      // ignore
+    } catch (error) {
+      logger.warn('Could not persist onboarding state', { reason: getErrorMessage(error) });
     }
   };
 

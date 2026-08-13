@@ -1,27 +1,39 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
+import { logger } from '@/lib/logger';
 
 const DATA_DIR = path.join(process.cwd(), 'data', 'analytics');
 
-// Ensure data directory exists
-async function ensureDataDir() {
-  try {
-    await fs.access(DATA_DIR);
-  } catch {
-    await fs.mkdir(DATA_DIR, { recursive: true });
-  }
+function isNotFound(error: unknown): boolean {
+  return (error as NodeJS.ErrnoException)?.code === 'ENOENT';
 }
 
-// Read JSON file
+// Ensure data directory exists
+async function ensureDataDir() {
+  await fs.mkdir(DATA_DIR, { recursive: true });
+}
+
+// Read JSON file. Missing files start empty; unreadable or corrupt files fail loudly.
 async function readJsonFile(filename: string) {
   const filePath = path.join(DATA_DIR, filename);
+  const empty = filename === 'events.json' ? [] : {};
+
+  let data: string;
   try {
-    const data = await fs.readFile(filePath, 'utf-8');
+    data = await fs.readFile(filePath, 'utf-8');
+  } catch (error) {
+    if (isNotFound(error)) return empty;
+    throw error;
+  }
+
+  if (!data.trim()) return empty;
+
+  try {
     return JSON.parse(data);
-  } catch {
-    // File doesn't exist or is empty
-    return filename === 'events.json' ? [] : {};
+  } catch (error) {
+    logger.error('Corrupt analytics data file', error, { filename });
+    throw error;
   }
 }
 
@@ -111,7 +123,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Analytics tracking error:', error);
+    logger.error('Analytics tracking failed', error, { route: '/api/analytics/track' });
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
