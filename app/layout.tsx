@@ -4,7 +4,6 @@ import './globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { SupabaseProvider } from '@/components/providers/SupabaseProvider';
 import { I18nProvider } from '@/components/I18nProvider';
-import LoadingScreen from './loading';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -110,17 +109,31 @@ export default function RootLayout({
         }} />
         <script dangerouslySetInnerHTML={{
           __html: `
-            window.hideInitialLoader = function() {
-              const loader = document.getElementById('initial-loader');
-              if (loader) {
-                loader.classList.add('hidden');
-                setTimeout(function() {
-                  if (loader.parentNode) {
-                    loader.parentNode.removeChild(loader);
-                  }
-                }, 500);
-              }
-            };
+            (function() {
+              let loaderHidden = false;
+              window.hideInitialLoader = function() {
+                if (loaderHidden) return;
+                loaderHidden = true;
+                const loader = document.getElementById('initial-loader');
+                if (loader) {
+                  loader.classList.add('hidden');
+                  setTimeout(function() {
+                    try {
+                      if (loader && loader.parentNode) {
+                        loader.parentNode.removeChild(loader);
+                      }
+                    } catch (e) {
+                      // Ignore removeChild errors
+                    }
+                  }, 500);
+                }
+              };
+              
+              // Auto-hide after 5 seconds as fallback
+              setTimeout(function() {
+                window.hideInitialLoader();
+              }, 5000);
+            })();
           `
         }} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -142,12 +155,17 @@ export default function RootLayout({
         </div>
         <SupabaseProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <I18nProvider>
-              <LoadingScreen />
-              {children}
-            </I18nProvider>
+            <I18nProvider>{children}</I18nProvider>
           </ThemeProvider>
         </SupabaseProvider>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            // Hide loader when React hydrates
+            if (typeof window !== 'undefined' && window.hideInitialLoader) {
+              window.hideInitialLoader();
+            }
+          `
+        }} />
       </body>
     </html>
   );
