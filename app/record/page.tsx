@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Download, Mic, Pause, Play, Square, Trash2, Volume2 } from 'lucide-react';
 import { AppShell, PageHeader } from '@/components/AppShell';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 
 export default function RecordPage() {
   const { t } = useTranslation();

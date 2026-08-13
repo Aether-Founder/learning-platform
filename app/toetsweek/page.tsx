@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react';
 import { BookOpen, CalendarDays, Plus, Trash2 } from 'lucide-react';
 import { AppShell, PageHeader } from '@/components/AppShell';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 
 type Exam = { id: string; subject: string; date: string };
 type StudyMoment = { id: string; exam: string; examDate: string; date: string; offset: number; task: string };

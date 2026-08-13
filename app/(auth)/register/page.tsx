@@ -13,7 +13,7 @@ import Link from 'next/link';
 import { signUp, signIn, isUsernameAvailable } from '@/lib/supabase/auth';
 import { useRedirectIfAuthenticated } from '@/hooks/useAuth';
 import { Eye, EyeOff } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 
 export default function RegisterPage() {
   useRedirectIfAuthenticated();

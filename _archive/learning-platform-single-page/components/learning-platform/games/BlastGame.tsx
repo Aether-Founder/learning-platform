@@ -7,7 +7,7 @@ import type { GameShellProps } from "@/lib/learning-platform/game-registry";
 import { useLearningPlatformStore } from "@/store/useLearningPlatformStore";
 import type { FallingItem } from "@/types/learning-platform";
 import { createId } from "@/lib/learning-platform/question-generator";
-import { useTranslation } from "@/lib/i18n";
+import { useTranslation } from "@/lib/useTranslation";
 import { GameShell } from "../GameShell";
 
 function getCanvasTextColor() {

@@ -13,7 +13,7 @@ import Link from 'next/link';
 import { signIn } from '@/lib/supabase/auth';
 import { useRedirectIfAuthenticated } from '@/hooks/useAuth';
 import { Eye, EyeOff } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 
 function LoginPageContent() {
   useRedirectIfAuthenticated();

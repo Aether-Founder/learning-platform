@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ArrowUpRight, BookOpen, Clock3, Flame, Target, Trophy } from 'lucide-react';
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { GamificationPanel } from '@/components/GamificationPanel';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 
 const DAYS = [
   { day: 'ma', value: 34 }, { day: 'di', value: 52 }, { day: 'wo', value: 18 },

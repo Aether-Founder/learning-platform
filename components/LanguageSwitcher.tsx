@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Globe } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 import { LANGUAGE_REGISTRY } from '@/lib/i18n-config';
 
 export function LanguageSwitcher() {

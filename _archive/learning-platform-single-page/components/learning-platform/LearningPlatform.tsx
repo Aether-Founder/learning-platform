@@ -18,7 +18,7 @@ import { STUDY_GAMES, getGameById } from "@/lib/learning-platform/game-registry"
 import { reviewForecast } from "@/lib/learning-platform/srs";
 import { useLearningPlatformStore } from "@/store/useLearningPlatformStore";
 import type { LearningMode } from "@/types/learning-platform";
-import { useTranslation } from "@/lib/i18n";
+import { useTranslation } from "@/lib/useTranslation";
 import { SessionSettingsPanel } from "./SessionSettingsPanel";
 import { MasteryProgressBar } from "./MasteryProgressBar";
 import { TermList } from "./TermList";

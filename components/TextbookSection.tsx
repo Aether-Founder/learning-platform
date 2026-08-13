@@ -3,7 +3,7 @@
 import { useState, useMemo, memo } from 'react';
 import { MarkdownRenderer } from './MarkdownRenderer';
 import { ChevronDown, FileText, ImageIcon, Link, Presentation, StickyNote } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 import { getSectionTitle, getSectionTitles } from '@/lib/section-title';
 
 // ─── Types ────────────────────────────────────────────────────────────────────

@@ -2,7 +2,7 @@
 
 import { memo } from 'react';
 import { FolderOpen } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface Paragraph {
   id: string;

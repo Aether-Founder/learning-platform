@@ -13,7 +13,7 @@ import ReactFlow, {
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { supabase as browserClient } from '@/lib/supabase/client';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 
 const supabase = browserClient as any;
 import { Plus, Save } from 'lucide-react';

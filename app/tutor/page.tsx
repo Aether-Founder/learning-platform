@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from 'react';
 import { Bot, BookOpen, Send, Sparkles, User } from 'lucide-react';
 import { AppShell, PageHeader } from '@/components/AppShell';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 
 type Message = { role: 'tutor' | 'student'; text: string };
 

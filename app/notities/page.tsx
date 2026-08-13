@@ -4,10 +4,10 @@ import { AppShell, PageHeader } from '@/components/AppShell';
 import { useEffect, useState } from 'react';
 import { supabase as browserClient } from '@/lib/supabase/client';
 import { useWorkspaceStore, type WorkspaceItem } from '@/store/useWorkspaceStore';
-import { Folder, FileText, Trash2, Edit2, ChevronRight, ChevronDown } from 'lucide-react';
-import { DndContext, useDraggable } from '@dnd-kit/core';
+import { Folder, FileText, Trash2, Edit2, ChevronRight, ChevronDown, GripVertical } from 'lucide-react';
+import { DndContext, useDraggable, useDroppable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 
 const supabase = browserClient as any;
 
@@ -21,7 +21,12 @@ function TreeItem({ item, level = 0 }: { item: WorkspaceItem; level?: number }) 
   const isExpanded = expandedMaps.has(item.id);
   const isSelected = selectedId === item.id;
 
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+    id: item.id,
+    data: { item },
+  });
+
+  const { setNodeRef: setDroppableRef } = useDroppable({
     id: item.id,
     data: { item },
   });
@@ -50,10 +55,11 @@ function TreeItem({ item, level = 0 }: { item: WorkspaceItem; level?: number }) 
   const style = {
     transform: CSS.Translate.toString(transform),
     paddingLeft: `${level * 16 + 8}px`,
+    opacity: isDragging ? 0.5 : 1,
   };
 
   return (
-    <div ref={setNodeRef} style={style} className="select-none">
+    <div ref={(node) => { setNodeRef(node); setDroppableRef(node); }} style={style} className="select-none">
       <div
         {...listeners}
         {...attributes}
@@ -69,6 +75,8 @@ function TreeItem({ item, level = 0 }: { item: WorkspaceItem; level?: number }) 
           isSelected ? 'bg-secondary font-medium' : 'text-muted-foreground'
         }`}
       >
+        <GripVertical className="h-3 w-3 shrink-0 cursor-grab text-muted-foreground opacity-0 group-hover:opacity-100" />
+        
         {item.type === 'map' ? (
           <>
             {isExpanded ? (
@@ -235,6 +243,62 @@ function Sidebar() {
     }
   };
 
+  const handleDragEnd = async (event: any) => {
+    const { active, over } = event;
+    if (!over) return;
+
+    const draggedItem = active.data.current?.item as WorkspaceItem | undefined;
+    const targetItem = over.data.current?.item as WorkspaceItem | undefined;
+
+    if (!draggedItem || !targetItem) return;
+
+    // Don't allow dropping into itself
+    if (draggedItem.id === targetItem.id) return;
+
+    // If dropping into a folder (map)
+    if (targetItem.type === 'map') {
+      const siblings = getChildren(targetItem.id);
+      const newIndex = siblings.length;
+      
+      useWorkspaceStore.getState().moveItemOptimistic(draggedItem.id, targetItem.id, newIndex);
+      
+      const { error } = await supabase
+        .from('workspace_items')
+        .update({
+          parent_id: targetItem.id,
+          order_index: newIndex,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', draggedItem.id);
+
+      if (error) {
+        console.error('Failed to move item:', error);
+        // Revert optimistic update on error
+        useWorkspaceStore.getState().moveItemOptimistic(draggedItem.id, draggedItem.parent_id, draggedItem.order_index);
+      }
+    } 
+    // If dropping on root level (when target is null or not a map)
+    else if (targetItem.parent_id === null) {
+      const newIndex = rootItems.length;
+      
+      useWorkspaceStore.getState().moveItemOptimistic(draggedItem.id, null, newIndex);
+      
+      const { error } = await supabase
+        .from('workspace_items')
+        .update({
+          parent_id: null,
+          order_index: newIndex,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', draggedItem.id);
+
+      if (error) {
+        console.error('Failed to move item to root:', error);
+        useWorkspaceStore.getState().moveItemOptimistic(draggedItem.id, draggedItem.parent_id, draggedItem.order_index);
+      }
+    }
+  };
+
   return (
     <aside className="w-64 border-r border-border p-4 overflow-y-auto">
       <div className="flex items-center justify-between mb-4">
@@ -259,34 +323,17 @@ function Sidebar() {
         </div>
       </div>
 
-      <DndContext
-        onDragEnd={({ active, over }) => {
-          if (!over) return;
-          const draggedItem = active.data.current?.item as WorkspaceItem | undefined;
-          const targetItem = over.data.current?.item as WorkspaceItem | undefined;
-
-          if (draggedItem && targetItem && targetItem.type === 'map') {
-            // Move item into target map
-            const siblings = getChildren(targetItem.id);
-            const newIndex = siblings.length;
-            
-            useWorkspaceStore.getState().moveItemOptimistic(draggedItem.id, targetItem.id, newIndex);
-            
-            supabase
-              .from('workspace_items')
-              .update({
-                parent_id: targetItem.id,
-                order_index: newIndex,
-                updated_at: new Date().toISOString(),
-              })
-              .eq('id', draggedItem.id);
-          }
-        }}
-      >
+      <DndContext onDragEnd={handleDragEnd}>
         <div className="space-y-1">
-          {rootItems.map((item) => (
-            <TreeItem key={item.id} item={item} />
-          ))}
+          {rootItems.length === 0 ? (
+            <p className="text-sm text-muted-foreground text-center py-4">
+              {t('notes_empty_state')}
+            </p>
+          ) : (
+            rootItems.map((item) => (
+              <TreeItem key={item.id} item={item} />
+            ))
+          )}
         </div>
       </DndContext>
     </aside>
@@ -295,8 +342,28 @@ function Sidebar() {
 
 function EditorPanel() {
   const { t } = useTranslation();
-  const { getSelectedItem } = useWorkspaceStore();
+  const { getSelectedItem, updateContent } = useWorkspaceStore();
   const item = getSelectedItem();
+  const [content, setContent] = useState('');
+
+  useEffect(() => {
+    if (item?.content && typeof item.content === 'object') {
+      setContent(JSON.stringify(item.content, null, 2));
+    } else if (item?.content && typeof item.content === 'string') {
+      setContent(item.content);
+    }
+  }, [item]);
+
+  const handleContentChange = async (newContent: string) => {
+    setContent(newContent);
+    if (item) {
+      updateContent(item.id, newContent);
+      await supabase
+        .from('workspace_items')
+        .update({ content: newContent, updated_at: new Date().toISOString() })
+        .eq('id', item.id);
+    }
+  };
 
   if (!item) {
     return (
@@ -310,11 +377,23 @@ function EditorPanel() {
   }
 
   return (
-    <main className="flex-1 p-8 overflow-y-auto">
-      <div className="max-w-3xl mx-auto">
-        <h1 className="font-display text-3xl font-semibold mb-6">{item.name}</h1>
-        <div className="prose prose-sm dark:prose-invert max-w-none">
-          <p className="text-muted-foreground">{t('notes_editor_placeholder')}</p>
+    <main className="flex-1 overflow-hidden bg-background">
+      <div className="h-full">
+        <div className="border-b border-border px-6 py-3 flex items-center justify-between">
+          <h1 className="font-display text-xl font-semibold">{item.name}</h1>
+          <span className="text-xs text-muted-foreground">
+            {t('notes_auto_save')}
+          </span>
+        </div>
+        <div className="h-[calc(100vh-320px)] overflow-y-auto">
+          <div className="max-w-4xl mx-auto p-8">
+            <textarea
+              value={content}
+              onChange={(e) => handleContentChange(e.target.value)}
+              className="w-full h-96 p-4 border border-border rounded-lg bg-background text-foreground resize-none"
+              placeholder={t('notes_start_typing')}
+            />
+          </div>
         </div>
       </div>
     </main>

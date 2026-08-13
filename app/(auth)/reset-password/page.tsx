@@ -9,7 +9,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { resetPassword } from '@/lib/supabase/auth';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 
 export default function ResetPasswordPage() {
   const { t } = useTranslation();

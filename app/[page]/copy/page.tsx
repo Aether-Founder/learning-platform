@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Copy, Check, Download } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 
 export default function CopyContentPage({ params }: { params: { page: string } }) {
   const { t } = useTranslation();

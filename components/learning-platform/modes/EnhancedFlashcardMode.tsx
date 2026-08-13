@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useLearningPlatformStore } from '@/store/useLearningPlatformStore';
 import { getPromptAndAnswer } from '@/lib/learning-platform/term-filters';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 import type { ReviewGrade } from '@/types/learning-platform';
 import { MarkdownContent } from '../shared/MarkdownContent';
 

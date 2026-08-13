@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Trophy, Flame, Clock, Target, Star, ArrowLeft, ArrowRight } from "lucide-react";
 import type { GameShellProps } from "@/lib/learning-platform/game-registry";
 import { useLearningPlatformStore } from "@/store/useLearningPlatformStore";
-import { useTranslation } from "@/lib/i18n";
+import { useTranslation } from "@/lib/useTranslation";
 import { MarkdownContent } from "../shared/MarkdownContent";
 import { GameShell } from "../GameShell";
 

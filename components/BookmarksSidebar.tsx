@@ -2,7 +2,7 @@
 
 import { memo } from 'react';
 import { Bookmark, X } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface Bookmark {
   paragraphId: string;

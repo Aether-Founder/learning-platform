@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ChevronRight, Plus, BookOpen } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 import { AuthModal } from '@/components/AuthModal';
 import { TestWeekWizard } from '@/components/TestWeekWizard';
 import { Button } from '@/components/ui/button';

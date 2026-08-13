@@ -3,7 +3,7 @@
 import { FormEvent, useState } from "react";
 import { evaluateAnswer, type GradingOptions } from "@/lib/learning-platform/grading";
 import type { Question } from "@/types/learning-platform";
-import { useTranslation } from "@/lib/i18n";
+import { useTranslation } from "@/lib/useTranslation";
 import { MarkdownContent } from "../shared/MarkdownContent";
 import { GradingFeedback } from "../shared/GradingFeedback";
 

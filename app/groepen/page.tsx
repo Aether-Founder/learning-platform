@@ -2,7 +2,7 @@
 
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { PrimaryButton } from '@/components/ui-kit';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 
 export default function GroepenPage() {
   const { t } = useTranslation();

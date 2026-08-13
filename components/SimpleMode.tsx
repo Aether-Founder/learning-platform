@@ -3,7 +3,7 @@
 import { useMemo, memo } from 'react';
 import { MarkdownRenderer } from './MarkdownRenderer';
 import { Hash } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 import { getSectionTitle, getSectionTitles } from '@/lib/section-title';
 
 // Helper function to convert \n to actual newlines

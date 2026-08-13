@@ -5,7 +5,7 @@ import { useLearningPlatformStore } from "@/store/useLearningPlatformStore";
 import { buildLearnQuestion, buildMcqQuestion, buildWrittenQuestion, createId, pickDistractors } from "@/lib/learning-platform/question-generator";
 import { fisherYatesShuffle, getPromptAndAnswer } from "@/lib/learning-platform/term-filters";
 import type { LerenActivity, Question, Term, TermResult } from "@/types/learning-platform";
-import { useTranslation } from "@/lib/i18n";
+import { useTranslation } from "@/lib/useTranslation";
 import { McqQuestion } from "../questions/McqQuestion";
 import { WrittenQuestion } from "../questions/WrittenQuestion";
 import { MarkdownContent } from "../shared/MarkdownContent";

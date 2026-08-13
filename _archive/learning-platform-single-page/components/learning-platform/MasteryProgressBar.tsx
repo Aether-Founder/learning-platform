@@ -1,7 +1,7 @@
 "use client";
 
 import type { Term } from "@/types/learning-platform";
-import { useTranslation } from "@/lib/i18n";
+import { useTranslation } from "@/lib/useTranslation";
 
 interface MasteryProgressBarProps {
   terms: Term[];

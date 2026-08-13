@@ -3,7 +3,7 @@
 import { useState, useMemo, memo } from 'react';
 import { MarkdownRenderer } from './MarkdownRenderer';
 import { ChevronDown, HelpCircle, Bookmark } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface ParagraphQuestion {
   id: string;

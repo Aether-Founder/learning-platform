@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 import { setDateFormatLocale } from '@/lib/i18n-date';
 
 /**
@@ -16,6 +16,7 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     document.documentElement.lang = currentLanguage;
+    document.documentElement.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr';
     setDateFormatLocale(currentLanguage);
     document.title = t('meta_title', 'Aether');
   }, [currentLanguage, t]);

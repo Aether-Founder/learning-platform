@@ -10,7 +10,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { updatePassword } from '@/lib/supabase/auth';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 
 export default function ResetPasswordConfirmPage() {
   const router = useRouter();

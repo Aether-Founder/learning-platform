@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { BookOpen, Link2, Network, Search } from 'lucide-react';
 import { AppShell, PageHeader } from '@/components/AppShell';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 
 const NODES = [
   { id: 'energie', label: 'Energiebehoud', kind: 'concept', x: '50%', y: '38%', detail: 'Natuurkunde · Mechanica' },

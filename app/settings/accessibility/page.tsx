@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { supabase } from '@/lib/supabase/client';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 
 type Complexity = 'simplified' | 'standard' | 'advanced';
 type Preferences = { dyslexiaFont: boolean; highContrast: boolean; readAloud: boolean; complexity: Complexity };

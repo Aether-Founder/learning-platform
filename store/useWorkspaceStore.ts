@@ -36,6 +36,9 @@ interface WorkspaceState {
   // Selectors
   getChildren: (parentId: string | null) => WorkspaceItem[];
   getSelectedItem: () => WorkspaceItem | null;
+  
+  // Content updates
+  updateContent: (id: string, content: any) => void;
 }
 
 export const useWorkspaceStore = create<WorkspaceState>((set, get) => ({
@@ -127,5 +130,13 @@ export const useWorkspaceStore = create<WorkspaceState>((set, get) => ({
   getSelectedItem: () => {
     const { items, selectedId } = get();
     return items.find((item) => item.id === selectedId) || null;
+  },
+
+  updateContent: (id, content) => {
+    set((state) => ({
+      items: state.items.map((item) =>
+        item.id === id ? { ...item, content, updated_at: new Date().toISOString() } : item
+      ),
+    }));
   },
 }));

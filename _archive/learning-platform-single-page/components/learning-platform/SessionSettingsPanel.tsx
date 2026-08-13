@@ -4,7 +4,7 @@ import { ArrowLeft, Check, Circle } from "lucide-react";
 import { useLearningPlatformStore } from "@/store/useLearningPlatformStore";
 import { daysUntilExam } from "@/lib/learning-platform/term-filters";
 import type { LerenActivity, QuestionType, ReviewMode, StudySettings, SrsAlgorithm } from "@/types/learning-platform";
-import { useTranslation } from "@/lib/i18n";
+import { useTranslation } from "@/lib/useTranslation";
 import { Toggle } from "./ui/Toggle";
 
 export type SessionPreset = "leren" | "test";

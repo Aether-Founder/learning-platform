@@ -1,4 +1,3 @@
-import { useSyncExternalStore } from 'react';
 import {
   DEFAULT_LANGUAGE,
   LANGUAGES,
@@ -31,6 +30,17 @@ class I18n {
       const detected = detectLanguageFromLocation();
       this.currentLanguage = detected;
       this.applyDocumentLanguage(detected);
+      
+      // Check if language is saved in localStorage
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved && (LANGUAGES as readonly string[]).includes(saved as Language)) {
+          this.currentLanguage = saved as Language;
+          this.applyDocumentLanguage(this.currentLanguage);
+        }
+      } catch {
+        /* storage unavailable */
+      }
     }
     this.loadTranslations();
   }
@@ -51,6 +61,39 @@ class I18n {
         return;
       }
 
+      // Try to load from localStorage first
+      try {
+        const cached = localStorage.getItem('i18n_translations');
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          if (parsed && typeof parsed === 'object') {
+            this.translations = parsed;
+            this.loaded = true;
+            this.version += 1;
+            this.notifyLoad();
+            this.notifyChange();
+            // Still fetch in background to update cache
+            this.fetchAndCacheTranslations();
+            return;
+          }
+        }
+      } catch {
+        /* storage unavailable */
+      }
+
+      await this.fetchAndCacheTranslations();
+    } catch (error) {
+      console.error('Failed to load translations:', error);
+    } finally {
+      this.loaded = true;
+      this.version += 1;
+      this.notifyLoad();
+      this.notifyChange();
+    }
+  }
+
+  private async fetchAndCacheTranslations(): Promise<void> {
+    try {
       const responses = await Promise.all(
         LANGUAGES.map((code) =>
           fetch(`/locales/${code}.json`)
@@ -63,13 +106,15 @@ class I18n {
         this.translations[LANGUAGES[index]] =
           dict && typeof dict === 'object' ? (dict as Translation) : {};
       });
+
+      // Cache in localStorage
+      try {
+        localStorage.setItem('i18n_translations', JSON.stringify(this.translations));
+      } catch {
+        /* storage unavailable */
+      }
     } catch (error) {
-      console.error('Failed to load translations:', error);
-    } finally {
-      this.loaded = true;
-      this.version += 1;
-      this.notifyLoad();
-      this.notifyChange();
+      console.error('Failed to fetch translations:', error);
     }
   }
 
@@ -100,6 +145,13 @@ class I18n {
       fallback ??
       id;
     return this.interpolate(text, params);
+  }
+
+  /**
+   * Check if a translation key exists in the current language
+   */
+  public hasTranslation(id: string): boolean {
+    return !!this.translations[this.currentLanguage]?.[id];
   }
 
   public setLanguage(language: Language): void {
@@ -153,19 +205,3 @@ class I18n {
 
 // Singleton
 export const i18n = new I18n();
-
-// Hook for React components
-export function useTranslation() {
-  useSyncExternalStore(i18n.subscribe, i18n.getSnapshot, i18n.getSnapshot);
-  const translationsReady = useSyncExternalStore(
-    (callback) => i18n.onLoaded(callback),
-    () => i18n.isLoaded(),
-    () => i18n.isLoaded()
-  );
-
-  const t = (id: string, fallback?: string, params?: TParams) => i18n.t(id, fallback, params);
-  const currentLanguage = i18n.getCurrentLanguage();
-  const changeLanguage = (language: Language) => i18n.setLanguage(language);
-
-  return { t, currentLanguage, changeLanguage, translationsReady };
-}

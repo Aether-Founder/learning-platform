@@ -15,7 +15,7 @@ import { ScrollToTop } from '@/components/ScrollToTop';
 import { SummaryMode } from '@/components/SummaryMode';
 import { QuizMode } from '@/components/QuizMode';
 import { MarkdownRenderer } from '@/components/MarkdownRenderer';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 import { useBookmarks } from '@/hooks/useBookmarks';
 import { getSectionTitle } from '@/lib/section-title';
 import { useSearchParams } from 'next/navigation';

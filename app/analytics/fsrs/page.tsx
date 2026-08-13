@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { ArrowLeft, Brain, CalendarClock, CheckCircle2, Gauge, TrendingUp } from 'lucide-react';
 import { AppShell, PageHeader } from '@/components/AppShell';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 
 const REVIEWS = [
   { label: 'fsrs_rating_again', value: 14, color: 'bg-rose-500' },

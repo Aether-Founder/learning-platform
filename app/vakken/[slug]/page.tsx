@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { Badge } from '@/components/ui-kit';
 import { findSubject, countSets } from '@/lib/aether-data';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 
 export default function SubjectPage() {
   const { t } = useTranslation();

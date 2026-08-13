@@ -19,7 +19,7 @@ import {
   type StudyModeId,
   type StudyResponse,
 } from '@/lib/learning-system';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 import { useAnalytics } from '@/lib/analytics';
 import { MarkdownRenderer } from './MarkdownRenderer';
 import {

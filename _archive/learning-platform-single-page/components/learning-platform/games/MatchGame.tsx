@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { fisherYatesShuffle } from "@/lib/learning-platform/term-filters";
 import type { GameShellProps } from "@/lib/learning-platform/game-registry";
 import { useLearningPlatformStore } from "@/store/useLearningPlatformStore";
-import { useTranslation } from "@/lib/i18n";
+import { useTranslation } from "@/lib/useTranslation";
 import { MarkdownContent } from "../shared/MarkdownContent";
 import { GameShell } from "../GameShell";
 

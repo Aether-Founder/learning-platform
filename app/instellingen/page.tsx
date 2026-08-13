@@ -2,49 +2,207 @@
 
 import { useState, useEffect } from 'react';
 import { AppShell, PageHeader } from '@/components/AppShell';
-import { Field, Panel, inputClass } from '@/components/ui-kit';
-import { useUser, useUserProfile } from '@/hooks/useAuth';
+import { Panel, Field, inputClass } from '@/components/ui-kit';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { supabase as browserClient } from '@/lib/supabase/client';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
+import { useTheme } from 'next-themes';
+import { Upload, Check, X, Save } from 'lucide-react';
 
 const supabase = browserClient as any;
 
 export default function InstellingenPage() {
-  const { t } = useTranslation();
-  const { user } = useUser();
-  const { profile } = useUserProfile();
-  
+  const { t, currentLanguage, changeLanguage } = useTranslation();
+  const { theme, setTheme } = useTheme();
+  const [user, setUser] = useState<any>(null);
+  const [profile, setProfile] = useState<any>(null);
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [bio, setBio] = useState('');
   const [classLevel, setClassLevel] = useState('');
   const [track, setTrack] = useState('');
+  const [gradeYear, setGradeYear] = useState('');
+  const [avatarUrl, setAvatarUrl] = useState('');
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const [avatarPreview, setAvatarPreview] = useState('');
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [saveMessage, setSaveMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [gamificationEnabled, setGamificationEnabled] = useState(false);
+  const [showPasswordDialog, setShowPasswordDialog] = useState(false);
+  const [passwordForm, setPasswordForm] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+  });
 
   useEffect(() => {
-    if (profile) {
-      setName(profile.full_name || '');
-      setEmail(user?.email || '');
-      setClassLevel(profile.class_level || '');
-      setTrack(profile.profile_track || '');
+    fetchUserProfile();
+  }, []);
+
+  const fetchUserProfile = async () => {
+    const { data: { user: authUser } } = await supabase.auth.getUser();
+    if (!authUser) return;
+
+    setUser(authUser);
+
+    const { data: profileData } = await supabase
+      .from('users')
+      .select('*')
+      .eq('id', authUser.id)
+      .single();
+
+    if (profileData) {
+      setProfile(profileData);
+      setName(profileData.full_name || '');
+      setUsername(profileData.username || '');
+      setBio(profileData.bio || '');
+      setClassLevel(profileData.grade_level || '');
+      setTrack(profileData.track || '');
+      setGradeYear(profileData.grade_confirmed_year || '');
+      setAvatarUrl(profileData.avatar_url || '');
+      setAvatarPreview(profileData.avatar_url || '');
+      setGamificationEnabled(profileData.gamification_enabled || false);
     }
-  }, [profile, user]);
+  };
+
+  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setAvatarFile(file);
+      const preview = URL.createObjectURL(file);
+      setAvatarPreview(preview);
+    }
+  };
+
+  const handleAvatarUpload = async () => {
+    if (!avatarFile || !user) return;
+
+    setUploading(true);
+    try {
+      const fileExt = avatarFile.name.split('.').pop();
+      const fileName = `${user.id}-${Date.now()}.${fileExt}`;
+      const filePath = `avatars/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('avatars')
+        .upload(filePath, avatarFile);
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('avatars')
+        .getPublicUrl(filePath);
+
+      setAvatarUrl(publicUrl);
+      setAvatarPreview(publicUrl);
+      setAvatarFile(null);
+    } catch (error) {
+      console.error('Avatar upload failed:', error);
+      setSaveMessage({ type: 'error', text: 'Avatar upload mislukt' });
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleAvatarRemove = async () => {
+    if (!avatarUrl) return;
+
+    try {
+      const filePath = avatarUrl.split('/').pop();
+      if (filePath) {
+        await supabase.storage.from('avatars').remove([`avatars/${filePath}`]);
+      }
+      setAvatarUrl('');
+      setAvatarPreview('');
+      setAvatarFile(null);
+    } catch (error) {
+      console.error('Avatar removal failed:', error);
+    }
+  };
 
   const handleSave = async () => {
     setLoading(true);
-    const { error } = await supabase
-      .from('users')
-      .update({
+    setSaveMessage(null);
+
+    try {
+      const { error } = await supabase
+        .from('users')
+        .update({
+          full_name: name,
+          username: username,
+          bio: bio,
+          grade_level: classLevel,
+          track: track,
+          grade_confirmed_year: gradeYear,
+          avatar_url: avatarUrl,
+          gamification_enabled: gamificationEnabled,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', user?.id);
+
+      if (error) throw error;
+
+      setSaveMessage({ type: 'success', text: 'Instellingen opgeslagen!' });
+      
+      // Update local state
+      setProfile({
+        ...profile,
         full_name: name,
-        class_level: classLevel,
-        profile_track: track,
-        updated_at: new Date().toISOString(),
-      })
-      .eq('id', user?.id);
-    
-    if (error) {
+        username: username,
+        bio: bio,
+        grade_level: classLevel,
+        track: track,
+        grade_confirmed_year: gradeYear,
+        avatar_url: avatarUrl,
+        gamification_enabled: gamificationEnabled,
+      });
+    } catch (error) {
       console.error('Failed to save settings:', error);
+      setSaveMessage({ type: 'error', text: 'Opslaan mislukt' });
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
+  };
+
+  const getInitials = () => {
+    if (name) return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+    if (username) return username.slice(0, 2).toUpperCase();
+    return '??';
+  };
+
+  const handlePasswordChange = async () => {
+    if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+      setSaveMessage({ type: 'error', text: 'Wachtwoorden komen niet overeen' });
+      return;
+    }
+
+    if (passwordForm.newPassword.length < 6) {
+      setSaveMessage({ type: 'error', text: 'Wachtwoord moet minimaal 6 tekens zijn' });
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const { error } = await supabase.auth.updateUser({
+        password: passwordForm.newPassword,
+      });
+
+      if (error) throw error;
+
+      setSaveMessage({ type: 'success', text: 'Wachtwoord gewijzigd!' });
+      setShowPasswordDialog(false);
+      setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' });
+    } catch (error: any) {
+      console.error('Password change error:', error);
+      setSaveMessage({ type: 'error', text: 'Wachtwoord wijzigen mislukt' });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -55,94 +213,287 @@ export default function InstellingenPage() {
         description={t('settings_description')}
       />
 
-      <div className="mt-10 space-y-6">
+      <div className="mt-10 space-y-6 max-w-4xl">
+        {/* Profile Section */}
         <Panel title={t('settings_profile')}>
-          <div className="space-y-4">
-            <Field label={t('settings_name')}>
-              <input 
-                className={inputClass} 
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+          <div className="space-y-6">
+            {/* Avatar Upload */}
+            <div className="flex items-start gap-6">
+              <div className="relative">
+                {avatarPreview ? (
+                  <img 
+                    src={avatarPreview} 
+                    alt="Avatar" 
+                    className="h-24 w-24 rounded-full object-cover border-2 border-border"
+                  />
+                ) : (
+                  <div className="h-24 w-24 rounded-full bg-secondary flex items-center justify-center border-2 border-border">
+                    <span className="text-2xl font-semibold">{getInitials()}</span>
+                  </div>
+                )}
+                {avatarUrl && (
+                  <button
+                    onClick={handleAvatarRemove}
+                    className="absolute -top-2 -right-2 h-6 w-6 rounded-full bg-red-500 text-white flex items-center justify-center hover:bg-red-600"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                )}
+              </div>
+              <div className="flex-1 space-y-3">
+                <div>
+                  <Label htmlFor="avatar-upload">Profielfoto</Label>
+                  <Input
+                    id="avatar-upload"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleAvatarChange}
+                    className="mt-1"
+                  />
+                </div>
+                {avatarFile && (
+                  <div className="flex gap-2">
+                    <Button onClick={handleAvatarUpload} disabled={uploading} size="sm">
+                      <Upload className="mr-2 h-4 w-4" />
+                      {uploading ? 'Uploaden...' : 'Uploaden'}
+                    </Button>
+                    <Button onClick={() => { setAvatarFile(null); setAvatarPreview(avatarUrl); }} variant="outline" size="sm">
+                      Annuleren
+                    </Button>
+                  </div>
+                )}
+                <p className="text-xs text-muted-foreground">
+                  PNG, JPG of GIF. Max 2MB.
+                </p>
+              </div>
+            </div>
+
+            {/* Basic Info */}
+            <div className="grid gap-4 md:grid-cols-2">
+              <Field label={t('settings_name')}>
+                <Input 
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Je volledige naam"
+                />
+              </Field>
+              <Field label="Gebruikersnaam">
+                <Input 
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Gebruikersnaam"
+                />
+              </Field>
+            </div>
+
+            <Field label="Bio">
+              <Textarea
+                value={bio}
+                onChange={(e) => setBio(e.target.value)}
+                placeholder="Vertel iets over jezelf..."
+                rows={3}
               />
             </Field>
-            <Field label={t('settings_email')}>
-              <input 
-                className={inputClass} 
-                type="email" 
-                value={email}
-                disabled
+
+            {/* School Info */}
+            <div className="grid gap-4 md:grid-cols-2">
+              <Field label={t('settings_class')}>
+                <Input 
+                  value={classLevel}
+                  onChange={(e) => setClassLevel(e.target.value)}
+                  placeholder="Bijv. VWO 4"
+                />
+              </Field>
+              <Field label={t('settings_profile')}>
+                <select 
+                  className={inputClass}
+                  value={track}
+                  onChange={(e) => setTrack(e.target.value)}
+                >
+                  <option value="">Kies een profiel</option>
+                  <option value="nt">{t('settings_track_nt')}</option>
+                  <option value="ng">{t('settings_track_ng')}</option>
+                  <option value="em">{t('settings_track_em')}</option>
+                  <option value="cm">{t('settings_track_cm')}</option>
+                </select>
+              </Field>
+            </div>
+
+            <Field label="Schooljaar">
+              <Input 
+                value={gradeYear}
+                onChange={(e) => setGradeYear(e.target.value)}
+                placeholder="Bijv. 2024-2025"
               />
-            </Field>
-            <Field label={t('settings_class')}>
-              <input 
-                className={inputClass} 
-                value={classLevel}
-                onChange={(e) => setClassLevel(e.target.value)}
-                placeholder="Bijv. VWO 4"
-              />
-            </Field>
-            <Field label={t('settings_profile')}>
-              <select 
-                className={inputClass}
-                value={track}
-                onChange={(e) => setTrack(e.target.value)}
-              >
-                <option value="">Kies een profiel</option>
-                <option value="nt">{t('settings_track_nt')}</option>
-                <option value="ng">{t('settings_track_ng')}</option>
-                <option value="em">{t('settings_track_em')}</option>
-                <option value="cm">{t('settings_track_cm')}</option>
-              </select>
             </Field>
           </div>
         </Panel>
 
+        {/* Preferences Section */}
         <Panel title={t('settings_preferences')}>
           <div className="space-y-4">
             <Field label={t('settings_theme')}>
-              <select className={inputClass}>
-                <option>{t('settings_theme_system')}</option>
-                <option>{t('settings_theme_light')}</option>
-                <option>{t('settings_theme_dark')}</option>
+              <select 
+                className={inputClass}
+                value={theme}
+                onChange={(e) => setTheme(e.target.value as 'light' | 'dark' | 'system')}
+              >
+                <option value="system">{t('settings_theme_system')}</option>
+                <option value="light">{t('settings_theme_light')}</option>
+                <option value="dark">{t('settings_theme_dark')}</option>
               </select>
             </Field>
             <Field label={t('settings_language')}>
-              <select className={inputClass}>
-                <option>{t('settings_lang_nl')}</option>
-                <option>{t('settings_lang_en')}</option>
+              <select 
+                className={inputClass}
+                value={currentLanguage}
+                onChange={(e) => changeLanguage(e.target.value as any)}
+              >
+                <option value="nl">Nederlands</option>
+                <option value="en">English</option>
+                <option value="ru">Русский</option>
+                <option value="zh">中文</option>
+                <option value="fr">Français</option>
+                <option value="es">Español</option>
+                <option value="ar">العربية</option>
+                <option value="de">Deutsch</option>
+                <option value="ja">日本語</option>
+                <option value="ko">한국어</option>
+                <option value="hi">हिन्दी</option>
+                <option value="pt">Português</option>
+                <option value="it">Italiano</option>
+                <option value="tr">Türkçe</option>
+                <option value="id">Bahasa Indonesia</option>
+                <option value="vi">Tiếng Việt</option>
+                <option value="th">ไทย</option>
+                <option value="pl">Polski</option>
+                <option value="uk">Українська</option>
               </select>
+            </Field>
+            <Field label="Gamification">
+              <div className="flex items-center gap-3">
+                <input
+                  type="checkbox"
+                  id="gamification-toggle"
+                  checked={gamificationEnabled}
+                  onChange={(e) => setGamificationEnabled(e.target.checked)}
+                  className="w-5 h-5 rounded border-zinc-700 bg-zinc-800 text-amber-500 focus:ring-amber-500 focus:ring-offset-zinc-900"
+                />
+                <label htmlFor="gamification-toggle" className="text-sm text-zinc-400">
+                  XP & Streak systeem inschakelen
+                </label>
+              </div>
+              <p className="text-xs text-zinc-600 mt-1">
+                Verdiene punten voor studeren en behoud een leer-streak. Kan op elk moment worden uitgeschakeld.
+              </p>
             </Field>
           </div>
         </Panel>
 
+        {/* Notification Preferences */}
         <Panel title={t('settings_notifications')}>
           <div className="space-y-3">
-            <label className="flex items-center gap-3">
+            <label className="flex items-center gap-3 cursor-pointer">
               <input type="checkbox" className="h-4 w-4" defaultChecked />
               <span className="text-sm">{t('settings_notif_daily')}</span>
             </label>
-            <label className="flex items-center gap-3">
+            <label className="flex items-center gap-3 cursor-pointer">
               <input type="checkbox" className="h-4 w-4" defaultChecked />
               <span className="text-sm">{t('settings_notif_grades')}</span>
             </label>
-            <label className="flex items-center gap-3">
+            <label className="flex items-center gap-3 cursor-pointer">
               <input type="checkbox" className="h-4 w-4" />
-              <span className="text-sm">{t('settings_notif_group')}</span>
+              <span className="text-sm">{t('settings_notif_study')}</span>
             </label>
+            <p className="text-xs text-muted-foreground mt-2">
+              Notificaties komen binnenkort.
+            </p>
           </div>
         </Panel>
 
-        <div>
-          <button
-            type="button"
+        {/* Account Section */}
+        <Panel title="Account">
+          <div className="space-y-4">
+            <Field label="E-mail">
+              <Input 
+                type="email" 
+                value={user?.email || ''}
+                disabled
+                className="bg-muted"
+              />
+              <p className="text-xs text-muted-foreground mt-1">
+                E-mail kan niet worden gewijzigd.
+              </p>
+            </Field>
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={() => setShowPasswordDialog(true)}
+            >
+              Wachtwoord wijzigen
+            </Button>
+          </div>
+        </Panel>
+
+        {/* Save Button */}
+        <div className="flex items-center justify-between">
+          {saveMessage && (
+            <div className={`flex items-center gap-2 text-sm ${
+              saveMessage.type === 'success' ? 'text-green-600' : 'text-red-600'
+            }`}>
+              {saveMessage.type === 'success' ? <Check className="h-4 w-4" /> : <X className="h-4 w-4" />}
+              {saveMessage.text}
+            </div>
+          )}
+          <Button 
             onClick={handleSave}
             disabled={loading}
-            className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-50"
+            className="ml-auto"
           >
+            <Save className="mr-2 h-4 w-4" />
             {loading ? 'Opslaan...' : t('settings_save')}
-          </button>
+          </Button>
         </div>
       </div>
+
+      {/* Password Change Dialog */}
+      <Dialog open={showPasswordDialog} onOpenChange={setShowPasswordDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Wachtwoord wijzigen</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="new-password">Nieuw wachtwoord</Label>
+              <Input
+                id="new-password"
+                type="password"
+                value={passwordForm.newPassword}
+                onChange={(e) => setPasswordForm({ ...passwordForm, newPassword: e.target.value })}
+                placeholder="Minimaal 6 tekens"
+              />
+            </div>
+            <div>
+              <Label htmlFor="confirm-password">Bevestig wachtwoord</Label>
+              <Input
+                id="confirm-password"
+                type="password"
+                value={passwordForm.confirmPassword}
+                onChange={(e) => setPasswordForm({ ...passwordForm, confirmPassword: e.target.value })}
+                placeholder="Typ opnieuw"
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowPasswordDialog(false)}>
+              Annuleren
+            </Button>
+            <Button onClick={handlePasswordChange} disabled={loading}>
+              {loading ? 'Wijzigen...' : 'Wijzigen'}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </AppShell>
   );
 }

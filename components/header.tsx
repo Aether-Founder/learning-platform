@@ -5,7 +5,7 @@ import { ArrowLeft } from 'lucide-react';
 import { ThemeToggle } from './theme-toggle';
 import { DynamicIcon } from './DynamicIcon';
 import { LanguageSwitcher } from './LanguageSwitcher';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 import { getSectionTitle } from '@/lib/section-title';
 import { signOut } from '@/lib/supabase/auth';
 import { useRouter } from 'next/navigation';

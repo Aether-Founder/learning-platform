@@ -5,7 +5,7 @@ import { useLearningPlatformStore } from "@/store/useLearningPlatformStore";
 import { getGameById, type GameShellProps } from "@/lib/learning-platform/game-registry";
 import { getHighScore, saveHighScore, type GameScoreId } from "@/lib/learning-platform/game-scores";
 import type { LearningMode } from "@/types/learning-platform";
-import { useTranslation } from "@/lib/i18n";
+import { useTranslation } from "@/lib/useTranslation";
 import { Confetti } from "./ui/Confetti";
 
 export function GameShell({

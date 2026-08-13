@@ -6,7 +6,7 @@ import { BookOpen, CalendarPlus, FilePlus2 } from 'lucide-react';
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { useRequireAuth, useUserProfile } from '@/hooks/useAuth';
 import { supabase } from '@/lib/supabase/client';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 
 export default function DashboardPage() {
   const { t } = useTranslation();
@@ -47,11 +47,34 @@ export default function DashboardPage() {
     profile?.full_name || user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'student';
   const loading = userLoading || profileLoading;
 
+  // Check if this is the first visit for welcome message
+  const [isFirstVisit, setIsFirstVisit] = useState(false);
+  const [storedDisplayName, setStoredDisplayName] = useState<string>('');
+  
+  useEffect(() => {
+    const hasVisitedBefore = localStorage.getItem('hasVisitedBefore');
+    if (!hasVisitedBefore) {
+      setIsFirstVisit(true);
+      localStorage.setItem('hasVisitedBefore', 'true');
+    }
+    
+    // Store username locally for persistence
+    if (displayName && displayName !== 'student') {
+      localStorage.setItem('username', displayName);
+      setStoredDisplayName(displayName);
+    } else {
+      const savedUsername = localStorage.getItem('username');
+      if (savedUsername) {
+        setStoredDisplayName(savedUsername);
+      }
+    }
+  }, [displayName]);
+
   return (
     <AppShell>
       <PageHeader
         eyebrow={t('dashboard_eyebrow')}
-        title={loading ? t('dashboard_welcome') : t('dashboard_welcome_name', undefined, { name: displayName })}
+        title={loading ? t('dashboard_welcome') : (isFirstVisit ? `Welkom, ${displayName}` : t('dashboard_welcome_name', undefined, { name: storedDisplayName || displayName }))}
         description={t('dashboard_description')}
       />
 

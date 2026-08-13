@@ -9,7 +9,7 @@ import {
   createId,
 } from '@/lib/learning-platform/question-generator';
 import type { BlockShape, Question } from '@/types/learning-platform';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 import { McqQuestion } from '../questions/McqQuestion';
 import { WrittenQuestion } from '../questions/WrittenQuestion';
 import { GameShell } from '../GameShell';

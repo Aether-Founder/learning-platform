@@ -1,7 +1,7 @@
 'use client';
 
 import { Check, X } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface GradingFeedbackProps {
   isCorrect: boolean;

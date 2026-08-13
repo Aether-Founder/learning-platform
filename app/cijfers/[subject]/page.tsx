@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { Badge, Panel, fmt, gradeTone } from '@/components/ui-kit';
 import { GRADEBOOK, averageOf } from '@/lib/os-data';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 
 export default function SubjectGradesPage() {
   const { t, currentLanguage } = useTranslation();

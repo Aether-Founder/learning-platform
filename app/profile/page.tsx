@@ -19,7 +19,7 @@ import {
 } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { Loader2, Save, LogOut } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 
 type UserPreferences = {
   language: 'nl' | 'en';

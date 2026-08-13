@@ -11,7 +11,7 @@ import {
   ListTodo,
   HelpCircle,
 } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 import { useAnalytics } from '@/lib/analytics';
 
 type ViewMode =

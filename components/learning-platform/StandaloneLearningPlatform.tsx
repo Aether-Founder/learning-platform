@@ -21,7 +21,7 @@ import {
   X,
 } from 'lucide-react';
 import { MarkdownContent } from './shared/MarkdownContent';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 import { useLearningPlatformStore } from '@/store/useLearningPlatformStore';
 import { LearnMode } from './modes/LearnMode';
 import { McqOnlyMode } from './modes/McqOnlyMode';

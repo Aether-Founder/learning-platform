@@ -17,7 +17,7 @@ import {
   isWeekend,
 } from 'date-fns';
 import { nl, enUS } from 'date-fns/locale';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 
 type CalendarView = 'month' | 'week' | 'day' | 'workweek' | 'agenda';
 

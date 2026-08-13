@@ -10,7 +10,7 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 
 type EventType = 'other' | 'huiswerk' | 'toets' | 'examen' | 'les' | 'project';
 
@@ -117,18 +117,43 @@ export default function CalendarPage() {
     try {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) { router.push('/login?redirectTo=/calendar'); return; }
+      
+      // Validate form data
+      if (!form.title.trim()) {
+        throw new Error('Titel is verplicht');
+      }
+      
       const start = new Date(`${form.date}T${form.time}`);
       const end = new Date(start.getTime() + Number(form.duration) * 60 * 1000);
+      
+      // Validate dates
+      if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+        throw new Error('Ongeldige datum of tijd');
+      }
+      
       const response = await fetch(editingId ? `/api/calendar/${editingId}` : '/api/calendar', {
         method: editingId ? 'PUT' : 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${session.access_token}` },
-        body: JSON.stringify({ title: form.title, description: form.notes, startDate: start.toISOString(), endDate: end.toISOString(), eventType: form.eventType }),
+        body: JSON.stringify({ 
+          title: form.title.trim(), 
+          description: form.notes.trim(), 
+          startDate: start.toISOString(), 
+          endDate: end.toISOString(), 
+          eventType: form.eventType 
+        }),
       });
+      
       const data = await response.json();
-      if (!response.ok) throw new Error(data.error || t('calendar_save_error'));
+      if (!response.ok) {
+        console.error('Calendar API error:', data);
+        throw new Error(data.error || t('calendar_save_error'));
+      }
+      
+      // Close modal on success
       setOpen(false);
       await loadEvents();
     } catch (saveError) {
+      console.error('Save event error:', saveError);
       setError(saveError instanceof Error ? saveError.message : t('calendar_save_error'));
     } finally {
       setSaving(false);

@@ -2,7 +2,7 @@
 
 import { useState, memo } from 'react';
 import { MarkdownRenderer } from './MarkdownRenderer';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation } from '@/lib/useTranslation';
 
 function processNewlines(text: string): string {
   return text.replace(/\\n/g, '\n').replace(/\r\n/g, '\n').replace(/\n/g, '  \n');
