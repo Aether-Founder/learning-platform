@@ -1,8 +1,8 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { AppShell, PageHeader } from '@/components/AppShell';
-import { Badge, Panel, Tabs } from '@/components/ui-kit';
+import { Panel, Tabs } from '@/components/ui-kit';
 import { useTranslation } from '@/lib/i18n';
 
 const VIEWS = ['vakken', 'matrix', 'periodes'] as const;

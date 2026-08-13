@@ -3,6 +3,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel
 from supabase import create_client, Client
 import os
+import secrets as secrets_module
 import json
 import time
 import requests
@@ -224,9 +225,11 @@ async def receive_webhook(
     credentials: HTTPAuthorizationCredentials = Security(security)
 ):
     """Receive webhook from Supabase and queue job for processing."""
-    # Validate Bearer token (optional but recommended)
+    # Validate Bearer token
     expected_token = os.getenv("WEBHOOK_SECRET")
-    if expected_token and credentials.credentials != expected_token:
+    if not expected_token:
+        raise HTTPException(status_code=503, detail="Webhook authentication is not configured")
+    if not secrets_module.compare_digest(credentials.credentials, expected_token):
         raise HTTPException(status_code=401, detail="Unauthorized")
     
     # Verify job exists and is in queued state

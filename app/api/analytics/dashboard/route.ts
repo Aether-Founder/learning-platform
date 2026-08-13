@@ -1,11 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
+import { timingSafeEqual } from 'crypto';
 
 export const dynamic = 'force-dynamic';
 
 const DATA_DIR = path.join(process.cwd(), 'data', 'analytics');
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
+
+function isAuthorized(authHeader: string | null): boolean {
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  if (!adminPassword) return false;
+  if (!authHeader?.startsWith('Bearer ')) return false;
+
+  const provided = Buffer.from(authHeader.slice('Bearer '.length));
+  const expected = Buffer.from(adminPassword);
+  if (provided.length !== expected.length) return false;
+  return timingSafeEqual(provided, expected);
+}
 
 // Read JSON file
 async function readJsonFile(filename: string) {
@@ -20,9 +31,7 @@ async function readJsonFile(filename: string) {
 
 export async function GET(request: NextRequest) {
   try {
-    // Check for admin password in headers
-    const authHeader = request.headers.get('authorization');
-    if (!authHeader || authHeader !== `Bearer ${ADMIN_PASSWORD}`) {
+    if (!isAuthorized(request.headers.get('authorization'))) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 

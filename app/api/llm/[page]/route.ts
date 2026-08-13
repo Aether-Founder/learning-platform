@@ -34,12 +34,15 @@ function jsonToPlainText(data: any, indent = 0): string {
   return String(data);
 }
 
-export async function GET(request: NextRequest, { params }: { params: { page: string } }) {
+export async function GET(_request: NextRequest, { params }: { params: { page: string } }) {
   try {
-    const { page } = params;
+    // Sanitize: only allow alphanumeric, hyphens, underscores
+    const pageName = params.page.replace(/[^a-zA-Z0-9_-]/g, '');
+    if (!pageName) {
+      return NextResponse.json({ error: 'Invalid page name' }, { status: 400 });
+    }
 
-    // Construct the file path
-    const filePath = path.join(CONTENT_DIR, `${page}.json`);
+    const filePath = path.join(CONTENT_DIR, `${pageName}.json`);
 
     // Check if file exists
     try {

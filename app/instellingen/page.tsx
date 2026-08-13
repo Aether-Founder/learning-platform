@@ -24,8 +24,8 @@ export default function InstellingenPage() {
     if (profile) {
       setName(profile.full_name || '');
       setEmail(user?.email || '');
-      setClassLevel(profile.class_level || '');
-      setTrack(profile.profile_track || '');
+      setClassLevel(profile.grade_level || '');
+      setTrack(profile.track || '');
     }
   }, [profile, user]);
 
@@ -35,8 +35,8 @@ export default function InstellingenPage() {
       .from('users')
       .update({
         full_name: name,
-        class_level: classLevel,
-        profile_track: track,
+        grade_level: classLevel,
+        track,
         updated_at: new Date().toISOString(),
       })
       .eq('id', user?.id);
