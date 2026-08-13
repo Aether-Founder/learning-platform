@@ -38,8 +38,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="nl" suppressHydrationWarning>
+    <html lang="nl" suppressHydrationWarning style={{ backgroundColor: '#1a1d2e' }}>
       <head>
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            html, body {
+              background-color: #1a1d2e !important;
+            }
+          `
+        }} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <script
@@ -48,7 +55,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.variable} ${cormorant.variable}`}>
+      <body className={`${inter.variable} ${cormorant.variable}`} style={{ backgroundColor: '#1a1d2e' }}>
         <SupabaseProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <I18nProvider>
