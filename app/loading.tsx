@@ -9,15 +9,24 @@ export default function LoadingScreen() {
   useEffect(() => {
     setMounted(true);
     
+    // Signal to the initial HTML loader that React is ready
+    if (typeof window !== 'undefined' && (window as any).hideInitialLoader) {
+      (window as any).hideInitialLoader();
+    }
+    
     // Hide loading screen when page is fully loaded
     const handleLoad = () => {
       const loader = document.getElementById('app-loader');
-      if (loader) {
+      if (loader && loader.parentNode) {
         loader.style.opacity = '0';
         setTimeout(() => {
-          loader.remove();
+          if (loader.parentNode) {
+            loader.parentNode.removeChild(loader);
+          }
           setIsLoading(false);
         }, 500);
+      } else {
+        setIsLoading(false);
       }
     };
 
