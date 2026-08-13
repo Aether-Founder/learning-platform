@@ -17,11 +17,11 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: 'Aether — Studeer slimmer, onthoud langer',
+  title: 'Aether',
   description:
     'Aether is het studieplatform voor VWO en HAVO: studiesets, lessen, agenda en oefenvoortgang per vak op één plek.',
   icons: {
-    icon: '/favicon.ico',
+    icon: '/aether-logo.png',
   },
 };
 

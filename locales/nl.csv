@@ -163,3 +163,106 @@ reset,Opnieuw
 keyboard_hint,Toetsenbord: spatie om te draaien, pijltjestoetsen om te navigeren
 copied,Gekopieerd
 untitled,Zonder titel
+dashboard_eyebrow,Overzicht
+dashboard_welcome,Welkom terug
+dashboard_welcome_name,Welkom terug, {name}
+dashboard_description,Hier zie je je studieoverzicht en voortgang
+dashboard_study_sets,Studiesets
+dashboard_study_sets_desc,Aantal sets die je hebt gemaakt
+dashboard_sessions,Sessies
+dashboard_sessions_desc,Aantal studiesessies voltooid
+dashboard_recent_activity,Recente activiteit
+dashboard_no_sessions,Nog geen studiesessies
+dashboard_session_count,{n, plural, =0 {Geen sessies} one {# sessie} other {# sessies}}
+dashboard_empty_title,Je bent nog niet begonnen
+dashboard_empty_desc,maak je eerste studieset of plan een sessie om aan de slag te gaan
+dashboard_first_set,Eerste set maken
+dashboard_plan_session,Sessie plannen
+vakken_empty_title,Nog geen vakken
+vakken_empty_desc,Stel je account in om vakken toe te voegen
+subjects_eyebrow,Vakken
+subjects_title,Jouw vakken
+subjects_description,Bekijk en beheer je schoolvakken
+subjects_progress,{done} van {total} onderwerpen
+subjects_due_clear,Geen kaarten te herhalen
+subjects_due_pending,{due} kaarten te herhalen
+planner_eyebrow,Planner
+planner_title,Takenplanner
+planner_description,Beheer je schooltaken en huiswerk
+planner_new_task,Nieuwe taak
+planner_status_todo,Te doen
+planner_status_doing,Bezig
+planner_status_review,Nakijken
+planner_status_done,Klaar
+planner_empty,Nog geen taken
+lessons_eyebrow,Lessen
+lessons_title,Jouw lessen
+lessons_description,Bekijk je geplande lessen
+lessons_search,Zoeken...
+lessons_empty,Nog geen lessen
+groups_eyebrow,Groepen
+groups_title,Studiegroepen
+groups_description,Werk samen met klasgenoten
+groups_create,Groep maken
+groups_empty,Nog geen groepen
+stats_eyebrow,Statistieken
+stats_title,Jouw statistieken
+stats_description,Bekijk je studieprestaties
+stats_week_time,Tijd deze week
+stats_empty,Nog geen data
+stats_overview,Overzicht
+stats_total_time,Totale tijd
+stats_cards_reviewed,Kaarten bekeken
+stats_streak,Serie
+stats_streak_value,{n, plural, =0 {Geen serie} one {# dag} other {# dagen}}
+stats_sets_done,Sets voltooid
+settings_eyebrow,Instellingen
+settings_title,Accountinstellingen
+settings_description,Beheer je profiel en voorkeuren
+settings_profile,Profiel
+settings_name,Naam
+settings_email,E-mailadres
+settings_class,Klas
+settings_profile,Profiel
+settings_track_nt,NT (Natuur & Techniek)
+settings_track_ng,NG (Natuur & Gezondheid)
+settings_track_em,EM (Economie & Maatschappij)
+settings_track_cm,CM (Cultuur & Maatschappij)
+settings_preferences,Voorkeuren
+settings_theme,Thema
+settings_theme_system,Systeem
+settings_theme_light,Licht
+settings_theme_dark,Donker
+settings_language,Taal
+settings_lang_nl,Nederlands
+settings_lang_en,Engels
+settings_notifications,Meldingen
+settings_notif_daily,Dagelijkse herinnering
+settings_notif_grades,Cijfermeldingen
+settings_notif_group,Groepsmeldingen
+settings_save,Opslaan
+grades_eyebrow,Cijfers
+grades_title,Jouw cijfers
+grades_description,Bekijk je cijfers en voortgang
+grades_average,Gemiddelde
+grades_period,Periode
+grades_all,Alles
+grades_tab_subjects,Vakken
+grades_tab_all,Alle cijfers
+grades_tab_periods,Periodes
+grades_col_subject,Vak
+grades_col_teacher,Docent
+grades_col_tests,Toetsen
+grades_col_progress,Voortgang
+grades_col_target,Streef
+grades_col_avg,Gem.
+grades_empty_state,Nog geen cijfers beschikbaar
+notes_eyebrow,Notities
+notes_title,Werkruimte
+notes_description,Maak notities en mappen zoals in Obsidian
+notes_sidebar,Werkruimte
+notes_new_folder,Nieuwe map
+notes_new_page,Nieuwe pagina
+notes_select_page>Selecteer een pagina om te bewerken
+notes_editor_placeholder,Typ hier je notitie...
+notes_delete_confirm,Weet je zeker dat je "{name}" wilt verwijderen?

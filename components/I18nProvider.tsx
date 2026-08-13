@@ -17,7 +17,7 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     document.documentElement.lang = currentLanguage;
     setDateFormatLocale(currentLanguage);
-    document.title = t('meta_title', 'Aether — Studeer slimmer, onthoud langer');
+    document.title = t('meta_title', 'Aether');
   }, [currentLanguage, t]);
 
   if (!translationsReady) {
