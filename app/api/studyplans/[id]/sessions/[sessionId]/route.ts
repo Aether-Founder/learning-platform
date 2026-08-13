@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { verifyToken } from '@/lib/auth';
+import { authenticateAndLoad, loadOwnedResource } from '@/lib/api/ownership';
+import { badRequest, serverError } from '@/lib/api/responses';
 import {
   getStudyPlanById,
   getStudySessionById,
@@ -7,46 +8,41 @@ import {
   deleteStudySession,
 } from '@/lib/studyplans';
 
+/** Loads a session belonging to a study plan the caller owns. */
+async function planSession(
+  request: NextRequest,
+  { id, sessionId }: { id: string; sessionId: string }
+) {
+  const planResult = await authenticateAndLoad(request, () => getStudyPlanById(id), {
+    notFoundMessage: 'Study plan not found',
+    ownerId: (studyPlan) => studyPlan.userId,
+  });
+  if ('response' in planResult) return planResult;
+
+  const sessionResult = await loadOwnedResource(() => getStudySessionById(sessionId), {
+    userId: planResult.user.userId,
+    notFoundMessage: 'Study session not found',
+  });
+  if ('response' in sessionResult) return sessionResult;
+
+  if (sessionResult.resource.studyPlanId !== id) {
+    return { response: badRequest('Session does not belong to this study plan') };
+  }
+
+  return { session: sessionResult.resource };
+}
+
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string; sessionId: string } }
 ) {
   try {
-    const token = request.headers.get('authorization')?.replace('Bearer ', '');
-    if (!token) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const result = await planSession(request, params);
+    if ('response' in result) return result.response;
 
-    const payload = verifyToken(token);
-    if (!payload) {
-      return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
-    }
-
-    const studyPlan = await getStudyPlanById(params.id);
-    if (!studyPlan) {
-      return NextResponse.json({ error: 'Study plan not found' }, { status: 404 });
-    }
-
-    if (studyPlan.userId !== payload.userId) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-    }
-
-    const session = await getStudySessionById(params.sessionId);
-    if (!session) {
-      return NextResponse.json({ error: 'Study session not found' }, { status: 404 });
-    }
-
-    if (session.studyPlanId !== params.id) {
-      return NextResponse.json(
-        { error: 'Session does not belong to this study plan' },
-        { status: 400 }
-      );
-    }
-
-    return NextResponse.json({ session });
+    return NextResponse.json({ session: result.session });
   } catch (error) {
-    console.error('Error fetching study session:', error);
-    return NextResponse.json({ error: 'Failed to fetch study session' }, { status: 500 });
+    return serverError('Error fetching study session:', error, 'Failed to fetch study session');
   }
 }
 
@@ -55,36 +51,8 @@ export async function PUT(
   { params }: { params: { id: string; sessionId: string } }
 ) {
   try {
-    const token = request.headers.get('authorization')?.replace('Bearer ', '');
-    if (!token) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const payload = verifyToken(token);
-    if (!payload) {
-      return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
-    }
-
-    const studyPlan = await getStudyPlanById(params.id);
-    if (!studyPlan) {
-      return NextResponse.json({ error: 'Study plan not found' }, { status: 404 });
-    }
-
-    if (studyPlan.userId !== payload.userId) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-    }
-
-    const session = await getStudySessionById(params.sessionId);
-    if (!session) {
-      return NextResponse.json({ error: 'Study session not found' }, { status: 404 });
-    }
-
-    if (session.studyPlanId !== params.id) {
-      return NextResponse.json(
-        { error: 'Session does not belong to this study plan' },
-        { status: 400 }
-      );
-    }
+    const result = await planSession(request, params);
+    if ('response' in result) return result.response;
 
     const body = await request.json();
     const { completed, actualDuration } = body;
@@ -93,8 +61,7 @@ export async function PUT(
 
     return NextResponse.json({ session: updatedSession });
   } catch (error) {
-    console.error('Error updating study session:', error);
-    return NextResponse.json({ error: 'Failed to update study session' }, { status: 500 });
+    return serverError('Error updating study session:', error, 'Failed to update study session');
   }
 }
 
@@ -103,42 +70,13 @@ export async function DELETE(
   { params }: { params: { id: string; sessionId: string } }
 ) {
   try {
-    const token = request.headers.get('authorization')?.replace('Bearer ', '');
-    if (!token) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const payload = verifyToken(token);
-    if (!payload) {
-      return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
-    }
-
-    const studyPlan = await getStudyPlanById(params.id);
-    if (!studyPlan) {
-      return NextResponse.json({ error: 'Study plan not found' }, { status: 404 });
-    }
-
-    if (studyPlan.userId !== payload.userId) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-    }
-
-    const session = await getStudySessionById(params.sessionId);
-    if (!session) {
-      return NextResponse.json({ error: 'Study session not found' }, { status: 404 });
-    }
-
-    if (session.studyPlanId !== params.id) {
-      return NextResponse.json(
-        { error: 'Session does not belong to this study plan' },
-        { status: 400 }
-      );
-    }
+    const result = await planSession(request, params);
+    if ('response' in result) return result.response;
 
     await deleteStudySession(params.sessionId);
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Error deleting study session:', error);
-    return NextResponse.json({ error: 'Failed to delete study session' }, { status: 500 });
+    return serverError('Error deleting study session:', error, 'Failed to delete study session');
   }
 }

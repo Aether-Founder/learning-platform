@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { verifyToken } from '@/lib/auth';
+import { authenticateAndLoad } from '@/lib/api/ownership';
+import { serverError } from '@/lib/api/responses';
 import {
   getStudyPlanById,
   updateStudyPlan,
@@ -7,56 +8,29 @@ import {
   getStudySessionsByPlan,
 } from '@/lib/studyplans';
 
+const ownedStudyPlan = (request: NextRequest, id: string) =>
+  authenticateAndLoad(request, () => getStudyPlanById(id), {
+    notFoundMessage: 'Study plan not found',
+    ownerId: (studyPlan) => studyPlan.userId,
+  });
+
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const token = request.headers.get('authorization')?.replace('Bearer ', '');
-    if (!token) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const payload = verifyToken(token);
-    if (!payload) {
-      return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
-    }
-
-    const studyPlan = await getStudyPlanById(params.id);
-    if (!studyPlan) {
-      return NextResponse.json({ error: 'Study plan not found' }, { status: 404 });
-    }
-
-    if (studyPlan.userId !== payload.userId) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-    }
+    const result = await ownedStudyPlan(request, params.id);
+    if ('response' in result) return result.response;
 
     const sessions = await getStudySessionsByPlan(params.id);
 
-    return NextResponse.json({ studyPlan, sessions });
+    return NextResponse.json({ studyPlan: result.resource, sessions });
   } catch (error) {
-    console.error('Error fetching study plan:', error);
-    return NextResponse.json({ error: 'Failed to fetch study plan' }, { status: 500 });
+    return serverError('Error fetching study plan:', error, 'Failed to fetch study plan');
   }
 }
 
 export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const token = request.headers.get('authorization')?.replace('Bearer ', '');
-    if (!token) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const payload = verifyToken(token);
-    if (!payload) {
-      return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
-    }
-
-    const studyPlan = await getStudyPlanById(params.id);
-    if (!studyPlan) {
-      return NextResponse.json({ error: 'Study plan not found' }, { status: 404 });
-    }
-
-    if (studyPlan.userId !== payload.userId) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-    }
+    const result = await ownedStudyPlan(request, params.id);
+    if ('response' in result) return result.response;
 
     const body = await request.json();
     const { name, startDate, endDate } = body;
@@ -70,37 +44,19 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 
     return NextResponse.json({ studyPlan: updatedStudyPlan });
   } catch (error) {
-    console.error('Error updating study plan:', error);
-    return NextResponse.json({ error: 'Failed to update study plan' }, { status: 500 });
+    return serverError('Error updating study plan:', error, 'Failed to update study plan');
   }
 }
 
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const token = request.headers.get('authorization')?.replace('Bearer ', '');
-    if (!token) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const payload = verifyToken(token);
-    if (!payload) {
-      return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
-    }
-
-    const studyPlan = await getStudyPlanById(params.id);
-    if (!studyPlan) {
-      return NextResponse.json({ error: 'Study plan not found' }, { status: 404 });
-    }
-
-    if (studyPlan.userId !== payload.userId) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-    }
+    const result = await ownedStudyPlan(request, params.id);
+    if ('response' in result) return result.response;
 
     await deleteStudyPlan(params.id);
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Error deleting study plan:', error);
-    return NextResponse.json({ error: 'Failed to delete study plan' }, { status: 500 });
+    return serverError('Error deleting study plan:', error, 'Failed to delete study plan');
   }
 }

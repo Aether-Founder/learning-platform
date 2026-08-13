@@ -1,18 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getRequestUser } from '@/lib/supabase/request';
+import { requireSupabaseUser } from '@/lib/api/supabase';
+import { badRequest, serverError } from '@/lib/api/responses';
 
 export async function PUT(request: NextRequest) {
   try {
-    const { client, user, error: authError } = await getRequestUser(request);
-    if (authError || !user) {
-      return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
-    }
+    const auth = await requireSupabaseUser(request);
+    if ('response' in auth) return auth.response;
+    const { client, user } = auth;
 
     const body = await request.json();
     const { preferences } = body;
 
     if (!preferences) {
-      return NextResponse.json({ error: 'Preferences are required' }, { status: 400 });
+      return badRequest('Preferences are required');
     }
 
     const { data: profile, error } = await client
@@ -23,13 +23,11 @@ export async function PUT(request: NextRequest) {
       .single();
 
     if (error || !profile) {
-      console.error('Failed to update preferences:', error);
-      return NextResponse.json({ error: 'Failed to update preferences' }, { status: 500 });
+      return serverError('Failed to update preferences:', error, 'Failed to update preferences');
     }
 
     return NextResponse.json({ user: profile });
   } catch (error) {
-    console.error('Update preferences error:', error);
-    return NextResponse.json({ error: 'Failed to update preferences' }, { status: 500 });
+    return serverError('Update preferences error:', error, 'Failed to update preferences');
   }
 }

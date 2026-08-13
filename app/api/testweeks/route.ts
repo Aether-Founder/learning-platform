@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { verifyToken } from '@/lib/auth';
+import { authenticateRequest, isAuthFailure } from '@/lib/api/auth';
+import { badRequest, serverError } from '@/lib/api/responses';
 import {
   createTestWeek,
   getTestWeeksByUserId,
@@ -9,66 +10,42 @@ import {
 
 export async function GET(request: NextRequest) {
   try {
-    const authHeader = request.headers.get('authorization');
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return NextResponse.json({ error: 'No authorization header' }, { status: 401 });
-    }
+    const auth = authenticateRequest(request, { missingTokenMessage: 'No authorization header' });
+    if (isAuthFailure(auth)) return auth.response;
 
-    const token = authHeader.substring(7);
-    const decoded = verifyToken(token);
-
-    if (!decoded) {
-      return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
-    }
-
-    const testWeeks = getTestWeeksByUserId(decoded.userId);
-    const activeTestWeek = getActiveTestWeek(decoded.userId);
+    const testWeeks = getTestWeeksByUserId(auth.user.userId);
+    const activeTestWeek = getActiveTestWeek(auth.user.userId);
 
     return NextResponse.json({
       testWeeks,
       activeTestWeek,
     });
   } catch (error) {
-    console.error('Get test weeks error:', error);
-    return NextResponse.json({ error: 'Failed to get test weeks' }, { status: 500 });
+    return serverError('Get test weeks error:', error, 'Failed to get test weeks');
   }
 }
 
 export async function POST(request: NextRequest) {
   try {
-    const authHeader = request.headers.get('authorization');
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return NextResponse.json({ error: 'No authorization header' }, { status: 401 });
-    }
+    const auth = authenticateRequest(request, { missingTokenMessage: 'No authorization header' });
+    if (isAuthFailure(auth)) return auth.response;
 
-    const token = authHeader.substring(7);
-    const decoded = verifyToken(token);
-
-    if (!decoded) {
-      return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
-    }
-
-    const body = await request.json();
-    const { name, startDate, endDate } = body;
+    const { name, startDate, endDate } = await request.json();
 
     if (!name || !startDate || !endDate) {
-      return NextResponse.json(
-        { error: 'Name, start date, and end date are required' },
-        { status: 400 }
-      );
+      return badRequest('Name, start date, and end date are required');
     }
 
-    const testWeek = createTestWeek(decoded.userId, name, startDate, endDate);
+    const testWeek = createTestWeek(auth.user.userId, name, startDate, endDate);
 
     // Set as active if it's the first test week
-    const existingTestWeeks = getTestWeeksByUserId(decoded.userId);
+    const existingTestWeeks = getTestWeeksByUserId(auth.user.userId);
     if (existingTestWeeks.length === 1) {
-      setActiveTestWeek(decoded.userId, testWeek.id);
+      setActiveTestWeek(auth.user.userId, testWeek.id);
     }
 
     return NextResponse.json({ testWeek });
   } catch (error) {
-    console.error('Create test week error:', error);
-    return NextResponse.json({ error: 'Failed to create test week' }, { status: 500 });
+    return serverError('Create test week error:', error, 'Failed to create test week');
   }
 }

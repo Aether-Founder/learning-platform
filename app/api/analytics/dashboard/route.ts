@@ -1,35 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { promises as fs } from 'fs';
-import path from 'path';
+import { readAnalyticsFile } from '@/lib/api/analytics-store';
+import { serverError, unauthorized } from '@/lib/api/responses';
 
 export const dynamic = 'force-dynamic';
 
-const DATA_DIR = path.join(process.cwd(), 'data', 'analytics');
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
-
-// Read JSON file
-async function readJsonFile(filename: string) {
-  const filePath = path.join(DATA_DIR, filename);
-  try {
-    const data = await fs.readFile(filePath, 'utf-8');
-    return JSON.parse(data);
-  } catch {
-    return filename === 'events.json' ? [] : {};
-  }
-}
 
 export async function GET(request: NextRequest) {
   try {
     // Check for admin password in headers
     const authHeader = request.headers.get('authorization');
     if (!authHeader || authHeader !== `Bearer ${ADMIN_PASSWORD}`) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return unauthorized();
     }
 
     // Read all data
-    const users = await readJsonFile('users.json');
-    const sessions = await readJsonFile('sessions.json');
-    const events = await readJsonFile('events.json');
+    const users = await readAnalyticsFile('users.json');
+    const sessions = await readAnalyticsFile('sessions.json');
+    const events = await readAnalyticsFile('events.json');
 
     // Calculate metrics
     const totalUsers = Object.keys(users).length;
@@ -120,7 +108,6 @@ export async function GET(request: NextRequest) {
       recentEvents: events.slice(-50).reverse(),
     });
   } catch (error) {
-    console.error('Analytics dashboard error:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return serverError('Analytics dashboard error:', error, 'Internal server error');
   }
 }
