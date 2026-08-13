@@ -24,13 +24,38 @@ const nextConfig = {
     ];
   },
   // Exclude UI-REFERENCE and magister-extension-project folders from build
-  webpack: (config) => {
+  webpack: (config, { isServer }) => {
     config.module.rules.push({
       test: /\.tsx?$/,
       exclude: [/UI-REFERENCE/, /magister-extension-project/],
     });
+    
+    // Optimize for faster builds
+    if (!isServer) {
+      config.optimization = {
+        ...config.optimization,
+        splitChunks: {
+          chunks: 'all',
+          cacheGroups: {
+            default: false,
+            vendors: false,
+            commons: {
+              name: 'commons',
+              chunks: 'all',
+              minChunks: 2,
+            },
+          },
+        },
+      };
+    }
+    
     return config;
   },
+  // Optimize production builds
+  swcMinify: true,
+  compress: true,
+  // Disable source maps in production for faster builds
+  productionBrowserSourceMaps: false,
 };
 
 module.exports = nextConfig;

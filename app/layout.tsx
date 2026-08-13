@@ -4,16 +4,19 @@ import './globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { SupabaseProvider } from '@/components/providers/SupabaseProvider';
 import { I18nProvider } from '@/components/I18nProvider';
+import LoadingScreen from './loading';
 
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-sans',
+  display: 'swap',
 });
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
   variable: '--font-display',
   weight: ['400', '500', '600', '700'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -48,7 +51,10 @@ export default function RootLayout({
       <body className={`${inter.variable} ${cormorant.variable}`}>
         <SupabaseProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <I18nProvider>{children}</I18nProvider>
+            <I18nProvider>
+              <LoadingScreen />
+              {children}
+            </I18nProvider>
           </ThemeProvider>
         </SupabaseProvider>
       </body>
