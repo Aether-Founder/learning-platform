@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { verifyToken } from '@/lib/auth';
+import { authenticateRequest, isAuthFailure } from '@/lib/api/auth';
+import { badRequest, serverError } from '@/lib/api/responses';
 import {
   getUserAchievements,
   getAchievementDefinitions,
@@ -8,65 +9,41 @@ import {
 
 export async function GET(request: NextRequest) {
   try {
-    const token = request.headers.get('authorization')?.replace('Bearer ', '');
-    if (!token) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const auth = authenticateRequest(request);
+    if (isAuthFailure(auth)) return auth.response;
 
-    const payload = verifyToken(token);
-    if (!payload) {
-      return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
-    }
+    const unlocked = request.nextUrl.searchParams.get('unlocked');
 
-    const searchParams = request.nextUrl.searchParams;
-    const unlocked = searchParams.get('unlocked');
-
-    let achievements;
+    let achievements = await getUserAchievements(auth.user.userId);
     if (unlocked === 'true') {
-      achievements = (await getUserAchievements(payload.userId)).filter(
-        (a) => a.unlockedAt !== null
-      );
+      achievements = achievements.filter((a) => a.unlockedAt !== null);
     } else if (unlocked === 'false') {
-      achievements = (await getUserAchievements(payload.userId)).filter(
-        (a) => a.unlockedAt === null
-      );
-    } else {
-      achievements = await getUserAchievements(payload.userId);
+      achievements = achievements.filter((a) => a.unlockedAt === null);
     }
 
     const definitions = await getAchievementDefinitions();
 
     return NextResponse.json({ achievements, definitions });
   } catch (error) {
-    console.error('Error fetching achievements:', error);
-    return NextResponse.json({ error: 'Failed to fetch achievements' }, { status: 500 });
+    return serverError('Error fetching achievements:', error, 'Failed to fetch achievements');
   }
 }
 
 export async function POST(request: NextRequest) {
   try {
-    const token = request.headers.get('authorization')?.replace('Bearer ', '');
-    if (!token) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const auth = authenticateRequest(request);
+    if (isAuthFailure(auth)) return auth.response;
 
-    const payload = verifyToken(token);
-    if (!payload) {
-      return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
-    }
-
-    const body = await request.json();
-    const { eventType, data } = body;
+    const { eventType, data } = await request.json();
 
     if (!eventType) {
-      return NextResponse.json({ error: 'Event type is required' }, { status: 400 });
+      return badRequest('Event type is required');
     }
 
-    const newlyUnlocked = await checkAndUnlockAchievements(payload.userId, eventType, data);
+    const newlyUnlocked = await checkAndUnlockAchievements(auth.user.userId, eventType, data);
 
     return NextResponse.json({ newlyUnlocked });
   } catch (error) {
-    console.error('Error checking achievements:', error);
-    return NextResponse.json({ error: 'Failed to check achievements' }, { status: 500 });
+    return serverError('Error checking achievements:', error, 'Failed to check achievements');
   }
 }

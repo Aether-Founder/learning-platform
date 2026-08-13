@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { verifyToken } from '@/lib/auth';
+import { authenticateRequest, isAuthFailure } from '@/lib/api/auth';
+import { badRequest, errorResponse } from '@/lib/api/responses';
 import {
   getStudySetsByUserId,
   createStudySet,
@@ -25,72 +26,55 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ studySets });
     }
 
-    const authHeader = request.headers.get('authorization');
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      logger.warn('Unauthorized GET /api/studysets attempt - missing auth header');
-      return NextResponse.json({ error: 'No authorization header' }, { status: 401 });
+    const auth = authenticateRequest(request, { missingTokenMessage: 'No authorization header' });
+    if (isAuthFailure(auth)) {
+      logger.warn('Unauthorized GET /api/studysets attempt');
+      return auth.response;
     }
 
-    const token = authHeader.substring(7);
-    const decoded = verifyToken(token);
-
-    if (!decoded) {
-      logger.warn('Unauthorized GET /api/studysets attempt - invalid token');
-      return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
-    }
+    const { userId } = auth.user;
 
     let studySets;
     if (query) {
-      studySets = searchStudySets(query, decoded.userId);
-      logger.info('Searched study sets', {
-        userId: decoded.userId,
-        query,
-        count: studySets.length,
-      });
+      studySets = searchStudySets(query, userId);
+      logger.info('Searched study sets', { userId, query, count: studySets.length });
     } else {
-      studySets = getStudySetsByUserId(decoded.userId);
-      logger.info('Fetched user study sets', { userId: decoded.userId, count: studySets.length });
+      studySets = getStudySetsByUserId(userId);
+      logger.info('Fetched user study sets', { userId, count: studySets.length });
     }
 
     return NextResponse.json({ studySets });
   } catch (error) {
     logger.error('Get study sets error', error, { route: '/api/studysets' });
-    return NextResponse.json({ error: 'Failed to get study sets' }, { status: 500 });
+    return errorResponse('Failed to get study sets', 500);
   }
 }
 
 export async function POST(request: NextRequest) {
   try {
-    const authHeader = request.headers.get('authorization');
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      logger.warn('Unauthorized POST /api/studysets attempt - missing auth header');
-      return NextResponse.json({ error: 'No authorization header' }, { status: 401 });
+    const auth = authenticateRequest(request, { missingTokenMessage: 'No authorization header' });
+    if (isAuthFailure(auth)) {
+      logger.warn('Unauthorized POST /api/studysets attempt');
+      return auth.response;
     }
 
-    const token = authHeader.substring(7);
-    const decoded = verifyToken(token);
-
-    if (!decoded) {
-      logger.warn('Unauthorized POST /api/studysets attempt - invalid token');
-      return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
-    }
-
+    const { userId } = auth.user;
     const body = await request.json();
     const { title, description, folderId, isPublic, cards = [] } = body;
 
     logger.info('Creating study set', {
-      userId: decoded.userId,
+      userId,
       title,
       cardCount: cards.length,
       isPublic,
     });
 
     if (!title) {
-      logger.warn('Failed to create study set - title missing', { userId: decoded.userId });
-      return NextResponse.json({ error: 'Title is required' }, { status: 400 });
+      logger.warn('Failed to create study set - title missing', { userId });
+      return badRequest('Title is required');
     }
 
-    let studySet = createStudySet(decoded.userId, title, description, folderId, isPublic);
+    let studySet = createStudySet(userId, title, description, folderId, isPublic);
     if (Array.isArray(cards)) {
       cards
         .filter((card: any) => (card.term || card.front) && (card.definition || card.back))
@@ -111,17 +95,13 @@ export async function POST(request: NextRequest) {
             }
           );
         });
-      studySet =
-        getStudySetsByUserId(decoded.userId).find((set) => set.id === studySet.id) || studySet;
+      studySet = getStudySetsByUserId(userId).find((set) => set.id === studySet.id) || studySet;
     }
 
-    logger.info('Study set created successfully', {
-      studySetId: studySet.id,
-      userId: decoded.userId,
-    });
+    logger.info('Study set created successfully', { studySetId: studySet.id, userId });
     return NextResponse.json({ studySet });
   } catch (error) {
     logger.error('Create study set error', error, { route: '/api/studysets' });
-    return NextResponse.json({ error: 'Failed to create study set' }, { status: 500 });
+    return errorResponse('Failed to create study set', 500);
   }
 }

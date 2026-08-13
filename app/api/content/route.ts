@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { verifyToken } from '@/lib/auth';
+import { authenticateRequest, isAuthFailure } from '@/lib/api/auth';
+import { badRequest, serverError } from '@/lib/api/responses';
 import {
   getContentByUserId,
   createContent,
@@ -8,9 +9,14 @@ import {
   getContentByType,
 } from '@/lib/content';
 
+const CONTENT_TYPES = ['study_set', 'notes', 'reference'] as const;
+type ContentType = (typeof CONTENT_TYPES)[number];
+
+const isContentType = (value: string | null): value is ContentType =>
+  CONTENT_TYPES.includes(value as ContentType);
+
 export async function GET(request: NextRequest) {
   try {
-    const token = request.headers.get('authorization')?.replace('Bearer ', '');
     const { searchParams } = new URL(request.url);
     const query = searchParams.get('query');
     const type = searchParams.get('type');
@@ -19,60 +25,46 @@ export async function GET(request: NextRequest) {
     const offset = parseInt(searchParams.get('offset') || '0');
 
     if (publicOnly) {
-      const content = getPublicContent(limit, offset);
-      return NextResponse.json({ content });
+      return NextResponse.json({ content: getPublicContent(limit, offset) });
     }
 
-    if (!token) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const auth = authenticateRequest(request);
+    if (isAuthFailure(auth)) return auth.response;
 
-    const user = verifyToken(token);
-    if (!user) {
-      return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
-    }
+    const { userId } = auth.user;
 
     let content;
     if (query) {
-      content = searchContent(user.userId, query, limit);
-    } else if (type && ['study_set', 'notes', 'reference'].includes(type)) {
-      content = getContentByType(user.userId, type as 'study_set' | 'notes' | 'reference');
+      content = searchContent(userId, query, limit);
+    } else if (isContentType(type)) {
+      content = getContentByType(userId, type);
     } else {
-      content = getContentByUserId(user.userId);
+      content = getContentByUserId(userId);
     }
 
     return NextResponse.json({ content });
   } catch (error) {
-    console.error('Error fetching content:', error);
-    return NextResponse.json({ error: 'Failed to fetch content' }, { status: 500 });
+    return serverError('Error fetching content:', error, 'Failed to fetch content');
   }
 }
 
 export async function POST(request: NextRequest) {
   try {
-    const token = request.headers.get('authorization')?.replace('Bearer ', '');
-    if (!token) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const auth = authenticateRequest(request);
+    if (isAuthFailure(auth)) return auth.response;
 
-    const user = verifyToken(token);
-    if (!user) {
-      return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
-    }
-
-    const body = await request.json();
-    const { title, type, data, description, tags, isPublic } = body;
+    const { title, type, data, description, tags, isPublic } = await request.json();
 
     if (!title || !type || !data) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+      return badRequest('Missing required fields');
     }
 
-    if (!['study_set', 'notes', 'reference'].includes(type)) {
-      return NextResponse.json({ error: 'Invalid content type' }, { status: 400 });
+    if (!isContentType(type)) {
+      return badRequest('Invalid content type');
     }
 
     const content = createContent(
-      user.userId,
+      auth.user.userId,
       title,
       type,
       data,
@@ -83,7 +75,6 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ content }, { status: 201 });
   } catch (error) {
-    console.error('Error creating content:', error);
-    return NextResponse.json({ error: 'Failed to create content' }, { status: 500 });
+    return serverError('Error creating content:', error, 'Failed to create content');
   }
 }

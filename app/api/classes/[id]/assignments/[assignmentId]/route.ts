@@ -1,43 +1,44 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { verifyToken } from '@/lib/auth';
+import { authenticateAndLoad, loadOwnedResource } from '@/lib/api/ownership';
+import { badRequest, serverError } from '@/lib/api/responses';
 import { getClassById, getAssignmentById, updateAssignment, deleteAssignment } from '@/lib/classes';
+
+/** Loads the assignment after checking the class exists (and is taught by the caller). */
+async function classAssignment(
+  request: NextRequest,
+  { id, assignmentId }: { id: string; assignmentId: string },
+  { requireTeacher }: { requireTeacher: boolean }
+) {
+  const classResult = await authenticateAndLoad(request, () => getClassById(id), {
+    notFoundMessage: 'Class not found',
+    ownerId: requireTeacher ? (classData) => classData.teacherId : undefined,
+  });
+  if ('response' in classResult) return classResult;
+
+  const assignmentResult = await loadOwnedResource(() => getAssignmentById(assignmentId), {
+    userId: classResult.user.userId,
+    notFoundMessage: 'Assignment not found',
+  });
+  if ('response' in assignmentResult) return assignmentResult;
+
+  if (assignmentResult.resource.classId !== id) {
+    return { response: badRequest('Assignment does not belong to this class') };
+  }
+
+  return { assignment: assignmentResult.resource };
+}
 
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string; assignmentId: string } }
 ) {
   try {
-    const token = request.headers.get('authorization')?.replace('Bearer ', '');
-    if (!token) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const result = await classAssignment(request, params, { requireTeacher: false });
+    if ('response' in result) return result.response;
 
-    const payload = verifyToken(token);
-    if (!payload) {
-      return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
-    }
-
-    const classData = await getClassById(params.id);
-    if (!classData) {
-      return NextResponse.json({ error: 'Class not found' }, { status: 404 });
-    }
-
-    const assignment = await getAssignmentById(params.assignmentId);
-    if (!assignment) {
-      return NextResponse.json({ error: 'Assignment not found' }, { status: 404 });
-    }
-
-    if (assignment.classId !== params.id) {
-      return NextResponse.json(
-        { error: 'Assignment does not belong to this class' },
-        { status: 400 }
-      );
-    }
-
-    return NextResponse.json({ assignment });
+    return NextResponse.json({ assignment: result.assignment });
   } catch (error) {
-    console.error('Error fetching assignment:', error);
-    return NextResponse.json({ error: 'Failed to fetch assignment' }, { status: 500 });
+    return serverError('Error fetching assignment:', error, 'Failed to fetch assignment');
   }
 }
 
@@ -46,36 +47,8 @@ export async function PUT(
   { params }: { params: { id: string; assignmentId: string } }
 ) {
   try {
-    const token = request.headers.get('authorization')?.replace('Bearer ', '');
-    if (!token) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const payload = verifyToken(token);
-    if (!payload) {
-      return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
-    }
-
-    const classData = await getClassById(params.id);
-    if (!classData) {
-      return NextResponse.json({ error: 'Class not found' }, { status: 404 });
-    }
-
-    if (classData.teacherId !== payload.userId) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-    }
-
-    const assignment = await getAssignmentById(params.assignmentId);
-    if (!assignment) {
-      return NextResponse.json({ error: 'Assignment not found' }, { status: 404 });
-    }
-
-    if (assignment.classId !== params.id) {
-      return NextResponse.json(
-        { error: 'Assignment does not belong to this class' },
-        { status: 400 }
-      );
-    }
+    const result = await classAssignment(request, params, { requireTeacher: true });
+    if ('response' in result) return result.response;
 
     const body = await request.json();
     const { title, description, dueDate } = body;
@@ -89,8 +62,7 @@ export async function PUT(
 
     return NextResponse.json({ assignment: updatedAssignment });
   } catch (error) {
-    console.error('Error updating assignment:', error);
-    return NextResponse.json({ error: 'Failed to update assignment' }, { status: 500 });
+    return serverError('Error updating assignment:', error, 'Failed to update assignment');
   }
 }
 
@@ -99,42 +71,13 @@ export async function DELETE(
   { params }: { params: { id: string; assignmentId: string } }
 ) {
   try {
-    const token = request.headers.get('authorization')?.replace('Bearer ', '');
-    if (!token) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const payload = verifyToken(token);
-    if (!payload) {
-      return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
-    }
-
-    const classData = await getClassById(params.id);
-    if (!classData) {
-      return NextResponse.json({ error: 'Class not found' }, { status: 404 });
-    }
-
-    if (classData.teacherId !== payload.userId) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-    }
-
-    const assignment = await getAssignmentById(params.assignmentId);
-    if (!assignment) {
-      return NextResponse.json({ error: 'Assignment not found' }, { status: 404 });
-    }
-
-    if (assignment.classId !== params.id) {
-      return NextResponse.json(
-        { error: 'Assignment does not belong to this class' },
-        { status: 400 }
-      );
-    }
+    const result = await classAssignment(request, params, { requireTeacher: true });
+    if ('response' in result) return result.response;
 
     await deleteAssignment(params.assignmentId);
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Error deleting assignment:', error);
-    return NextResponse.json({ error: 'Failed to delete assignment' }, { status: 500 });
+    return serverError('Error deleting assignment:', error, 'Failed to delete assignment');
   }
 }

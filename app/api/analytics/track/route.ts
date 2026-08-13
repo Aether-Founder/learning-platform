@@ -1,49 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { promises as fs } from 'fs';
-import path from 'path';
-
-const DATA_DIR = path.join(process.cwd(), 'data', 'analytics');
-
-// Ensure data directory exists
-async function ensureDataDir() {
-  try {
-    await fs.access(DATA_DIR);
-  } catch {
-    await fs.mkdir(DATA_DIR, { recursive: true });
-  }
-}
-
-// Read JSON file
-async function readJsonFile(filename: string) {
-  const filePath = path.join(DATA_DIR, filename);
-  try {
-    const data = await fs.readFile(filePath, 'utf-8');
-    return JSON.parse(data);
-  } catch {
-    // File doesn't exist or is empty
-    return filename === 'events.json' ? [] : {};
-  }
-}
-
-// Write JSON file
-async function writeJsonFile(filename: string, data: any) {
-  const filePath = path.join(DATA_DIR, filename);
-  await fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf-8');
-}
+import {
+  ensureAnalyticsDir,
+  readAnalyticsFile,
+  writeAnalyticsFile,
+} from '@/lib/api/analytics-store';
+import { badRequest, serverError } from '@/lib/api/responses';
 
 export async function POST(request: NextRequest) {
   try {
-    await ensureDataDir();
+    await ensureAnalyticsDir();
 
     const event = await request.json();
 
     // Validate event structure
     if (!event.userId || !event.sessionId || !event.eventType || !event.timestamp) {
-      return NextResponse.json({ error: 'Invalid event structure' }, { status: 400 });
+      return badRequest('Invalid event structure');
     }
 
     // Update user data
-    const users = await readJsonFile('users.json');
+    const users = await readAnalyticsFile('users.json');
     if (!users[event.userId]) {
       users[event.userId] = {
         id: event.userId,
@@ -66,7 +41,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Update session data
-    const sessions = await readJsonFile('sessions.json');
+    const sessions = await readAnalyticsFile('sessions.json');
     if (!sessions[event.sessionId]) {
       sessions[event.sessionId] = {
         id: event.sessionId,
@@ -93,7 +68,7 @@ export async function POST(request: NextRequest) {
     });
 
     // Add event to events array
-    const events = await readJsonFile('events.json');
+    const events = await readAnalyticsFile('events.json');
     events.push({
       userId: event.userId,
       sessionId: event.sessionId,
@@ -104,14 +79,13 @@ export async function POST(request: NextRequest) {
 
     // Write all files
     await Promise.all([
-      writeJsonFile('users.json', users),
-      writeJsonFile('sessions.json', sessions),
-      writeJsonFile('events.json', events),
+      writeAnalyticsFile('users.json', users),
+      writeAnalyticsFile('sessions.json', sessions),
+      writeAnalyticsFile('events.json', events),
     ]);
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Analytics tracking error:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return serverError('Analytics tracking error:', error, 'Internal server error');
   }
 }
