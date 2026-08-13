@@ -11,6 +11,7 @@ import { supabase as browserClient } from '@/lib/supabase/client';
 import { useTranslation } from '@/lib/useTranslation';
 import { Plus, Trash2, Edit2, BookOpen, Brain, FileText, Target, LayoutGrid, Play, Download, Upload } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const supabase = browserClient as any;
 
@@ -43,7 +44,9 @@ type Flashcard = {
 
 export default function DecksPage() {
   const { t } = useTranslation();
+  const router = useRouter();
   const [studySets, setStudySets] = useState<StudySet[]>([]);
+
   const [loading, setLoading] = useState(true);
   const [showSetDialog, setShowSetDialog] = useState(false);
   const [showCardDialog, setShowCardDialog] = useState(false);
@@ -52,7 +55,7 @@ export default function DecksPage() {
   const [selectedSet, setSelectedSet] = useState<StudySet | null>(null);
   const [cards, setCards] = useState<Flashcard[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [importFile, setImportFile] = useState<File | null>(null);
+
   const [setFormData, setSetFormData] = useState({
     title: '',
     description: '',
@@ -225,9 +228,7 @@ export default function DecksPage() {
   };
 
   const openCreateSetDialog = () => {
-    setEditingSet(null);
-    resetSetForm();
-    setShowSetDialog(true);
+    router.push('/decks/create');
   };
 
   const openCreateCardDialog = () => {
@@ -237,14 +238,9 @@ export default function DecksPage() {
   };
 
   const openEditSetDialog = (set: StudySet) => {
-    setEditingSet(set);
-    setSetFormData({
-      title: set.title,
-      description: set.description || '',
-      subject: '',
-    });
-    setShowSetDialog(true);
+    router.push(`/decks/edit/${set.id}`);
   };
+
 
   const openEditCardDialog = (card: Flashcard) => {
     setEditingCard(card);

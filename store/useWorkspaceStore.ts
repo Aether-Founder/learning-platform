@@ -27,6 +27,9 @@ interface WorkspaceState {
   setSelectedId: (id: string | null) => void;
   toggleMapExpanded: (id: string) => void;
   
+  // Local persistence helpers
+  loadFromLocalStorage: () => void;
+  
   // Optimistic updates
   createItemOptimistic: (item: Omit<WorkspaceItem, 'id' | 'created_at' | 'updated_at'>) => string;
   updateItemOptimistic: (id: string, updates: Partial<WorkspaceItem>) => void;
@@ -41,13 +44,51 @@ interface WorkspaceState {
   updateContent: (id: string, content: any) => void;
 }
 
+const STORAGE_KEY = 'aether_workspace_items';
+
+function saveLocal(items: WorkspaceItem[]) {
+  if (typeof window !== 'undefined') {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    } catch (e) {
+      console.warn('Failed to save workspace items to localStorage', e);
+    }
+  }
+}
+
+function getInitialLocalItems(): WorkspaceItem[] {
+  if (typeof window !== 'undefined') {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed)) return parsed;
+      }
+    } catch (e) {
+      /* fallback */
+    }
+  }
+  return [];
+}
+
 export const useWorkspaceStore = create<WorkspaceState>((set, get) => ({
-  items: [],
-  isLoading: true,
+  items: getInitialLocalItems(),
+  isLoading: false,
   selectedId: null,
   expandedMaps: new Set(),
 
-  setItems: (items) => set({ items }),
+  setItems: (items) => {
+    saveLocal(items);
+    set({ items });
+  },
+
+  loadFromLocalStorage: () => {
+    const local = getInitialLocalItems();
+    if (local.length > 0) {
+      set({ items: local });
+    }
+  },
+
   setLoading: (loading) => set({ isLoading: loading }),
   setSelectedId: (id) => set({ selectedId: id }),
   
@@ -69,55 +110,59 @@ export const useWorkspaceStore = create<WorkspaceState>((set, get) => ({
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
     };
-    set((state) => ({ items: [...state.items, newItem] }));
+    const updatedItems = [...get().items, newItem];
+    saveLocal(updatedItems);
+    set({ items: updatedItems });
     return id;
   },
 
   updateItemOptimistic: (id, updates) => {
-    set((state) => ({
-      items: state.items.map((item) =>
-        item.id === id ? { ...item, ...updates, updated_at: new Date().toISOString() } : item
-      ),
-    }));
+    const updatedItems = get().items.map((item) =>
+      item.id === id ? { ...item, ...updates, updated_at: new Date().toISOString() } : item
+    );
+    saveLocal(updatedItems);
+    set({ items: updatedItems });
   },
 
   deleteItemOptimistic: (id) => {
-    // Recursively delete children
-    const deleteRecursive = (itemId: string, items: WorkspaceItem[]): WorkspaceItem[] => {
-      const children = items.filter((i) => i.parent_id === itemId);
-      const remaining = items.filter((i) => i.id !== itemId && i.parent_id !== itemId);
-      return children.flatMap((child) => deleteRecursive(child.id, remaining));
+    const deleteRecursive = (itemId: string, currentItems: WorkspaceItem[]): WorkspaceItem[] => {
+      const childrenIds = new Set(currentItems.filter((i) => i.parent_id === itemId).map((i) => i.id));
+      let remaining = currentItems.filter((i) => i.id !== itemId && i.parent_id !== itemId);
+      for (const childId of childrenIds) {
+        remaining = deleteRecursive(childId, remaining);
+      }
+      return remaining;
     };
-    
-    set((state) => ({
-      items: deleteRecursive(id, state.items),
-      selectedId: state.selectedId === id ? null : state.selectedId,
-    }));
+
+    const remainingItems = deleteRecursive(id, get().items);
+    saveLocal(remainingItems);
+    set({
+      items: remainingItems,
+      selectedId: get().selectedId === id ? null : get().selectedId,
+    });
   },
 
   moveItemOptimistic: (id, newParentId, newIndex) => {
-    set((state) => {
-      const item = state.items.find((i) => i.id === id);
-      if (!item) return state;
+    const state = get();
+    const item = state.items.find((i) => i.id === id);
+    if (!item) return;
 
-      // Update the moved item
-      const updatedItems = state.items.map((i) => {
-        if (i.id === id) {
-          return { ...i, parent_id: newParentId, order_index: newIndex, updated_at: new Date().toISOString() };
+    const updatedItems = state.items.map((i) => {
+      if (i.id === id) {
+        return { ...i, parent_id: newParentId, order_index: newIndex, updated_at: new Date().toISOString() };
+      }
+      if (i.parent_id === newParentId && i.id !== id) {
+        if (i.order_index >= newIndex) {
+          return { ...i, order_index: i.order_index + 1, updated_at: new Date().toISOString() };
+        } else if (item.parent_id === newParentId && i.order_index < item.order_index) {
+          return { ...i, order_index: i.order_index - 1, updated_at: new Date().toISOString() };
         }
-        // Adjust indices of siblings
-        if (i.parent_id === newParentId && i.id !== id) {
-          if (i.order_index >= newIndex) {
-            return { ...i, order_index: i.order_index + 1, updated_at: new Date().toISOString() };
-          } else if (item.parent_id === newParentId && i.order_index < item.order_index) {
-            return { ...i, order_index: i.order_index - 1, updated_at: new Date().toISOString() };
-          }
-        }
-        return i;
-      });
-
-      return { items: updatedItems };
+      }
+      return i;
     });
+
+    saveLocal(updatedItems);
+    set({ items: updatedItems });
   },
 
   getChildren: (parentId) => {
@@ -133,10 +178,10 @@ export const useWorkspaceStore = create<WorkspaceState>((set, get) => ({
   },
 
   updateContent: (id, content) => {
-    set((state) => ({
-      items: state.items.map((item) =>
-        item.id === id ? { ...item, content, updated_at: new Date().toISOString() } : item
-      ),
-    }));
+    const updatedItems = get().items.map((item) =>
+      item.id === id ? { ...item, content, updated_at: new Date().toISOString() } : item
+    );
+    saveLocal(updatedItems);
+    set({ items: updatedItems });
   },
 }));

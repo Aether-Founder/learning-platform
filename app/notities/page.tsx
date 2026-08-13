@@ -154,36 +154,48 @@ function Sidebar() {
 
   useEffect(() => {
     const fetchWorkspace = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (!user) return;
+      try {
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
 
-      const { data, error } = await supabase
-        .from('workspace_items')
-        .select('*')
-        .eq('user_id', user.id)
-        .order('order_index', { ascending: true });
+        if (user) {
+          const { data, error } = await supabase
+            .from('workspace_items')
+            .select('*')
+            .eq('user_id', user.id)
+            .order('order_index', { ascending: true });
 
-      if (error) {
-        console.error('Failed to fetch workspace:', error);
-      } else {
-        setItems(data || []);
+          if (!error && data && data.length > 0) {
+            const currentLocal = useWorkspaceStore.getState().items;
+            const localOnly = currentLocal.filter((local) => !data.some((db: any) => db.id === local.id));
+
+            setItems([...data, ...localOnly]);
+          }
+        }
+      } catch (err) {
+        console.warn('Could not sync workspace from server, using local storage', err);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     fetchWorkspace();
-  }, [supabase, setItems, setLoading]);
+  }, [setItems, setLoading]);
 
   const handleCreateMap = async () => {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    if (!user) return;
+    let userId = 'local-user';
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (user) userId = user.id;
+    } catch {
+      /* guest/offline */
+    }
 
     const newItem = {
-      user_id: user.id,
+      user_id: userId,
       name: t('notes_new_folder'),
       type: 'map' as const,
       parent_id: null,
@@ -191,32 +203,38 @@ function Sidebar() {
       content: {},
     };
 
-    const tempId = createItemOptimistic(newItem);
+    const createdId = createItemOptimistic(newItem);
 
-    const { data, error } = await supabase
-      .from('workspace_items')
-      .insert(newItem)
-      .select()
-      .single();
+    try {
+      const { data, error } = await supabase
+        .from('workspace_items')
+        .insert({ ...newItem, id: createdId })
+        .select()
+        .single();
 
-    if (error) {
-      useWorkspaceStore.getState().deleteItemOptimistic(tempId);
-      console.error('Failed to create map:', error);
-    } else if (data) {
-      // Replace temp ID with real ID
-      useWorkspaceStore.getState().deleteItemOptimistic(tempId);
-      setItems([...useWorkspaceStore.getState().items.filter((i) => i.id !== tempId), data]);
+      if (error) {
+        console.warn('Supabase create map warning (item saved locally):', error);
+      } else if (data) {
+        useWorkspaceStore.getState().updateItemOptimistic(createdId, data);
+      }
+    } catch (err) {
+      console.warn('Offline/Guest mode: map saved in local storage', err);
     }
   };
 
   const handleCreatePage = async () => {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    if (!user) return;
+    let userId = 'local-user';
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (user) userId = user.id;
+    } catch {
+      /* guest/offline */
+    }
 
     const newItem = {
-      user_id: user.id,
+      user_id: userId,
       name: t('notes_new_page'),
       type: 'page' as const,
       parent_id: null,
@@ -224,24 +242,26 @@ function Sidebar() {
       content: { type: 'doc', content: [] },
     };
 
-    const tempId = createItemOptimistic(newItem);
-    setSelectedId(tempId);
+    const createdId = createItemOptimistic(newItem);
+    setSelectedId(createdId);
 
-    const { data, error } = await supabase
-      .from('workspace_items')
-      .insert(newItem)
-      .select()
-      .single();
+    try {
+      const { data, error } = await supabase
+        .from('workspace_items')
+        .insert({ ...newItem, id: createdId })
+        .select()
+        .single();
 
-    if (error) {
-      useWorkspaceStore.getState().deleteItemOptimistic(tempId);
-      console.error('Failed to create page:', error);
-    } else if (data) {
-      useWorkspaceStore.getState().deleteItemOptimistic(tempId);
-      setItems([...useWorkspaceStore.getState().items.filter((i) => i.id !== tempId), data]);
-      setSelectedId(data.id);
+      if (error) {
+        console.warn('Supabase create page warning (item saved locally):', error);
+      } else if (data) {
+        useWorkspaceStore.getState().updateItemOptimistic(createdId, data);
+      }
+    } catch (err) {
+      console.warn('Offline/Guest mode: page saved in local storage', err);
     }
   };
+
 
   const handleDragEnd = async (event: any) => {
     const { active, over } = event;

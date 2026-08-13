@@ -5,6 +5,7 @@ import {
   type Language,
 } from './i18n-config';
 import { detectLanguageFromLocation } from './i18n-location';
+import nlTranslations from '@/public/locales/nl.json';
 
 export type { Language };
 
@@ -15,35 +16,38 @@ export interface Translation {
 type TParams = Record<string, string | number>;
 
 class I18n {
-  private translations: Record<string, Translation> = {};
+  private translations: Record<string, Translation> = {
+    nl: nlTranslations as Translation,
+  };
   private currentLanguage: Language = DEFAULT_LANGUAGE;
-  private loaded = false;
+  private loaded = true;
   private version = 0;
   private loadListeners = new Set<() => void>();
   private changeListeners = new Set<() => void>();
 
+
   constructor() {
-    // Detect the language from the visitor's location synchronously on the
-    // client so the first render already uses the right language (no flash of
-    // the wrong one). NL and BE map to Dutch, everything else to English.
     if (typeof window !== 'undefined') {
-      const detected = detectLanguageFromLocation();
-      this.currentLanguage = detected;
-      this.applyDocumentLanguage(detected);
-      
-      // Check if language is saved in localStorage
-      try {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        if (saved && (LANGUAGES as readonly string[]).includes(saved as Language)) {
-          this.currentLanguage = saved as Language;
-          this.applyDocumentLanguage(this.currentLanguage);
+      // Defer client language detection so initial client hydration matches server snapshot
+      setTimeout(() => {
+        try {
+          const saved = localStorage.getItem(STORAGE_KEY);
+          if (saved && (LANGUAGES as readonly string[]).includes(saved as Language)) {
+            this.setLanguage(saved as Language);
+          } else {
+            const detected = detectLanguageFromLocation();
+            if (detected !== this.currentLanguage) {
+              this.setLanguage(detected);
+            }
+          }
+        } catch {
+          /* storage unavailable */
         }
-      } catch {
-        /* storage unavailable */
-      }
+      }, 0);
     }
     this.loadTranslations();
   }
+
 
   private applyDocumentLanguage(language: Language): void {
     try {

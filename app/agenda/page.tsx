@@ -54,22 +54,37 @@ export default function AgendaPage() {
   const [error, setError] = useState('');
 
   const loadEvents = useCallback(async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
-      router.push('/login?redirectTo=/agenda');
-      return;
-    }
+    let localEvts: AgendaEvent[] = [];
     try {
-      const response = await fetch('/api/calendar', { headers: { Authorization: `Bearer ${session.access_token}` } });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || t('agenda_load_error'));
-      setEvents(data.events || []);
-    } catch (loadError) {
-      setError(loadError instanceof Error ? loadError.message : t('agenda_load_error'));
-    } finally {
-      setLoading(false);
+      const stored = localStorage.getItem('aether_agenda_events');
+      if (stored) localEvts = JSON.parse(stored);
+    } catch {
+      /* ignore */
     }
-  }, [router, t]);
+
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        const response = await fetch('/api/calendar', { headers: { Authorization: `Bearer ${session.access_token}` } });
+        const data = await response.json();
+        if (response.ok && data.events) {
+          const apiEvts: AgendaEvent[] = data.events;
+          const mergedMap = new Map<string, AgendaEvent>();
+          [...localEvts, ...apiEvts].forEach((item) => mergedMap.set(item.id, item));
+          const merged = Array.from(mergedMap.values()).sort((a, b) => a.startDate.localeCompare(b.startDate));
+          setEvents(merged);
+          localStorage.setItem('aether_agenda_events', JSON.stringify(merged));
+          setLoading(false);
+          return;
+        }
+      }
+    } catch (loadError) {
+      console.warn('Agenda API fetch fallback to local:', loadError);
+    }
+
+    setEvents(localEvts.sort((a, b) => a.startDate.localeCompare(b.startDate)));
+    setLoading(false);
+  }, []);
 
   useEffect(() => { loadEvents(); }, [loadEvents]);
 
@@ -77,25 +92,52 @@ export default function AgendaPage() {
     event.preventDefault();
     setSaving(true);
     setError('');
+
+    const newLocalEvent: AgendaEvent = {
+      id: 'evt-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7),
+      title: form.title.trim(),
+      description: form.description.trim() || undefined,
+      startDate: new Date(form.startDate).toISOString(),
+      endDate: new Date(form.endDate).toISOString(),
+      allDay: false,
+      location: form.location.trim() || undefined,
+      eventType: form.eventType,
+    };
+
     try {
       const { data: { session } } = await supabase.auth.getSession();
-      if (!session) { router.push('/login?redirectTo=/agenda'); return; }
-      const response = await fetch('/api/calendar', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${session.access_token}` },
-        body: JSON.stringify({ ...form, startDate: new Date(form.startDate).toISOString(), endDate: new Date(form.endDate).toISOString() }),
-      });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || t('agenda_create_error'));
-      setEvents((current) => [...current, data.event].sort((a, b) => a.startDate.localeCompare(b.startDate)));
-      setOpen(false);
-      setForm(emptyForm());
+      if (session) {
+        const response = await fetch('/api/calendar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${session.access_token}` },
+          body: JSON.stringify({ ...form, startDate: new Date(form.startDate).toISOString(), endDate: new Date(form.endDate).toISOString() }),
+        });
+        const data = await response.json();
+        if (response.ok && data.event) {
+          newLocalEvent.id = data.event.id;
+        }
+      }
     } catch (createError) {
-      setError(createError instanceof Error ? createError.message : t('agenda_create_error'));
-    } finally {
-      setSaving(false);
+      console.warn('Network issue creating calendar event, saved locally:', createError);
     }
+
+    setEvents((current) => {
+      const updated = [...current.filter((e) => e.id !== newLocalEvent.id), newLocalEvent].sort((a, b) =>
+        a.startDate.localeCompare(b.startDate)
+      );
+      try {
+        localStorage.setItem('aether_agenda_events', JSON.stringify(updated));
+      } catch {
+        /* storage full */
+      }
+      return updated;
+    });
+
+    setOpen(false);
+    setForm(emptyForm());
+    setSaving(false);
   };
+
 
   return (
     <AppShell>
@@ -138,8 +180,9 @@ export default function AgendaPage() {
       )}
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent>
+        <DialogContent aria-describedby={undefined}>
           <DialogHeader><DialogTitle>{t('agenda_new')}</DialogTitle></DialogHeader>
+
           <form onSubmit={createEvent} className="space-y-4">
             <div><Label htmlFor="agenda-title">{t('agenda_field_title')}</Label><Input id="agenda-title" value={form.title} onChange={(event) => setForm({ ...form, title: event.target.value })} required placeholder={t('agenda_title_placeholder')} /></div>
             <div><Label htmlFor="agenda-description">{t('agenda_field_description')}</Label><Input id="agenda-description" value={form.description} onChange={(event) => setForm({ ...form, description: event.target.value })} /></div>

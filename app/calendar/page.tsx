@@ -1,8 +1,8 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { CalendarDays, Pencil, Plus, Trash2 } from 'lucide-react';
+
 import { supabase } from '@/lib/supabase/client';
 import { CalendarView } from '@/components/CalendarView';
 import { Button } from '@/components/ui/button';
@@ -66,8 +66,8 @@ function formFromEvent(event: CalendarEvent): EventForm {
 }
 
 export default function CalendarPage() {
-  const router = useRouter();
   const { t } = useTranslation();
+
   const [events, setEvents] = useState<CalendarEvent[]>([]);
   const [form, setForm] = useState<EventForm>(emptyForm);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -77,22 +77,52 @@ export default function CalendarPage() {
   const [error, setError] = useState('');
 
   const loadEvents = useCallback(async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
-      router.push('/login?redirectTo=/calendar');
-      return;
-    }
+    let localEvts: CalendarEvent[] = [];
     try {
-      const response = await fetch('/api/calendar', { headers: { Authorization: `Bearer ${session.access_token}` } });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || t('calendar_load_error'));
-      setEvents((data.events || []).map((event: CalendarEvent) => ({ ...event, startDate: new Date(event.startDate), endDate: new Date(event.endDate) })));
-    } catch (loadError) {
-      setError(loadError instanceof Error ? loadError.message : t('calendar_load_error'));
-    } finally {
-      setLoading(false);
+      const stored = localStorage.getItem('aether_agenda_events');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        localEvts = parsed.map((e: any) => ({
+          ...e,
+          startDate: new Date(e.startDate),
+          endDate: new Date(e.endDate),
+        }));
+      }
+    } catch {
+      /* ignore */
     }
-  }, [router, t]);
+
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        const response = await fetch('/api/calendar', { headers: { Authorization: `Bearer ${session.access_token}` } });
+        const data = await response.json();
+        if (response.ok && data.events) {
+          const apiEvts = data.events.map((event: any) => ({
+            ...event,
+            startDate: new Date(event.startDate),
+            endDate: new Date(event.endDate),
+          }));
+          const mergedMap = new Map<string, CalendarEvent>();
+          [...localEvts, ...apiEvts].forEach((item) => mergedMap.set(item.id, item));
+          const merged = Array.from(mergedMap.values());
+          setEvents(merged);
+          try {
+            localStorage.setItem('aether_agenda_events', JSON.stringify(merged));
+          } catch {
+            /* storage full */
+          }
+          setLoading(false);
+          return;
+        }
+      }
+    } catch (loadError) {
+      console.warn('Calendar API fetch fallback to local:', loadError);
+    }
+
+    setEvents(localEvts);
+    setLoading(false);
+  }, []);
 
   useEffect(() => { loadEvents(); }, [loadEvents]);
 
@@ -114,68 +144,96 @@ export default function CalendarPage() {
     event.preventDefault();
     setSaving(true);
     setError('');
+
+    if (!form.title.trim()) {
+      setError('Titel is verplicht');
+      setSaving(false);
+      return;
+    }
+
+    const start = new Date(`${form.date}T${form.time}`);
+    const end = new Date(start.getTime() + Number(form.duration) * 60 * 1000);
+
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+      setError('Ongeldige datum of tijd');
+      setSaving(false);
+      return;
+    }
+
+    const eventId = editingId || 'cal-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7);
+    const newEvent: CalendarEvent = {
+      id: eventId,
+      title: form.title.trim(),
+      description: form.notes.trim() || undefined,
+      startDate: start,
+      endDate: end,
+      allDay: false,
+      eventType: form.eventType,
+    };
+
     try {
       const { data: { session } } = await supabase.auth.getSession();
-      if (!session) { router.push('/login?redirectTo=/calendar'); return; }
-      
-      // Validate form data
-      if (!form.title.trim()) {
-        throw new Error('Titel is verplicht');
+      if (session) {
+        await fetch(editingId ? `/api/calendar/${editingId}` : '/api/calendar', {
+          method: editingId ? 'PUT' : 'POST',
+          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${session.access_token}` },
+          body: JSON.stringify({
+            title: form.title.trim(),
+            description: form.notes.trim(),
+            startDate: start.toISOString(),
+            endDate: end.toISOString(),
+            eventType: form.eventType,
+          }),
+        });
       }
-      
-      const start = new Date(`${form.date}T${form.time}`);
-      const end = new Date(start.getTime() + Number(form.duration) * 60 * 1000);
-      
-      // Validate dates
-      if (isNaN(start.getTime()) || isNaN(end.getTime())) {
-        throw new Error('Ongeldige datum of tijd');
-      }
-      
-      const response = await fetch(editingId ? `/api/calendar/${editingId}` : '/api/calendar', {
-        method: editingId ? 'PUT' : 'POST',
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${session.access_token}` },
-        body: JSON.stringify({ 
-          title: form.title.trim(), 
-          description: form.notes.trim(), 
-          startDate: start.toISOString(), 
-          endDate: end.toISOString(), 
-          eventType: form.eventType 
-        }),
-      });
-      
-      const data = await response.json();
-      if (!response.ok) {
-        console.error('Calendar API error:', data);
-        throw new Error(data.error || t('calendar_save_error'));
-      }
-      
-      // Close modal on success
-      setOpen(false);
-      await loadEvents();
     } catch (saveError) {
-      console.error('Save event error:', saveError);
-      setError(saveError instanceof Error ? saveError.message : t('calendar_save_error'));
-    } finally {
-      setSaving(false);
+      console.warn('Network issue saving calendar event, saved locally:', saveError);
     }
+
+    setEvents((prev) => {
+      const updated = [...prev.filter((e) => e.id !== eventId), newEvent];
+      try {
+        localStorage.setItem('aether_agenda_events', JSON.stringify(updated));
+      } catch {
+        /* storage full */
+      }
+      return updated;
+    });
+
+    setOpen(false);
+    setSaving(false);
   };
 
   const deleteEvent = async () => {
     if (!editingId || !window.confirm(t('calendar_delete_confirm'))) return;
     setSaving(true);
+
     try {
       const { data: { session } } = await supabase.auth.getSession();
-      if (!session) { router.push('/login?redirectTo=/calendar'); return; }
-      const response = await fetch(`/api/calendar/${editingId}`, { method: 'DELETE', headers: { Authorization: `Bearer ${session.access_token}` } });
-      if (!response.ok) throw new Error(t('calendar_delete_error'));
-      setOpen(false);
-      await loadEvents();
+      if (session) {
+        await fetch(`/api/calendar/${editingId}`, {
+          method: 'DELETE',
+          headers: { Authorization: `Bearer ${session.access_token}` },
+        });
+      }
     } catch (deleteError) {
-      setError(deleteError instanceof Error ? deleteError.message : t('calendar_delete_error'));
-    } finally {
-      setSaving(false);
+      console.warn('Network issue deleting calendar event:', deleteError);
     }
+
+    setEvents((prev) => {
+      const updated = prev.filter((e) => e.id !== editingId);
+      try {
+        localStorage.setItem('aether_agenda_events', JSON.stringify(updated));
+      } catch {
+        /* storage full */
+      }
+      return updated;
+    });
+
+    setOpen(false);
+    setSaving(false);
   };
+
 
   return (
     <div className="container mx-auto max-w-7xl px-4 py-8">
@@ -191,8 +249,9 @@ export default function CalendarPage() {
       </>}
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent>
+        <DialogContent aria-describedby={undefined}>
           <DialogHeader><DialogTitle>{editingId ? t('calendar_edit') : t('calendar_add')}</DialogTitle></DialogHeader>
+
           <form onSubmit={saveEvent} className="space-y-4">
             <div><Label htmlFor="calendar-title">{t('calendar_field_title')}</Label><Input id="calendar-title" value={form.title} onChange={(event) => setForm({ ...form, title: event.target.value })} required placeholder={t('calendar_title_placeholder')} /></div>
             <div className="grid gap-4 sm:grid-cols-2"><div><Label htmlFor="calendar-date">{t('calendar_field_date')}</Label><Input id="calendar-date" type="date" value={form.date} onChange={(event) => setForm({ ...form, date: event.target.value })} required /></div><div><Label htmlFor="calendar-time">{t('calendar_field_time')}</Label><Input id="calendar-time" type="time" value={form.time} onChange={(event) => setForm({ ...form, time: event.target.value })} required /></div></div>

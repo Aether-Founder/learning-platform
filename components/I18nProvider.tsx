@@ -12,7 +12,8 @@ import { setDateFormatLocale } from '@/lib/i18n-date';
  * mismatches occur. It also keeps <html lang> and the document title in sync.
  */
 export function I18nProvider({ children }: { children: React.ReactNode }) {
-  const { t, currentLanguage, translationsReady } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
+
 
   useEffect(() => {
     document.documentElement.lang = currentLanguage;
@@ -21,9 +22,6 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
     document.title = t('meta_title', 'Aether');
   }, [currentLanguage, t]);
 
-  if (!translationsReady) {
-    return <div className="min-h-screen bg-background" aria-hidden="true" />;
-  }
-
   return <>{children}</>;
 }
+
