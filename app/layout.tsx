@@ -1,11 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, Cormorant_Garamond } from 'next/font/google';
 import './globals.css';
-import { ThemeProvider } from '@/components/ThemeProvider';
-import { SupabaseProvider } from '@/components/providers/SupabaseProvider';
-import { I18nProvider } from '@/components/I18nProvider';
-
 import { InitialLoader } from '@/components/InitialLoader';
+import { ClientProviders } from '@/components/ClientProviders';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -30,8 +27,18 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#1a1d2e',
+  themeColor: '#171b2b',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
 };
+
+// Disable SSR completely to avoid client/server boundary issues
+// SSR is not a priority right now - app needs to be functional
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+export const fetchCache = 'force-no-store';
 
 export default function RootLayout({
   children,
@@ -39,71 +46,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="nl" suppressHydrationWarning style={{ backgroundColor: '#1a1d2e' }}>
+    <html lang="nl" suppressHydrationWarning>
       <head>
-        <style dangerouslySetInnerHTML={{
-          __html: `
-            html, body {
-              background-color: #1a1d2e !important;
-            }
-            .logo-wrapper {
-              position: relative;
-              width: 120px;
-              height: 120px;
-            }
-            .logo-image {
-              width: 100%;
-              height: 100%;
-              object-fit: contain;
-            }
-            .reflection-overlay {
-              position: absolute;
-              top: 0;
-              left: 0;
-              width: 100%;
-              height: 100%;
-              -webkit-mask-image: url(/aether-logo.png);
-              -webkit-mask-size: contain;
-              -webkit-mask-position: center;
-              -webkit-mask-repeat: no-repeat;
-              mask-image: url(/aether-logo.png);
-              mask-size: contain;
-              mask-position: center;
-              mask-repeat: no-repeat;
-              overflow: hidden;
-            }
-            .reflection-line {
-              position: absolute;
-              width: 200%;
-              height: 200%;
-              top: -50%;
-              left: -50%;
-              background: linear-gradient(135deg, transparent 40%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.4) 55%, transparent 60%);
-              background-size: 100% 100%;
-              animation: reflection 3s ease-in-out infinite;
-            }
-            @keyframes reflection {
-              0% {
-                transform: translate(-100%, -100%);
-              }
-              100% {
-                transform: translate(100%, 100%);
-              }
-            }
-          `
-        }} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className={`${inter.variable} ${cormorant.variable}`} style={{ backgroundColor: '#1a1d2e' }} suppressHydrationWarning>
+      <body className={`${inter.variable} ${cormorant.variable}`}>
         <InitialLoader />
-        <SupabaseProvider>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <I18nProvider>{children}</I18nProvider>
-          </ThemeProvider>
-        </SupabaseProvider>
+        <ClientProviders>{children}</ClientProviders>
       </body>
     </html>
   );
 }
-

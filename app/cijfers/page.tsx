@@ -423,7 +423,16 @@ export default function CijfersPage() {
                       </td>
                       <td className="px-5 py-4 text-right">{grade.weight}</td>
                       <td className="px-5 py-4 text-right font-medium">
-                        <span className={grade.grade < 5.5 ? 'text-red-600' : ''}>{grade.grade.toFixed(1)}</span>
+                        <div className="flex items-center justify-end gap-2">
+                          <span className={`px-2 py-0.5 rounded text-xs font-medium ${
+                            grade.grade >= 7 ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
+                            grade.grade >= 5.5 ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400' :
+                            'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                          }`}>
+                            {grade.grade >= 7 ? 'Groen' : grade.grade >= 5.5 ? 'Oranje' : 'Rood'}
+                          </span>
+                          <span className={grade.grade < 5.5 ? 'text-red-600' : ''}>{grade.grade.toFixed(1)}</span>
+                        </div>
                       </td>
                       <td className="px-5 py-4">
                         <div className="flex gap-1">
@@ -468,9 +477,18 @@ export default function CijfersPage() {
                     {periodGrades.map((grade) => (
                       <div key={grade.id} className="flex items-center justify-between text-sm">
                         <span className="text-muted-foreground">{grade.subject_name}</span>
-                        <span className={`font-medium ${grade.grade < 5.5 ? 'text-red-600' : ''}`}>
-                          {grade.grade.toFixed(1)}
-                        </span>
+                        <div className="flex items-center gap-2">
+                          <span className={`px-2 py-0.5 rounded text-xs font-medium ${
+                            grade.grade >= 7 ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
+                            grade.grade >= 5.5 ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400' :
+                            'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                          }`}>
+                            {grade.grade >= 7 ? 'Groen' : grade.grade >= 5.5 ? 'Oranje' : 'Rood'}
+                          </span>
+                          <span className={`font-medium ${grade.grade < 5.5 ? 'text-red-600' : ''}`}>
+                            {grade.grade.toFixed(1)}
+                          </span>
+                        </div>
                       </div>
                     ))}
                   </div>

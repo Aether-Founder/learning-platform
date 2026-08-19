@@ -1,0 +1,92 @@
+{
+  "id": "1.4-versnelling",
+  "chapterId": "beweging",
+  "subjectId": "natuurkunde",
+  "number": "1.4",
+  "title": "Versnelling",
+  "goal": "Je leert rekenen aan versnelde en vertraagde bewegingen.",
+  "content": "# 1.4 Versnelling\n\n> **DOEL** → *Je leert rekenen aan versnelde en vertraagde bewegingen.*\n\n**Versnelling en vertraging** Als een auto in 5 seconden vanuit stilstand versnelt naar 20 m s⁻¹, is de gemiddelde snelheidstoename 4 m s⁻¹ per seconde ofwel 4 m s⁻². De snelheidsverandering per seconde noem je de versnelling. De formule voor het berekenen van de *gemiddelde versnelling* is:\n\n> \\(a_{\\text{gem}} = \\frac{\\Delta v}{\\Delta t}\\)\n\n- \\(a_{\\text{gem}}\\) gemiddelde versnelling in m s⁻²\n- \\(\\Delta v\\) snelheidsverandering in m s⁻¹\n- \\(\\Delta t\\) tijdsverschil in s\n\nAls de snelheid afneemt, is \\(\\Delta v\\) negatief en de versnelling dus ook. Een vertraging is dus hetzelfde als een negatieve versnelling. Als een beweging eenparig versneld of vertraagd is, is de *versnelling* constant en dus gelijk aan de gemiddelde versnelling: \\(a = \\frac{\\Delta v}{\\Delta t}\\).\n\n**Voorbeeld [4]** Een motorrijder remt in 5,0 s eenparig af tot stilstand. In figuur 1.12 zie je het \\((x,t)\\)-diagram van zijn beweging vanaf het moment van remmen. Bepaal de versnelling tijdens het afremmen.\n\n*Gegeven:* \\((x,t)\\)-diagram.\n*Gevraagd:* \\(a\\).\n*Berekening:*\n1. Bepaal de beginsnelheid van de motorrijder. Daarvoor teken je de raaklijn op \\(t = 0\\) s en vervolgens bepaal je de helling: \\(v = \\left(\\frac{\\Delta x}{\\Delta t}\\right)_{\\text{raaklijn}} \\rightarrow v = \\frac{60}{2{,}0} = 30\\) m s⁻¹\n2. De eindsnelheid op \\(t = 5{,}0\\) s is 0 m s⁻¹.\n3. Bereken de versnelling: \\(a = \\frac{\\Delta v}{\\Delta t} \\rightarrow a = \\frac{0 - 30}{5{,}0} = -6{,}0\\) m s⁻²\n\n*Antwoord:* De versnelling tijdens het afremmen is \\(-6{,}0\\) m s⁻².\n\n**Afbeelding – [Figuur 1.12: \\((x,t)\\)-diagram van een remmende motorrijder]**\n- Type beeld: grafiek met gestippeld raster, raaklijn en rode accolades\n- Assen: verticaal \\(x \\,(\\text{m})\\) van 0 tot 80 in stappen van 10; horizontaal \\(t \\,(\\text{s})\\) van 0 tot 7 in stappen van 1.\n- Beschrijving: een rode kromme die vanuit \\((0, 0)\\) steil stijgt en steeds minder steil wordt, tot hij vanaf \\(t \\approx 4\\)–5 s horizontaal loopt op ongeveer 76 m. Een zwarte raaklijn op \\(t = 0\\) loopt van \\((0, 0)\\) tot ongeveer \\((2{,}2, 78)\\). Bovenaan een horizontale accolade gelabeld \\(\\Delta t = 2{,}0\\) s en rechts een verticale accolade gelabeld \\(\\Delta x = 60\\) m.\n- Bijschrift: **1.12** \\((x,t)\\)-diagram van een remmende motorrijder\n\n**Valversnelling** Als een steen van een toren valt, neemt zijn snelheid elke seconde toe. Als je de luchtweerstand verwaarloost, versnelt de steen eenparig. Deze eenparig versnelde beweging noem je een *vrije val*. De versnelling bij een vrije val op aarde is gemiddeld 9,81 m s⁻² en heet de *valversnelling*. De valversnelling heeft een eigen symbool: g. Op andere hemellichamen dan de aarde heeft de valversnelling een andere waarde. Die vind je in een tabellenboek.\n\n**Voorbeeld [5]** Op de maan heeft astronaut David Scott een valproef gedaan. Hij liet een hamer en een veer uit zijn hand vallen van 1,5 m hoogte (figuur 1.13). Na 1,36 s raakten beide objecten gelijktijdig de grond. Bereken de valversnelling op de maan.\n\n*Gegeven:* \\(v_{\\text{begin}} = 0\\) m s⁻¹; \\(\\Delta x = 1{,}5\\) m; \\(\\Delta t = 1{,}36\\) s.\n*Gevraagd:* \\(g_{\\text{maan}}\\) in m s⁻².\n*Berekening:*\n1. Bereken de gemiddelde snelheid: \\(v_{\\text{gem}} = \\frac{\\Delta x}{\\Delta t} \\rightarrow v_{\\text{gem}} = \\frac{1{,}5}{1{,}36} = 1{,}10\\) m s⁻¹\n2. Bereken de eindsnelheid: \\(v_{\\text{gem}} = \\frac{v_{\\text{begin}} + v_{\\text{eind}}}{2} = \\frac{v_{\\text{eind}}}{2} \\rightarrow v_{\\text{eind}} = 2 \\times v_{\\text{gem}} \\rightarrow v_{\\text{eind}} = 2 \\times 1{,}10 = 2{,}20\\) m s⁻¹\n3. Bereken de valversnelling: \\(g_{\\text{maan}} = \\frac{\\Delta v}{\\Delta t} \\rightarrow g_{\\text{maan}} = \\frac{2{,}20}{1{,}36} = 1{,}62\\) m s⁻²\n\n*Antwoord:* De valversnelling op de maan is 1,6 m s⁻².\n\n**Afbeelding – [Figuur 1.13: Vrije val op de maan]**\n- Type beeld: foto\n- Beschrijving: een astronaut in een wit ruimtepak staat op het grijze maanoppervlak; links is een deel van de maanlander te zien, rechts de maanwagen (rover). De astronaut laat een hamer en een veer vallen; een rode stippellijn met pijltjes en het opschrift \"1,5 meter\" geeft de valhoogte aan.\n- Bijschrift: **1.13** Vrije val op de maan",
+  "exercises": [
+    {
+      "id": "opdracht-30",
+      "title": "Opdracht 30",
+      "content": "Noteer de formule waarmee je de gemiddelde versnelling berekent. **R**"
+    },
+    {
+      "id": "opdracht-31",
+      "title": "Opdracht 31",
+      "content": "Bereken voor de volgende situaties de gemiddelde versnelling.\n\n- **a** Een fietser gaat van 0 m s⁻¹ naar 5,0 m s⁻¹ in 4,0 s. **T1**\n- **b** Een hardloper gaat van 0 m s⁻¹ naar 3,0 m s⁻¹ in 2,0 s. **T1**\n- **c** Een auto gaat van 60 km h⁻¹ naar 85 km h⁻¹ in 9,0 s. **T1**"
+    },
+    {
+      "id": "opdracht-32",
+      "title": "Opdracht 32",
+      "content": "Je laat vanaf een hoogte van 1,2 m een knikker vallen. Je mag de luchtweerstand verwaarlozen.\n\n- **a** Bereken de snelheid van de knikker op \\(t = 0{,}45\\) s. **T1**\n- **b** Bereken de gemiddelde snelheid van de knikker na 0,45 s. **T1**\n- **c** Laat met een berekening zien dat de knikker na 0,45 s de grond nog niet heeft geraakt. **T2**"
+    },
+    {
+      "id": "opdracht-33",
+      "title": "Opdracht 33",
+      "content": "Een automobilist maakt een rit van 25 km. In het begin versnelt de automobilist in 5,0 s vanuit stilstand naar 50 km h⁻¹. Na 10 minuten versnelt de automobilist in 10 s verder naar 100 km h⁻¹. Aan het einde van de rit remt de auto in 15 s tot stilstand. Ga ervan uit dat de vertraging en de versnellingen eenparig zijn.\n\n- **a** Bereken de grootste versnelling tijdens de rit. **T2**\n- **b** Bereken de vertraging tijdens het remmen aan het einde van de rit. **T2**\n- **c** Bereken de gemiddelde snelheid van de automobilist over de gehele rit. **I**"
+    },
+    {
+      "id": "opdracht-34",
+      "title": "Opdracht 34",
+      "content": "*Afbeelding A*\nIn afbeelding A zie je het vereenvoudigde \\((v,t)\\)-diagram van een hardloper die een kort sprintje trekt.\n\n- **a** Leg uit in welk tijdsinterval er sprake is van een constante positieve versnelling. **T1**\n- **b** Leg uit in welk tijdsinterval er sprake is van een constante negatieve versnelling. **T1**\n- **c** Bepaal de versnelling tussen \\(t = 10\\) s en \\(t = 16\\) s. **T2**\n- **d** Leid af dat je voor de verplaatsing bij een eenparig rechtlijnige beweging vanuit stilstand kunt schrijven: \\(s = \\frac{1}{2} a t^2\\). Gebruik hierbij de formules voor \\(v_{\\text{gem}}\\) en \\(a_{\\text{gem}}\\). **I**\n- **e** Bereken met behulp van de formule uit vraag d de verplaatsing tussen \\(t = 0\\) s en \\(t = 6\\) s. **T2**"
+    },
+    {
+      "id": "opdracht-35",
+      "title": "Opdracht 35",
+      "content": "Bekijk nog eens voorbeeld 5. Stel dat dit experiment in de toekomst op de planeet Mars wordt nagedaan, dan zal de uitkomst anders zijn. De hamer zal al na 0,90 s de grond treffen als hij vanaf dezelfde hoogte wordt losgelaten.\n\n- **a** Bereken de valversnelling op Mars. **T1**\n- **b** De veer zal niet tegelijkertijd met de hamer de grond van Mars raken. Leg uit waarom niet. **I**\n- **c** Je doet de proef nu op aarde. Beredoneer of de valtijd van de hamer op aarde groter of kleiner is dan op Mars. **T2**"
+    },
+    {
+      "id": "opdracht-36",
+      "title": "Opdracht 36",
+      "content": "*Afbeelding B*\nJe hebt een videometing gemaakt van de sprong van een klasgenoot. In afbeelding B zie je het \\((x,t)\\)-diagram van de sprong.\n\n- **a** Verklaar de daling van de grafiek bij het begin van de sprong. **T2**\n- **b** Bepaal het tijdstip waarop de klasgenoot het hoogste punt bereikt. **T1**\n- **c** Op \\(t = 0{,}9\\) s komt de klasgenoot los van de grond. Bepaal met behulp van het diagram de snelheid van de klasgenoot op dit tijdstip. **T1**\n- **d** Bereken de gemiddelde versnelling van de klasgenoot tussen het loskomen van de grond en het bereiken van het hoogste punt. **T1**"
+    },
+    {
+      "id": "opdracht-37",
+      "title": "Opdracht 37",
+      "content": "*Afbeelding C*\nJe bestudeert de beweging van een karretje dat van een helling af rolt. Met behulp van een videometing maak je het \\((x,t)\\)-diagram in afbeelding C.\n\n- **a** Leg uit welk soort beweging het karretje maakt. **T1**\n- **b** Bepaal de snelheid op \\(t = 0\\) s en \\(t = 2{,}5\\) s. **T1**\n- **c** Bereken de gemiddelde versnelling van het karretje. **T2**"
+    },
+    {
+      "id": "opdracht-38",
+      "title": "Opdracht 38",
+      "content": "Een kogel verlaat de loop van een geweer met 520 m s⁻¹. De loop is 84 cm lang. Neem aan dat de versnelling van de kogel in de loop eenparig is. Bereken de versnelling van de kogel in de loop van het geweer. **T2**"
+    },
+    {
+      "id": "opdracht-39",
+      "title": "Opdracht 39",
+      "content": "*Afbeelding D*\nIn afbeelding D zie je het \\((v,t)\\)-diagram van een bekende attractie in Disney World.\n\n- **a** Bepaal de gemiddelde versnelling tijdens het versnellen van 0 naar 70 km h⁻¹. **T2**\n- **b** Leg uit of de gemiddelde vertraging aan het einde van de rit groter of kleiner is dan de gemiddelde versnelling aan het begin. **T2**\n\nVersnellingen die je lichaam ondergaat, worden vaak uitgedrukt in de valversnelling van de aarde. 1g betekent dat je je precies even zwaar voelt als wanneer je stilstaat op aarde. In een achtbaan mag je lichaam maximaal een versnelling van 5g ondergaan. Dit is dus een versnelling van 5 × 9,81 = 49,05 m s⁻². Je voelt je dan vijf keer zwaarder dan als je stilstaat op aarde.\n\n- **c** Druk de gemiddelde versnelling van de Disney-attractie uit in g. **T2**\n- **d** Leg uit waarom de maximale versnelling groter kan zijn dan je antwoord bij vraag c. **I**\n- **e** In een van de snelste achtbanen ter wereld word je in 3,5 s van stilstand tot 205 km h⁻¹ versneld. Bereken de gemiddelde versnelling die je ondergaat, uitgedrukt in g. **I**"
+    },
+    {
+      "id": "opdracht-40",
+      "title": "Opdracht 40",
+      "content": "Bij forensisch onderzoek vinden specialisten in een muur een kogelgat van 6,21 cm diep. Het in de muur dringen van de kogel duurde 0,34 ms. Bereken de vertraging van de kogel. Neem aan dat de beweging van de kogel eenparig vertraagd was. **T2**"
+    },
+    {
+      "id": "opdracht-41",
+      "title": "Opdracht 41",
+      "content": "Stel je voor dat je op de maan een hamer laat vallen. Daarna laat je de hamer op de maan van een twee keer zo grote hoogte vallen. Beredoneer dat de snelheid waarmee de hamer de grond raakt de tweede keer minder dan twee keer zo groot is als de snelheid waarmee de hamer de eerste keer de grond raakte. **I**"
+    }
+  ],
+  "learningGoals": {
+    "R": [
+      "Gemiddelde versnelling",
+      "Versnelling",
+      "Vrije val",
+      "Valversnelling"
+    ],
+    "T1": "Ik kan rekenen met versnelling.",
+    "T2": "Ik kan berekeningen maken waarbij ik verschillende formules voor beweging combineer.",
+    "I": "Ik kan redeneren met de formules voor beweging."
+  },
+  "examTraining": {
+    "id": "examentraining-1.4",
+    "exercises": [
+      {
+        "id": "opdracht-42",
+        "title": "Opdracht 42",
+        "content": "*Afbeelding E*\nAchtbanen zijn al jaren zeer populaire attracties. In een Nederlands attractiepark is een achtbaan waarbij een trein met passagiers met een constante snelheid van 5,0 km h⁻¹ langs een rechte helling omhoogbeweegt. De top van de helling ligt 46 m hoger dan het startpunt. Over deze helling doet de trein 51 s. Het midden van de trein passeert de top van de helling met verwaarloosbare snelheid. De trein begint vervolgens aan een zeer steile afdaling. Bij die afdaling bedraagt het hoogteverschil ook 46 m. Onderaan is de snelheid opgelopen tot 106 km h⁻¹.\n\n- **a** Bereken met behulp van de gegevens in de tekst de afstand die de trein aflegt op de helling voordat hij de top bereikt. **T1**\n\nDe helling naar beneden is zo steil dat je de lengte van deze helling gelijk mag stellen aan het hoogteverschil.\n\n- **b** Hoe groot is dus de versnelling tijdens deze eerste afdaling? **T2**\n- **c** Bereken hoelang de afdaling duurt. **T1**\n\nAan het einde van de rit remt de trein eenparig vertraagd van 15,2 m s⁻¹ naar 0,3 m s⁻¹. De remvertraging mag nooit groter zijn dan 5,0 m s⁻².\n\n- **d** Bereken de minimale remtijd. **T2**\n- **e** Bereken de minimale afstand die de trein tijdens het remmen aflegt. **T2**"
+      }
+    ]
+  }
+}

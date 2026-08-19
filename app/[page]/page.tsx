@@ -20,7 +20,8 @@ import { useBookmarks } from '@/hooks/useBookmarks';
 import { getSectionTitle } from '@/lib/section-title';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState, useRef, useMemo, useCallback } from 'react';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Play } from 'lucide-react';
+import Link from 'next/link';
 
 export type ViewMode =
   | 'book'
@@ -94,36 +95,36 @@ function ToetsweekplanningSkeleton() {
         <ThemeToggle />
       </div>
       <div className="mx-auto max-w-[900px] px-5 py-14 sm:px-8">
-        <div className="mb-8 animate-pulse space-y-3">
-          <div className="h-10 w-2/3 rounded bg-secondary" />
-          <div className="h-4 w-1/2 rounded bg-secondary" />
+        <div className="mb-8 space-y-3">
+          <div className="skeleton-line h-10 w-2/3 rounded" />
+          <div className="skeleton-line h-4 w-1/2 rounded" />
         </div>
-        <div className="animate-pulse rounded-xl border border-border bg-gradient-to-br from-card to-secondary/40 p-5 shadow-sm sm:p-6">
-          <div className="mb-5 h-7 w-2/3 rounded bg-secondary" />
+        <div className="rounded-xl border border-border bg-gradient-to-br from-card to-secondary/40 p-5 shadow-sm sm:p-6">
+          <div className="mb-5 skeleton-line h-7 w-2/3 rounded" />
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
             {[1, 2, 3, 4, 5].map((item) => (
               <div key={item} className="rounded-lg border border-border bg-background/70 p-4">
-                <div className="mx-auto h-8 w-10 rounded bg-secondary" />
-                <div className="mx-auto mt-3 h-3 w-14 rounded bg-secondary" />
+                <div className="mx-auto skeleton-line h-8 w-10 rounded" />
+                <div className="mx-auto mt-3 skeleton-line h-3 w-14 rounded" />
               </div>
             ))}
           </div>
         </div>
-        <div className="mt-6 animate-pulse rounded-lg border border-border bg-secondary/50 p-1">
+        <div className="mt-6 rounded-lg border border-border bg-secondary/50 p-1">
           <div className="flex flex-wrap gap-1">
             {[1, 2, 3, 4].map((item) => (
-              <div key={item} className="h-9 w-24 rounded-md bg-background" />
+              <div key={item} className="skeleton-line h-9 w-24 rounded-md" />
             ))}
           </div>
         </div>
-        <div className="mt-6 animate-pulse space-y-4">
+        <div className="mt-6 space-y-4">
           {[1, 2, 3].map((item) => (
             <div key={item} className="overflow-hidden rounded-lg border border-border bg-card">
-              <div className="h-12 border-b border-border bg-secondary/50" />
+              <div className="skeleton-line h-12 border-b border-border rounded-none" />
               <div className="space-y-3 p-4">
-                <div className="h-4 w-3/4 rounded bg-secondary" />
-                <div className="h-4 w-full rounded bg-secondary" />
-                <div className="h-4 w-2/3 rounded bg-secondary" />
+                <div className="skeleton-line h-4 w-3/4 rounded" />
+                <div className="skeleton-line h-4 w-full rounded" />
+                <div className="skeleton-line h-4 w-2/3 rounded" />
               </div>
             </div>
           ))}
@@ -470,9 +471,9 @@ export default function Page({ params }: { params: { page: string } }) {
           style={{ paddingRight: 'max(1rem, 280px)' }}
         >
           {showSkeleton ? (
-            <div className="space-y-3 animate-pulse">
-              <div className="h-8 bg-secondary rounded w-1/3"></div>
-              <div className="h-4 bg-secondary rounded w-2/3"></div>
+            <div className="space-y-3">
+              <div className="skeleton-line h-8 w-1/3 rounded"></div>
+              <div className="skeleton-line h-4 w-2/3 rounded"></div>
             </div>
           ) : (
             <Header
@@ -634,19 +635,30 @@ export default function Page({ params }: { params: { page: string } }) {
                       ) : null;
                     }
                     return (
-                      <TextbookSection
-                        key={section.id}
-                        section={{
-                          ...section,
-                          resources:
-                            index === 0
-                              ? [...(data.resources ?? []), ...(section.resources ?? [])]
-                              : section.resources,
-                        }}
-                        viewMode={viewMode}
-                        bookmarks={bookmarks}
-                        onToggleBookmark={toggleBookmark}
-                      />
+                      <div key={section.id}>
+                        <div className="mb-4 flex items-center justify-between">
+                          <h2 className="text-2xl font-serif text-foreground font-normal">{getSectionTitle(section)}</h2>
+                          <Link
+                            href={`/lessen?subject=${params.page}&chapter=${section.id}`}
+                            className="inline-flex items-center gap-2 rounded-md border border-border bg-secondary/50 px-3 py-2 text-xs font-medium transition-colors hover:bg-secondary hover:text-foreground"
+                          >
+                            <Play className="h-3.5 w-3.5" />
+                            Les starten
+                          </Link>
+                        </div>
+                        <TextbookSection
+                          section={{
+                            ...section,
+                            resources:
+                              index === 0
+                                ? [...(data.resources ?? []), ...(section.resources ?? [])]
+                                : section.resources,
+                          }}
+                          viewMode={viewMode}
+                          bookmarks={bookmarks}
+                          onToggleBookmark={toggleBookmark}
+                        />
+                      </div>
                     );
                   })}
                 </>
@@ -662,7 +674,21 @@ export default function Page({ params }: { params: { page: string } }) {
                       />
                     ) : null;
                   }
-                  return <SimpleMode key={section.id} section={section} />;
+                  return (
+                    <div key={section.id}>
+                      <div className="mb-4 flex items-center justify-between">
+                        <h2 className="text-2xl font-serif text-foreground font-normal">{getSectionTitle(section)}</h2>
+                        <Link
+                          href={`/lessen?subject=${params.page}&chapter=${section.id}`}
+                          className="inline-flex items-center gap-2 rounded-md border border-border bg-secondary/50 px-3 py-2 text-xs font-medium transition-colors hover:bg-secondary hover:text-foreground"
+                        >
+                          <Play className="h-3.5 w-3.5" />
+                          Les starten
+                        </Link>
+                      </div>
+                      <SimpleMode section={section} />
+                    </div>
+                  );
                 })
               ) : (
                 data.sections

@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { supabase as browserClient } from '@/lib/supabase/client';
+import { OfflineStorage, LocalStudySet, LocalCard } from '@/lib/offline/storage';
 import {
   Globe,
   Lock,
@@ -202,6 +203,41 @@ export function StudySetEditorView({
         return;
       }
 
+      const isOnline = navigator.onLine;
+      const localCards: LocalCard[] = validCards.map((card) => ({
+        question: card.term.trim(),
+        answer: card.definition.trim(),
+        tags: card.imageUrl ? ['image'] : undefined,
+      }));
+
+      const localStudySet: LocalStudySet = {
+        id: initialSetId || crypto.randomUUID(),
+        user_id: user.id,
+        title: title.trim(),
+        description: description.trim(),
+        cards: localCards,
+        subject: undefined,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+        sync_status: isOnline ? 'synced' : 'pending',
+        remote_id: initialSetId,
+      };
+
+      // Always save to offline storage first
+      await OfflineStorage.saveStudySet(localStudySet);
+
+      if (!isOnline) {
+        alert('Set opgeslagen offline. Wordt gesynchroniseerd wanneer je weer online bent.');
+        setSaving(false);
+        if (onSaved && localStudySet.id) {
+          onSaved(localStudySet.id);
+        } else {
+          router.push('/leersets');
+        }
+        return;
+      }
+
+      // If online, sync to Supabase
       const slug = title
         .toLowerCase()
         .replace(/[^a-z0-9]/g, '-')
@@ -263,12 +299,15 @@ export function StudySetEditorView({
 
         const { error: cardError } = await supabase.from('flashcards').insert(cardInserts);
         if (cardError) throw cardError;
+
+        // Update local storage with remote ID
+        await OfflineStorage.markAsSynced('studySets', localStudySet.id!, newSet.id);
       }
 
       if (onSaved && targetSetId) {
         onSaved(targetSetId);
       } else {
-        router.push('/decks');
+        router.push('/leersets');
       }
     } catch (err: any) {
       console.error('Failed to save deck:', err);
@@ -292,23 +331,6 @@ export function StudySetEditorView({
           <h1 className="font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
             {initialSetId ? 'Kaartenset bewerken' : 'Nieuwe kaartenset maken'}
           </h1>
-          <button
-            type="button"
-            onClick={() => setIsPublic(!isPublic)}
-            className="inline-flex items-center gap-1.5 rounded-full border border-border bg-secondary/60 px-3 py-1 text-xs font-medium text-foreground hover:bg-secondary transition-colors"
-          >
-            {isPublic ? (
-              <>
-                <Globe className="h-3.5 w-3.5 text-blue-400" />
-                <span>Openbaar</span>
-              </>
-            ) : (
-              <>
-                <Lock className="h-3.5 w-3.5 text-amber-400" />
-                <span>Privé</span>
-              </>
-            )}
-          </button>
         </div>
 
         <div className="flex items-center gap-3">
@@ -320,7 +342,7 @@ export function StudySetEditorView({
           <Button
             onClick={handleSave}
             disabled={saving || !title.trim()}
-            className="bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-6 py-2 rounded-lg shadow-md shadow-indigo-950/20"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6 py-2 rounded-lg"
           >
             {saving ? 'Opslaan...' : initialSetId ? 'Bijwerken' : 'Aanmaken'}
           </Button>
@@ -329,7 +351,7 @@ export function StudySetEditorView({
 
       {/* Set Details Inputs */}
       <div className="space-y-4">
-        <div className="rounded-xl border border-border/70 bg-card p-4 shadow-sm transition-all focus-within:border-indigo-500/50">
+        <div className="rounded-xl border border-border bg-card p-4 shadow-sm transition-all focus-within:border-primary/50">
           <Input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -338,7 +360,7 @@ export function StudySetEditorView({
           />
         </div>
 
-        <div className="rounded-xl border border-border/70 bg-card p-4 shadow-sm transition-all focus-within:border-indigo-500/50">
+        <div className="rounded-xl border border-border bg-card p-4 shadow-sm transition-all focus-within:border-primary/50">
           <Textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
@@ -369,13 +391,10 @@ export function StudySetEditorView({
             variant="outline"
             size="sm"
             onClick={() => setShowDiagramModal(true)}
-            className="gap-1.5 text-xs font-medium border-border/70 bg-card hover:bg-secondary relative"
+            className="gap-1.5 text-xs font-medium border-border/70 bg-card hover:bg-secondary"
           >
             <Plus className="h-3.5 w-3.5" />
             Diagram toevoegen
-            <span className="ml-1 inline-flex items-center rounded-md bg-amber-500/20 px-1.5 py-0.5 text-[10px] font-semibold text-amber-400 border border-amber-500/30">
-              <Lock className="h-2.5 w-2.5 mr-0.5" />
-            </span>
           </Button>
         </div>
 
@@ -389,7 +408,7 @@ export function StudySetEditorView({
               aria-checked={suggestionsEnabled}
               onClick={() => setSuggestionsEnabled(!suggestionsEnabled)}
               className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
-                suggestionsEnabled ? 'bg-indigo-600' : 'bg-muted'
+                suggestionsEnabled ? 'bg-primary' : 'bg-muted'
               }`}
             >
               <span
@@ -457,7 +476,7 @@ export function StudySetEditorView({
               type="button"
               onClick={() => setShowClearConfirm(true)}
               title="Alle kaarten wissen"
-              className="grid h-8 w-8 place-items-center rounded-full bg-red-600/90 text-white hover:bg-red-700 transition-colors shadow-sm"
+              className="grid h-8 w-8 place-items-center rounded-full bg-muted text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors shadow-sm"
             >
               <Trash2 className="h-4 w-4" />
             </button>
@@ -490,7 +509,7 @@ export function StudySetEditorView({
                   <button
                     type="button"
                     onClick={() => removeCard(originalIndex)}
-                    className="text-muted-foreground/50 hover:text-red-400 transition-colors"
+                    className="text-muted-foreground/50 hover:text-foreground transition-colors"
                     title="Verwijderen"
                   >
                     <Trash2 className="h-4 w-4" />
@@ -502,7 +521,7 @@ export function StudySetEditorView({
               <div className="grid gap-4 sm:grid-cols-[1fr_1fr_auto]">
                 {/* Term Box */}
                 <div className="space-y-1.5">
-                  <div className="rounded-lg border border-border/60 bg-background/50 p-3 min-h-[85px] transition-all focus-within:border-indigo-500/50 focus-within:bg-background">
+                  <div className="rounded-lg border border-border/60 bg-background/50 p-3 min-h-[85px] transition-all focus-within:border-primary/50 focus-within:bg-background">
                     <Textarea
                       value={card.term}
                       onChange={(e) => updateCard(originalIndex, 'term', e.target.value)}
@@ -518,7 +537,7 @@ export function StudySetEditorView({
 
                 {/* Definition Box */}
                 <div className="space-y-1.5">
-                  <div className="rounded-lg border border-border/60 bg-background/50 p-3 min-h-[85px] transition-all focus-within:border-indigo-500/50 focus-within:bg-background">
+                  <div className="rounded-lg border border-border/60 bg-background/50 p-3 min-h-[85px] transition-all focus-within:border-primary/50 focus-within:bg-background">
                     <Textarea
                       value={card.definition}
                       onChange={(e) => updateCard(originalIndex, 'definition', e.target.value)}
@@ -559,7 +578,7 @@ export function StudySetEditorView({
                     <button
                       type="button"
                       onClick={() => fileInputRefs.current[card.id]?.click()}
-                      className="flex h-[85px] w-[95px] flex-col items-center justify-center gap-1.5 rounded-lg border-2 border-dashed border-border/80 bg-background/30 text-muted-foreground hover:border-indigo-500/50 hover:bg-background/80 hover:text-foreground transition-all"
+                      className="flex h-[85px] w-[95px] flex-col items-center justify-center gap-1.5 rounded-lg border border-border bg-background text-muted-foreground hover:border-primary/50 hover:bg-background/80 hover:text-foreground transition-all"
                     >
                       <ImageIcon className="h-5 w-5 stroke-[1.5]" />
                       <span className="text-[11px] font-medium">Afbeelding</span>
@@ -577,9 +596,9 @@ export function StudySetEditorView({
         <button
           type="button"
           onClick={addCard}
-          className="flex w-full items-center justify-center gap-2 rounded-xl border-2 border-dashed border-border bg-card/60 p-6 text-sm font-semibold text-foreground hover:border-indigo-500/60 hover:bg-card transition-all shadow-sm group"
+          className="flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-card p-6 text-sm font-semibold text-foreground hover:border-primary/50 hover:bg-card transition-all shadow-sm group"
         >
-          <Plus className="h-4 w-4 text-indigo-400 group-hover:scale-110 transition-transform" />
+          <Plus className="h-4 w-4 text-primary group-hover:scale-110 transition-transform" />
           <span>Kaart toevoegen</span>
         </button>
       </div>
@@ -615,25 +634,26 @@ export function StudySetEditorView({
         </DialogContent>
       </Dialog>
 
-      {/* Diagram Lock Modal */}
+      {/* Diagram Modal */}
       <Dialog open={showDiagramModal} onOpenChange={setShowDiagramModal}>
-        <DialogContent className="max-w-md text-center" aria-describedby={undefined}>
+        <DialogContent className="max-w-md" aria-describedby={undefined}>
           <DialogHeader>
-            <DialogTitle className="flex justify-center">
-              <span className="grid h-12 w-12 place-items-center rounded-full bg-amber-500/20 text-amber-400 mb-2">
-                <Lock className="h-6 w-6" />
-              </span>
-            </DialogTitle>
+            <DialogTitle>Diagram toevoegen</DialogTitle>
           </DialogHeader>
-          <div className="space-y-2 py-2">
-            <h3 className="text-lg font-semibold">Diagrammen toevoegen</h3>
-            <p className="text-xs text-muted-foreground">
-              Met diagrammen kun je afbeeldingen voorzien van interactieve hotspots om te oefenen.
-              Deze functie is beschikbaar voor Premium accounts.
+          <div className="space-y-4 py-4">
+            <p className="text-sm text-muted-foreground">
+              Upload een afbeelding om interactieve hotspots toe te voegen.
             </p>
+            <div className="flex items-center justify-center border-2 border-dashed border-border rounded-lg p-8">
+              <div className="text-center">
+                <ImageIcon className="h-8 w-8 mx-auto text-muted-foreground mb-2" />
+                <p className="text-sm text-muted-foreground">Klik om afbeelding te uploaden</p>
+              </div>
+            </div>
           </div>
-          <DialogFooter className="justify-center sm:justify-center">
-            <Button onClick={() => setShowDiagramModal(false)}>Begrepen</Button>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowDiagramModal(false)}>Annuleren</Button>
+            <Button onClick={() => setShowDiagramModal(false)}>Toevoegen</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

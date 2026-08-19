@@ -46,7 +46,7 @@ export function ModeSwitcher({ currentMode, availableModes, onModeChange }: Mode
   };
 
   if (!mounted) {
-    return <div className="h-10 w-48 bg-secondary/50 rounded-md animate-pulse" />;
+    return <div className="skeleton-line h-10 w-48 rounded-md" />;
   }
 
   const modes: { id: ViewMode; label: string; icon: React.ReactNode; description: string }[] = [

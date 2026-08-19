@@ -1,0 +1,56 @@
+{
+  "id": "toetsvoorbereiding",
+  "chapterId": "beweging",
+  "subjectId": "natuurkunde",
+  "number": "TV",
+  "title": "Toetsvoorbereiding",
+  "goal": "Controleer bij elke paragraaf van dit hoofdstuk of je de leerdoelen hebt bereikt. Zo niet, lees dan de uitleg nog eens goed door of bekijk de uitlegvideo's. Maak daarna de volgende opdrachten.",
+  "content": "# Toetsvoorbereiding\n\n*Controleer bij elke paragraaf van dit hoofdstuk of je de leerdoelen hebt bereikt. Zo niet, lees dan de uitleg nog eens goed door of bekijk de uitlegvideo's. Maak daarna de volgende opdrachten.*",
+  "exercises": [
+    {
+      "id": "opdracht-tv-1",
+      "title": "Opdracht 1",
+      "content": "Geef de formule voor: **R**\n\n- **a** Verplaatsing Δx\n- **b** Tijdsverschil Δt\n- **c** Gemiddelde snelheid vgem (twee formules)\n- **d** Gemiddelde versnelling agem"
+    },
+    {
+      "id": "opdracht-tv-2",
+      "title": "Opdracht 2",
+      "content": "Schets het (v,t)-diagram van een eenparig rechtlijnige beweging, een eenparig versnelde beweging en een eenparig vertraagde beweging. **R**"
+    },
+    {
+      "id": "opdracht-tv-3",
+      "title": "Opdracht 3",
+      "content": "Een auto kan een versnelling van 1,9 m s⁻² bereiken. Hoelang duurt het om met deze versnelling van 65 km h⁻¹ te versnellen tot 120 km h⁻¹? **T1**"
+    },
+    {
+      "id": "opdracht-tv-4",
+      "title": "Opdracht 4",
+      "content": "Een bal rolt van een balkon boven aan een hoge flat. Hoe ver valt de bal tussen 2,00 s en 3,75 s? Je hoeft geen rekening te houden met de luchtweerstand. **T2**"
+    },
+    {
+      "id": "opdracht-tv-5",
+      "title": "Opdracht 5",
+      "content": "*Afbeelding A / Werkblad T1.5*\nDe hoogte van de zeespiegel wordt gemeten met een getijdemeter. In afbeelding A zie je het (x,t)-diagram van de zeespiegelbeweging voor de kust van de Malediven. Tijdens deze meting neemt de getijdemeter een tsunami waar. 0 uur in het diagram is 0.00 uur in de nacht.\n\n- **a** Op welk tijdstip neemt de getijdemeter de tsunami waar? **T1**\n- **b** Bepaal Δx van de golftop naar het golfdal. **T1**\n- **c** Bepaal de gemiddelde snelheid waarmee de zeespiegel zakt tijdens de tsunami. **T2**\n- **d** Bepaal de maximale snelheid waarmee de zeespiegel normaal zakt. **T2**"
+    },
+    {
+      "id": "opdracht-tv-6",
+      "title": "Opdracht 6",
+      "content": "De rivier de Waal stroomt vanaf het Pannerdens Kanaal tot de Merwede en heeft een lengte van 80 km. Je vaart met een constante snelheid van 4,0 km h⁻¹ de Waal af.\n\n- **a** Bereken hoelang je erover doet om de gehele Waal af te varen als je geen rekening houdt met de stroomsnelheid van deze rivier. **T1**\n- **b** Je blijkt over het afvaren van de Waal 8,0 uur en 50 minuten te doen. Bereken de stroomsnelheid van de Waal. **T2**\n\nEen vriend zegt dat als je steeds de Waal op en neer vaart, de stroomsnelheid geen invloed heeft op de tijd die je over de heen- en terugreis samen doet. Je hebt de stroom de ene kant op immers tegen, maar de andere kant op weer mee.\n\n- **c** Beredoneer dat je vriend ongelijk heeft. **I**"
+    },
+    {
+      "id": "opdracht-tv-7",
+      "title": "Opdracht 7",
+      "content": "*Afbeelding B*\nIn afbeelding B zie je het vereenvoudigde (v,t)-diagram van een lift die van de begane grond naar de hoogste verdieping gaat.\n\n- **a** Bepaal de versnelling van de lift in de eerste 2,0 s. **T2**\n- **b** Bepaal de hoogte van de hoogste verdieping. **T1**\n- **c** Bepaal de afstand waarover de lift vertraagt. **T1**"
+    },
+    {
+      "id": "opdracht-tv-8",
+      "title": "Opdracht 8",
+      "content": "Een stoptrein komt tijdens zijn rit van A naar B de intercity vanuit de andere kant tegen. De stoptrein rijdt met een constante snelheid van 80 km h⁻¹. De intercity rijdt met een constante snelheid van 150 km h⁻¹. De afstand tussen A en B is 100 km. De treinen vertrekken op precies hetzelfde tijdstip. Bereken welke afstand de stoptrein heeft afgelegd op het moment dat de treinen elkaar tegenkomen. **I**"
+    },
+    {
+      "id": "opdracht-tv-9",
+      "title": "Opdracht 9",
+      "content": "*Afbeelding C / Werkblad T1.9*\nAls een groot vliegtuig opstijgt, is er een moment waarop het vliegtuig bij problemen toch de lucht in moet omdat er niet meer genoeg baan over is om te kunnen stoppen. In afbeelding C zie je het (v,t)-diagram van een vliegtuig dat de start heeft afgebroken en net op tijd voor het einde van de baan tot stilstand komt. Een start die wordt afgebroken heet een Rejected Take Off.\n\n- **a** Bepaal de versnelling van het vliegtuig op t = 0 s. **T2**\n- **b** Bepaal de maximale remvertraging van het vliegtuig. **T2**\n\nVooraf wordt voor elke Take Off berekend wat de maximale snelheid is waarbij nog gestopt kan worden op de baan. Deze snelheid wordt v1 (spreek uit: v-one) genoemd.\n\n- **c** Bepaal v1 voor dit vliegtuig. **T1**\n\nDe Polderbaan op Schiphol is 3800 m lang.\n\n- **d** Bepaal met behulp van het (v,t)-diagram of de Polderbaan lang genoeg is om het vliegtuig te laten stoppen. **T2**"
+    }
+  ]
+}

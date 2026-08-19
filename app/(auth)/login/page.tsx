@@ -72,7 +72,9 @@ function LoginPageContent() {
       sessionStorage.removeItem('auth_draft_password');
     }
 
-    // Redirect to dashboard
+    // Check if user needs setup (no grade level set)
+    // We'll let the dashboard handle this check and redirect to vakken if needed
+    // Redirect to dashboard initially
     router.push(redirectTo);
   };
 

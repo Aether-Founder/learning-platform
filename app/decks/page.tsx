@@ -27,6 +27,17 @@ type StudySet = {
   view_count: number;
   created_at: string;
   updated_at: string;
+  subject?: {
+    id: string;
+    name: string;
+    color: string;
+  };
+};
+
+type Subject = {
+  id: string;
+  name: string;
+  color: string;
 };
 
 type Flashcard = {
@@ -46,6 +57,7 @@ export default function DecksPage() {
   const { t } = useTranslation();
   const router = useRouter();
   const [studySets, setStudySets] = useState<StudySet[]>([]);
+  const [subjects, setSubjects] = useState<Subject[]>([]);
 
   const [loading, setLoading] = useState(true);
   const [showSetDialog, setShowSetDialog] = useState(false);
@@ -59,7 +71,7 @@ export default function DecksPage() {
   const [setFormData, setSetFormData] = useState({
     title: '',
     description: '',
-    subject: '',
+    subject_id: '',
   });
   const [cardFormData, setCardFormData] = useState({
     question: '',
@@ -68,6 +80,7 @@ export default function DecksPage() {
 
   useEffect(() => {
     fetchStudySets();
+    fetchSubjects();
   }, []);
 
   const fetchStudySets = async () => {
@@ -76,7 +89,7 @@ export default function DecksPage() {
 
     const { data, error } = await supabase
       .from('study_sets')
-      .select('*')
+      .select('*, subject:subjects(id, name, color)')
       .eq('user_id', user.id)
       .order('updated_at', { ascending: false });
 
@@ -86,6 +99,23 @@ export default function DecksPage() {
       setStudySets(data || []);
     }
     setLoading(false);
+  };
+
+  const fetchSubjects = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+
+    const { data, error } = await supabase
+      .from('subjects')
+      .select('id, name, color')
+      .eq('user_id', user.id)
+      .order('name', { ascending: true });
+
+    if (error) {
+      console.error('Failed to fetch subjects:', error);
+    } else {
+      setSubjects(data || []);
+    }
   };
 
   const fetchCards = async (setId: string) => {
@@ -106,17 +136,13 @@ export default function DecksPage() {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;
 
-    const slug = setFormData.title.toLowerCase().replace(/[^a-z0-9]/g, '-');
-
     const { data, error } = await supabase
       .from('study_sets')
       .insert({
         user_id: user.id,
         title: setFormData.title,
         description: setFormData.description,
-        slug,
-        content_json: {},
-        is_public: false,
+        subject_id: setFormData.subject_id || null,
       })
       .select()
       .single();
@@ -154,7 +180,7 @@ export default function DecksPage() {
   };
 
   const handleDeleteSet = async (setId: string) => {
-    if (!confirm('Weet je zeker dat je deze set wilt verwijderen? Alle kaarten worden ook verwijderd.')) return;
+    if (!confirm('Weet je zeker dat je deze leerset wilt verwijderen? Alle kaarten worden ook verwijderd.')) return;
 
     const { error } = await supabase.from('study_sets').delete().eq('id', setId);
     if (error) {
@@ -228,7 +254,7 @@ export default function DecksPage() {
   };
 
   const openCreateSetDialog = () => {
-    router.push('/decks/create');
+    router.push('/create/leerlijst');
   };
 
   const openCreateCardDialog = () => {
@@ -238,7 +264,7 @@ export default function DecksPage() {
   };
 
   const openEditSetDialog = (set: StudySet) => {
-    router.push(`/decks/edit/${set.id}`);
+    router.push(`/leersets/edit/${set.id}`);
   };
 
 
@@ -257,7 +283,7 @@ export default function DecksPage() {
   };
 
   const resetSetForm = () => {
-    setSetFormData({ title: '', description: '', subject: '' });
+    setSetFormData({ title: '', description: '', subject_id: '' });
   };
 
   const resetCardForm = () => {
@@ -356,7 +382,15 @@ export default function DecksPage() {
           title={t('decks_title')}
           description={t('decks_description')}
         />
-        <div className="mt-10 text-center text-sm text-muted-foreground">Laden...</div>
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div key={i} className="border border-border rounded-lg p-6">
+              <div className="skeleton-line h-5 w-3/4 rounded mb-3"></div>
+              <div className="skeleton-line h-4 w-1/2 rounded mb-2"></div>
+              <div className="skeleton-line h-4 w-1/3 rounded"></div>
+            </div>
+          ))}
+        </div>
       </AppShell>
     );
   }
@@ -389,7 +423,7 @@ export default function DecksPage() {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
             <div>
               <Button variant="ghost" onClick={() => setSelectedSet(null)} className="mb-2">
-                ← Terug naar sets
+                ← Terug naar leersets
               </Button>
               <h2 className="font-display text-xl sm:text-2xl font-semibold">{selectedSet.title}</h2>
               {selectedSet.description && (
@@ -401,9 +435,17 @@ export default function DecksPage() {
                 <Plus className="mr-2 h-4 w-4" />
                 Kaart toevoegen
               </Button>
+              {selectedSet.subject && (
+                <Link href={`/vakken/${selectedSet.subject.id}`}>
+                  <Button variant="outline" size="sm">
+                    <BookOpen className="mr-2 h-4 w-4" />
+                    Bekijk in Vakken
+                  </Button>
+                </Link>
+              )}
               <Button onClick={() => openEditSetDialog(selectedSet)} variant="outline" size="sm">
                 <Edit2 className="mr-2 h-4 w-4" />
-                Set bewerken
+                Leerset bewerken
               </Button>
               <Button onClick={() => handleExportCSV(selectedSet)} variant="outline" size="sm">
                 <Download className="mr-2 h-4 w-4" />
@@ -537,6 +579,19 @@ export default function DecksPage() {
                     </button>
                   </div>
                 </div>
+                {set.subject && (
+                  <div className="mb-2">
+                    <span 
+                      className="inline-block px-2 py-0.5 text-xs rounded-full"
+                      style={{ 
+                        backgroundColor: set.subject.color + '20',
+                        color: set.subject.color 
+                      }}
+                    >
+                      {set.subject.name}
+                    </span>
+                  </div>
+                )}
                 <h3 className="font-display text-lg font-semibold mb-2">{set.title}</h3>
                 {set.description && (
                   <p className="text-sm text-muted-foreground line-clamp-2 mb-3">{set.description}</p>
@@ -555,7 +610,7 @@ export default function DecksPage() {
       <Dialog open={showSetDialog} onOpenChange={setShowSetDialog}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>{editingSet ? 'Set bewerken' : 'Nieuwe set'}</DialogTitle>
+            <DialogTitle>{editingSet ? 'Leerset bewerken' : 'Nieuwe leerset'}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
             <div>
@@ -566,6 +621,22 @@ export default function DecksPage() {
                 onChange={(e) => setSetFormData({ ...setFormData, title: e.target.value })}
                 placeholder="Bijv. Wiskunde H3"
               />
+            </div>
+            <div>
+              <Label htmlFor="set-subject">Vak (optioneel)</Label>
+              <select
+                id="set-subject"
+                value={setFormData.subject_id}
+                onChange={(e) => setSetFormData({ ...setFormData, subject_id: e.target.value })}
+                className="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
+              >
+                <option value="">Geen vak</option>
+                {subjects.map((subject) => (
+                  <option key={subject.id} value={subject.id}>
+                    {subject.name}
+                  </option>
+                ))}
+              </select>
             </div>
             <div>
               <Label htmlFor="set-description">Beschrijving</Label>

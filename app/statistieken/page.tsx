@@ -3,9 +3,11 @@
 import { useState, useEffect } from 'react';
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { Panel } from '@/components/ui-kit';
+import { Button } from '@/components/ui/button';
 import { supabase as browserClient } from '@/lib/supabase/client';
 import { useTranslation } from '@/lib/useTranslation';
-import { Clock, Flame, BookOpen, Target, Calendar } from 'lucide-react';
+import { Clock, Flame, BookOpen, Target, Calendar, Brain, AlertTriangle } from 'lucide-react';
+import Link from 'next/link';
 
 const supabase = browserClient as any;
 
@@ -20,6 +22,8 @@ export default function StatistiekenPage() {
     weeklyMinutes: [0, 0, 0, 0, 0, 0, 0],
     subjectProgress: [] as any[],
     recentSessions: [] as any[],
+    dueReviews: 0,
+    dueErrors: 0,
   });
 
   useEffect(() => {
@@ -93,6 +97,8 @@ export default function StatistiekenPage() {
         weeklyMinutes,
         subjectProgress,
         recentSessions: sessions.slice(0, 5),
+        dueReviews: 0,
+        dueErrors: 0,
       });
     }
 
@@ -167,7 +173,26 @@ export default function StatistiekenPage() {
           title={t('stats_title')}
           description={t('stats_description')}
         />
-        <div className="mt-10 text-center text-sm text-muted-foreground">Laden...</div>
+        <div className="mt-10 space-y-6">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="border border-border rounded-lg p-6">
+                <div className="skeleton-line h-5 w-1/2 rounded mb-2"></div>
+                <div className="skeleton-line h-8 w-3/4 rounded"></div>
+              </div>
+            ))}
+          </div>
+          <div className="border border-border rounded-lg p-6">
+            <div className="skeleton-line h-6 w-1/4 rounded mb-4"></div>
+            <div className="flex items-end justify-between gap-2 h-48">
+              {Array.from({ length: 7 }).map((_, i) => (
+                <div key={i} className="flex-1">
+                  <div className="skeleton-line h-full w-full rounded"></div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </AppShell>
     );
   }
@@ -181,6 +206,66 @@ export default function StatistiekenPage() {
       />
 
       <div className="mt-10 space-y-6">
+        {/* Quick Actions from Vandaag */}
+        <Panel title="Snel Acties">
+          <div className="grid gap-3 sm:grid-cols-3">
+            <Link href="/quiz/daily" className="flex items-center gap-3 p-4 rounded-lg border border-border hover:border-primary/30 hover:bg-secondary/50 transition-colors">
+              <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-muted flex items-center justify-center">
+                <Brain className="h-5 w-5 text-muted-foreground" />
+              </div>
+              <div>
+                <p className="font-medium">Start Daily Quiz</p>
+                <p className="text-xs text-muted-foreground">{stats.dueReviews} herhalingen</p>
+              </div>
+            </Link>
+            <Link href="/spaced-repetition" className="flex items-center gap-3 p-4 rounded-lg border border-border hover:border-primary/30 hover:bg-secondary/50 transition-colors">
+              <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-muted flex items-center justify-center">
+                <Target className="h-5 w-5 text-muted-foreground" />
+              </div>
+              <div>
+                <p className="font-medium">Spaced Repetition</p>
+                <p className="text-xs text-muted-foreground">{stats.dueReviews} items</p>
+              </div>
+            </Link>
+            <Link href="/foutenlogboek" className="flex items-center gap-3 p-4 rounded-lg border border-border hover:border-primary/30 hover:bg-secondary/50 transition-colors">
+              <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-muted flex items-center justify-center">
+                <AlertTriangle className="h-5 w-5 text-muted-foreground" />
+              </div>
+              <div>
+                <p className="font-medium">Foutenreview</p>
+                <p className="text-xs text-muted-foreground">{stats.dueErrors} fouten</p>
+              </div>
+            </Link>
+          </div>
+        </Panel>
+
+        {/* Today's Overview */}
+        <Panel title="Vandaag">
+          <div className="space-y-3">
+            <div className="flex items-center justify-between py-2 border-b border-border">
+              <div className="flex items-center gap-3">
+                <BookOpen className="h-5 w-5 text-primary" />
+                <span>Herhalingen</span>
+              </div>
+              <span className="font-semibold">{stats.dueReviews}</span>
+            </div>
+            <div className="flex items-center justify-between py-2 border-b border-border">
+              <div className="flex items-center gap-3">
+                <AlertTriangle className="h-5 w-5 text-orange-500" />
+                <span>Fouten opnieuw maken</span>
+              </div>
+              <span className="font-semibold">{stats.dueErrors}</span>
+            </div>
+            <div className="flex items-center justify-between py-2">
+              <div className="flex items-center gap-3">
+                <Target className="h-5 w-5 text-blue-500" />
+                <span>Geschatte tijd</span>
+              </div>
+              <span className="font-semibold">{formatMinutes(stats.dueReviews * 2 + stats.dueErrors * 3)}</span>
+            </div>
+          </div>
+        </Panel>
+
         {/* Overview Cards */}
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Panel>

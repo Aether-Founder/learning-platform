@@ -17,10 +17,14 @@ const LOCALES_DIR = path.join(process.cwd(), 'public/locales');
  */
 export async function getServerT(language: Language = DEFAULT_LANGUAGE): Promise<ServerT> {
   const lang = (LANGUAGES as readonly string[]).includes(language) ? language : DEFAULT_LANGUAGE;
-  const dict: Translation = await fs
-    .readFile(path.join(LOCALES_DIR, `${lang}.json`), 'utf-8')
-    .then((content) => JSON.parse(content))
-    .catch(() => ({}));
+  let dict: Translation = {};
+  
+  try {
+    const content = await fs.readFile(path.join(LOCALES_DIR, `${lang}.json`), 'utf-8');
+    dict = JSON.parse(content);
+  } catch {
+    dict = {};
+  }
 
   return (id: string, fallback?: string, params?: Record<string, string | number>): string => {
     let text = dict[id] ?? fallback ?? id;

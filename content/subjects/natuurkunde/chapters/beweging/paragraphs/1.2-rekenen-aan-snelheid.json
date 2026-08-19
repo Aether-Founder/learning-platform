@@ -1,0 +1,87 @@
+{
+  "id": "1.2-rekenen-aan-snelheid",
+  "chapterId": "beweging",
+  "subjectId": "natuurkunde",
+  "number": "1.2",
+  "title": "Rekenen aan snelheid",
+  "goal": "Je leert hoe je berekeningen maakt met snelheid.",
+  "content": "# 1.2 Rekenen aan snelheid\n\n> **DOEL** → *Je leert hoe je berekeningen maakt met snelheid.*\n\n**Gemiddelde snelheid tussen twee plaatsen** Bij trajectmetingen op een recht stuk snelweg wordt gemeten hoeveel tijd een automobilist erover doet om van plaats \\(x_1\\) naar plaats \\(x_2\\) te bewegen (figuur 1.5). De verplaatsing \\(\\Delta x\\) is gelijk aan:\n\n\\(\\Delta x = x_2 - x_1\\)\n\n**Afbeelding – [Figuur 1.5: Trajectmeting op de snelweg]**\n- Type beeld: combinatie van een foto en een schema\n- Beschrijving: bovenaan een foto van een blauw verkeersbord op een paal op een grasheuvel tegen een blauwe lucht, met het opschrift \"A12\", twee rode driehoekige waarschuwingsborden met een camera-symbool en de tekst \"Trajectcontrole\". Daaronder een schema: een auto op een horizontale lijn; boven de auto een rode accolade met het label \\(\\Delta x\\) in \\(\\Delta t\\); aan beide uiteinden wijzen rode pijlen omlaag naar \\(x_1\\) op tijdstip \\(t_1\\) (links) en \\(x_2\\) op tijdstip \\(t_2\\) (rechts).\n- Bijschrift: **1.5** Trajectmeting op de snelweg\n\nBij een rechtlijnige beweging is de verplaatsing gelijk aan de afgelegde afstand \\(s\\). De tijd die de automobilist onderweg is geweest, is gelijk aan \\(\\Delta t\\):\n\n\\(\\Delta t = t_2 - t_1\\)\n\nAls je als begintijdstip \\(t_1 = 0\\) kiest, is \\(\\Delta t\\) gelijk aan de tijdsduur \\(t\\). Je berekent dan de *gemiddelde snelheid* met de formules:\n\n> \\(v_{\\text{gem}} = \\frac{\\Delta x}{\\Delta t}\\) of: \\(v_{\\text{gem}} = \\frac{s}{t}\\)\n\n- \\(\\Delta x\\) verplaatsing in m\n- \\(\\Delta t\\) tijdsverschil in s\n- \\(s\\) afgelegde afstand in m\n- \\(t\\) tijdsduur in s\n- \\(v_{\\text{gem}}\\) gemiddelde snelheid in m s⁻¹\n\n**Snelheid bij een eenparig rechtlijnige beweging** Bij een eenparig rechtlijnige beweging is de snelheid op elk tijdstip hetzelfde en daarmee ook gelijk aan de gemiddelde snelheid. Je kunt de snelheid dan uitrekenen met de formule:\n\n> \\(v = \\frac{s}{t}\\) of geschreven als: \\(s = vt\\)\n\n- \\(s\\) afgelegde afstand in m\n- \\(v\\) constante snelheid in m s⁻¹\n- \\(t\\) tijdsduur in s\n\n**Gemiddelde snelheid bij een eenparig versnelde beweging** Als je een steen laat vallen, neemt de snelheid van de steen elke seconde evenveel toe. De beweging van de steen is dan eenparig versneld. In figuur 1.6 zie je dat je de gemiddelde snelheid van de steen kunt berekenen door het gemiddelde te berekenen van de beginsnelheid en de eindsnelheid.\n\n> \\(v_{\\text{gem}} = \\frac{v_{\\text{begin}} + v_{\\text{eind}}}{2}\\)\n\n**Voorbeeld [1]** In figuur 1.7 zie je het \\((x,t)\\)-diagram van de beweging van een kind aan een kabelbaan. Bereken de gemiddelde snelheid tussen \\(t = 2{,}0\\) s en \\(t = 8{,}0\\) s.\n\n*Gegeven:* \\((x,t)\\)-diagram.\n*Gevraagd:* \\(v_{\\text{gem}}\\) tussen \\(t = 2{,}0\\) s en \\(t = 8{,}0\\) s.\n*Berekening:*\n1. Lees de waarde van \\(x_1\\) en \\(x_2\\) af uit het diagram: \\(x_1 = 5{,}5\\) m en \\(x_2 = 28\\) m.\n2. Bereken de gemiddelde snelheid: \\(v_{\\text{gem}} = \\frac{x_2 - x_1}{t_2 - t_1} \\rightarrow v_{\\text{gem}} = \\frac{28{,}0 - 5{,}5}{8{,}0 - 2{,}0} = \\frac{22{,}5}{6{,}0} = 3{,}75\\) m s⁻¹\n\n*Antwoord:* De gemiddelde snelheid tussen \\(t = 2{,}0\\) s en \\(t = 8{,}0\\) s is 3,8 m s⁻¹.\n\n**Voorbeeld [2]** Een vallende bal heeft een beginsnelheid van 0 m s⁻¹. Na 3,0 s meet je een snelheid van 30 m s⁻¹. De bal versnelt eenparig. Bereken de afstand die de bal in 3,0 s aflegt.\n\n*Gegeven:* \\(v_{\\text{begin}} = 0\\) m s⁻¹; \\(v_{\\text{eind}} = 30\\) m s⁻¹; \\(t = 3{,}0\\) s.\n*Gevraagd:* \\(s\\).\n*Berekening:*\n1. Bereken de gemiddelde snelheid: \\(v_{\\text{gem}} = \\frac{v_{\\text{begin}} + v_{\\text{eind}}}{2} \\rightarrow v_{\\text{gem}} = \\frac{0 + 30}{2} = 15\\) m s⁻¹\n2. Bereken de afstand: \\(v_{\\text{gem}} = \\frac{s}{t} \\rightarrow s = v_{\\text{gem}} t = 15 \\times 3{,}0 = 45\\) m\n\n*Antwoord:* De afstand die de bal in 3,0 s aflegt, is 45 m.\n\n**Afbeelding – [Figuur 1.6: Gemiddelde snelheid bij een eenparig versnelde beweging]**\n- Type beeld: grafiek met gestippeld raster\n- Assen: verticaal \\(v \\,(\\text{m s}^{-1})\\) van 0 tot 40 in stappen van 10; horizontaal \\(t \\,(\\text{s})\\) van 0 tot 4,0 in stappen van 1,0.\n- Beschrijving: een rode rechte lijn die vanuit de oorsprong lineair stijgt tot iets boven 40 m s⁻¹ bij \\(t \\approx 4{,}0\\) s; daarnaast een horizontale rode lijn op 20 m s⁻¹ die de stijgende lijn snijdt rond \\(t \\approx 1{,}8\\) s.\n- Bijschrift: **1.6** Gemiddelde snelheid bij een eenparig versnelde beweging: \\(v_{\\text{gem}} = \\frac{0 + 40}{2} = 20\\) m s⁻¹\n\n**Afbeelding – [Figuur 1.7: \\((x,t)\\)-diagram van een beweging aan een kabelbaan]**\n- Type beeld: grafiek met gestippeld raster\n- Assen: verticaal \\(x \\,(\\text{m})\\) van 0 tot 30 in stappen van 5; horizontaal \\(t \\,(\\text{s})\\) van 0 tot 14 in stappen van 2.\n- Beschrijving: een rode kromme die bij \\((0, 0)\\) begint, eerst steeds steiler wordt (versnelling), daarna bijna lineair stijgt, rond \\(t \\approx 7\\) s een maximum van ongeveer 29 m bereikt en daarna geleidelijk daalt tot ongeveer 25 m bij \\(t \\approx 12\\) s (het kind beweegt terug).\n- Bijschrift: **1.7** \\((x,t)\\)-diagram van een beweging aan een kabelbaan",
+  "exercises": [
+    {
+      "id": "opdracht-9",
+      "title": "Opdracht 9",
+      "content": "Reken om. **T1**\n\n- **a** 10 m s⁻¹ = … km h⁻¹\n- **b** 1,0 m s⁻¹ = … m min⁻¹\n- **c** 25 km h⁻¹ = … km s⁻¹\n- **d** 0,50 h = … s"
+    },
+    {
+      "id": "opdracht-10",
+      "title": "Opdracht 10",
+      "content": "Een auto rijdt met een gemiddelde snelheid van 98 km h⁻¹ van Amsterdam naar Keulen. De rit duurt 2 uur en 40 minuten. Bereken de afstand tussen Amsterdam en Keulen in km. **T2**"
+    },
+    {
+      "id": "opdracht-11",
+      "title": "Opdracht 11",
+      "content": "Een regendruppel valt bij windstil weer met een constante snelheid van 8,0 m s⁻¹ naar de aarde. Een regenwolk bevindt zich op 6,0 km hoogte. Bereken hoelang het duurt voordat de regendruppel op aarde neerkomt. **T2**"
+    },
+    {
+      "id": "opdracht-12",
+      "title": "Opdracht 12",
+      "content": "Op zeilschepen werd vroeger de snelheid gemeten door een plankje aan een touw overboord te gooien. Het plankje bleef stil in het water liggen en het touw rolde af. In het touw was om de 14,4 meter een knoop gelegd. Gedurende 28 s werd geteld hoeveel knopen het touw afrolde. De snelheid van het schip werd uitgedrukt in het aantal knopen.\nEen schipper doet dit na op een modern schip. Er komen vijf knopen in het touw voorbij tijdens de meting.\n\n- **a** Schrijf de formule op voor het berekenen van de gemiddelde snelheid. **R**\n- **b** Wat is \\(\\Delta t\\) in de meting? **T1**\n- **c** Bereken \\(\\Delta x\\) in de meting. **T1**\n- **d** Bereken de gemiddelde snelheid van het moderne schip in m s⁻¹. **T1**\n- **e** Bepaal de omrekenfactor van m s⁻¹ naar knopen. **T2**"
+    },
+    {
+      "id": "opdracht-13",
+      "title": "Opdracht 13",
+      "content": "Bekijk het \\((x,t)\\)-diagram van de kabelbaan in figuur 1.7 nogmaals. Aan het einde van de kabelbaan beweegt het kind een stukje terug over de kabel.\n\n- **a** Bepaal de lengte van de kabelbaan. **T1**\n- **b** Bepaal vanaf welk tijdstip het kind terugbeweegt over de kabel. **T1**\n- **c** Bereken de gemiddelde snelheid waarmee het kind terugbeweegt over de kabel. **T1**\n- **d** Bereken de gemiddelde snelheid van de totale beweging. **T2**"
+    },
+    {
+      "id": "opdracht-14",
+      "title": "Opdracht 14",
+      "content": "*Afbeelding A*\nJe staat buiten en roept door de muur naar je broer, die binnen is. In afbeelding A zie je een \\((x,t)\\)-diagram van de geluidsgolf. Op \\(t = 0{,}04\\) ms raakt de geluidsgolf de buitenkant van de muur.\n\n- **a** Bereken de snelheid van de geluidsgolf vóórdat deze de muur raakt in m s⁻¹. **T1**\n- **b** Bepaal de dikte van de muur. **T2**\n- **c** Bereken de snelheid van het geluid in de muur in m s⁻¹. **T1**\n- **d** Beredeneer hoe groot de snelheid van het geluid is op \\(t = 0{,}1\\) ms. **I**"
+    },
+    {
+      "id": "opdracht-15",
+      "title": "Opdracht 15",
+      "content": "Een trein vertrekt om 15.00 uur van station Amsterdam Centraal naar station Amsterdam Sloterdijk. Er zijn geen tussenstations waar de trein moet stoppen. De afstand tussen de stations is 8,0 km. De trein moet om 15.06 uur aankomen op station Amsterdam Sloterdijk.\n\n- **a** Bereken de gemiddelde snelheid van de trein in km h⁻¹. **T1**\n- **b** De eerste 3,0 km heeft de trein een gemiddelde snelheid van 50 km h⁻¹. Bereken de snelheid die de trein op het resterende traject moet hebben om op tijd aan te komen. **T2**\n- **c** De trein vertrekt 1 minuut te laat uit station Amsterdam Centraal. Bereken de gemiddelde snelheid die de trein moet hebben om op tijd aan te komen. **T2**\n- **d** Wegens werkzaamheden aan het spoor geldt een maximale snelheid van 80 km h⁻¹ op het traject. Leg uit waarom de trein op deze dag niet volgens de tijden in het spoorboekje kan rijden. **I**"
+    },
+    {
+      "id": "opdracht-16",
+      "title": "Opdracht 16",
+      "content": "*Afbeelding B*\nAfbeelding B is een Motion Shot-opname van een dartpijl. **T2**\n\n- **a** Leg uit hoe je kunt zien dat de pijl een (bijna) constante snelheid heeft.\n- **b** Schets het \\((x,t)\\)-diagram van de beweging van de dartpijl.\n\nOp de afbeelding beweegt de dartpijl over een afstand van 50 cm. De snelheid van de dartpijl is 4,0 m s⁻¹.\n\n- **c** Bereken hoeveel tijd er tussen twee opeenvolgende beelden zit."
+    },
+    {
+      "id": "opdracht-17",
+      "title": "Opdracht 17",
+      "content": "*Afbeelding C*\nIn afbeelding C zie je twee weerkaarten. De bovenste weerkaart is van 14 januari 2021, 6.00 uur in de ochtend. De onderste is van 6,0 uur later. De lijn met driehoekjes die ten westen van Frankrijk ligt, geeft een koufront weer.\nIn de onderste weerkaart zie je hetzelfde koufront voor een deel over het vasteland van Frankrijk liggen. Maak een schatting van de gemiddelde snelheid van dit koufront in km h⁻¹. **T2**"
+    },
+    {
+      "id": "opdracht-18",
+      "title": "Opdracht 18",
+      "content": "Een auto remt eenparig vertraagd en komt tot stilstand in 5,0 s. De remweg is 50 m. **T2**\n\n- **a** Bereken de beginsnelheid van de auto.\n- **b** Als de beginsnelheid twee keer zo groot is, is de remtijd twee keer zo groot. Bereken de remweg van de auto als de beginsnelheid twee keer zo groot is."
+    },
+    {
+      "id": "opdracht-19",
+      "title": "Opdracht 19",
+      "content": "*Afbeelding D*\nTwee zwemmers vertrekken vanaf hetzelfde punt op een rivier. Zwemmer A zwemt 100 m stroomopwaarts en weer terug naar het beginpunt. Zwemmer B zwemt 100 m stroomafwaarts en weer terug naar het beginpunt. De zwemmers hebben dezelfde zwemsnelheid.\n\n- **a** Beredoneer dat de zwemmers gelijk aankomen op het beginpunt. **T2**\n\nNu zwemt zwemmer A het traject met stroming en zwemt zwemmer B het traject een dag later als er geen stroming is (0 m s⁻¹). Ze hebben weer dezelfde zwemsnelheid.\n\n- **b** Beredoneer welke zwemmer het snelst weer terug is op het beginpunt. **I**\n\nDe rivier is 50 m breed. Een zwemmer zwemt met een snelheid van 2,5 km h⁻¹ van de ene oever naar de andere oever. De stroomsnelheid is 0,40 m s⁻¹.\n\n- **c** Bereken hoeveel meter stroomafwaarts de zwemmer de andere oever bereikt. **T2**"
+    },
+    {
+      "id": "opdracht-20",
+      "title": "Opdracht 20",
+      "content": "Bij een trajectcontrole wordt over een afstand van 10 km de gemiddelde snelheid van een automobilist bepaald. De maximale snelheid op dit traject is 80 km h⁻¹.\n\n- **a** Bereken de minimale tijd in minuten die een automobilist over dit traject kan doen. **T1**\n- **b** Een automobilist rijdt de eerste 6,0 km in 3,0 minuten. Bereken de maximale snelheid waarmee de automobilist mag rijden op de resterende 4,0 km zonder dat hij een boete krijgt. **T2**"
+    }
+  ],
+  "learningGoals": {
+    "R": "Gemiddelde snelheid",
+    "T1": "Ik kan de gemiddelde snelheid tussen twee punten berekenen.",
+    "T2": "Ik kan uitleggen in welke situaties de snelheid op een tijdstip ook de gemiddelde snelheid is.",
+    "I": "Ik kan uit \\((x,t)\\)- en \\((v,t)\\)-diagrammen de juiste informatie halen om een berekening te maken."
+  },
+  "examTraining": {
+    "id": "examentraining-1.2",
+    "exercises": [
+      {
+        "id": "opdracht-21",
+        "title": "Opdracht 21",
+        "content": "*Afbeelding E en F*\nHardloopster Dafne Schippers en schaatsster Ireen Wüst sprinten allebei op de 100 m: Schippers op de atletiekbaan, Wüst op schaatsen op het ijs. De tijden die ze nodig hebben voor 100 m liggen dicht bij elkaar. Het record van Schippers staat op 10,81 s en de snelste tussentijd van Wüst is 10,87 s.\n\n- **a** Bereken de gemiddelde snelheid van beide atleten. **T1**\n\nDoor hun snelheden op meerdere tijdstippen te meten, kun je beide sprints met elkaar vergelijken. In afbeelding E zie je het \\((v,t)\\)-diagram van de sprints van Schippers en Wüst.\n\n- **b** Wat geldt op tijdstip \\(t = 6{,}0\\) s? Leg je keuze uit. **I**\n  - **A** Beiden hebben dezelfde afstand afgelegd.\n  - **B** Wüst ligt voor.\n  - **C** Schippers ligt voor.\n- **c** Leg uit hoe je kunt zien dat beide atleten niet eenparig versnellen. **T2**\n- **d** Welke atlete bereikt de hoogste topsnelheid? **T1**\n\nIn afbeelding F staan de doorkomsttijden van Wüst tijdens de 1500 m schaatsen op 15 augustus 2018.\n\n- **e** Bereken de gemiddelde snelheid van Wüst op de 1500 m in km h⁻¹. **T2**\n- **f** Bereken de gemiddelde snelheid van Wüst tijdens de eerste 300 m en tijdens de laatste 400 m. **T2**\n- **g** Stel dat je een \\((x,t)\\)-diagram van de 1500 m zou tekenen. Leg uit bij welke ronde de grafiek in dat diagram dan het steilst zou lopen. Een ronde is 400 m. **I**"
+      }
+    ]
+  }
+}

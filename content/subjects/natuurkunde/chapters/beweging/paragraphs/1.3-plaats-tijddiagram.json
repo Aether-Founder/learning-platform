@@ -1,0 +1,65 @@
+{
+  "id": "1.3-plaats-tijddiagram",
+  "chapterId": "beweging",
+  "subjectId": "natuurkunde",
+  "number": "1.3",
+  "title": "Plaats-tijddiagram",
+  "goal": "Je leert hoe je de snelheid bepaalt uit een \\((x,t)\\)-diagram.",
+  "content": "# 1.3 Plaats-tijddiagram\n\n> **DOEL** → *Je leert hoe je de snelheid bepaalt uit een \\((x,t)\\)-diagram.*\n\n**Snelheid bepalen uit een \\((x,t)\\)-diagram** Uit een \\((x,t)\\)-diagram van een eenparige beweging kun je de snelheid bepalen door \\(\\Delta x\\) te delen door \\(\\Delta t\\) (figuur 1.8). Deze verhouding \\(\\Delta x/\\Delta t\\) is gelijk aan de *helling* van de grafiek in het \\((x,t)\\)-diagram. Omdat de helling van de grafiek overal even groot is, is de snelheid op elk tijdstip gelijk. Hoe groter de helling van de grafiek, hoe groter de snelheid op elk tijdstip is.\n\n**Snelheid op een tijdstip bepalen** Bij een niet-eenparige beweging is de helling van de grafiek in een \\((x,t)\\)-diagram niet steeds gelijk. Om in het \\((x,t)\\)-diagram (figuur 1.9) de snelheid op tijdstip \\(t = 12\\) s te bepalen, neem je een klein interval rond 12 s. Van dit interval bereken je de gemiddelde snelheid. Deze gemiddelde snelheid verschilt weinig met de snelheid op \\(t = 12\\) s. Het verschil tussen de gemiddelde snelheid en de snelheid op \\(t = 12\\) s wordt nog kleiner als je het interval nog verder verkleint. Nadert het interval nul, dan krijg je de *raaklijn* aan de grafiek op \\(t = 12\\) s zoals in het diagram van figuur 1.10 is weergegeven. De snelheid op \\(t = 12\\) s is gelijk aan de helling van de raaklijn. Om de helling van de raaklijn te bepalen, kies je op de raaklijn twee punten die zo ver mogelijk uit elkaar liggen. Daarmee bepaal je \\(\\Delta x\\) en \\(\\Delta t\\). De snelheid kun je nu berekenen met:\n\n> \\(v = \\left(\\frac{\\Delta x}{\\Delta t}\\right)_{\\text{raaklijn}}\\)\n\n- \\(v\\) snelheid op een tijdstip in m s⁻¹\n- \\(\\Delta x\\) verplaatsing tussen twee gekozen punten op de raaklijn in m\n- \\(\\Delta t\\) tijdsverschil tussen twee gekozen punten op de raaklijn in s\n\nHet bepalen van de helling van de raaklijn noem je in de wiskunde het bepalen van de afgeleide. De snelheid is de afgeleide van de plaats naar de tijd. Dat noteer je als volgt:\n\n> \\(v = \\frac{\\mathrm{d}x}{\\mathrm{d}t}\\)\n\n**Afbeelding – [Figuur 1.8: Snelheid bepalen uit een \\((x,t)\\)-diagram]**\n- Type beeld: grafiek met gestippeld raster en rode accolades\n- Assen: verticaal \\(x \\,(\\text{m})\\) van 0 tot 90 in stappen van 10; horizontaal \\(t \\,(\\text{s})\\) van 0 tot 9 in stappen van 1.\n- Beschrijving: een rode rechte lijn die vanuit de oorsprong stijgt tot \\((8, 80)\\); rechts een verticale accolade gelabeld \\(\\Delta x\\) en onderaan een horizontale accolade gelabeld \\(\\Delta t\\) (van 0 tot 8).\n- Bijschrift: **1.8** Snelheid bepalen uit een \\((x,t)\\)-diagram van een eenparig rechtlijnige beweging: \\(v = \\Delta x/\\Delta t = 80/8{,}0 = 10\\) m s⁻¹\n\n**Afbeelding – [Figuur 1.9: Een klein interval rond t = 12 s]**\n- Type beeld: grafiek met gestippeld raster\n- Assen: verticaal \\(x \\,(\\text{m})\\) van 0 tot 700 in stappen van 100; horizontaal \\(t \\,(\\text{s})\\) van 0 tot 18 in stappen van 2.\n- Beschrijving: een rode bergvormige kromme die bij \\((0,0)\\) begint, steeds steiler wordt, rond \\(t \\approx 12\\)–13 s een maximum van ongeveer 650 m bereikt en daarna steil daalt tot ongeveer 100 m bij \\(t \\approx 17\\) s. Rond \\(t = 12\\) s is een kort zwart lijnstuk getekend dat de kromme raakt; rechts daarvan kleine accolades voor \\(\\Delta x\\) en \\(\\Delta t\\).\n- Bijschrift: **1.9** Een klein interval rond \\(t = 12\\) s\n\n**Afbeelding – [Figuur 1.10: Snelheid bepalen op t = 12 s met behulp van de raaklijn]**\n- Type beeld: grafiek met gestippeld raster en rode accolades\n- Assen: verticaal \\(x \\,(\\text{m})\\) van 0 tot 700 in stappen van 100; horizontaal \\(t \\,(\\text{s})\\) van 0 tot 18 in stappen van 2.\n- Beschrijving: dezelfde rode bergkromme als in figuur 1.9; een lange zwarte raaklijn van ongeveer \\((0, 230)\\) tot ongeveer \\((14{,}5, 700)\\); onderaan een horizontale accolade gelabeld \\(\\Delta t\\) en rechts een verticale accolade gelabeld \\(\\Delta x\\).\n- Bijschrift: **1.10** Snelheid bepalen op \\(t = 12\\) s met behulp van de raaklijn: \\(v = (\\Delta x/\\Delta t)_{\\text{raaklijn}} = (700 - 230)/14{,}5 = 32{,}4\\) m s⁻¹\n\n**Voorbeeld [3]** In figuur 1.11 zie je het \\((x,t)\\)-diagram van een bal die in de lucht wordt gegooid. Bepaal de snelheid op \\(t = 0{,}60\\) s. Gebruik zo nodig naslag C3 – *Raaklijn aan de grafiek*.\n\n*Gegeven:* \\((x,t)\\)-diagram.\n*Gevraagd:* \\(v\\) op \\(t = 0{,}60\\) s.\n*Bepaling:*\n1. Geef met je geodriehoek een interval aan in de buurt van het gevraagde punt op de grafiek bij \\(t = 0{,}60\\) s. Leg daarbij de 0-positie van je geodriehoek op de verticale lijn van \\(t = 0{,}60\\) s. Zorg ervoor dat het interval tussen de 0-positie en de grafiek aan beide kanten van de 0 gelijk is.\n2. Beweeg de geodriehoek langs de verticale lijn omhoog naar het punt op de grafiek op \\(t = 0{,}60\\) s. Schuif en draai daarbij de geodriehoek zo dat het interval tussen de 0-positie en de grafiek gelijk blijft aan beide kanten.\n3. Teken de raaklijn.\n4. Kies twee punten op de raaklijn die zo ver mogelijk uit elkaar liggen en die je makkelijk kunt aflezen.\n5. Bereken de snelheid op \\(t = 0{,}60\\) s: \\(v = \\left(\\frac{\\Delta x}{\\Delta t}\\right)_{\\text{raaklijn}} \\rightarrow v = \\frac{2{,}75}{0{,}90} = 3{,}1\\) m s⁻¹\n\n*Antwoord:* De snelheid op \\(t = 0{,}60\\) s is 3,1 m s⁻¹.\n\n**Afbeelding – [Figuur 1.11: \\((x,t)\\)-diagram van een bal in de lucht]**\n- Type beeld: grafiek met gestippeld raster, met raaklijn en rode stippellijnen/accolades\n- Assen: verticaal \\(x \\,(\\text{cm})\\) van 0 tot 450 in stappen van 50; horizontaal \\(t \\,(\\text{s})\\) van 0 tot 1,8 in stappen van 0,2.\n- Beschrijving: een rode bergvormige kromme die bij \\((0, 0)\\) begint, stijgt tot een maximum van ongeveer 410 cm rond \\(t \\approx 0{,}8\\) s en daarna daalt tot 0 rond \\(t \\approx 1{,}7\\)–1,8 s. Een zwarte raaklijn (gelabeld *raaklijn*) raakt de kromme bij \\(t = 0{,}60\\) s en loopt van ongeveer \\((0{,}1, 175)\\) tot ongeveer \\((1{,}0, 450)\\). Rode hulplijnen met de annotaties \\(\\Delta x = 450 - 175 = 275\\) cm (verticaal) en \\(\\Delta t = 0{,}90 - 0 = 0{,}90\\) s (horizontaal).\n- Bijschrift: **1.11** \\((x,t)\\)-diagram van een bal in de lucht",
+  "exercises": [
+    {
+      "id": "opdracht-22",
+      "title": "Opdracht 22",
+      "content": "*Afbeelding A / Werkblad 1.22*\nIn afbeelding A zie je het \\((x,t)\\)-diagram van een autorit.\n\n- **a** Bepaal de gemiddelde snelheid van de auto tijdens de gehele rit (tot \\(t = 150\\) s). **T2**\n- **b** Welke methode gebruik je om de snelheid op een tijdstip te bepalen? **R**\n- **c** Bepaal op het werkblad de snelheid van de auto op \\(t = 60\\) s. **T2**\n- **d** Vanaf 100 s rijdt de auto terug in de richting van het startpunt. De snelheid is dan negatief. Bepaal de gemiddelde (negatieve) snelheid tussen \\(t = 100\\) s en \\(t = 150\\) s. **T2**"
+    },
+    {
+      "id": "opdracht-23",
+      "title": "Opdracht 23",
+      "content": "*Afbeelding B / Werkblad 1.23*\nIn oude torenklokken wordt een slinger gebruikt om de klok met een vaste snelheid te laten lopen. In afbeelding B zie je het \\((x,t)\\)-diagram van een gewicht aan een slinger. Hierin is x de positie van het gewicht ten opzichte van de stand waarin de slinger precies verticaal hangt (de evenwichtsstand).\n\n- **a** Bepaal op het werkblad de snelheid waarmee het gewicht op \\(t = 0\\) s door de evenwichtsstand beweegt. **T2**\n- **b** Bepaal de snelheid van het gewicht bij \\(x = +10\\) cm. **T2**\n- **c** Leg uit in welke positie het gewicht de grootste snelheid heeft. **I**"
+    },
+    {
+      "id": "opdracht-24",
+      "title": "Opdracht 24",
+      "content": "*Afbeelding C / Werkblad 1.24*\nIn afbeelding C zie je een \\((x,t)\\)-diagram van de polsbeweging van een wandelaar.\n\n- **a** Bepaal op het werkblad met de raaklijn-methode de grootste positieve snelheid en de grootste negatieve snelheid van de pols. **T2**\n- **b** Bepaal op welke punten de snelheid 0 m s⁻¹ is. **T2**\n- **c** Maak een schatting van de gemiddelde snelheid waarmee deze persoon loopt. **I**"
+    },
+    {
+      "id": "opdracht-25",
+      "title": "Opdracht 25",
+      "content": "*Afbeelding D / Werkblad 1.25*\nVoor een verkeerskundig onderzoek wordt op een snelweg over een afstand van 50 km de beweging van drie auto's onderzocht. De auto's passeren het eerste meetpunt een minuut na elkaar. Om de vijf minuten wordt bepaald op welke plaats x de auto's zich bevinden. De gegevens worden uitgezet in een \\((x,t)\\)-diagram (afbeelding D).\n\n- **a** Bepaal de gemiddelde snelheid van de snelste auto en de gemiddelde snelheid van de langzaamste auto. **T2**\n- **b** Leg uit hoe het kan dat je bij \\(t = 5\\) min twee punten ziet in plaats van drie. **T2**\n- **c** Op ongeveer 15 km vanaf het eerste meetpunt zijn er wegwerkzaamheden. Leg uit waaraan je dat in het diagram kunt zien. **I**\n- **d** Kun je op grond van de gegevens uit het diagram concluderen dat minimaal één van de auto's ergens te hard heeft gereden? Geef een toelichting. **I**"
+    },
+    {
+      "id": "opdracht-26",
+      "title": "Opdracht 26",
+      "content": "*Afbeelding E / Werkblad 1.26*\nIn afbeelding E zie je het eerste deel van het \\((x,t)\\)-diagram van een klein sportvliegtuig dat op de startbaan aan zijn start is begonnen. In het diagram zie je drie grafieken. Grafiek A is de situatie bij windstil weer. Bij grafiek B en C is er wel sprake van wind. Het vliegtuig stijgt op bij 25 m s⁻¹.\n\n- **a** Bepaal na hoeveel seconde het vliegtuig kan opstijgen bij windstilte. **I**\n- **b** Bij grafiek C is er sprake van tegenwind. Leg uit waardoor het vliegtuig eerder opstijgt bij tegenwind. **I**\n- **c** Bepaal uit welke richting de wind komt ten opzichte van het vliegtuig bij grafiek B? **T2**"
+    },
+    {
+      "id": "opdracht-27",
+      "title": "Opdracht 27",
+      "content": "*Afbeelding F / Werkblad 1.27*\nEen getijkromme is een lijn die de waterhoogte op verschillende tijdstippen weergeeft. In afbeelding E zie je getijkrommen voor Vlissingen en Delfzijl.\n\n- **a** Bepaal de snelheid in m h⁻¹ waarmee op \\(t = 3{,}0\\) h het water in Vlissingen stijgt. **T2**\n- **b** Leg uit in welke van de twee plaatsen het water de grootste daalsnelheid haalt. **I**"
+    },
+    {
+      "id": "opdracht-28",
+      "title": "Opdracht 28",
+      "content": "*Afbeelding G*\nMet een scheepsradar is het mogelijk om bij slecht zicht toch schepen om je heen waar te nemen. In de afbeelding zie je het radarscherm op \\(t = 0\\) en op \\(t = 40\\) min. Het schip waarop je zelf vaart, bevindt zich in het midden van het scherm. Links is een onbekend schip te zien dat door de radar wordt waargenomen. De pijl geeft de vaarrichting van jouw schip weer.\n\n- **a** Op \\(t = 0\\) bevindt een schip zich 29 km links (bakboord) van jouw schip. Bepaal de afstand van het onbekende schip tot jouw schip na 40 minuten. **T1**\n- **b** Bepaal de snelheid waarmee het onbekende schip jouw schip nadert. **T2**\n- **c** Leg uit waarom de snelheid waarmee het onbekende schip jou nadert, niet de snelheid is waarmee het schip vaart. **I**"
+    }
+  ],
+  "learningGoals": {
+    "R": [
+      "Helling",
+      "Raaklijn"
+    ],
+    "T1": "Ik kan uit een \\((x,t)\\)-diagram de gemiddelde snelheid in een interval bepalen en de snelheid op een tijdstip bepalen met een raaklijn.",
+    "T2": "Ik kan uit een \\((x,t)\\)-diagram het bijbehorende \\((v,t)\\)-diagram afleiden.",
+    "I": "Ik kan uitleggen waarom de helling van de grafiek in een \\((x,t)\\)-diagram gelijk is aan de snelheid."
+  },
+  "examTraining": {
+    "id": "examentraining-1.3",
+    "exercises": [
+      {
+        "id": "opdracht-29",
+        "title": "Opdracht 29",
+        "content": "*Afbeelding H, I en J*\nOp de roeimachine kun je niet alleen je conditie trainen, maar ook werken aan een goede roeitechniek. Een bewegingssensor legt de beweging vast van het bankje waar je op zit. In afbeelding I zie je het \\((x,t)\\)-diagram van deze beweging. De verplaatsing x wordt gemeten vanaf de achterkant van het apparaat. In afbeelding J zie je het \\((v,t)\\)-diagram van één roeibeweging.\n\n- **a** Bepaal de maximale waarde van \\(\\Delta x\\) waarover het bankje beweegt. **T2**\n- **b** Leg met behulp van afbeelding I uit wanneer de roeier een hogere snelheid bereikt: tijdens de voorwaartse roeibeweging of tijdens de achterwaartse roeibeweging. **I**\n- **c** Bepaal de gemiddelde snelheid tijdens de voorwaartse roeibeweging. **T2**\n- **d** Bepaal de snelheid op \\(t = 22\\) s. **T2**\n- **e** Leg uit hoe je van een \\((x,t)\\)-diagram het bijbehorende \\((v,t)\\)-diagram kunt afleiden. **T1**\n- **f** Leg uit hoe je in het \\((v,t)\\)-diagram in afbeelding J kunt zien of de beweging achterwaarts of voorwaarts is. **I**"
+      }
+    ]
+  }
+}

@@ -13,7 +13,7 @@ type SubjectUpdate = Database['public']['Tables']['subjects']['Update'];
 /**
  * Get all subjects for the current user
  */
-export async function getUserSubjects(userId: string) {
+export async function get_user_subjects(userId: string) {
   const { data, error } = await supabase
     .from('subjects')
     .select('*')
@@ -26,7 +26,7 @@ export async function getUserSubjects(userId: string) {
 /**
  * Get a single subject by slug
  */
-export async function getSubjectBySlug(userId: string, slug: string) {
+export async function get_subject_by_slug(userId: string, slug: string) {
   const { data, error } = await supabase
     .from('subjects')
     .select('*')
@@ -40,7 +40,7 @@ export async function getSubjectBySlug(userId: string, slug: string) {
 /**
  * Get a single subject by ID
  */
-export async function getSubjectById(subjectId: string) {
+export async function get_subject_by_id(subjectId: string) {
   const { data, error } = await supabase.from('subjects').select('*').eq('id', subjectId).single();
 
   return { data, error };
@@ -49,7 +49,7 @@ export async function getSubjectById(subjectId: string) {
 /**
  * Create a new subject
  */
-export async function createSubject(subject: SubjectInsert) {
+export async function create_subject(subject: SubjectInsert) {
   const { data, error } = await supabase.from('subjects').insert(subject).select().single();
 
   return { data, error };
@@ -58,7 +58,7 @@ export async function createSubject(subject: SubjectInsert) {
 /**
  * Update a subject
  */
-export async function updateSubject(subjectId: string, updates: SubjectUpdate) {
+export async function update_subject(subjectId: string, updates: SubjectUpdate) {
   const { data, error } = await supabase
     .from('subjects')
     .update(updates)
@@ -72,7 +72,7 @@ export async function updateSubject(subjectId: string, updates: SubjectUpdate) {
 /**
  * Delete a subject
  */
-export async function deleteSubject(subjectId: string) {
+export async function delete_subject(subjectId: string) {
   const { error } = await supabase.from('subjects').delete().eq('id', subjectId);
 
   return { error };
@@ -81,7 +81,7 @@ export async function deleteSubject(subjectId: string) {
 /**
  * Update subject mastery percentage
  */
-export async function updateSubjectMastery(subjectId: string, mastery: number) {
+export async function update_subject_mastery(subjectId: string, mastery: number) {
   const { data, error } = await supabase
     .from('subjects')
     .update({ mastery })
@@ -95,7 +95,7 @@ export async function updateSubjectMastery(subjectId: string, mastery: number) {
 /**
  * Get subject with analytics
  */
-export async function getSubjectWithAnalytics(subjectId: string) {
+export async function get_subject_with_analytics(subjectId: string) {
   const { data, error } = await supabase
     .from('subject_analytics')
     .select('*')
@@ -108,7 +108,7 @@ export async function getSubjectWithAnalytics(subjectId: string) {
 /**
  * Get all subjects with analytics for a user
  */
-export async function getUserSubjectsWithAnalytics(userId: string) {
+export async function get_user_subjects_with_analytics(userId: string) {
   const { data, error } = await supabase
     .from('subject_analytics')
     .select('*')

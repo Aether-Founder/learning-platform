@@ -8,6 +8,36 @@
  * Display font: Cormorant Garamond. UI font: Inter.
  */
 
+/* Mobile-specific improvements */
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Better touch targets on mobile */
+  @media (max-width: 768px) {
+    button, a, input, select, textarea {
+      min-height: 44px;
+    }
+    
+    /* Prevent horizontal scroll on mobile */
+    body {
+      overflow-x: hidden;
+    }
+  }
+  
+  /* Safe area for notched phones */
+  @supports (padding: max(0px)) {
+    .safe-area-bottom {
+      padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    }
+    
+    .safe-area-top {
+      padding-top: max(1rem, env(safe-area-inset-top));
+    }
+  }
+}
+
 @layer base {
   :root {
     --radius: 0.75rem;
@@ -87,6 +117,10 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  html {
+    background-color: var(--background);
+  }
+
   h1,
   h2,
   h3 {
@@ -95,9 +129,87 @@
   }
 }
 
+.initial-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  background-color: var(--background);
+}
+
+.initial-loader__logo {
+  position: relative;
+  width: clamp(13rem, 28vw, 20rem);
+  aspect-ratio: 1;
+}
+
+.initial-loader__image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.workspace-editor:empty::before { content: attr(data-placeholder); color: var(--muted-foreground); pointer-events: none; }
+.workspace-editor h1, .workspace-editor h2, .workspace-editor h3 { margin: 1.75rem 0 0.75rem; font-family: var(--font-sans); font-weight: 700; }
+.workspace-editor h1 { font-size: 2rem; }
+.workspace-editor h2 { font-size: 1.5rem; }
+.workspace-editor h3 { font-size: 1.25rem; }
+.workspace-headers-display .workspace-editor h1, .workspace-headers-display .workspace-editor h2, .workspace-headers-display .workspace-editor h3 { font-family: var(--font-display); }
+.workspace-editor p { margin: 0 0 0.75rem; }
+.workspace-editor ul { margin: 0 0 0.75rem 1.25rem; list-style: disc; }
+.workspace-editor code { border-radius: 0.25rem; background: var(--secondary); padding: 0.1rem 0.3rem; }
+.workspace-drop-success { animation: workspace-drop-success 1.2s ease-out; }
+.subject-skeleton { position: relative; overflow: hidden; }
+.subject-skeleton::after { position: absolute; inset: 0; content: ''; background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--foreground) 8%, transparent), transparent); transform: translateX(-100%); animation: subject-shimmer 1.25s infinite; }
+@keyframes subject-shimmer { to { transform: translateX(100%); } }
+.page-skeleton-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 0.75rem; margin-top: 2.5rem; }
+.page-skeleton-card { position: relative; height: 9rem; overflow: hidden; border: 1px solid var(--border); border-radius: 0.75rem; background: var(--card); }
+.page-skeleton-card::after { position: absolute; inset: 0; content: ''; background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--foreground) 8%, transparent), transparent); transform: translateX(-100%); animation: subject-shimmer 1.25s infinite; }
+.skeleton-line { position: relative; overflow: hidden; border-radius: 0.375rem; background: color-mix(in oklab, var(--foreground) 7%, transparent); }
+.skeleton-line::after { position: absolute; inset: 0; content: ''; background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--foreground) 8%, transparent), transparent); transform: translateX(-100%); animation: subject-shimmer 1.25s infinite; }
+.workspace-font-size-indicator { position: fixed; right: 2rem; bottom: 2rem; z-index: 20; border: 1px solid var(--border); border-radius: 0.5rem; background: var(--background); padding: 0.5rem 0.75rem; font-size: 0.75rem; color: var(--foreground); box-shadow: 0 8px 24px rgb(0 0 0 / 15%); }
+@keyframes workspace-drop-success { 0%, 45% { background-color: var(--secondary); } 100% { background-color: transparent; } }
+
+.reflection-overlay {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  -webkit-mask: url('/aether-logo.png') center / contain no-repeat;
+  mask: url('/aether-logo.png') center / contain no-repeat;
+}
+
+.reflection-line {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(135deg, transparent 40%, rgb(255 255 255 / 80%) 50%, rgb(255 255 255 / 40%) 55%, transparent 60%);
+  animation: initial-loader-reflection 2.4s ease-in-out infinite;
+}
+
+@keyframes initial-loader-reflection {
+  from {
+    transform: translate(-100%, -100%);
+  }
+  to {
+    transform: translate(100%, 100%);
+  }
+}
+
 @layer utilities {
   .scroll-smooth {
     scroll-behavior: smooth;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }
 

@@ -65,7 +65,7 @@ export default function ZoekenPage() {
           type: 'study_set',
           title: set.title,
           description: set.description,
-          link: `/decks`,
+          link: `/leersets`,
           relevance: calculateRelevance(set.title, set.description, searchQuery),
         });
       });

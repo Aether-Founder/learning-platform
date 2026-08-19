@@ -32,7 +32,7 @@ export default function EditDeckPage() {
 
         if (setError || !set) {
           console.error('Failed to load set:', setError);
-          router.push('/decks');
+          router.push('/leersets');
           return;
         }
 

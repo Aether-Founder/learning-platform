@@ -43,8 +43,8 @@ export default function RegisterPage() {
   useEffect(() => {
     if (success) {
       const timer = setTimeout(() => {
-        router.push('/');
-      }, 2000); // Redirect after 2 seconds
+        router.push('/vakken');
+      }, 2000); // Redirect to vakken page for setup after 2 seconds
       return () => clearTimeout(timer);
     }
   }, [success, router]);

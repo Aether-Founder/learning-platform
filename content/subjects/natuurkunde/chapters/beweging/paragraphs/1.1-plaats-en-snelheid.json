@@ -1,0 +1,69 @@
+{
+  "id": "1.1-plaats-en-snelheid",
+  "chapterId": "beweging",
+  "subjectId": "natuurkunde",
+  "number": "1.1",
+  "title": "Plaats en snelheid",
+  "goal": "Je leert hoe je de begrippen plaats, verplaatsing, tijd en snelheid gebruikt om een beweging te beschrijven.",
+  "content": "# 1.1 Plaats en snelheid\n\n> **DOEL** → *Je leert hoe je de begrippen plaats, verplaatsing, tijd en snelheid gebruikt om een beweging te beschrijven.*\n\n**Plaats, verplaatsing, tijd en snelheid** Als je ergens snel naartoe wilt, doe je dit via de kortste weg. Zo leg je de kleinste afstand af. In figuur [ONLEESBAAR - AANNAME: 1.1] zie je dat de kleinste afstand tussen plaats \\(x_1\\) en plaats \\(x_2\\) een rechte lijn is. Je noemt deze afstand de *verplaatsing* \\(\\Delta x\\) (\\(\\Delta\\) is de Griekse letter delta). De snelheid wordt bepaald door de verplaatsing en de tijdsduur. Hoe groter een verplaatsing is in dezelfde tijd, hoe meer meters er per seconde worden afgelegd. Een grotere verplaatsing in dezelfde tijd is dus alleen mogelijk door een hogere snelheid.\n\n**Afbeelding – [Figuur 1.1: De verplaatsing \\(\\Delta x\\)]**\n- Type beeld: schema\n- Beschrijving: twee cirkels (posities) gelabeld \\(x_1\\) (linksboven) en \\(x_2\\) (rechtsonder), verbonden door een rechte lijn. Boven de lijn staat het label \\(\\Delta x\\).\n- Bijschrift: **1.1** De verplaatsing \\(\\Delta x\\)\n\n**De gemiddelde snelheid en de snelheid op een tijdstip**\nOp elke scooter zit een snelheidsmeter. Hierop zie je op elk moment de snelheid waarmee je rijdt. Dit is de *snelheid op een tijdstip*.\nJe kunt ook de *gemiddelde snelheid* bepalen. Dit doe je door de totale verplaatsing te delen door de tijd die je erover hebt gedaan. Alleen als je steeds even hard rijdt, is de gemiddelde snelheid gelijk aan de snelheid op een tijdstip.\n\n**Plaats-tijddiagram en snelheid-tijddiagram** Je kunt de plaats \\(x\\) van een voorwerp uitzetten tegen de tijd \\(t\\) in een *plaats-tijddiagram* of \\((x,t)\\)-diagram. De snelheid \\(v\\) kun je uitzetten tegen de tijd \\(t\\) in een *snelheid-tijddiagram* of \\((v,t)\\)-diagram. Hierdoor wordt het verloop van de beweging overzichtelijk in beeld gebracht en kun je deze goed analyseren.\n\n**Eenparig rechtlijnige beweging** Een beweging waarbij de snelheid en de richting niet veranderen, noem je een *eenparig rechtlijnige beweging*. In figuur 1.2 zijn het \\((v,t)\\)-diagram en het \\((x,t)\\)-diagram van een eenparig rechtlijnige beweging weergegeven. In het \\((v,t)\\)-diagram is de grafiek een horizontale rechte lijn. In het \\((x,t)\\)-diagram is de grafiek een schuine rechte lijn, omdat elke seconde steeds dezelfde afstand wordt afgelegd. Hoe groter de snelheid, hoe steiler de lijn.\n\n**Afbeelding – [Figuur 1.2a: \\((v,t)\\)-diagram]**\n- Type beeld: grafiek met gestippeld raster\n- Assen: verticaal \\(v \\,(\\text{m s}^{-1})\\), horizontaal \\(t \\,(\\text{s})\\)\n- Beschrijving: een horizontale rode lijn op constante hoogte (constante snelheid), lopend over vrijwel de volle breedte van de grafiek. Geen numerieke waarden op de assen.\n- Label: **a**\n\n**Afbeelding – [Figuur 1.2b: \\((x,t)\\)-diagram]**\n- Type beeld: grafiek met gestippeld raster\n- Assen: verticaal \\(x \\,(\\text{m})\\), horizontaal \\(t \\,(\\text{s})\\)\n- Beschrijving: een schuine rode rechte lijn die vanuit de oorsprong \\((0,0)\\) lineair stijgt. Geen numerieke waarden op de assen.\n- Label: **b**\n\n**1.2** \\((v,t)\\)-diagram (a) en \\((x,t)\\)-diagram (b) van een eenparig rechtlijnige beweging\n\n**Eenparig versnelde beweging** Bij een *eenparig versnelde beweging* neemt de snelheid elke seconde met dezelfde waarde toe. De snelheidsverandering per seconde heet de versnelling. Bij een eenparig versnelde beweging is de versnelling dus constant. In figuur 1.3a zie je dat de grafiek in het \\((v,t)\\)-diagram dan een schuine rechte lijn is. Hoe groter de versnelling, hoe steiler de lijn. Het \\((x,t)\\)-diagram is een steeds steiler wordende lijn, doordat elke volgende seconde steeds meer afstand wordt afgelegd (figuur 1.3b).\n\n**Eenparig vertraagde beweging** Bij een *eenparig vertraagde beweging* neemt de snelheid elke seconde met dezelfde waarde af. De grafiek in het \\((v,t)\\)-diagram is een rechte lijn die schuin naar beneden loopt (figuur 1.4a). De grafiek in het \\((x,t)\\)-diagram is een steeds minder steil wordende lijn omdat elke volgende seconde steeds minder afstand wordt afgelegd (figuur 1.4b).\n\n**Positieve en negatieve waarden** Bij een beweging naar voren of omhoog noem je de verplaatsing en de snelheid positief. Bij een beweging naar achteren of omlaag zijn de verplaatsing en de snelheid negatief.\n\n**Afbeelding – [Figuur 1.3a: \\((v,t)\\)-diagram]**\n- Type beeld: grafiek met gestippeld raster\n- Assen: verticaal \\(v \\,(\\text{m s}^{-1})\\), horizontaal \\(t \\,(\\text{s})\\)\n- Beschrijving: een schuine rode rechte lijn die vanuit de oorsprong lineair omhoog loopt (de snelheid neemt gelijkmatig toe). Geen numerieke waarden op de assen.\n- Label: **a**\n\n**Afbeelding – [Figuur 1.3b: \\((x,t)\\)-diagram]**\n- Type beeld: grafiek met gestippeld raster\n- Assen: verticaal \\(x \\,(\\text{m})\\), horizontaal \\(t \\,(\\text{s})\\)\n- Beschrijving: een rode lijn die bij de oorsprong begint en steeds steiler omhoog loopt (holle kromme). Geen numerieke waarden op de assen.\n- Label: **b**\n\n**1.3** \\((v,t)\\)-diagram (a) en \\((x,t)\\)-diagram (b) van een eenparig versnelde beweging\n\n**Afbeelding – [Figuur 1.4a: \\((v,t)\\)-diagram]**\n- Type beeld: grafiek met gestippeld raster\n- Assen: verticaal \\(v \\,(\\text{m s}^{-1})\\), horizontaal \\(t \\,(\\text{s})\\)\n- Beschrijving: een rode rechte lijn die op constante hoogte begint en schuin naar beneden loopt tot de snelheid nul is. Geen numerieke waarden op de assen.\n- Label: **a**\n\n**Afbeelding – [Figuur 1.4b: \\((x,t)\\)-diagram]**\n- Type beeld: grafiek met gestippeld raster\n- Assen: verticaal \\(x \\,(\\text{m})\\), horizontaal \\(t \\,(\\text{s})\\)\n- Beschrijving: een rode lijn die bij de oorsprong steil begint en steeds minder steil wordt, tot hij bijna horizontaal loopt (bergkromme). Geen numerieke waarden op de assen.\n- Label: **b**\n\n**1.4** \\((v,t)\\)-diagram (a) en \\((x,t)\\)-diagram (b) van een eenparig vertraagde beweging",
+  "exercises": [
+    {
+      "id": "opdracht-1",
+      "title": "Opdracht 1",
+      "content": "Een modeltrein rijdt met een constante snelheid over een ronde modelspoorbaan. De verplaatsing van de trein wordt gemeten vanaf een modelstation dat op een vaste plaats naast de baan staat.\n\n- **a** Wat is het symbool voor verplaatsing? **R**\n- **b** Beschrijf wat een eenparig rechtlijnige beweging is. **T1**\n- **c** Leg uit waarom de trein geen eenparig rechtlijnige beweging uitvoert. **T2**"
+    },
+    {
+      "id": "opdracht-2",
+      "title": "Opdracht 2",
+      "content": "*Afbeelding A*\nEen voetganger en een fietser gaan gelijktijdig aan verschillende kanten een brug van 50 m op. Ze bewegen dus in tegengestelde richting. In de afbeelding zie je het \\((x,t)\\)-diagram.\n\n- **a** Hoe noem je de beweging van de voetganger en de fietser? **T1**\n- **b** Leg uit hoe je kunt zien dat het punt x = 0 m aan de kant van de voetganger is gekozen. **T1**\n- **c** Bepaal op welk tijdstip de voetganger en de fietser elkaar tegenkomen. **T2**\n- **d** Bepaal hoeveel meter de fietser de brug op is gefietst op het moment dat hij de voetganger tegenkomt. **T2**\n- **e** Leg uit wat het betekent dat de fietser zich op \\(t = 19\\) s op \\(x = -7\\) meter bevindt. **I**"
+    },
+    {
+      "id": "opdracht-3",
+      "title": "Opdracht 3",
+      "content": "*Afbeelding B*\nIn afbeelding B zie je het \\((x,t)\\)-diagram van een stuiterende bal. De bal beweegt recht omhoog en recht naar beneden en beweegt niet zijwaarts. Op \\(t = 0\\) s wordt de bal losgelaten vanaf een hoogte van 2,0 m.\n\n- **a** Bepaal op welk tijdstip de bal voor het eerst de grond raakt. **T1**\n- **b** Leg uit of de bal tussen \\(t = 0{,}6\\) s en \\(t = 1{,}0\\) s versnelt of vertraagt. **T2**\n- **c** Bepaal de hoogte die de bal bereikt nadat deze voor de eerste keer de grond heeft geraakt. **T1**\n- **d** Bepaal de tijdstippen waarop de bal een snelheid heeft van 0 m s⁻¹. **T2**\n- **e** Leg uit waardoor de bal steeds minder hoog komt. **I**"
+    },
+    {
+      "id": "opdracht-4",
+      "title": "Opdracht 4",
+      "content": "*Afbeelding C*\nIn afbeelding C zie je het \\((v,t)\\)-diagram van de stuiterende bal uit opdracht 3.\n\n- **a** In het diagram is de snelheid soms positief en soms negatief. Leg uit wat het verschil is tussen de positieve en de negatieve snelheid. **T2**\n- **b** Bepaal met welke snelheid de bal voor de tweede keer de grond raakt. **T1**\n- **c** Bepaal op welk tijdstip de bal na de eerste 'stuiter' op zijn hoogste punt is. **T2**\n- **d** Leg uit waarom de beweging tussen \\(t = 0\\) s en \\(t = 3{,}0\\) s geen eenparige beweging is. **T2**"
+    },
+    {
+      "id": "opdracht-5",
+      "title": "Opdracht 5",
+      "content": "*Afbeelding D*\nIn de afbeelding is het \\((x,t)\\)-diagram van de beweging van de pols en de schouder tijdens het lopen weergegeven.\n\n- **a** Bepaal op welke tijdstippen de pols en de schouder dezelfde positie hebben. **T1**\n- **b** Leg uit wat voor soort beweging de pols tussen \\(t = 4{,}4\\) s en \\(t = 4{,}6\\) s maakt. **T1**\n- **c** Leg uit wat voor soort beweging de pols tussen \\(t = 4{,}8\\) s en \\(t = 5{,}2\\) s maakt. **T1**\n- **d** Leg uit hoe je kunt zien dat de pols ten opzichte van het startpunt soms achteruit beweegt. **I**\n- **e** Leg uit hoe je kunt zien dat de wandelaar met een bijna constante snelheid loopt. **I**"
+    },
+    {
+      "id": "opdracht-6",
+      "title": "Opdracht 6",
+      "content": "*Afbeelding E en F*\nEen beweging kun je zichtbaar maken met een stroboscopische foto. Die maak je door in het donker met een flitslamp (stroboscoop) het bewegende voorwerp te verlichten. Tussen de flitsen zit steeds evenveel tijd. Op de foto zie je het voorwerp dan op de plaatsen waar het door een flits verlicht werd. In afbeelding E zie je een stroboscopische foto van een rollende munt.\n\n- **a** Leg uit dat het hier om een eenparig rechtlijnige beweging gaat. **T1**\n- **b** Welke gegevens heb je nodig om de snelheid van de rollende munt op de foto te bepalen? **T2**\n- **c** Schets hoe een stroboscopische foto eruit zal zien als het muntje steeds langzamer gaat rollen. **T2**\n\nIn afbeelding F zie je een stroboscopische foto van een stuiterende tennisbal.\n\n- **d** Leg uit waar de snelheid van de tennisbal het grootst is. **T1**"
+    },
+    {
+      "id": "opdracht-7",
+      "title": "Opdracht 7",
+      "content": "*Afbeelding G*\nOrthodontische tandverplaatsing is het verplaatsen van tanden met behulp van een beugel. In afbeelding G zie je een \\((x,t)\\)-diagram van de verplaatsing van één tand tijdens het dragen van een beugel.\n\n- **a** Leg uit hoe je kunt zien dat de tandverplaatsing langzaam verloopt ten opzichte van een verplaatsing op een fiets. **T2**\n- **b** Bepaal na hoeveel dagen de tand 1 mm is verplaatst. **T1**\n- **c** Hoeveel dagen duurt het voordat de tand een bijna constante snelheid heeft? **T2**\n- **d** In welk van de volgende tijdsintervallen is de gemiddelde snelheid van de tand het kleinst? Leg je antwoord uit. **T2**\n  - **A** Tussen 0 en 20 dagen\n  - **B** Tussen 20 en 40 dagen\n  - **C** Tussen 100 en 120 dagen"
+    }
+  ],
+  "learningGoals": {
+    "R": [
+      "Verplaatsing",
+      "Snelheid op een tijdstip",
+      "Gemiddelde snelheid",
+      "Plaats-tijddiagram en snelheid-tijddiagram",
+      "Eenparig rechtlijnige beweging",
+      "Eenparig versnelde beweging en eenparig vertraagde beweging"
+    ],
+    "T1": "Ik kan het verschil omschrijven tussen snelheid op een tijdstip en gemiddelde snelheid.",
+    "T2": "Ik kan uitleggen wat het verband is tussen afstand, tijd en snelheid.",
+    "I": "Ik kan een beweging analyseren aan de hand van een \\((x,t)\\)-diagram of een \\((v,t)\\)-diagram."
+  },
+  "examTraining": {
+    "id": "examentraining-1.1",
+    "exercises": [
+      {
+        "id": "opdracht-8",
+        "title": "Opdracht 8",
+        "content": "*Afbeelding G, H en I*\nBij een botsproef wordt de veiligheid van een auto getest door deze met een hoge snelheid op een blok te laten botsen (afbeelding G). De botsingsbeweging wordt gefilmd met een camera die zeer veel beelden per seconde kan opnemen. Met behulp van de video wordt dan een \\((x,t)\\)-diagram gemaakt (afbeelding H).\n\n- **a** Bepaal tussen welke tijdstippen vóór de botsing de auto een constante snelheid heeft. **T2**\n- **b** Bepaal op welk tijdstip de auto tegen het blok botst. **T2**\n- **c** Leg uit tussen welke tijdstippen er sprake is van een versnelling. **I**\n- **d** Leg uit in welke richting de auto beweegt na 0,10 s. **I**\n\nEr wordt ook een \\((v,t)\\)-diagram gemaakt (afbeelding I).\n\n- **e** Leg uit op welk punt (A, B, C, D, E of F): **T2**\n  - de auto in aanraking komt met de muur.\n  - de auto maximaal vertraagt.\n  - het indeuken van de auto stopt."
+      }
+    ]
+  }
+}

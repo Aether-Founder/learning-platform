@@ -192,15 +192,23 @@ export default function PlannerPage() {
 
   const handleCreateTask = async () => {
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return;
+    if (!user) {
+      console.error('No user authenticated');
+      return;
+    }
+
+    if (!formData.title.trim()) {
+      console.error('Title is required');
+      return;
+    }
 
     const { data, error } = await supabase
       .from('tasks')
       .insert({
         user_id: user.id,
-        title: formData.title,
-        description: formData.description,
-        subject: formData.subject || null,
+        title: formData.title.trim(),
+        description: formData.description.trim(),
+        subject: formData.subject?.trim() || null,
         due_date: formData.due_date || null,
         priority: formData.priority,
         status: 'todo',
@@ -328,7 +336,21 @@ export default function PlannerPage() {
           title={t('planner_title')}
           description={t('planner_description')}
         />
-        <div className="mt-10 text-center text-sm text-muted-foreground">Laden...</div>
+        <div className="mt-10 grid gap-4 lg:grid-cols-4">
+          {STATUS_ORDER.map((status) => (
+            <div key={status} className="space-y-3">
+              <div className="skeleton-line h-6 w-24 rounded"></div>
+              <div className="space-y-3">
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <div key={i} className="rounded-lg border border-border bg-card p-4">
+                    <div className="skeleton-line h-4 w-3/4 rounded mb-2"></div>
+                    <div className="skeleton-line h-3 w-1/2 rounded"></div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
       </AppShell>
     );
   }
@@ -397,7 +419,7 @@ export default function PlannerPage() {
           <DialogHeader>
             <DialogTitle>{editingTask ? 'Taak bewerken' : 'Nieuwe taak'}</DialogTitle>
           </DialogHeader>
-          <div className="space-y-4">
+          <form onSubmit={(e) => { e.preventDefault(); editingTask ? handleUpdateTask() : handleCreateTask(); }} className="space-y-4">
             <div>
               <Label htmlFor="task-title">Titel</Label>
               <Input
@@ -405,6 +427,7 @@ export default function PlannerPage() {
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                 placeholder="Taak titel"
+                required
               />
             </div>
             <div>
@@ -448,12 +471,12 @@ export default function PlannerPage() {
                 <option value="high">Hoog</option>
               </select>
             </div>
-          </div>
+          </form>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowDialog(false)}>
+            <Button type="button" variant="outline" onClick={() => setShowDialog(false)}>
               Annuleren
             </Button>
-            <Button onClick={editingTask ? handleUpdateTask : handleCreateTask}>
+            <Button type="button" onClick={editingTask ? handleUpdateTask : handleCreateTask}>
               {editingTask ? 'Bijwerken' : 'Aanmaken'}
             </Button>
           </DialogFooter>

@@ -1,0 +1,16 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2024-08-19",
+  "subjects": [
+    {
+      "id": "natuurkunde",
+      "name": "Natuurkunde",
+      "slug": "natuurkunde",
+      "description": "De studie van materie, energie en hun interacties",
+      "color": "#3b82f6",
+      "icon": "atom",
+      "level": "VWO",
+      "chapters": ["mechanica", "thermodynamica", "elektriciteit-magnetisme"]
+    }
+  ]
+}

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Home, Calendar, BookOpen, BarChart3, User, Settings } from 'lucide-react';
+import { Menu, Home, Calendar, BookOpen, BarChart3, User, Settings, FileText } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -13,11 +13,16 @@ export function MobileNavigation() {
 
   const navItems = [
     { href: '/', icon: Home, label: 'Home' },
+    { href: '/leersets', icon: BookOpen, label: 'Leersets' },
     { href: '/calendar', icon: Calendar, label: 'Kalender' },
+    { href: '/agenda', icon: Calendar, label: 'Agenda' },
     { href: '/study', icon: BookOpen, label: 'Studeren' },
     { href: '/analytics', icon: BarChart3, label: 'Analytics' },
+    { href: '/statistieken', icon: BarChart3, label: 'Statistieken' },
     { href: '/profile', icon: User, label: 'Profiel' },
-    { href: '/settings', icon: Settings, label: 'Instellingen' },
+    { href: '/instellingen', icon: Settings, label: 'Instellingen' },
+    { href: '/vakken', icon: BookOpen, label: 'Vakken' },
+    { href: '/notities', icon: FileText, label: 'Notities' },
   ];
 
   return (

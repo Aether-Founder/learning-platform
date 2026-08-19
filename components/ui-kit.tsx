@@ -252,7 +252,7 @@ export function EmptyState({
 }
 
 export function Skeleton({ className = '' }: { className?: string }) {
-  return <div className={'animate-pulse rounded-md bg-secondary ' + className} />;
+  return <div className={'skeleton-line rounded-md ' + className} />;
 }
 
 export function useSimulatedLoad(ms = 550) {

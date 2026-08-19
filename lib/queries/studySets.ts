@@ -15,7 +15,7 @@ type FlashcardInsert = Database['public']['Tables']['flashcards']['Insert'];
 /**
  * Get all study sets for the current user
  */
-export async function getUserStudySets(userId: string) {
+export async function get_user_study_sets(userId: string) {
   const { data, error } = await supabase
     .from('study_sets')
     .select(
@@ -33,7 +33,7 @@ export async function getUserStudySets(userId: string) {
 /**
  * Get study sets by subject
  */
-export async function getStudySetsBySubject(userId: string, subjectId: string) {
+export async function get_study_sets_by_subject(userId: string, subjectId: string) {
   const { data, error } = await supabase
     .from('study_sets')
     .select(
@@ -52,7 +52,7 @@ export async function getStudySetsBySubject(userId: string, subjectId: string) {
 /**
  * Get a single study set by ID with flashcards
  */
-export async function getStudySetById(studySetId: string) {
+export async function get_study_set_by_id(studySetId: string) {
   const { data, error } = await supabase
     .from('study_sets')
     .select(
@@ -71,7 +71,7 @@ export async function getStudySetById(studySetId: string) {
 /**
  * Get a single study set by slug
  */
-export async function getStudySetBySlug(userId: string, slug: string) {
+export async function get_study_set_by_slug(userId: string, slug: string) {
   const { data, error } = await supabase
     .from('study_sets')
     .select(
@@ -91,7 +91,7 @@ export async function getStudySetBySlug(userId: string, slug: string) {
 /**
  * Get public study sets (discoverable by all users)
  */
-export async function getPublicStudySets(limit: number = 20) {
+export async function get_public_study_sets(limit: number = 20) {
   const { data, error } = await supabase
     .from('study_sets')
     .select(
@@ -110,7 +110,7 @@ export async function getPublicStudySets(limit: number = 20) {
 /**
  * Create a new study set
  */
-export async function createStudySet(studySet: StudySetInsert) {
+export async function create_learning_set(studySet: StudySetInsert) {
   const { data, error } = await supabase.from('study_sets').insert(studySet).select().single();
 
   return { data, error };
@@ -119,7 +119,7 @@ export async function createStudySet(studySet: StudySetInsert) {
 /**
  * Update a study set
  */
-export async function updateStudySet(studySetId: string, updates: StudySetUpdate) {
+export async function update_learning_set(studySetId: string, updates: StudySetUpdate) {
   const { data, error } = await supabase
     .from('study_sets')
     .update(updates)
@@ -133,7 +133,7 @@ export async function updateStudySet(studySetId: string, updates: StudySetUpdate
 /**
  * Delete a study set (cascades to flashcards)
  */
-export async function deleteStudySet(studySetId: string) {
+export async function delete_learning_set(studySetId: string) {
   const { error } = await supabase.from('study_sets').delete().eq('id', studySetId);
 
   return { error };
@@ -142,7 +142,7 @@ export async function deleteStudySet(studySetId: string) {
 /**
  * Increment view count for a study set
  */
-export async function incrementStudySetViews(studySetId: string) {
+export async function increment_study_set_views(studySetId: string) {
   const { data, error } = await supabase.rpc('increment', {
     table_name: 'study_sets',
     row_id: studySetId,
@@ -159,7 +159,7 @@ export async function incrementStudySetViews(studySetId: string) {
 /**
  * Get all flashcards for a study set
  */
-export async function getFlashcardsByStudySet(studySetId: string) {
+export async function get_flashcards_by_study_set(studySetId: string) {
   const { data, error } = await supabase
     .from('flashcards')
     .select('*')
@@ -172,7 +172,7 @@ export async function getFlashcardsByStudySet(studySetId: string) {
 /**
  * Create a new flashcard
  */
-export async function createFlashcard(flashcard: FlashcardInsert) {
+export async function create_flashcard(flashcard: FlashcardInsert) {
   const { data, error } = await supabase.from('flashcards').insert(flashcard).select().single();
 
   return { data, error };
@@ -181,7 +181,7 @@ export async function createFlashcard(flashcard: FlashcardInsert) {
 /**
  * Create multiple flashcards at once
  */
-export async function createFlashcards(flashcards: FlashcardInsert[]) {
+export async function create_flashcards(flashcards: FlashcardInsert[]) {
   const { data, error } = await supabase.from('flashcards').insert(flashcards).select();
 
   return { data, error };
@@ -190,7 +190,7 @@ export async function createFlashcards(flashcards: FlashcardInsert[]) {
 /**
  * Update a flashcard
  */
-export async function updateFlashcard(flashcardId: string, updates: Partial<Flashcard>) {
+export async function update_flashcard(flashcardId: string, updates: Partial<Flashcard>) {
   const { data, error } = await supabase
     .from('flashcards')
     .update(updates)
@@ -204,7 +204,7 @@ export async function updateFlashcard(flashcardId: string, updates: Partial<Flas
 /**
  * Delete a flashcard
  */
-export async function deleteFlashcard(flashcardId: string) {
+export async function delete_flashcard(flashcardId: string) {
   const { error } = await supabase.from('flashcards').delete().eq('id', flashcardId);
 
   return { error };
@@ -213,7 +213,7 @@ export async function deleteFlashcard(flashcardId: string) {
 /**
  * Reorder flashcards in a study set
  */
-export async function reorderFlashcards(updates: { id: string; order_index: number }[]) {
+export async function reorder_flashcards(updates: { id: string; order_index: number }[]) {
   // Use a transaction-like approach by updating all at once
   const promises = updates.map(({ id, order_index }) =>
     supabase.from('flashcards').update({ order_index }).eq('id', id)
