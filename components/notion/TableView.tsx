@@ -85,7 +85,10 @@ export default function TableView({ databaseId }: DatabaseViewProps) {
         return (
           <div className="flex gap-1 flex-wrap">
             {options.map((opt: any, i: number) => (
-              <span key={i} className="px-2 py-0.5 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded text-xs">
+              <span
+                key={i}
+                className="px-2 py-0.5 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded text-xs"
+              >
                 {typeof opt === 'object' ? opt.name : opt}
               </span>
             ))}
@@ -95,7 +98,12 @@ export default function TableView({ databaseId }: DatabaseViewProps) {
         return new Date(value).toLocaleDateString();
       case 'url':
         return (
-          <a href={value} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+          <a
+            href={value}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:underline"
+          >
             Link
           </a>
         );
@@ -110,7 +118,10 @@ export default function TableView({ databaseId }: DatabaseViewProps) {
         <thead className="bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 uppercase font-medium">
           <tr>
             {properties.map((prop) => (
-              <th key={prop.id} className="px-4 py-3 border-b border-gray-200 dark:border-gray-700 whitespace-nowrap">
+              <th
+                key={prop.id}
+                className="px-4 py-3 border-b border-gray-200 dark:border-gray-700 whitespace-nowrap"
+              >
                 {prop.name}
               </th>
             ))}
@@ -127,7 +138,10 @@ export default function TableView({ databaseId }: DatabaseViewProps) {
             entries.map((entry) => (
               <tr key={entry.id} className="hover:bg-gray-50 dark:hover:bg-gray-800 transition">
                 {properties.map((prop) => (
-                  <td key={`${entry.id}-${prop.id}`} className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+                  <td
+                    key={`${entry.id}-${prop.id}`}
+                    className="px-4 py-3 border-b border-gray-200 dark:border-gray-700"
+                  >
                     {renderCellValue(prop, entry.values[prop.id])}
                   </td>
                 ))}

@@ -28,7 +28,11 @@ export const DUTCH_TEXTBOOKS: Textbook[] = [
     level: ['vmbo', 'havo', 'vwo'],
     chapters: [
       { id: 'g-r-1', title: 'Rekenen en algebra', topics: ['machten', 'wortels', 'breuken'] },
-      { id: 'g-r-2', title: 'Functies en grafieken', topics: ['lineaire functies', 'exponentiële groei'] },
+      {
+        id: 'g-r-2',
+        title: 'Functies en grafieken',
+        topics: ['lineaire functies', 'exponentiële groei'],
+      },
       { id: 'g-r-3', title: 'Meetkunde', topics: ['hoeken', 'driehoeken', 'oppervlakte'] },
     ],
   },
@@ -69,7 +73,11 @@ export const DUTCH_TEXTBOOKS: Textbook[] = [
     subject: 'Engels',
     level: ['vmbo', 'havo', 'vwo'],
     chapters: [
-      { id: 'stones-1', title: 'People and places', topics: ['describing people', 'present tenses'] },
+      {
+        id: 'stones-1',
+        title: 'People and places',
+        topics: ['describing people', 'present tenses'],
+      },
       { id: 'stones-2', title: 'Stories', topics: ['past tenses', 'narrative writing'] },
       { id: 'stones-3', title: 'The world around us', topics: ['opinion', 'conditionals'] },
     ],

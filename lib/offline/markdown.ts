@@ -37,7 +37,10 @@ export class MarkdownProcessor {
     return [...new Set(tags)];
   }
 
-  static extractFrontmatter(content: string): { frontmatter: Record<string, any>; content: string } {
+  static extractFrontmatter(content: string): {
+    frontmatter: Record<string, any>;
+    content: string;
+  } {
     const frontmatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
     const match = content.match(frontmatterRegex);
 
@@ -67,4 +70,3 @@ export class MarkdownProcessor {
     return `---\n${frontmatterString}\n---\n\n${content}`;
   }
 }
-

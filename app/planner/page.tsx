@@ -2,7 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { AppShell, PageHeader } from '@/components/AppShell';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -20,11 +26,7 @@ import {
   useSensors,
   closestCorners,
 } from '@dnd-kit/core';
-import {
-  SortableContext,
-  useSortable,
-  verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
+import { SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
 const supabase = browserClient as any;
@@ -53,7 +55,12 @@ const STATUS_KEYS: Record<TaskStatus, string> = {
 
 const STATUS_ORDER: TaskStatus[] = ['todo', 'bezig', 'review', 'klaar'];
 
-function SortableTask({ task, onEdit, onDelete, onMove }: {
+function SortableTask({
+  task,
+  onEdit,
+  onDelete,
+  onMove,
+}: {
   task: Task;
   onEdit: (task: Task) => void;
   onDelete: (taskId: string) => void;
@@ -95,11 +102,15 @@ function SortableTask({ task, onEdit, onDelete, onMove }: {
               </span>
             )}
             {task.priority && (
-              <span className={`mt-2 inline-block rounded-full px-2 py-0.5 text-xs ${
-                task.priority === 'high' ? 'bg-red-500/10 text-red-600' :
-                task.priority === 'medium' ? 'bg-yellow-500/10 text-yellow-600' :
-                'bg-green-500/10 text-green-600'
-              }`}>
+              <span
+                className={`mt-2 inline-block rounded-full px-2 py-0.5 text-xs ${
+                  task.priority === 'high'
+                    ? 'bg-red-500/10 text-red-600'
+                    : task.priority === 'medium'
+                      ? 'bg-yellow-500/10 text-yellow-600'
+                      : 'bg-green-500/10 text-green-600'
+                }`}
+              >
                 {task.priority === 'high' ? 'Hoog' : task.priority === 'medium' ? 'Middel' : 'Laag'}
               </span>
             )}
@@ -137,7 +148,13 @@ function SortableTask({ task, onEdit, onDelete, onMove }: {
                 : 'bg-secondary text-muted-foreground hover:bg-secondary/80'
             }`}
           >
-            {s === 'todo' ? 'Te doen' : s === 'bezig' ? 'Bezig' : s === 'review' ? 'Review' : 'Klaar'}
+            {s === 'todo'
+              ? 'Te doen'
+              : s === 'bezig'
+                ? 'Bezig'
+                : s === 'review'
+                  ? 'Review'
+                  : 'Klaar'}
           </button>
         ))}
       </div>
@@ -173,7 +190,9 @@ export default function PlannerPage() {
   }, []);
 
   const fetchTasks = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) return;
 
     const { data, error } = await supabase
@@ -191,7 +210,9 @@ export default function PlannerPage() {
   };
 
   const handleCreateTask = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) {
       console.error('No user authenticated');
       return;
@@ -244,7 +265,7 @@ export default function PlannerPage() {
     if (error) {
       console.error('Failed to update task:', error);
     } else if (data) {
-      setTasks(tasks.map(t => t.id === editingTask.id ? data : t));
+      setTasks(tasks.map((t) => (t.id === editingTask.id ? data : t)));
       setShowDialog(false);
       setEditingTask(null);
       resetForm();
@@ -258,26 +279,23 @@ export default function PlannerPage() {
     if (error) {
       console.error('Failed to delete task:', error);
     } else {
-      setTasks(tasks.filter(t => t.id !== taskId));
+      setTasks(tasks.filter((t) => t.id !== taskId));
     }
   };
 
   const handleMoveTask = async (taskId: string, newStatus: TaskStatus) => {
-    const { error } = await supabase
-      .from('tasks')
-      .update({ status: newStatus })
-      .eq('id', taskId);
+    const { error } = await supabase.from('tasks').update({ status: newStatus }).eq('id', taskId);
 
     if (error) {
       console.error('Failed to move task:', error);
     } else {
-      setTasks(tasks.map(t => t.id === taskId ? { ...t, status: newStatus } : t));
+      setTasks(tasks.map((t) => (t.id === taskId ? { ...t, status: newStatus } : t)));
     }
   };
 
   const handleDragStart = (event: DragStartEvent) => {
     const { active } = event;
-    const task = tasks.find(t => t.id === active.id);
+    const task = tasks.find((t) => t.id === active.id);
     if (task) {
       setActiveTask(task);
     }
@@ -294,8 +312,8 @@ export default function PlannerPage() {
 
     if (taskId === overId) return;
 
-    const task = tasks.find(t => t.id === taskId);
-    const overTask = tasks.find(t => t.id === overId);
+    const task = tasks.find((t) => t.id === taskId);
+    const overTask = tasks.find((t) => t.id === overId);
 
     if (task && overTask && task.status !== overTask.status) {
       await handleMoveTask(taskId, overTask.status);
@@ -325,7 +343,7 @@ export default function PlannerPage() {
   };
 
   const getTasksByStatus = (status: TaskStatus) => {
-    return tasks.filter(t => t.status === status);
+    return tasks.filter((t) => t.status === status);
   };
 
   if (loading) {
@@ -384,7 +402,10 @@ export default function PlannerPage() {
                   <h2 className="font-display text-lg font-semibold">{t(STATUS_KEYS[status])}</h2>
                   <span className="text-xs text-muted-foreground">{statusTasks.length}</span>
                 </div>
-                <SortableContext items={statusTasks.map(t => t.id)} strategy={verticalListSortingStrategy}>
+                <SortableContext
+                  items={statusTasks.map((t) => t.id)}
+                  strategy={verticalListSortingStrategy}
+                >
                   <div className="space-y-3">
                     {statusTasks.length === 0 ? (
                       <p className="text-sm text-muted-foreground">{t('planner_empty')}</p>
@@ -419,7 +440,13 @@ export default function PlannerPage() {
           <DialogHeader>
             <DialogTitle>{editingTask ? 'Taak bewerken' : 'Nieuwe taak'}</DialogTitle>
           </DialogHeader>
-          <form onSubmit={(e) => { e.preventDefault(); editingTask ? handleUpdateTask() : handleCreateTask(); }} className="space-y-4">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              editingTask ? handleUpdateTask() : handleCreateTask();
+            }}
+            className="space-y-4"
+          >
             <div>
               <Label htmlFor="task-title">Titel</Label>
               <Input

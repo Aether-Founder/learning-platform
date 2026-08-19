@@ -126,7 +126,10 @@ export default function ProfilePage() {
   }
 
   const displayName =
-    profile?.full_name || user.user_metadata.full_name || user.email?.split('@')[0] || t('profile_user');
+    profile?.full_name ||
+    user.user_metadata.full_name ||
+    user.email?.split('@')[0] ||
+    t('profile_user');
   const avatarUrl = profile?.avatar_url || user.user_metadata.avatar_url;
   const createdAt = profile?.created_at || user.created_at;
 

@@ -20,5 +20,10 @@ export function simplifyText(text: string, level: SimplificationLevel): string {
   const normalized = text.replace(/[ \t]+/g, ' ').trim();
   if (level === 'advanced') return normalized;
   if (level === 'standard') return normalized;
-  return splitLongSentences(SIMPLE_WORDS.reduce((value, [pattern, replacement]) => value.replace(pattern, replacement), normalized));
+  return splitLongSentences(
+    SIMPLE_WORDS.reduce(
+      (value, [pattern, replacement]) => value.replace(pattern, replacement),
+      normalized
+    )
+  );
 }

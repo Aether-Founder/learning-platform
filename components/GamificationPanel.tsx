@@ -24,8 +24,12 @@ export function GamificationPanel({
     <section className="overflow-hidden rounded-xl border border-border bg-card">
       <div className="flex flex-wrap items-start justify-between gap-4 border-b border-border p-6">
         <div>
-          <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">Jouw ritme</p>
-          <h2 className="mt-2 font-display text-2xl font-semibold">Kleine stappen, grote voorsprong</h2>
+          <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+            Jouw ritme
+          </p>
+          <h2 className="mt-2 font-display text-2xl font-semibold">
+            Kleine stappen, grote voorsprong
+          </h2>
           <p className="mt-2 max-w-lg text-sm leading-relaxed text-muted-foreground">
             Verdien XP met elke review en bouw een leergewoonte die blijft hangen.
           </p>
@@ -48,7 +52,10 @@ export function GamificationPanel({
             </p>
           </div>
           <div className="mt-4 h-2 overflow-hidden rounded-full bg-secondary">
-            <div className="h-full rounded-full bg-foreground transition-all" style={{ width: `${progress.percentage}%` }} />
+            <div
+              className="h-full rounded-full bg-foreground transition-all"
+              style={{ width: `${progress.percentage}%` }}
+            />
           </div>
           <button
             type="button"
@@ -81,7 +88,10 @@ export function GamificationPanel({
         </div>
         <div className="mt-4 flex flex-wrap gap-2">
           {stats.badges.map((badge) => (
-            <span key={badge} className="rounded-full border border-border bg-secondary px-3 py-1.5 text-xs font-medium">
+            <span
+              key={badge}
+              className="rounded-full border border-border bg-secondary px-3 py-1.5 text-xs font-medium"
+            >
               ✦ {badge.replaceAll('-', ' ')}
             </span>
           ))}

@@ -6,7 +6,17 @@ export const dynamic = 'force-dynamic';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { BookOpen, CalendarPlus, FilePlus2, Clock, AlertTriangle, Target, CheckCircle, ArrowRight, TrendingUp } from 'lucide-react';
+import {
+  BookOpen,
+  CalendarPlus,
+  FilePlus2,
+  Clock,
+  AlertTriangle,
+  Target,
+  CheckCircle,
+  ArrowRight,
+  TrendingUp,
+} from 'lucide-react';
 import { AppShell, PageHeader, Meter } from '@/components/AppShell';
 import { Button } from '@/components/ui/button';
 import { useRequireAuth, useUserProfile } from '@/hooks/useAuth';
@@ -82,7 +92,10 @@ export default function DashboardPage() {
     async function loadCounts() {
       const client = supabase as any;
       const [{ count: sets }, { count: sessions }] = await Promise.all([
-        client.from('study_sets').select('id', { count: 'exact', head: true }).eq('user_id', userId),
+        client
+          .from('study_sets')
+          .select('id', { count: 'exact', head: true })
+          .eq('user_id', userId),
         client.from('flashcards').select('id', { count: 'exact', head: true }),
       ]);
       if (!cancelled) {
@@ -93,7 +106,10 @@ export default function DashboardPage() {
     async function loadLearningData() {
       const client = supabase as any;
       const [{ count: srCount }, { count: errCount }] = await Promise.all([
-        client.from('spaced_repetition_items').select('id', { count: 'exact', head: true }).eq('user_id', userId),
+        client
+          .from('spaced_repetition_items')
+          .select('id', { count: 'exact', head: true })
+          .eq('user_id', userId),
         client.from('error_log').select('id', { count: 'exact', head: true }).eq('user_id', userId),
       ]);
       if (!cancelled) {
@@ -110,7 +126,9 @@ export default function DashboardPage() {
           const now = new Date();
           const upcoming = events
             .filter((e: any) => new Date(e.startDate) >= now)
-            .sort((a: any, b: any) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
+            .sort(
+              (a: any, b: any) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+            )
             .slice(0, 3);
           if (!cancelled) setAgendaEvents(upcoming);
         }
@@ -123,7 +141,8 @@ export default function DashboardPage() {
       const client = supabase as any;
       const { data, error } = await client
         .from('subjects')
-        .select(`
+        .select(
+          `
           id,
           name,
           subject_chapters(
@@ -140,41 +159,49 @@ export default function DashboardPage() {
           subject_grades(
             grade
           )
-        `)
+        `
+        )
         .eq('user_id', userId)
         .order('name');
 
       if (!cancelled && !error && data) {
-        const processedSubjects = data.map((subject: any) => {
-          // Calculate average mastery
-          let totalMastery = 0;
-          let masteryCount = 0;
-          subject.subject_chapters?.forEach((chapter: any) => {
-            chapter.subject_topics?.forEach((topic: any) => {
-              if (topic.mastery_tracking) {
-                totalMastery += topic.mastery_tracking.mastery_percentage || 0;
-                masteryCount++;
-              }
+        const processedSubjects = data
+          .map((subject: any) => {
+            // Calculate average mastery
+            let totalMastery = 0;
+            let masteryCount = 0;
+            subject.subject_chapters?.forEach((chapter: any) => {
+              chapter.subject_topics?.forEach((topic: any) => {
+                if (topic.mastery_tracking) {
+                  totalMastery += topic.mastery_tracking.mastery_percentage || 0;
+                  masteryCount++;
+                }
+              });
             });
-          });
-          const avgMastery = masteryCount > 0 ? Math.round(totalMastery / masteryCount) : 0;
+            const avgMastery = masteryCount > 0 ? Math.round(totalMastery / masteryCount) : 0;
 
-          // Count upcoming tests
-          const now = new Date();
-          const upcomingTests = subject.subject_tests?.filter((test: any) => new Date(test.test_date) >= now).length || 0;
+            // Count upcoming tests
+            const now = new Date();
+            const upcomingTests =
+              subject.subject_tests?.filter((test: any) => new Date(test.test_date) >= now)
+                .length || 0;
 
-          // Calculate average grade
-          const grades = subject.subject_grades?.map((g: any) => g.grade) || [];
-          const avgGrade = grades.length > 0 ? (grades.reduce((a: number, b: number) => a + b, 0) / grades.length).toFixed(1) : undefined;
+            // Calculate average grade
+            const grades = subject.subject_grades?.map((g: any) => g.grade) || [];
+            const avgGrade =
+              grades.length > 0
+                ? (grades.reduce((a: number, b: number) => a + b, 0) / grades.length).toFixed(1)
+                : undefined;
 
-          return {
-            id: subject.id,
-            name: subject.name,
-            mastery_percentage: avgMastery,
-            upcoming_tests: upcomingTests,
-            average_grade: avgGrade,
-          };
-        }).sort((a, b) => a.name.localeCompare(b.name));
+            return {
+              id: subject.id,
+              name: subject.name,
+              mastery_percentage: avgMastery,
+              upcoming_tests: upcomingTests,
+              average_grade: avgGrade,
+            };
+          })
+          .sort((a, b) => a.name.localeCompare(b.name));
         setSubjects(processedSubjects);
       }
     }
@@ -198,7 +225,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     if (!authSettled) return;
-    
+
     const hasVisitedBefore = localStorage.getItem('hasVisitedBefore');
     if (!hasVisitedBefore) localStorage.setItem('hasVisitedBefore', 'true');
 
@@ -212,7 +239,7 @@ export default function DashboardPage() {
   // Redirect to vakken if user needs setup
   useEffect(() => {
     if (!authSettled || !userId || profileLoading) return;
-    
+
     if (!profile?.grade_level) {
       const setupComplete = localStorage.getItem(`aether-grade-setup-complete:${userId}`);
       if (setupComplete !== 'true') {
@@ -233,15 +260,19 @@ export default function DashboardPage() {
   }, []);
 
   const formatDutchTime = (date: Date) => {
-    return date.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    return date.toLocaleTimeString('nl-NL', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    });
   };
 
   const formatDutchDate = (date: Date) => {
-    return date.toLocaleDateString('nl-NL', { 
-      weekday: 'long', 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
+    return date.toLocaleDateString('nl-NL', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
     });
   };
 
@@ -261,12 +292,16 @@ export default function DashboardPage() {
   return (
     <AppShell fullWidth>
       <div className="mx-auto max-w-6xl px-6">
-        <PageHeader eyebrow={t('dashboard_eyebrow')} title={title} description={t('dashboard_description')} fullWidth />
+        <PageHeader
+          eyebrow={t('dashboard_eyebrow')}
+          title={title}
+          description={t('dashboard_description')}
+          fullWidth
+        />
       </div>
 
       {/* Full-Width Three-Column Layout - Responsive */}
       <div className="pt-8 min-h-[calc(100vh-200px)]">
-        
         {/* On large screens: 2-column layout with expanded main content */}
         <div className="hidden lg:grid gap-6 grid-cols-[1fr_320px] items-start">
           {/* Main Content - Flexible Width with consistent height */}
@@ -275,13 +310,18 @@ export default function DashboardPage() {
             <div className="rounded-xl border border-border bg-card p-6">
               <div>
                 <p className="text-3xl font-semibold">{formatDutchTime(currentTime)}</p>
-                <p className="text-sm text-muted-foreground capitalize">{formatDutchDate(currentTime)}</p>
+                <p className="text-sm text-muted-foreground capitalize">
+                  {formatDutchDate(currentTime)}
+                </p>
               </div>
             </div>
 
             {/* Quick Actions Widget */}
             <div className="grid gap-3 sm:grid-cols-3">
-              <Link href="/quiz/daily" className="flex items-center gap-3 p-4 rounded-lg border border-border hover:bg-secondary/50 transition-colors">
+              <Link
+                href="/quiz/daily"
+                className="flex items-center gap-3 p-4 rounded-lg border border-border hover:bg-secondary/50 transition-colors"
+              >
                 <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-secondary flex items-center justify-center">
                   <Target className="h-5 w-5 text-muted-foreground" />
                 </div>
@@ -290,16 +330,24 @@ export default function DashboardPage() {
                   <p className="text-xs text-muted-foreground">Dagelijkse herhaling</p>
                 </div>
               </Link>
-              <Link href="/foutenlogboek" className="flex items-center gap-3 p-4 rounded-lg border border-border hover:bg-secondary/50 transition-colors">
+              <Link
+                href="/foutenlogboek"
+                className="flex items-center gap-3 p-4 rounded-lg border border-border hover:bg-secondary/50 transition-colors"
+              >
                 <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-secondary flex items-center justify-center">
                   <AlertTriangle className="h-5 w-5 text-muted-foreground" />
                 </div>
                 <div>
                   <p className="font-medium">Foutenreview</p>
-                  <p className="text-xs text-muted-foreground">{errorCount} fouten om te herhalen</p>
+                  <p className="text-xs text-muted-foreground">
+                    {errorCount} fouten om te herhalen
+                  </p>
                 </div>
               </Link>
-              <Link href="/active-recall" className="flex items-center gap-3 p-4 rounded-lg border border-border hover:bg-secondary/50 transition-colors">
+              <Link
+                href="/active-recall"
+                className="flex items-center gap-3 p-4 rounded-lg border border-border hover:bg-secondary/50 transition-colors"
+              >
                 <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-secondary flex items-center justify-center">
                   <CheckCircle className="h-5 w-5 text-muted-foreground" />
                 </div>
@@ -354,14 +402,16 @@ export default function DashboardPage() {
                   Bekijk alle vakken
                 </Link>
               </div>
-              
+
               {subjects.length === 0 ? (
                 <div className="flex-1 flex flex-col items-center justify-center text-center">
                   <BookOpen className="h-12 w-12 text-muted-foreground mb-3" />
                   <p className="text-sm text-muted-foreground mb-4">Nog geen vakken toegevoegd.</p>
-                  <Link href="/vakken" className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90">
-                    <FilePlus2 className="h-4 w-4" />
-                    + Voeg je eerste vak toe
+                  <Link
+                    href="/vakken"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90"
+                  >
+                    <FilePlus2 className="h-4 w-4" />+ Voeg je eerste vak toe
                   </Link>
                 </div>
               ) : (
@@ -369,9 +419,15 @@ export default function DashboardPage() {
                   {subjects.map((subject) => {
                     const mastery = subject.mastery_percentage || 0;
                     const status = mastery >= 80 ? 'veilig' : mastery >= 50 ? 'let op' : 'gevaar';
-                    const statusText = mastery >= 80 ? 'Veilig' : mastery >= 50 ? 'Let op' : 'Gevaar';
-                    const statusColor = mastery >= 80 ? 'text-green-600' : mastery >= 50 ? 'text-yellow-600' : 'text-red-600';
-                    
+                    const statusText =
+                      mastery >= 80 ? 'Veilig' : mastery >= 50 ? 'Let op' : 'Gevaar';
+                    const statusColor =
+                      mastery >= 80
+                        ? 'text-green-600'
+                        : mastery >= 50
+                          ? 'text-yellow-600'
+                          : 'text-red-600';
+
                     return (
                       <div key={subject.id} className="grid grid-cols-12 gap-4 items-center">
                         <div className="col-span-3">
@@ -379,7 +435,7 @@ export default function DashboardPage() {
                         </div>
                         <div className="col-span-5">
                           <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
-                            <div 
+                            <div
                               className="h-full bg-primary transition-all duration-300"
                               style={{ width: `${mastery}%` }}
                             />
@@ -389,10 +445,12 @@ export default function DashboardPage() {
                           <p className="font-semibold">{mastery}%</p>
                         </div>
                         <div className="col-span-1 text-center">
-                          <p className={`text-xs font-medium ${statusColor}`}>{statusText} te doen</p>
+                          <p className={`text-xs font-medium ${statusColor}`}>
+                            {statusText} te doen
+                          </p>
                         </div>
                         <div className="col-span-1 text-right">
-                          <Link 
+                          <Link
                             href={`/vakken/${subject.id}`}
                             className="text-sm text-primary hover:underline font-medium"
                           >
@@ -421,23 +479,28 @@ export default function DashboardPage() {
                 <div className="flex-1 flex flex-col items-center justify-center text-center">
                   <CalendarPlus className="h-12 w-12 text-muted-foreground mb-3" />
                   <p className="text-xs text-muted-foreground mb-4">Geen aankomende evenementen.</p>
-                  <Link href="/agenda" className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90">
-                    <CalendarPlus className="h-4 w-4" />
-                    + Voeg evenement toe
+                  <Link
+                    href="/agenda"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90"
+                  >
+                    <CalendarPlus className="h-4 w-4" />+ Voeg evenement toe
                   </Link>
                 </div>
               ) : (
                 <div className="flex-1 space-y-2">
                   {agendaEvents.slice(0, 5).map((event) => (
-                    <div key={event.id} className="flex items-start gap-2 p-2 rounded-lg bg-secondary/50">
+                    <div
+                      key={event.id}
+                      className="flex items-start gap-2 p-2 rounded-lg bg-secondary/50"
+                    >
                       <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-muted mt-1.5" />
                       <div>
                         <p className="text-xs font-medium">{event.title}</p>
                         <p className="text-[10px] text-muted-foreground">
-                          {new Date(event.startDate).toLocaleDateString('nl-NL', { 
-                            weekday: 'short', 
-                            day: 'numeric', 
-                            month: 'short' 
+                          {new Date(event.startDate).toLocaleDateString('nl-NL', {
+                            weekday: 'short',
+                            day: 'numeric',
+                            month: 'short',
                           })}
                         </p>
                       </div>
@@ -454,16 +517,20 @@ export default function DashboardPage() {
                 <div className="flex-1 flex flex-col items-center justify-center text-center">
                   <BookOpen className="h-12 w-12 text-muted-foreground mb-3" />
                   <p className="text-sm text-muted-foreground mb-4">Nog geen leeractiviteit.</p>
-                  <Link href="/create/leerlijst" className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90">
-                    <FilePlus2 className="h-4 w-4" />
-                    + Voeg je eerste leerlijst toe
+                  <Link
+                    href="/create/leerlijst"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90"
+                  >
+                    <FilePlus2 className="h-4 w-4" />+ Voeg je eerste leerlijst toe
                   </Link>
                 </div>
               ) : (
                 <div className="space-y-3">
                   <div className="flex items-center justify-between p-3 rounded-lg bg-secondary/50">
                     <span className="font-medium text-sm">Spaced Repetition</span>
-                    <span className="text-sm text-muted-foreground">{spacedRepetitionCount} items</span>
+                    <span className="text-sm text-muted-foreground">
+                      {spacedRepetitionCount} items
+                    </span>
                   </div>
                   <div className="flex items-center justify-between p-3 rounded-lg bg-secondary/50">
                     <span className="font-medium text-sm">Foutenlogboek</span>
@@ -482,7 +549,9 @@ export default function DashboardPage() {
               <div className="flex-1 space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-muted-foreground">Deze week</span>
-                  <span className="font-semibold">{spacedRepetitionCount + errorCount} activiteiten</span>
+                  <span className="font-semibold">
+                    {spacedRepetitionCount + errorCount} activiteiten
+                  </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-muted-foreground">Gemiddelde score</span>
@@ -505,13 +574,18 @@ export default function DashboardPage() {
             <div className="rounded-xl border border-border bg-card p-6">
               <div>
                 <p className="text-3xl font-semibold">{formatDutchTime(currentTime)}</p>
-                <p className="text-sm text-muted-foreground capitalize">{formatDutchDate(currentTime)}</p>
+                <p className="text-sm text-muted-foreground capitalize">
+                  {formatDutchDate(currentTime)}
+                </p>
               </div>
             </div>
 
             {/* Quick Actions Widget */}
             <div className="grid gap-3 sm:grid-cols-3">
-              <Link href="/quiz/daily" className="flex items-center gap-3 p-4 rounded-lg border border-border hover:bg-secondary/50 transition-colors">
+              <Link
+                href="/quiz/daily"
+                className="flex items-center gap-3 p-4 rounded-lg border border-border hover:bg-secondary/50 transition-colors"
+              >
                 <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-secondary flex items-center justify-center">
                   <Target className="h-5 w-5 text-muted-foreground" />
                 </div>
@@ -520,16 +594,24 @@ export default function DashboardPage() {
                   <p className="text-xs text-muted-foreground">Dagelijkse herhaling</p>
                 </div>
               </Link>
-              <Link href="/foutenlogboek" className="flex items-center gap-3 p-4 rounded-lg border border-border hover:bg-secondary/50 transition-colors">
+              <Link
+                href="/foutenlogboek"
+                className="flex items-center gap-3 p-4 rounded-lg border border-border hover:bg-secondary/50 transition-colors"
+              >
                 <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-secondary flex items-center justify-center">
                   <AlertTriangle className="h-5 w-5 text-muted-foreground" />
                 </div>
                 <div>
                   <p className="font-medium">Foutenreview</p>
-                  <p className="text-xs text-muted-foreground">{errorCount} fouten om te herhalen</p>
+                  <p className="text-xs text-muted-foreground">
+                    {errorCount} fouten om te herhalen
+                  </p>
                 </div>
               </Link>
-              <Link href="/active-recall" className="flex items-center gap-3 p-4 rounded-lg border border-border hover:bg-secondary/50 transition-colors">
+              <Link
+                href="/active-recall"
+                className="flex items-center gap-3 p-4 rounded-lg border border-border hover:bg-secondary/50 transition-colors"
+              >
                 <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-secondary flex items-center justify-center">
                   <CheckCircle className="h-5 w-5 text-muted-foreground" />
                 </div>
@@ -584,14 +666,16 @@ export default function DashboardPage() {
                   Bekijk alle vakken
                 </Link>
               </div>
-              
+
               {subjects.length === 0 ? (
                 <div className="flex-1 flex flex-col items-center justify-center text-center">
                   <BookOpen className="h-12 w-12 text-muted-foreground mb-3" />
                   <p className="text-sm text-muted-foreground mb-4">Nog geen vakken toegevoegd.</p>
-                  <Link href="/vakken" className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90">
-                    <FilePlus2 className="h-4 w-4" />
-                    + Voeg je eerste vak toe
+                  <Link
+                    href="/vakken"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90"
+                  >
+                    <FilePlus2 className="h-4 w-4" />+ Voeg je eerste vak toe
                   </Link>
                 </div>
               ) : (
@@ -599,9 +683,15 @@ export default function DashboardPage() {
                   {subjects.map((subject) => {
                     const mastery = subject.mastery_percentage || 0;
                     const status = mastery >= 80 ? 'veilig' : mastery >= 50 ? 'let op' : 'gevaar';
-                    const statusText = mastery >= 80 ? 'Veilig' : mastery >= 50 ? 'Let op' : 'Gevaar';
-                    const statusColor = mastery >= 80 ? 'text-green-600' : mastery >= 50 ? 'text-yellow-600' : 'text-red-600';
-                    
+                    const statusText =
+                      mastery >= 80 ? 'Veilig' : mastery >= 50 ? 'Let op' : 'Gevaar';
+                    const statusColor =
+                      mastery >= 80
+                        ? 'text-green-600'
+                        : mastery >= 50
+                          ? 'text-yellow-600'
+                          : 'text-red-600';
+
                     return (
                       <div key={subject.id} className="grid grid-cols-12 gap-4 items-center">
                         <div className="col-span-3">
@@ -609,7 +699,7 @@ export default function DashboardPage() {
                         </div>
                         <div className="col-span-5">
                           <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
-                            <div 
+                            <div
                               className="h-full bg-primary transition-all duration-300"
                               style={{ width: `${mastery}%` }}
                             />
@@ -619,10 +709,12 @@ export default function DashboardPage() {
                           <p className="font-semibold">{mastery}%</p>
                         </div>
                         <div className="col-span-1 text-center">
-                          <p className={`text-xs font-medium ${statusColor}`}>{statusText} te doen</p>
+                          <p className={`text-xs font-medium ${statusColor}`}>
+                            {statusText} te doen
+                          </p>
                         </div>
                         <div className="col-span-1 text-right">
-                          <Link 
+                          <Link
                             href={`/vakken/${subject.id}`}
                             className="text-sm text-primary hover:underline font-medium"
                           >
@@ -651,23 +743,28 @@ export default function DashboardPage() {
                 <div className="flex-1 flex flex-col items-center justify-center text-center">
                   <CalendarPlus className="h-12 w-12 text-muted-foreground mb-3" />
                   <p className="text-xs text-muted-foreground mb-4">Geen aankomende evenementen.</p>
-                  <Link href="/agenda" className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90">
-                    <CalendarPlus className="h-4 w-4" />
-                    + Voeg evenement toe
+                  <Link
+                    href="/agenda"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90"
+                  >
+                    <CalendarPlus className="h-4 w-4" />+ Voeg evenement toe
                   </Link>
                 </div>
               ) : (
                 <div className="flex-1 space-y-2">
                   {agendaEvents.slice(0, 5).map((event) => (
-                    <div key={event.id} className="flex items-start gap-2 p-2 rounded-lg bg-secondary/50">
+                    <div
+                      key={event.id}
+                      className="flex items-start gap-2 p-2 rounded-lg bg-secondary/50"
+                    >
                       <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-muted mt-1.5" />
                       <div>
                         <p className="text-xs font-medium">{event.title}</p>
                         <p className="text-[10px] text-muted-foreground">
-                          {new Date(event.startDate).toLocaleDateString('nl-NL', { 
-                            weekday: 'short', 
-                            day: 'numeric', 
-                            month: 'short' 
+                          {new Date(event.startDate).toLocaleDateString('nl-NL', {
+                            weekday: 'short',
+                            day: 'numeric',
+                            month: 'short',
                           })}
                         </p>
                       </div>
@@ -685,16 +782,20 @@ export default function DashboardPage() {
                   <div className="flex-1 flex flex-col items-center justify-center text-center">
                     <BookOpen className="h-12 w-12 text-muted-foreground mb-3" />
                     <p className="text-sm text-muted-foreground mb-4">Nog geen leeractiviteit.</p>
-                    <Link href="/create/leerlijst" className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90">
-                      <FilePlus2 className="h-4 w-4" />
-                      + Voeg je eerste leerlijst toe
+                    <Link
+                      href="/create/leerlijst"
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90"
+                    >
+                      <FilePlus2 className="h-4 w-4" />+ Voeg je eerste leerlijst toe
                     </Link>
                   </div>
                 ) : (
                   <div className="space-y-3">
                     <div className="flex items-center justify-between p-3 rounded-lg bg-secondary/50">
                       <span className="font-medium text-sm">Spaced Repetition</span>
-                      <span className="text-sm text-muted-foreground">{spacedRepetitionCount} items</span>
+                      <span className="text-sm text-muted-foreground">
+                        {spacedRepetitionCount} items
+                      </span>
                     </div>
                     <div className="flex items-center justify-between p-3 rounded-lg bg-secondary/50">
                       <span className="font-medium text-sm">Foutenlogboek</span>
@@ -713,7 +814,9 @@ export default function DashboardPage() {
                 <div className="flex-1 space-y-3">
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-muted-foreground">Deze week</span>
-                    <span className="font-semibold">{spacedRepetitionCount + errorCount} activiteiten</span>
+                    <span className="font-semibold">
+                      {spacedRepetitionCount + errorCount} activiteiten
+                    </span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-muted-foreground">Gemiddelde score</span>
@@ -734,14 +837,24 @@ export default function DashboardPage() {
         <div className="mx-auto max-w-6xl px-6">
           <section className="rounded-xl border border-dashed border-border p-8 text-center">
             <BookOpen className="mx-auto h-9 w-9 text-muted-foreground" />
-            <h2 className="mt-4 font-display text-2xl font-semibold">{t('dashboard_empty_title')}</h2>
-            <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">{t('dashboard_empty_desc')}</p>
+            <h2 className="mt-4 font-display text-2xl font-semibold">
+              {t('dashboard_empty_title')}
+            </h2>
+            <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">
+              {t('dashboard_empty_desc')}
+            </p>
             <div className="mt-6 flex flex-wrap justify-center gap-3">
-              <Link href="/leersets" className="inline-flex h-10 items-center gap-2 rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground hover:opacity-90">
+              <Link
+                href="/leersets"
+                className="inline-flex h-10 items-center gap-2 rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground hover:opacity-90"
+              >
                 <FilePlus2 className="h-4 w-4" />
                 {t('dashboard_first_set')}
               </Link>
-              <Link href="/agenda" className="inline-flex h-10 items-center gap-2 rounded-md border border-border px-4 text-sm font-medium hover:bg-secondary">
+              <Link
+                href="/agenda"
+                className="inline-flex h-10 items-center gap-2 rounded-md border border-border px-4 text-sm font-medium hover:bg-secondary"
+              >
                 <CalendarPlus className="h-4 w-4" />
                 {t('dashboard_plan_session')}
               </Link>

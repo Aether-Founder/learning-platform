@@ -4,7 +4,13 @@ import { useCallback, useEffect, useState } from 'react';
 import { CalendarDays, Clock3, List, MapPin, Plus } from 'lucide-react';
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -32,7 +38,12 @@ type EventForm = {
   notes: string;
 };
 
-const EVENT_TYPES: ('other' | 'huiswerk' | 'toets' | 'examen' | 'les' | 'project')[] = ['les', 'other', 'examen', 'huiswerk'];
+const EVENT_TYPES: ('other' | 'huiswerk' | 'toets' | 'examen' | 'les' | 'project')[] = [
+  'les',
+  'other',
+  'examen',
+  'huiswerk',
+];
 
 function dateValue(date: Date) {
   const year = date.getFullYear();
@@ -46,7 +57,14 @@ function timeValue(date: Date) {
 }
 
 function emptyForm(date = new Date()): EventForm {
-  return { title: '', date: dateValue(date), time: timeValue(date), duration: '60', eventType: 'other', notes: '' };
+  return {
+    title: '',
+    date: dateValue(date),
+    time: timeValue(date),
+    duration: '60',
+    eventType: 'other',
+    notes: '',
+  };
 }
 
 function formFromEvent(event: AgendaEvent): EventForm {
@@ -92,9 +110,13 @@ export default function AgendaPage() {
     }
 
     try {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       if (session) {
-        const response = await fetch('/api/calendar', { headers: { Authorization: `Bearer ${session.access_token}` } });
+        const response = await fetch('/api/calendar', {
+          headers: { Authorization: `Bearer ${session.access_token}` },
+        });
         const data = await response.json();
         if (response.ok && data.events) {
           const apiEvts = data.events.map((event: any) => ({
@@ -123,7 +145,9 @@ export default function AgendaPage() {
     setLoading(false);
   }, []);
 
-  useEffect(() => { loadEvents(); }, [loadEvents]);
+  useEffect(() => {
+    loadEvents();
+  }, [loadEvents]);
 
   const openCreate = (date = new Date()) => {
     setEditingId(null);
@@ -171,11 +195,16 @@ export default function AgendaPage() {
     };
 
     try {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       if (session) {
         await fetch(editingId ? `/api/calendar/${editingId}` : '/api/calendar', {
           method: editingId ? 'PUT' : 'POST',
-          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${session.access_token}` },
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${session.access_token}`,
+          },
           body: JSON.stringify({
             title: form.title.trim(),
             description: form.notes.trim(),
@@ -204,11 +233,14 @@ export default function AgendaPage() {
   };
 
   const deleteEvent = async () => {
-    if (!editingId || !window.confirm('Weet je zeker dat je dit evenement wilt verwijderen?')) return;
+    if (!editingId || !window.confirm('Weet je zeker dat je dit evenement wilt verwijderen?'))
+      return;
     setSaving(true);
 
     try {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       if (session) {
         await fetch(`/api/calendar/${editingId}`, {
           method: 'DELETE',
@@ -241,16 +273,31 @@ export default function AgendaPage() {
         description={t('agenda_description')}
         action={
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" onClick={() => setView(view === 'calendar' ? 'list' : 'calendar')}>
-              {view === 'calendar' ? <List className="mr-2 h-4 w-4" /> : <CalendarDays className="mr-2 h-4 w-4" />}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setView(view === 'calendar' ? 'list' : 'calendar')}
+            >
+              {view === 'calendar' ? (
+                <List className="mr-2 h-4 w-4" />
+              ) : (
+                <CalendarDays className="mr-2 h-4 w-4" />
+              )}
               {view === 'calendar' ? 'Lijstweergave' : 'Kalenderweergave'}
             </Button>
-            <Button onClick={() => openCreate()}><Plus className="mr-2 h-4 w-4" />Toevoegen</Button>
+            <Button onClick={() => openCreate()}>
+              <Plus className="mr-2 h-4 w-4" />
+              Toevoegen
+            </Button>
           </div>
         }
       />
 
-      {error && <p className="mb-4 rounded-md border border-rose-500/30 bg-rose-500/5 p-3 text-sm text-rose-500">{error}</p>}
+      {error && (
+        <p className="mb-4 rounded-md border border-rose-500/30 bg-rose-500/5 p-3 text-sm text-rose-500">
+          {error}
+        </p>
+      )}
       {loading ? (
         <div className="mt-10 space-y-4">
           {Array.from({ length: 5 }).map((_, i) => (
@@ -262,26 +309,68 @@ export default function AgendaPage() {
           ))}
         </div>
       ) : view === 'calendar' ? (
-        <CalendarView events={events} onDateClick={openCreate} onAddEvent={openCreate} onEventClick={openEdit} />
+        <CalendarView
+          events={events}
+          onDateClick={openCreate}
+          onAddEvent={openCreate}
+          onEventClick={openEdit}
+        />
       ) : events.length === 0 ? (
         <section className="rounded-xl border border-dashed border-border p-10 text-center">
           <CalendarDays className="mx-auto h-9 w-9 text-muted-foreground" />
           <h2 className="mt-4 font-display text-2xl font-semibold">{t('agenda_empty')}</h2>
           <p className="mt-2 text-sm text-muted-foreground">{t('agenda_empty_desc')}</p>
-          <Button className="mt-6" onClick={() => openCreate()}><Plus className="mr-2 h-4 w-4" />{t('agenda_empty_cta')}</Button>
+          <Button className="mt-6" onClick={() => openCreate()}>
+            <Plus className="mr-2 h-4 w-4" />
+            {t('agenda_empty_cta')}
+          </Button>
         </section>
       ) : (
         <div className="divide-y divide-border rounded-xl border border-border">
           {events.map((event) => (
             <article key={event.id} className="grid gap-3 p-5 sm:grid-cols-[180px_1fr]">
               <div className="text-sm text-muted-foreground">
-                <p>{new Date(event.startDate).toLocaleDateString(dateLocale, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</p>
-                {!event.allDay && <p className="mt-1 flex items-center gap-1 text-xs"><Clock3 className="h-3.5 w-3.5" />{new Date(event.startDate).toLocaleTimeString(dateLocale, { hour: '2-digit', minute: '2-digit' })} – {new Date(event.endDate).toLocaleTimeString(dateLocale, { hour: '2-digit', minute: '2-digit' })}</p>}
+                <p>
+                  {new Date(event.startDate).toLocaleDateString(dateLocale, {
+                    weekday: 'long',
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                  })}
+                </p>
+                {!event.allDay && (
+                  <p className="mt-1 flex items-center gap-1 text-xs">
+                    <Clock3 className="h-3.5 w-3.5" />
+                    {new Date(event.startDate).toLocaleTimeString(dateLocale, {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}{' '}
+                    –{' '}
+                    {new Date(event.endDate).toLocaleTimeString(dateLocale, {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}
+                  </p>
+                )}
               </div>
               <div>
-                <div className="flex flex-wrap items-start justify-between gap-2"><h2 className="font-medium">{event.title}</h2>{event.eventType && <span className="rounded-full bg-secondary px-2.5 py-1 text-[11px] text-muted-foreground">{t(`agenda_type_${event.eventType === 'other' ? 'other' : event.eventType}`)}</span>}</div>
-                {event.description && <p className="mt-2 text-sm text-muted-foreground">{event.description}</p>}
-                {event.location && <p className="mt-2 flex items-center gap-1 text-xs text-muted-foreground"><MapPin className="h-3.5 w-3.5" />{event.location}</p>}
+                <div className="flex flex-wrap items-start justify-between gap-2">
+                  <h2 className="font-medium">{event.title}</h2>
+                  {event.eventType && (
+                    <span className="rounded-full bg-secondary px-2.5 py-1 text-[11px] text-muted-foreground">
+                      {t(`agenda_type_${event.eventType === 'other' ? 'other' : event.eventType}`)}
+                    </span>
+                  )}
+                </div>
+                {event.description && (
+                  <p className="mt-2 text-sm text-muted-foreground">{event.description}</p>
+                )}
+                {event.location && (
+                  <p className="mt-2 flex items-center gap-1 text-xs text-muted-foreground">
+                    <MapPin className="h-3.5 w-3.5" />
+                    {event.location}
+                  </p>
+                )}
               </div>
             </article>
           ))}
@@ -290,19 +379,109 @@ export default function AgendaPage() {
 
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent aria-describedby={undefined}>
-          <DialogHeader><DialogTitle>{editingId ? 'Evenement bewerken' : t('agenda_new')}</DialogTitle></DialogHeader>
+          <DialogHeader>
+            <DialogTitle>{editingId ? 'Evenement bewerken' : t('agenda_new')}</DialogTitle>
+          </DialogHeader>
 
           <form onSubmit={saveEvent} className="space-y-4">
-            <div><Label htmlFor="agenda-title">{t('agenda_field_title')}</Label><Input id="agenda-title" value={form.title} onChange={(event) => setForm({ ...form, title: event.target.value })} required placeholder={t('agenda_title_placeholder')} /></div>
-            <div className="grid gap-4 sm:grid-cols-2"><div><Label htmlFor="agenda-date">Datum</Label><Input id="agenda-date" type="date" value={form.date} onChange={(event) => setForm({ ...form, date: event.target.value })} required /></div><div><Label htmlFor="agenda-time">Tijd</Label><Input id="agenda-time" type="time" value={form.time} onChange={(event) => setForm({ ...form, time: event.target.value })} required /></div></div>
-            <div className="grid gap-4 sm:grid-cols-2"><div><Label htmlFor="agenda-duration">Duur</Label><select id="agenda-duration" value={form.duration} onChange={(event) => setForm({ ...form, duration: event.target.value as EventForm['duration'] })} className="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm"><option value="30">30 minuten</option><option value="60">1 uur</option><option value="120">2 uur</option></select></div><div><Label htmlFor="agenda-type">{t('agenda_field_type')}</Label><select id="agenda-type" value={form.eventType} onChange={(event) => setForm({ ...form, eventType: event.target.value as EventForm['eventType'] })} className="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm">{EVENT_TYPES.map((type) => <option key={type} value={type}>{t(`agenda_type_${type === 'les' ? 'lesson' : type === 'other' ? 'other' : type === 'examen' ? 'exam' : 'homework'}`)}</option>)}</select></div></div>
-            <div><Label htmlFor="agenda-notes">Notities</Label><Textarea id="agenda-notes" value={form.notes} onChange={(event) => setForm({ ...form, notes: event.target.value })} placeholder="Voeg optionele notities toe..." /></div>
+            <div>
+              <Label htmlFor="agenda-title">{t('agenda_field_title')}</Label>
+              <Input
+                id="agenda-title"
+                value={form.title}
+                onChange={(event) => setForm({ ...form, title: event.target.value })}
+                required
+                placeholder={t('agenda_title_placeholder')}
+              />
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div>
+                <Label htmlFor="agenda-date">Datum</Label>
+                <Input
+                  id="agenda-date"
+                  type="date"
+                  value={form.date}
+                  onChange={(event) => setForm({ ...form, date: event.target.value })}
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor="agenda-time">Tijd</Label>
+                <Input
+                  id="agenda-time"
+                  type="time"
+                  value={form.time}
+                  onChange={(event) => setForm({ ...form, time: event.target.value })}
+                  required
+                />
+              </div>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div>
+                <Label htmlFor="agenda-duration">Duur</Label>
+                <select
+                  id="agenda-duration"
+                  value={form.duration}
+                  onChange={(event) =>
+                    setForm({ ...form, duration: event.target.value as EventForm['duration'] })
+                  }
+                  className="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
+                >
+                  <option value="30">30 minuten</option>
+                  <option value="60">1 uur</option>
+                  <option value="120">2 uur</option>
+                </select>
+              </div>
+              <div>
+                <Label htmlFor="agenda-type">{t('agenda_field_type')}</Label>
+                <select
+                  id="agenda-type"
+                  value={form.eventType}
+                  onChange={(event) =>
+                    setForm({ ...form, eventType: event.target.value as EventForm['eventType'] })
+                  }
+                  className="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
+                >
+                  {EVENT_TYPES.map((type) => (
+                    <option key={type} value={type}>
+                      {t(
+                        `agenda_type_${type === 'les' ? 'lesson' : type === 'other' ? 'other' : type === 'examen' ? 'exam' : 'homework'}`
+                      )}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div>
+              <Label htmlFor="agenda-notes">Notities</Label>
+              <Textarea
+                id="agenda-notes"
+                value={form.notes}
+                onChange={(event) => setForm({ ...form, notes: event.target.value })}
+                placeholder="Voeg optionele notities toe..."
+              />
+            </div>
             <DialogFooter>
               <div className="flex w-full items-center justify-between gap-2">
-                <div>{editingId && <Button type="button" variant="destructive" onClick={deleteEvent} disabled={saving}>Verwijderen</Button>}</div>
+                <div>
+                  {editingId && (
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      onClick={deleteEvent}
+                      disabled={saving}
+                    >
+                      Verwijderen
+                    </Button>
+                  )}
+                </div>
                 <div className="flex gap-2">
-                  <Button type="button" variant="outline" onClick={() => setOpen(false)}>Annuleren</Button>
-                  <Button type="submit" disabled={saving}>{saving ? 'Opslaan...' : 'Opslaan'}</Button>
+                  <Button type="button" variant="outline" onClick={() => setOpen(false)}>
+                    Annuleren
+                  </Button>
+                  <Button type="submit" disabled={saving}>
+                    {saving ? 'Opslaan...' : 'Opslaan'}
+                  </Button>
                 </div>
               </div>
             </DialogFooter>

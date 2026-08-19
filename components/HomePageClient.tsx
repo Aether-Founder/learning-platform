@@ -141,7 +141,9 @@ export function HomePageClient({ contentFiles }: { contentFiles: ContentFile[] }
                       {new Date(activeTestWeek.endDate).toLocaleDateString(dateLocale)}
                     </p>
                     <div className="flex items-center gap-2 mt-2">
-                      <Badge variant="secondary">{t('hw_subject_count', undefined, { n: activeTestWeek.subjects.length })}</Badge>
+                      <Badge variant="secondary">
+                        {t('hw_subject_count', undefined, { n: activeTestWeek.subjects.length })}
+                      </Badge>
                     </div>
                   </div>
                   <ChevronRight className="w-5 h-5 text-muted-foreground" />

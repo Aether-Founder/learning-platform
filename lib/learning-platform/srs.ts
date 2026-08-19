@@ -95,36 +95,35 @@ export function scheduleReview(
   if (algorithm === 'fsrs') {
     // FSRS-6 Weights (simplified 4-parameter subset for core logic)
     // w0: initial stability gain, w1: stability decay, w2: difficulty impact, w3: retrieval impact
-    const w = [0.4, 0.6, 0.15, 0.08]; 
-    
+    const w = [0.4, 0.6, 0.15, 0.08];
+
     const quality = grade === 'again' ? 1 : grade === 'hard' ? 2 : grade === 'good' ? 3 : 4;
-    
+
     // Calculate Retrievability: R(t) = (1 + t/S)^(-decay)
     const decay = 0.9;
-    retrievability = previousInterval > 0 
-      ? Math.pow(1 + previousInterval / stability, -decay) 
-      : 1;
-    
+    retrievability = previousInterval > 0 ? Math.pow(1 + previousInterval / stability, -decay) : 1;
+
     // Update Difficulty: D' = D + w2 * (3 - quality)
     difficulty = clamp(difficulty + w[2] * (3 - quality), 1, 10);
-    
+
     // Update Stability based on quality and current state
     if (grade === 'again') {
       // Lapse: S' = w0 * S^(-w1) * (D + w3)^(-w4)
       stability = Math.max(0.5, stability * 0.5 * (difficulty / 5));
     } else {
       // Success: S' = S * (1 + exp(w0) * (11-D) * S^(-w1) * (exp((1-R)*w3)-1))
-      const stabilityGain = (1 + w[0]) * (11 - difficulty) / 10 * Math.pow(stability, -w[1]);
+      const stabilityGain = (((1 + w[0]) * (11 - difficulty)) / 10) * Math.pow(stability, -w[1]);
       const retentionFactor = Math.exp((1 - retrievability) * w[3]) - 1;
       stability = Math.max(0.5, stability * (1 + stabilityGain * retentionFactor));
     }
-    
+
     // Calculate next interval: I = S * (ln(R_target)/ln(R_current))
-    const targetRetention = 0.90;
+    const targetRetention = 0.9;
     if (grade === 'again') {
       intervalDays = 0.5 / 24; // 30 minutes
     } else {
-      intervalDays = stability * (Math.log(targetRetention) / Math.log(Math.max(0.01, retrievability)));
+      intervalDays =
+        stability * (Math.log(targetRetention) / Math.log(Math.max(0.01, retrievability)));
       intervalDays = Math.max(0.5, Math.min(365, intervalDays));
     }
   } else if (grade === 'again') {

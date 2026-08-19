@@ -42,7 +42,9 @@ export default function ZoekenPage() {
     setLoading(true);
     setSearched(true);
 
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) {
       setLoading(false);
       return;
@@ -138,7 +140,11 @@ export default function ZoekenPage() {
     setLoading(false);
   };
 
-  const calculateRelevance = (title: string, description: string | undefined, query: string): number => {
+  const calculateRelevance = (
+    title: string,
+    description: string | undefined,
+    query: string
+  ): number => {
     const lowerTitle = title.toLowerCase();
     const lowerDesc = (description || '').toLowerCase();
     const lowerQuery = query.toLowerCase();
@@ -193,7 +199,7 @@ export default function ZoekenPage() {
       />
 
       <div className="mt-6">
-        <SearchField 
+        <SearchField
           value={query}
           onChange={setQuery}
           placeholder={t('search_placeholder')}
@@ -202,11 +208,7 @@ export default function ZoekenPage() {
       </div>
 
       <div className="mt-8">
-        {loading && (
-          <div className="text-center text-sm text-muted-foreground">
-            Zoeken...
-          </div>
-        )}
+        {loading && <div className="text-center text-sm text-muted-foreground">Zoeken...</div>}
 
         {!loading && !searched && (
           <div className="text-center py-12">
@@ -222,17 +224,13 @@ export default function ZoekenPage() {
           <div className="text-center py-12">
             <SearchIcon className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
             <p className="text-lg font-medium mb-2">Geen resultaten</p>
-            <p className="text-sm text-muted-foreground">
-              Probeer een andere zoekterm.
-            </p>
+            <p className="text-sm text-muted-foreground">Probeer een andere zoekterm.</p>
           </div>
         )}
 
         {!loading && searched && results.length > 0 && (
           <div className="space-y-3">
-            <p className="text-sm text-muted-foreground">
-              {results.length} resultaten gevonden
-            </p>
+            <p className="text-sm text-muted-foreground">{results.length} resultaten gevonden</p>
             {results.map((result) => (
               <Link
                 key={result.id}
@@ -240,9 +238,7 @@ export default function ZoekenPage() {
                 className="block p-4 rounded-lg border border-border hover:bg-secondary/50 transition-colors"
               >
                 <div className="flex items-start gap-4">
-                  <div className="mt-1">
-                    {getIcon(result.type)}
-                  </div>
+                  <div className="mt-1">{getIcon(result.type)}</div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
                       <h3 className="font-medium">{result.title}</h3>

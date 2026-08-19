@@ -91,7 +91,7 @@ export function GradeOnboardingModal({
         grade_level: grade,
         grade_confirmed_year: schoolYear,
       };
-      
+
       // Only include track if it's provided
       if (track) {
         updates.track = track;
@@ -113,7 +113,6 @@ export function GradeOnboardingModal({
 
       // Call onComplete to notify parent component
       await onComplete(grade, track, subjects);
-      
     } catch (e: any) {
       console.error('Failed to save grade onboarding:', e);
       const errorMessage = e?.message || 'Onbekende fout';
@@ -131,14 +130,18 @@ export function GradeOnboardingModal({
             Schooljaar {schoolYear}
           </span>
           <h2 className="mt-2 font-display text-2xl font-semibold">
-            {step === 1 ? 'In welke klas zit je?' : step === 2 ? 'Welk profiel heb je gekozen?' : 'Welke vakken heb je?'}
+            {step === 1
+              ? 'In welke klas zit je?'
+              : step === 2
+                ? 'Welk profiel heb je gekozen?'
+                : 'Welke vakken heb je?'}
           </h2>
           <p className="mt-1 text-xs text-muted-foreground">
             {step === 1
               ? 'Selecteer je huidige leerjaar om je vakken en Toetsweekvoorbereiding in te stellen.'
-              : step === 2 
-              ? 'Kies je profiel voor de bovenbouw.'
-              : 'Selecteer de vakken die je dit jaar volgt.'}
+              : step === 2
+                ? 'Kies je profiel voor de bovenbouw.'
+                : 'Selecteer de vakken die je dit jaar volgt.'}
           </p>
         </div>
 
@@ -198,21 +201,23 @@ export function GradeOnboardingModal({
                     key={subject}
                     type="button"
                     onClick={() => {
-                      setSelectedSubjects(prev => 
-                        prev.includes(subject) 
-                          ? prev.filter(s => s !== subject)
+                      setSelectedSubjects((prev) =>
+                        prev.includes(subject)
+                          ? prev.filter((s) => s !== subject)
                           : [...prev, subject]
                       );
                     }}
                     className={`flex items-center gap-2 rounded-md border px-3 py-2 text-left text-xs font-medium transition-all ${
-                      isSelected 
-                        ? 'border-foreground bg-secondary text-foreground' 
+                      isSelected
+                        ? 'border-foreground bg-secondary text-foreground'
                         : 'border-border bg-card text-muted-foreground hover:text-foreground'
                     }`}
                   >
-                    <span className={`flex h-4 w-4 items-center justify-center rounded-sm border ${
-                      isSelected ? 'border-foreground bg-foreground' : 'border-border'
-                    }`}>
+                    <span
+                      className={`flex h-4 w-4 items-center justify-center rounded-sm border ${
+                        isSelected ? 'border-foreground bg-foreground' : 'border-border'
+                      }`}
+                    >
                       {isSelected && <span className="text-[10px] text-background">✓</span>}
                     </span>
                     {subject}
@@ -233,22 +238,32 @@ export function GradeOnboardingModal({
               Terug
             </button>
           ) : onSkip ? (
-            <button type="button" onClick={onSkip} disabled={loading} className="rounded-md px-3 py-2 text-xs font-medium text-muted-foreground hover:bg-secondary hover:text-foreground">
+            <button
+              type="button"
+              onClick={onSkip}
+              disabled={loading}
+              className="rounded-md px-3 py-2 text-xs font-medium text-muted-foreground hover:bg-secondary hover:text-foreground"
+            >
               Overslaan
             </button>
-          ) : <div />}
+          ) : (
+            <div />
+          )}
 
           <button
             type="button"
-            disabled={loading || (step === 1 ? !selectedGrade : step === 2 ? !selectedTrack : selectedSubjects.length === 0)}
+            disabled={
+              loading ||
+              (step === 1
+                ? !selectedGrade
+                : step === 2
+                  ? !selectedTrack
+                  : selectedSubjects.length === 0)
+            }
             onClick={handleNextOrSave}
             className="rounded-md bg-primary px-5 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-50"
           >
-            {loading
-              ? 'Opslaan...'
-              : step === 3
-                ? 'Opslaan'
-                : 'Volgende'}
+            {loading ? 'Opslaan...' : step === 3 ? 'Opslaan' : 'Volgende'}
           </button>
         </div>
       </div>

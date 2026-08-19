@@ -3,7 +3,13 @@
 import { useState, useEffect } from 'react';
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { PrimaryButton } from '@/components/ui-kit';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -38,7 +44,9 @@ export default function GroepenPage() {
   }, []);
 
   const fetchGroups = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) return;
 
     const { data, error } = await supabase
@@ -56,7 +64,9 @@ export default function GroepenPage() {
   };
 
   const handleCreateGroup = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) return;
 
     const { data, error } = await supabase

@@ -3,8 +3,10 @@ import type { WorkspaceItem } from '@/store/useWorkspaceStore';
 
 export async function fetchWorkspaceItems(): Promise<WorkspaceItem[]> {
   const supabase = (await createClient()) as any;
-  
-  const { data: { user } } = await supabase.auth.getUser();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   if (!user) return [];
 
   const { data, error } = await supabase
@@ -28,8 +30,10 @@ export async function createWorkspaceItem(itemData: {
   content?: any;
 }) {
   const supabase = (await createClient()) as any;
-  
-  const { data: { user } } = await supabase.auth.getUser();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   if (!user) throw new Error('Unauthorized');
 
   // Get the next order_index for this parent
@@ -63,7 +67,7 @@ export async function updateWorkspaceItem(
   updates: Partial<{ name: string; content: any; parent_id: string | null; order_index: number }>
 ) {
   const supabase = (await createClient()) as any;
-  
+
   const { data, error } = await supabase
     .from('workspace_items')
     .update({
@@ -80,20 +84,18 @@ export async function updateWorkspaceItem(
 
 export async function deleteWorkspaceItem(id: string) {
   const supabase = (await createClient()) as any;
-  
+
   const { error } = await supabase.from('workspace_items').delete().eq('id', id);
-  
+
   if (error) throw error;
 }
 
-export async function moveWorkspaceItem(
-  id: string,
-  newParentId: string | null,
-  newIndex: number
-) {
+export async function moveWorkspaceItem(id: string, newParentId: string | null, newIndex: number) {
   const supabase = (await createClient()) as any;
-  
-  const { data: { user } } = await supabase.auth.getUser();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   if (!user) throw new Error('Unauthorized');
 
   // Update the moved item

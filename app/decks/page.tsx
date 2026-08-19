@@ -2,14 +2,32 @@
 
 import { useState, useEffect } from 'react';
 import { AppShell, PageHeader, SearchField } from '@/components/AppShell';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { supabase as browserClient } from '@/lib/supabase/client';
 import { useTranslation } from '@/lib/useTranslation';
-import { Plus, Trash2, Edit2, BookOpen, Brain, FileText, Target, LayoutGrid, Play, Download, Upload } from 'lucide-react';
+import {
+  Plus,
+  Trash2,
+  Edit2,
+  BookOpen,
+  Brain,
+  FileText,
+  Target,
+  LayoutGrid,
+  Play,
+  Download,
+  Upload,
+} from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -84,7 +102,9 @@ export default function DecksPage() {
   }, []);
 
   const fetchStudySets = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) return;
 
     const { data, error } = await supabase
@@ -102,7 +122,9 @@ export default function DecksPage() {
   };
 
   const fetchSubjects = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) return;
 
     const { data, error } = await supabase
@@ -133,7 +155,9 @@ export default function DecksPage() {
   };
 
   const handleCreateSet = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) return;
 
     const { data, error } = await supabase
@@ -172,7 +196,7 @@ export default function DecksPage() {
     if (error) {
       console.error('Failed to update study set:', error);
     } else if (data) {
-      setStudySets(studySets.map(s => s.id === editingSet.id ? data : s));
+      setStudySets(studySets.map((s) => (s.id === editingSet.id ? data : s)));
       setShowSetDialog(false);
       setEditingSet(null);
       resetSetForm();
@@ -180,13 +204,18 @@ export default function DecksPage() {
   };
 
   const handleDeleteSet = async (setId: string) => {
-    if (!confirm('Weet je zeker dat je deze leerset wilt verwijderen? Alle kaarten worden ook verwijderd.')) return;
+    if (
+      !confirm(
+        'Weet je zeker dat je deze leerset wilt verwijderen? Alle kaarten worden ook verwijderd.'
+      )
+    )
+      return;
 
     const { error } = await supabase.from('study_sets').delete().eq('id', setId);
     if (error) {
       console.error('Failed to delete study set:', error);
     } else {
-      setStudySets(studySets.filter(s => s.id !== setId));
+      setStudySets(studySets.filter((s) => s.id !== setId));
       if (selectedSet?.id === setId) {
         setSelectedSet(null);
         setCards([]);
@@ -226,7 +255,7 @@ export default function DecksPage() {
     if (error) {
       console.error('Failed to delete card:', error);
     } else {
-      setCards(cards.filter(c => c.id !== cardId));
+      setCards(cards.filter((c) => c.id !== cardId));
     }
   };
 
@@ -246,7 +275,7 @@ export default function DecksPage() {
     if (error) {
       console.error('Failed to update card:', error);
     } else if (data) {
-      setCards(cards.map(c => c.id === editingCard.id ? data : c));
+      setCards(cards.map((c) => (c.id === editingCard.id ? data : c)));
       setShowCardDialog(false);
       setEditingCard(null);
       resetCardForm();
@@ -266,7 +295,6 @@ export default function DecksPage() {
   const openEditSetDialog = (set: StudySet) => {
     router.push(`/leersets/edit/${set.id}`);
   };
-
 
   const openEditCardDialog = (card: Flashcard) => {
     setEditingCard(card);
@@ -293,8 +321,10 @@ export default function DecksPage() {
   const handleExportCSV = (set: StudySet) => {
     const csvContent = [
       ['Question', 'Answer'],
-      ...cards.map(card => [card.question, card.answer])
-    ].map(row => row.map(cell => `"${cell.replace(/"/g, '""')}"`).join(',')).join('\n');
+      ...cards.map((card) => [card.question, card.answer]),
+    ]
+      .map((row) => row.map((cell) => `"${cell.replace(/"/g, '""')}"`).join(','))
+      .join('\n');
 
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
@@ -307,9 +337,11 @@ export default function DecksPage() {
 
   const handleExportAnki = (set: StudySet) => {
     // Anki format: tab-separated with HTML
-    const ankiContent = cards.map(card => 
-      `${card.question.replace(/\n/g, '<br>')}\t${card.answer.replace(/\n/g, '<br>')}`
-    ).join('\n');
+    const ankiContent = cards
+      .map(
+        (card) => `${card.question.replace(/\n/g, '<br>')}\t${card.answer.replace(/\n/g, '<br>')}`
+      )
+      .join('\n');
 
     const blob = new Blob([ankiContent], { type: 'text/plain;charset=utf-8;' });
     const link = document.createElement('a');
@@ -335,7 +367,7 @@ export default function DecksPage() {
       if (matches) {
         const question = matches[0]?.replace(/^"|"$/g, '').replace(/""/g, '"') || '';
         const answer = matches[1]?.replace(/^"|"$/g, '').replace(/""/g, '"') || '';
-        
+
         if (question && answer) {
           importedCards.push({
             study_set_id: selectedSet?.id,
@@ -361,9 +393,10 @@ export default function DecksPage() {
     }
   };
 
-  const filteredSets = studySets.filter(s => 
-    s.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    (s.description && s.description.toLowerCase().includes(searchQuery.toLowerCase()))
+  const filteredSets = studySets.filter(
+    (s) =>
+      s.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (s.description && s.description.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
   const studyModes = [
@@ -410,8 +443,8 @@ export default function DecksPage() {
       />
 
       <div className="mt-6">
-        <SearchField 
-          value={searchQuery} 
+        <SearchField
+          value={searchQuery}
           onChange={setSearchQuery}
           placeholder={t('search_placeholder_sets')}
           className="max-w-md"
@@ -425,7 +458,9 @@ export default function DecksPage() {
               <Button variant="ghost" onClick={() => setSelectedSet(null)} className="mb-2">
                 ← Terug naar leersets
               </Button>
-              <h2 className="font-display text-xl sm:text-2xl font-semibold">{selectedSet.title}</h2>
+              <h2 className="font-display text-xl sm:text-2xl font-semibold">
+                {selectedSet.title}
+              </h2>
               {selectedSet.description && (
                 <p className="text-sm text-muted-foreground mt-1">{selectedSet.description}</p>
               )}
@@ -479,7 +514,9 @@ export default function DecksPage() {
             <div className="text-center py-12 border-2 border-dashed border-border rounded-lg">
               <Brain className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
               <p className="text-lg font-medium mb-2">Nog geen kaarten</p>
-              <p className="text-sm text-muted-foreground mb-4">Voeg je eerste kaart toe om te beginnen met leren.</p>
+              <p className="text-sm text-muted-foreground mb-4">
+                Voeg je eerste kaart toe om te beginnen met leren.
+              </p>
               <Button onClick={() => setShowCardDialog(true)}>
                 <Plus className="mr-2 h-4 w-4" />
                 Eerste kaart maken
@@ -491,7 +528,10 @@ export default function DecksPage() {
                 <h3 className="text-sm font-medium mb-3">{cards.length} kaarten</h3>
                 <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
                   {cards.map((card, index) => (
-                    <div key={card.id} className="border border-border rounded-lg p-4 hover:bg-secondary/50 transition-colors">
+                    <div
+                      key={card.id}
+                      className="border border-border rounded-lg p-4 hover:bg-secondary/50 transition-colors"
+                    >
                       <div className="flex items-start justify-between mb-2">
                         <span className="text-xs text-muted-foreground">#{index + 1}</span>
                         <div className="flex gap-1">
@@ -527,7 +567,9 @@ export default function DecksPage() {
                         href={`/study/${selectedSet.id}/${mode.id}`}
                         className="flex items-center gap-3 p-4 rounded-lg border border-border hover:border-primary/50 hover:bg-secondary/50 transition-colors"
                       >
-                        <div className={`grid h-10 w-10 place-items-center rounded-full ${mode.color} text-white shrink-0`}>
+                        <div
+                          className={`grid h-10 w-10 place-items-center rounded-full ${mode.color} text-white shrink-0`}
+                        >
                           <Icon className="h-5 w-5" />
                         </div>
                         <div className="min-w-0 flex-1">
@@ -566,13 +608,19 @@ export default function DecksPage() {
                   <BookOpen className="h-5 w-5 text-primary" />
                   <div className="flex gap-1">
                     <button
-                      onClick={(e) => { e.stopPropagation(); openEditSetDialog(set); }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openEditSetDialog(set);
+                      }}
                       className="p-1 text-muted-foreground hover:text-foreground hover:bg-secondary rounded"
                     >
                       <Edit2 className="h-3 w-3" />
                     </button>
                     <button
-                      onClick={(e) => { e.stopPropagation(); handleDeleteSet(set.id); }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDeleteSet(set.id);
+                      }}
                       className="p-1 text-muted-foreground hover:text-red-600 hover:bg-secondary rounded"
                     >
                       <Trash2 className="h-3 w-3" />
@@ -581,11 +629,11 @@ export default function DecksPage() {
                 </div>
                 {set.subject && (
                   <div className="mb-2">
-                    <span 
+                    <span
                       className="inline-block px-2 py-0.5 text-xs rounded-full"
-                      style={{ 
+                      style={{
                         backgroundColor: set.subject.color + '20',
-                        color: set.subject.color 
+                        color: set.subject.color,
                       }}
                     >
                       {set.subject.name}
@@ -594,7 +642,9 @@ export default function DecksPage() {
                 )}
                 <h3 className="font-display text-lg font-semibold mb-2">{set.title}</h3>
                 {set.description && (
-                  <p className="text-sm text-muted-foreground line-clamp-2 mb-3">{set.description}</p>
+                  <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
+                    {set.description}
+                  </p>
                 )}
                 <div className="flex items-center justify-between text-xs text-muted-foreground">
                   <span>{set.view_count} keer bekeken</span>
@@ -689,7 +739,14 @@ export default function DecksPage() {
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => { setShowCardDialog(false); setEditingCard(null); resetCardForm(); }}>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setShowCardDialog(false);
+                setEditingCard(null);
+                resetCardForm();
+              }}
+            >
               Annuleren
             </Button>
             <Button onClick={editingCard ? handleUpdateCard : handleCreateCard}>

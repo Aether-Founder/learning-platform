@@ -637,7 +637,9 @@ export default function Page({ params }: { params: { page: string } }) {
                     return (
                       <div key={section.id}>
                         <div className="mb-4 flex items-center justify-between">
-                          <h2 className="text-2xl font-serif text-foreground font-normal">{getSectionTitle(section)}</h2>
+                          <h2 className="text-2xl font-serif text-foreground font-normal">
+                            {getSectionTitle(section)}
+                          </h2>
                           <Link
                             href={`/lessen?subject=${params.page}&chapter=${section.id}`}
                             className="inline-flex items-center gap-2 rounded-md border border-border bg-secondary/50 px-3 py-2 text-xs font-medium transition-colors hover:bg-secondary hover:text-foreground"
@@ -677,7 +679,9 @@ export default function Page({ params }: { params: { page: string } }) {
                   return (
                     <div key={section.id}>
                       <div className="mb-4 flex items-center justify-between">
-                        <h2 className="text-2xl font-serif text-foreground font-normal">{getSectionTitle(section)}</h2>
+                        <h2 className="text-2xl font-serif text-foreground font-normal">
+                          {getSectionTitle(section)}
+                        </h2>
                         <Link
                           href={`/lessen?subject=${params.page}&chapter=${section.id}`}
                           className="inline-flex items-center gap-2 rounded-md border border-border bg-secondary/50 px-3 py-2 text-xs font-medium transition-colors hover:bg-secondary hover:text-foreground"

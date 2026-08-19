@@ -9,11 +9,7 @@ export interface GamificationStats {
 }
 
 export type GamificationEvent =
-  | 'review_card'
-  | 'complete_session'
-  | 'perfect_session'
-  | 'keep_streak'
-  | 'finish_deck';
+  'review_card' | 'complete_session' | 'perfect_session' | 'keep_streak' | 'finish_deck';
 
 const XP_REWARDS: Record<GamificationEvent, number> = {
   review_card: 10,

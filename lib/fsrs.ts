@@ -1,26 +1,26 @@
 /**
  * FSRS (Free Spaced Repetition Scheduler) Implementation
  * Based on the open-source FSRS algorithm for optimal spaced repetition
- * 
+ *
  * Reference: https://github.com/open-spaced-repetition/fsrs
  */
 
 export type ReviewGrade = 'again' | 'hard' | 'good' | 'easy';
 
 export interface CardState {
-  stability: number;      // How stable the memory is (in days)
-  difficulty: number;     // How difficult the card is (1-10)
+  stability: number; // How stable the memory is (in days)
+  difficulty: number; // How difficult the card is (1-10)
   retrievability: number; // Probability of recall (0-1)
-  due: Date;             // When the card is next due
-  interval: number;       // Current interval in days
-  lapses: number;         // Number of times card was failed
-  last_review?: Date;    // Last review date
+  due: Date; // When the card is next due
+  interval: number; // Current interval in days
+  lapses: number; // Number of times card was failed
+  last_review?: Date; // Last review date
 }
 
 export interface FSRSParams {
   request_retention: number; // Desired retention rate (0.7-0.99)
   maximum_interval: number; // Maximum interval in days (default 36500 = 100 years)
-  enable_fuzz: boolean;      // Add randomness to intervals
+  enable_fuzz: boolean; // Add randomness to intervals
 }
 
 const DEFAULT_PARAMS: FSRSParams = {
@@ -141,7 +141,7 @@ function calculateStability(
 ): number {
   // Simplified FSRS stability calculation
   const retrievalSuccessRate = Math.exp(-daysSinceLastReview / previousStability);
-  
+
   const stabilityGrowth = {
     again: 0,
     hard: 1.2,
@@ -161,17 +161,13 @@ function calculateStability(
 /**
  * Calculate interval based on stability and difficulty
  */
-function calculateInterval(
-  stability: number,
-  difficulty: number,
-  params: FSRSParams
-): number {
+function calculateInterval(stability: number, difficulty: number, params: FSRSParams): number {
   // Higher difficulty = shorter intervals
   const difficultyModifier = 1 - (difficulty - 5) * 0.1;
-  
+
   // Calculate interval to achieve desired retention
   const interval = stability * difficultyModifier * Math.log(params.request_retention);
-  
+
   return Math.max(1, interval);
 }
 
@@ -215,7 +211,7 @@ export function getCardsDueInDays(cards: CardState[], days: number): CardState[]
  */
 export function calculateEstimatedRetention(cards: CardState[]): number {
   if (cards.length === 0) return 0;
-  
+
   const totalRetrievability = cards.reduce((sum, card) => sum + card.retrievability, 0);
   return totalRetrievability / cards.length;
 }

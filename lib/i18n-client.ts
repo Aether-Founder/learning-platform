@@ -1,11 +1,6 @@
 'use client';
 
-import {
-  DEFAULT_LANGUAGE,
-  LANGUAGES,
-  STORAGE_KEY,
-  type Language,
-} from './i18n-config';
+import { DEFAULT_LANGUAGE, LANGUAGES, STORAGE_KEY, type Language } from './i18n-config';
 import { detectLanguageFromLocation } from './i18n-location';
 
 export type { Language };

@@ -73,9 +73,7 @@ export default function CopyContentPage({ params }: { params: { page: string } }
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="mb-6">
           <h1 className="text-3xl font-bold text-foreground mb-2">{t('copy_title')}</h1>
-          <p className="text-muted-foreground">
-            {t('copy_desc')}
-          </p>
+          <p className="text-muted-foreground">{t('copy_desc')}</p>
         </div>
 
         <div className="flex gap-4 mb-6">
@@ -109,7 +107,9 @@ export default function CopyContentPage({ params }: { params: { page: string } }
         </div>
 
         <div className="mt-6 bg-secondary/50 border border-border rounded-lg p-4">
-          <h2 className="text-lg font-semibold text-foreground mb-2">{t('copy_instructions_title')}</h2>
+          <h2 className="text-lg font-semibold text-foreground mb-2">
+            {t('copy_instructions_title')}
+          </h2>
           <ol className="list-decimal list-inside space-y-2 text-muted-foreground">
             <li>{t('copy_instruction_1')}</li>
             <li>{t('copy_instruction_2')}</li>

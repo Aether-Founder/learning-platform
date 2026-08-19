@@ -1,6 +1,6 @@
 /**
  * Desktop Storage Utilities for Tauri
- * 
+ *
  * Provides offline storage capabilities for study sets, flashcards, and user data
  * using localStorage with Tauri integration for enhanced security
  */

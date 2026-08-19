@@ -3,6 +3,7 @@
 ## Priority: HIGH
 
 ### 1. Re-enable Server-Side Rendering (SSR) for i18n
+
 **Status**: SKIPPED - App is functional without SSR
 **Reason**: To keep the app functional. Re-enabling SSR carries risk of breaking the application due to complex i18n client/server boundary issues. The current solution (disabled SSR) keeps the app working reliably.
 
@@ -11,31 +12,41 @@
 ## Priority: MEDIUM
 
 ### 2. Integrate Leersets Structure Inside Vakken
+
 **Status**: Completed
-**Description**: 
+**Description**:
+
 - ✅ Added subject_id field to study_sets table
 - ✅ Updated Leersets page to link to subjects
 - ✅ Created subject detail page with Leersets section
 - ✅ Added "Bekijk in Vakken" button to Leersets page
 
 ### 3. Add Notities as Navbar Button
+
 **Status**: Completed
-**Description**: 
+**Description**:
+
 - ✅ Notities already enabled in navbar
 
 ### 4. Add Groepen as Navbar Button
+
 **Status**: Completed
-**Description**: 
+**Description**:
+
 - ✅ Groepen enabled in navbar (changed from false to true)
 
 ### 5. Add Agenda as Separate Navbar Button
+
 **Status**: Completed
-**Description**: 
+**Description**:
+
 - ✅ Agenda already enabled in navbar
 
 ### 6. Hide Cijfers from Navigation
+
 **Status**: Completed
-**Description**: 
+**Description**:
+
 - ✅ Removed Cijfers from middleware protected routes
 
 ---
@@ -43,8 +54,10 @@
 ## Priority: LOW
 
 ### 7. Admin Portal JSON Content Management
+
 **Status**: Partially complete
-**Description**: 
+**Description**:
+
 - Add GUI pages for adding Subjects, Chapters, Learningsets, and Educational content
 - Show JSON formats/examples and documentation in the UI
 - Provide JSON input field with Enter key submission

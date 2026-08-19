@@ -5,6 +5,7 @@
 This blueprint outlines the complete feature set for a bulletproof learning platform designed to support 12 subjects: Wiskunde B/D, Natuurkunde, Scheikunde, Biologie, Nederlands, Engels Cambridge, Frans, Informatica, Maatschappijleer, LV, and CKV.
 
 **Core Philosophy:**
+
 - Make waiting impossible (daily guidance)
 - Make forgetting impossible (spaced repetition + active recall)
 - Make mistakes visible (error tracking + retesting)
@@ -75,6 +76,7 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 ### ❌ Not Implemented Yet
 
 #### Core Learning Features
+
 1. **Vakpagina's (Subject Pages)** - Detailed subject-specific pages
 2. **Smart Grading** - Detailed analytics per question
 3. **Meesterschap per onderwerp** - Mastery tracking per topic
@@ -87,6 +89,7 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 10. **Subject Vault per vak** - Knowledge vault per subject
 
 #### Subject-Specific Features
+
 11. **Wiskunde B/D** - Method cards, formula recognition
 12. **Natuurkunde** - Formula choice, unit checking
 13. **Scheikunde** - Reaction analysis templates
@@ -99,6 +102,7 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 20. **CKV/LV** - Light theoretical modules
 
 #### Advanced Features
+
 21. **Smart Recommendations** - AI-driven study suggestions
 22. **Herhaalqueue per type** - Different queues for knowledge types
 23. **Notities & Kennisbibliotheek** - Active note-taking system
@@ -120,9 +124,11 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 ## Implementation Phases
 
 ### Phase 1: Foundation (Current - ✅ Complete)
+
 **Status:** DONE
 
 **Tasks:**
+
 - [x] Authentication system
 - [x] Basic navigation
 - [x] Core pages (dashboard, subjects, agenda, planner, notes, decks, stats, settings)
@@ -132,6 +138,7 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 - [x] Responsive design
 
 **Deliverables:**
+
 - Working authentication
 - Basic page structure
 - Database connectivity
@@ -140,9 +147,11 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 ---
 
 ### Phase 2: Core Learning Features (Current - 🚧 In Progress)
+
 **Status:** IN PROGRESS
 
 **Tasks:**
+
 - [x] Vandaag (Today Dashboard)
 - [x] Foutenlogboek (Error Log)
 - [x] Active Recall Engine
@@ -155,6 +164,7 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 - [ ] Remove standalone calendar page
 
 **Deliverables:**
+
 - Daily learning guidance
 - Error tracking system
 - Spaced repetition scheduling
@@ -166,9 +176,11 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 ---
 
 ### Phase 3: Subject Pages & Mastery Tracking
+
 **Status:** NOT STARTED
 
 **Tasks:**
+
 - [ ] Create detailed subject pages for all 12 subjects
 - [ ] Implement mastery tracking per topic
 - [ ] Add subject-specific status (veilig/let op/gevaar)
@@ -179,6 +191,7 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 - [ ] Last test analysis per subject
 
 **Deliverables:**
+
 - 12 detailed subject pages
 - Mastery percentage per topic
 - Status indicators
@@ -189,9 +202,11 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 ---
 
 ### Phase 4: Advanced Quiz Engine
+
 **Status:** NOT STARTED
 
 **Tasks:**
+
 - [ ] Implement 15+ quiz types
 - [ ] Smart quiz builder
 - [ ] Quiz configuration (duration, subject, difficulty)
@@ -203,6 +218,7 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 - [ ] Old test import
 
 **Deliverables:**
+
 - Comprehensive quiz engine
 - Multiple quiz types
 - Exam simulation
@@ -213,9 +229,11 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 ---
 
 ### Phase 5: Smart Grading & Analytics
+
 **Status:** NOT STARTED
 
 **Tasks:**
+
 - [ ] Detailed question scoring (good/partial/wrong/not done)
 - [ ] Confidence scoring per question
 - [ ] Time tracking per question
@@ -230,6 +248,7 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 - [ ] Streak tracking
 
 **Deliverables:**
+
 - Advanced grading system
 - Mastery percentages
 - Predictive analytics
@@ -240,9 +259,11 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 ---
 
 ### Phase 6: Homework & Lesson Notes
+
 **Status:** NOT STARTED
 
 **Tasks:**
+
 - [ ] Homework module with subtasks
 - [ ] Red/orange/green grading system
 - [ ] Automatic action suggestions based on grade
@@ -252,6 +273,7 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 - [ ] Teacher question export
 
 **Deliverables:**
+
 - Homework tracking
 - Lesson note system
 - Question generation assistance
@@ -261,9 +283,11 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 ---
 
 ### Phase 7: Test Planning & Exam Readiness
+
 **Status:** NOT STARTED
 
 **Tasks:**
+
 - [ ] Test date tracking
 - [ ] T-minus study plan generation
 - [ ] Exam readiness calculation
@@ -273,6 +297,7 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 - [ ] Risk assessment per test
 
 **Deliverables:**
+
 - Test planning system
 - Exam readiness indicators
 - Automated study plans
@@ -282,9 +307,11 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 ---
 
 ### Phase 8: Anti-Overload & Study Modes
+
 **Status:** NOT STARTED
 
 **Tasks:**
+
 - [ ] Daily cap configuration
 - [ ] Priority filter system
 - [ ] Sick mode (minimal items)
@@ -295,6 +322,7 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 - [ ] Study load guard
 
 **Deliverables:**
+
 - Multiple study modes
 - Overload protection
 - Flexible scheduling
@@ -304,9 +332,11 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 ---
 
 ### Phase 9: Subject-Specific Features
+
 **Status:** NOT STARTED
 
 **Tasks:**
+
 - [ ] Wiskunde B: Method cards, formula recognition, proof templates
 - [ ] Wiskunde D: Concept explanations, proof templates
 - [ ] Natuurkunde: Formula choice, unit checking, step-by-step templates
@@ -321,6 +351,7 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 - [ ] LV: Theoretical concepts, practical tasks
 
 **Deliverables:**
+
 - Subject-specific learning tools
 - Specialized question types
 - Subject-optimized workflows
@@ -330,9 +361,11 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 ---
 
 ### Phase 10: Advanced Features
+
 **Status:** NOT STARTED
 
 **Tasks:**
+
 - [ ] Smart recommendations engine
 - [ ] Confidence calibration
 - [ ] Interleaving implementation
@@ -349,6 +382,7 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 - [ ] Backup system
 
 **Deliverables:**
+
 - AI-driven features
 - Integration capabilities
 - Advanced analytics
@@ -361,6 +395,7 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 ## Task Breakdown by Priority
 
 ### High Priority (Must Have)
+
 1. Redesign Overzicht page with percentages & progress bars
 2. Merge calendar into agenda with view toggle
 3. Remove standalone calendar page
@@ -373,6 +408,7 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 10. Add anti-overload modes
 
 ### Medium Priority (Should Have)
+
 1. Advanced quiz engine with 15+ types
 2. Smart grading system
 3. Exam readiness calculation
@@ -382,6 +418,7 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 7. Notion integration
 
 ### Low Priority (Nice to Have)
+
 1. Interleaving
 2. Retrieval variations
 3. Error clustering
@@ -396,6 +433,7 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 ## Database Schema Requirements
 
 ### Existing Tables
+
 - ✅ users
 - ✅ profiles
 - ✅ decks
@@ -409,6 +447,7 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 - ✅ inbox
 
 ### Tables to Create
+
 - ❌ subjects (vakken)
 - ❌ subject_chapters (vak hoofdstukken)
 - ❌ subject_topics (vak onderwerpen)
@@ -431,6 +470,7 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 ## Technical Stack
 
 ### Current
+
 - Next.js 14 (App Router)
 - React 18
 - TypeScript
@@ -444,6 +484,7 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 - Sonner
 
 ### Additional Requirements
+
 - Chart library for analytics (Chart.js or Recharts)
 - Calendar library (react-big-calendar or similar)
 - Rich text editor for notes (Tiptap or similar)
@@ -456,6 +497,7 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 ## API Integrations Needed
 
 ### Potential Future Integrations
+
 - Notion API (for calendar integration)
 - OpenAI API (for question generation - optional)
 - Google Calendar API (alternative to Notion)
@@ -466,12 +508,14 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 ## Security & Privacy
 
 ### Current Implementation
+
 - ✅ Row Level Security (RLS) on all tables
 - ✅ User data isolation
 - ✅ Secure file upload to private buckets
 - ✅ Authenticated routes
 
 ### Additional Requirements
+
 - ❌ Two-factor authentication
 - ❌ Session timeout
 - ❌ Audit logging
@@ -483,11 +527,13 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 ## Mobile Responsiveness
 
 ### Current Status
+
 - ✅ Responsive navbar with overflow
 - ✅ Mobile-friendly navigation
 - ✅ Touch-friendly buttons
 
 ### Additional Requirements
+
 - ❌ PWA support
 - ❌ Offline mode
 - ❌ Push notifications
@@ -498,11 +544,13 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 ## Performance Optimization
 
 ### Current Status
+
 - ✅ Skeleton loading states
 - ✅ Lazy loading where needed
 - ✅ Optimistic UI updates
 
 ### Additional Requirements
+
 - ❌ Image optimization
 - ❌ Code splitting
 - ❌ Caching strategy
@@ -514,6 +562,7 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 ## Testing Strategy
 
 ### Required Testing
+
 - [ ] Unit tests for core functions
 - [ ] Integration tests for database operations
 - [ ] E2E tests for critical user flows
@@ -527,11 +576,13 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 ## Deployment Strategy
 
 ### Current
+
 - ✅ Development environment
 - ✅ Supabase project setup
 - ✅ Database migrations
 
 ### Required
+
 - [ ] Staging environment
 - [ ] Production environment
 - [ ] CI/CD pipeline
@@ -544,18 +595,21 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 ## Success Metrics
 
 ### User Engagement
+
 - Daily active users
 - Session duration
 - Feature usage per session
 - Retention rate
 
 ### Learning Effectiveness
+
 - Mastery improvement over time
 - Error reduction rate
 - Quiz score improvement
 - Test score correlation
 
 ### System Performance
+
 - Page load time < 2s
 - Quiz response time < 100ms
 - Database query time < 50ms
@@ -566,18 +620,21 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 ## Risk Assessment
 
 ### Technical Risks
+
 - Database scaling issues
 - Realtime connection stability
 - File storage costs
 - API rate limits
 
 ### User Risks
+
 - Feature complexity overwhelming users
 - Learning curve too steep
 - Mobile experience not optimal
 - Data loss concerns
 
 ### Mitigation Strategies
+
 - Gradual feature rollout
 - User onboarding flow
 - Comprehensive documentation
@@ -591,6 +648,7 @@ This blueprint outlines the complete feature set for a bulletproof learning plat
 This blueprint provides a comprehensive roadmap for building a bulletproof learning platform. The current implementation covers the foundation and core learning features. The remaining phases focus on advanced analytics, subject-specific tools, and AI-driven features.
 
 **Key Principles:**
+
 1. Start with core functionality
 2. Add subject-specific features incrementally
 3. Prioritize user experience over feature count
@@ -598,6 +656,7 @@ This blueprint provides a comprehensive roadmap for building a bulletproof learn
 5. Ensure mobile responsiveness throughout
 
 **Next Immediate Steps:**
+
 1. Redesign Overzicht page with percentages & progress bars
 2. Merge calendar into agenda with view toggle
 3. Remove standalone calendar page

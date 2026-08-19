@@ -60,7 +60,9 @@ export default function BacklinksPanel({ currentPageId }: { currentPageId: strin
           const source = contentText(page.content);
           return { page, source, links: parseLinks(source) };
         })
-        .filter(({ links }) => links.some((link) => link.toLocaleLowerCase() === currentName.toLocaleLowerCase()))
+        .filter(({ links }) =>
+          links.some((link) => link.toLocaleLowerCase() === currentName.toLocaleLowerCase())
+        )
         .map(({ page, source }) => ({
           id: page.id,
           name: page.name,
@@ -88,16 +90,32 @@ export default function BacklinksPanel({ currentPageId }: { currentPageId: strin
       </div>
       <p className="mt-1 text-xs text-muted-foreground">Pagina's die naar deze pagina verwijzen</p>
       {loading ? (
-        <div className="mt-6 flex items-center gap-2 text-xs text-muted-foreground"><Loader2 className="h-3.5 w-3.5 animate-spin" /> Links zoeken…</div>
+        <div className="mt-6 flex items-center gap-2 text-xs text-muted-foreground">
+          <Loader2 className="h-3.5 w-3.5 animate-spin" /> Links zoeken…
+        </div>
       ) : backlinks.length === 0 ? (
-        <p className="mt-6 text-xs leading-relaxed text-muted-foreground">Nog geen andere pagina's linken hiernaartoe.</p>
+        <p className="mt-6 text-xs leading-relaxed text-muted-foreground">
+          Nog geen andere pagina's linken hiernaartoe.
+        </p>
       ) : (
         <ul className="mt-5 space-y-2">
           {backlinks.map((backlink) => (
             <li key={backlink.id}>
-              <button type="button" onClick={() => openPage(backlink.id)} className="group w-full rounded-md border border-border p-3 text-left transition-colors hover:bg-secondary">
-                <span className="flex items-center justify-between gap-2 text-sm font-medium"><span className="flex min-w-0 items-center gap-2 truncate"><FileText className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />{backlink.name}</span><ArrowUpRight className="h-3.5 w-3.5 shrink-0 opacity-0 transition-opacity group-hover:opacity-100" /></span>
-                <span className="mt-2 block text-[11px] leading-relaxed text-muted-foreground">{backlink.snippet}</span>
+              <button
+                type="button"
+                onClick={() => openPage(backlink.id)}
+                className="group w-full rounded-md border border-border p-3 text-left transition-colors hover:bg-secondary"
+              >
+                <span className="flex items-center justify-between gap-2 text-sm font-medium">
+                  <span className="flex min-w-0 items-center gap-2 truncate">
+                    <FileText className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
+                    {backlink.name}
+                  </span>
+                  <ArrowUpRight className="h-3.5 w-3.5 shrink-0 opacity-0 transition-opacity group-hover:opacity-100" />
+                </span>
+                <span className="mt-2 block text-[11px] leading-relaxed text-muted-foreground">
+                  {backlink.snippet}
+                </span>
               </button>
             </li>
           ))}

@@ -1,6 +1,7 @@
 # SSR Fix Archive
 
 ## Problem
+
 The application was experiencing a critical error during server-side rendering:
 
 ```
@@ -12,9 +13,11 @@ This error prevented the root route (`/`) from loading, returning HTTP 500.
 ## Root Cause Analysis
 
 ### What is SSR?
+
 Server-Side Rendering (SSR) is when the server builds the complete HTML page before sending it to the browser, instead of sending a blank page that JavaScript fills in later.
 
 ### Why the Error Occurred
+
 The i18n (internationalization) system was trying to access browser-only features (like `localStorage`) during server rendering. The error message indicates that Next.js detected a client module being accessed during SSR, which is not allowed.
 
 ### Attempted Fixes
@@ -35,7 +38,9 @@ The i18n (internationalization) system was trying to access browser-only feature
    - Attempted to make i18n instantiation lazy using Proxy and getter functions
 
 ### Why These Fixes Didn't Work
+
 The issue persisted because:
+
 - Next.js compiles the entire import graph before SSR
 - Even with dynamic imports, the compiler still analyzes the modules
 - The error doesn't pinpoint which specific import is causing the issue
@@ -52,12 +57,15 @@ export const dynamic = 'force-dynamic';
 to `app/layout.tsx`.
 
 ### Impact of This Solution
+
 **Pros:**
+
 - Application now loads without errors
 - No more 500 errors on root route
 - All functionality works
 
 **Cons:**
+
 - Slightly slower initial page loads (client must render the page)
 - Reduced SEO (search engines receive blank HTML initially)
 - Not ideal for production
@@ -65,6 +73,7 @@ to `app/layout.tsx`.
 ## Files Modified
 
 ### Current State
+
 - `app/layout.tsx` - Added `export const dynamic = 'force-dynamic'` to disable SSR
 - `lib/i18n.ts` - Server-side mock implementation
 - `lib/i18n-client.ts` - Client-side implementation with `'use client'` directive
@@ -73,7 +82,9 @@ to `app/layout.tsx`.
 - `app/page.tsx` - Fixed dynamic import syntax
 
 ### Backup Needed
+
 Before implementing the proper fix, ensure you have backups of:
+
 - Original `lib/i18n.ts` (before splitting)
 - Original `app/layout.tsx` (before adding `export const dynamic = 'force-dynamic'`)
 
@@ -101,9 +112,11 @@ When re-enabling SSR, consider these approaches:
    - Incrementally enable SSR for different routes to isolate the issue
 
 ## Related Documentation
+
 - `docs/tasks/REMAINING_TASKS.md` - Task to re-enable SSR
 - Next.js documentation on Server Components: https://nextjs.org/docs/app/building-your-application/rendering/server-components
 - Next.js documentation on Client Components: https://nextjs.org/docs/app/building-your-application/rendering/client-components
 
 ## Date
+
 August 16, 2026

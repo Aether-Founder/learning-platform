@@ -3,7 +3,13 @@
 import { useState, useEffect } from 'react';
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -73,7 +79,9 @@ export default function FoutenlogboekPage() {
   }, []);
 
   const fetchErrors = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) return;
 
     const { data, error } = await supabase
@@ -90,12 +98,13 @@ export default function FoutenlogboekPage() {
     setLoading(false);
   };
 
-  const filteredErrors = filterType === 'all' 
-    ? errors 
-    : errors.filter(e => e.herhaalstatus === filterType);
+  const filteredErrors =
+    filterType === 'all' ? errors : errors.filter((e) => e.herhaalstatus === filterType);
 
   const handleAddError = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) return;
 
     const { data, error } = await supabase
@@ -139,21 +148,31 @@ export default function FoutenlogboekPage() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'nieuw': return 'bg-red-500/10 text-red-600';
-      case 'leren': return 'bg-yellow-500/10 text-yellow-600';
-      case 'herhalen': return 'bg-blue-500/10 text-blue-600';
-      case 'beheerst': return 'bg-green-500/10 text-green-600';
-      default: return 'bg-gray-500/10 text-gray-600';
+      case 'nieuw':
+        return 'bg-red-500/10 text-red-600';
+      case 'leren':
+        return 'bg-yellow-500/10 text-yellow-600';
+      case 'herhalen':
+        return 'bg-blue-500/10 text-blue-600';
+      case 'beheerst':
+        return 'bg-green-500/10 text-green-600';
+      default:
+        return 'bg-gray-500/10 text-gray-600';
     }
   };
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'nieuw': return <AlertTriangle className="h-4 w-4" />;
-      case 'leren': return <Clock className="h-4 w-4" />;
-      case 'herhalen': return <Clock className="h-4 w-4" />;
-      case 'beheerst': return <CheckCircle className="h-4 w-4" />;
-      default: return <XCircle className="h-4 w-4" />;
+      case 'nieuw':
+        return <AlertTriangle className="h-4 w-4" />;
+      case 'leren':
+        return <Clock className="h-4 w-4" />;
+      case 'herhalen':
+        return <Clock className="h-4 w-4" />;
+      case 'beheerst':
+        return <CheckCircle className="h-4 w-4" />;
+      default:
+        return <XCircle className="h-4 w-4" />;
     }
   };
 
@@ -188,28 +207,28 @@ export default function FoutenlogboekPage() {
               size="sm"
               onClick={() => setFilterType('nieuw')}
             >
-              Nieuw ({errors.filter(e => e.herhaalstatus === 'nieuw').length})
+              Nieuw ({errors.filter((e) => e.herhaalstatus === 'nieuw').length})
             </Button>
             <Button
               variant={filterType === 'leren' ? 'default' : 'outline'}
               size="sm"
               onClick={() => setFilterType('leren')}
             >
-              Leren ({errors.filter(e => e.herhaalstatus === 'leren').length})
+              Leren ({errors.filter((e) => e.herhaalstatus === 'leren').length})
             </Button>
             <Button
               variant={filterType === 'herhalen' ? 'default' : 'outline'}
               size="sm"
               onClick={() => setFilterType('herhalen')}
             >
-              Herhalen ({errors.filter(e => e.herhaalstatus === 'herhalen').length})
+              Herhalen ({errors.filter((e) => e.herhaalstatus === 'herhalen').length})
             </Button>
             <Button
               variant={filterType === 'beheerst' ? 'default' : 'outline'}
               size="sm"
               onClick={() => setFilterType('beheerst')}
             >
-              Beheerst ({errors.filter(e => e.herhaalstatus === 'beheerst').length})
+              Beheerst ({errors.filter((e) => e.herhaalstatus === 'beheerst').length})
             </Button>
           </div>
         </div>
@@ -225,7 +244,7 @@ export default function FoutenlogboekPage() {
             <AlertTriangle className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
             <h2 className="font-display text-xl font-semibold mb-2">Geen fouten gevonden</h2>
             <p className="text-sm text-muted-foreground mb-4">
-              {filterType === 'all' 
+              {filterType === 'all'
                 ? 'Je hebt nog geen fouten geregistreerd. Begin met het toevoegen van je eerste fout.'
                 : 'Geen fouten met deze status.'}
             </p>
@@ -242,7 +261,9 @@ export default function FoutenlogboekPage() {
               <div key={error.id} className="rounded-xl border border-border bg-card p-6">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <span className={`rounded-full px-3 py-1 text-xs font-medium flex items-center gap-1.5 ${getStatusColor(error.herhaalstatus)}`}>
+                    <span
+                      className={`rounded-full px-3 py-1 text-xs font-medium flex items-center gap-1.5 ${getStatusColor(error.herhaalstatus)}`}
+                    >
                       {getStatusIcon(error.herhaalstatus)}
                       {error.herhaalstatus.charAt(0).toUpperCase() + error.herhaalstatus.slice(1)}
                     </span>
@@ -375,8 +396,10 @@ export default function FoutenlogboekPage() {
                 className="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
               >
                 <option value="">Selecteer een fouttype...</option>
-                {FOOTTYPES.map(type => (
-                  <option key={type} value={type}>{type}</option>
+                {FOOTTYPES.map((type) => (
+                  <option key={type} value={type}>
+                    {type}
+                  </option>
                 ))}
               </select>
             </div>
@@ -405,9 +428,7 @@ export default function FoutenlogboekPage() {
             <Button variant="outline" onClick={() => setShowDialog(false)}>
               Annuleren
             </Button>
-            <Button onClick={handleAddError}>
-              Fout registreren
-            </Button>
+            <Button onClick={handleAddError}>Fout registreren</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

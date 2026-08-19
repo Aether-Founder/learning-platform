@@ -9,7 +9,9 @@
 function levenshteinDistance(str1: string, str2: string): number {
   const m = str1.length;
   const n = str2.length;
-  const dp: number[][] = Array(m + 1).fill(null).map(() => Array(n + 1).fill(0));
+  const dp: number[][] = Array(m + 1)
+    .fill(null)
+    .map(() => Array(n + 1).fill(0));
 
   for (let i = 0; i <= m; i++) dp[i][0] = i;
   for (let j = 0; j <= n; j++) dp[0][j] = j;
@@ -19,11 +21,13 @@ function levenshteinDistance(str1: string, str2: string): number {
       if (str1[i - 1] === str2[j - 1]) {
         dp[i][j] = dp[i - 1][j - 1];
       } else {
-        dp[i][j] = 1 + Math.min(
-          dp[i - 1][j],      // deletion
-          dp[i][j - 1],      // insertion
-          dp[i - 1][j - 1]   // substitution
-        );
+        dp[i][j] =
+          1 +
+          Math.min(
+            dp[i - 1][j], // deletion
+            dp[i][j - 1], // insertion
+            dp[i - 1][j - 1] // substitution
+          );
       }
     }
   }
@@ -36,18 +40,18 @@ function levenshteinDistance(str1: string, str2: string): number {
  */
 export function calculateSimilarity(str1: string, str2: string): number {
   if (!str1 || !str2) return 0;
-  
+
   const s1 = str1.toLowerCase().trim();
   const s2 = str2.toLowerCase().trim();
-  
+
   if (s1 === s2) return 1;
-  
+
   const distance = levenshteinDistance(s1, s2);
   const maxLength = Math.max(s1.length, s2.length);
-  
+
   if (maxLength === 0) return 1;
-  
-  return 1 - (distance / maxLength);
+
+  return 1 - distance / maxLength;
 }
 
 /**
@@ -79,10 +83,10 @@ export function gradeAnswer(
 ): GradingResult {
   const similarity = calculateSimilarity(userAnswer, correctAnswer);
   const correct = similarity >= threshold;
-  
+
   let feedback: string;
   let suggestions: string[] = [];
-  
+
   if (correct) {
     if (similarity === 1) {
       feedback = 'Perfect!';
@@ -103,7 +107,7 @@ export function gradeAnswer(
       suggestions = ['Review the material', 'Focus on the main idea'];
     }
   }
-  
+
   return {
     correct,
     similarity,
@@ -118,27 +122,124 @@ export function gradeAnswer(
 export function extractKeyTerms(answer: string): string[] {
   // Remove common stop words and extract meaningful terms
   const stopWords = new Set([
-    'the', 'a', 'an', 'is', 'are', 'was', 'were', 'be', 'been', 'being',
-    'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could',
-    'should', 'may', 'might', 'must', 'shall', 'can', 'to', 'of', 'in',
-    'for', 'on', 'with', 'at', 'by', 'from', 'as', 'into', 'through',
-    'during', 'before', 'after', 'above', 'below', 'between', 'under',
-    'again', 'further', 'then', 'once', 'here', 'there', 'when', 'where',
-    'why', 'how', 'all', 'each', 'few', 'more', 'most', 'other', 'some',
-    'such', 'no', 'nor', 'not', 'only', 'own', 'same', 'so', 'than',
-    'too', 'very', 'just', 'and', 'but', 'if', 'or', 'because', 'as',
-    'until', 'while', 'of', 'at', 'by', 'for', 'with', 'about', 'against',
-    'between', 'into', 'through', 'during', 'before', 'after', 'above',
-    'below', 'to', 'from', 'up', 'down', 'in', 'out', 'on', 'off', 'over',
-    'under', 'again', 'further', 'then', 'once',
+    'the',
+    'a',
+    'an',
+    'is',
+    'are',
+    'was',
+    'were',
+    'be',
+    'been',
+    'being',
+    'have',
+    'has',
+    'had',
+    'do',
+    'does',
+    'did',
+    'will',
+    'would',
+    'could',
+    'should',
+    'may',
+    'might',
+    'must',
+    'shall',
+    'can',
+    'to',
+    'of',
+    'in',
+    'for',
+    'on',
+    'with',
+    'at',
+    'by',
+    'from',
+    'as',
+    'into',
+    'through',
+    'during',
+    'before',
+    'after',
+    'above',
+    'below',
+    'between',
+    'under',
+    'again',
+    'further',
+    'then',
+    'once',
+    'here',
+    'there',
+    'when',
+    'where',
+    'why',
+    'how',
+    'all',
+    'each',
+    'few',
+    'more',
+    'most',
+    'other',
+    'some',
+    'such',
+    'no',
+    'nor',
+    'not',
+    'only',
+    'own',
+    'same',
+    'so',
+    'than',
+    'too',
+    'very',
+    'just',
+    'and',
+    'but',
+    'if',
+    'or',
+    'because',
+    'as',
+    'until',
+    'while',
+    'of',
+    'at',
+    'by',
+    'for',
+    'with',
+    'about',
+    'against',
+    'between',
+    'into',
+    'through',
+    'during',
+    'before',
+    'after',
+    'above',
+    'below',
+    'to',
+    'from',
+    'up',
+    'down',
+    'in',
+    'out',
+    'on',
+    'off',
+    'over',
+    'under',
+    'again',
+    'further',
+    'then',
+    'once',
   ]);
-  
+
   const words = answer
     .toLowerCase()
     .replace(/[^\w\s]/g, '')
     .split(/\s+/)
     .filter((word) => word.length > 2 && !stopWords.has(word));
-  
+
   return [...new Set(words)]; // Remove duplicates
 }
 
@@ -152,26 +253,23 @@ export function hasKeyTerms(
 ): boolean {
   const userTerms = extractKeyTerms(userAnswer);
   const correctTerms = extractKeyTerms(correctAnswer);
-  
+
   const matchingTerms = correctTerms.filter((term) => userTerms.includes(term));
-  
+
   return matchingTerms.length >= minTerms;
 }
 
 /**
  * Grade answer with partial credit based on key terms
  */
-export function gradeWithPartialCredit(
-  userAnswer: string,
-  correctAnswer: string
-): GradingResult {
+export function gradeWithPartialCredit(userAnswer: string, correctAnswer: string): GradingResult {
   const similarity = calculateSimilarity(userAnswer, correctAnswer);
   const hasTerms = hasKeyTerms(userAnswer, correctAnswer, 1);
-  
+
   let correct: boolean;
   let feedback: string;
   let suggestions: string[] = [];
-  
+
   if (similarity >= 0.8) {
     correct = true;
     feedback = similarity === 1 ? 'Perfect!' : 'Correct!';
@@ -184,7 +282,7 @@ export function gradeWithPartialCredit(
     feedback = 'Incorrect.';
     suggestions = ['Review the key concepts', 'Include the main terms'];
   }
-  
+
   return {
     correct,
     similarity,

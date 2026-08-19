@@ -6,7 +6,13 @@ import { AppShell } from '@/components/AppShell';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog';
 import { supabase as browserClient } from '@/lib/supabase/client';
 import { OfflineStorage, LocalStudySet, LocalCard } from '@/lib/offline/storage';
 import {
@@ -21,7 +27,6 @@ import {
   Keyboard,
   X,
 } from 'lucide-react';
-
 
 const supabase = browserClient as any;
 
@@ -565,7 +570,11 @@ export function StudySetEditorView({
 
                   {card.imageUrl ? (
                     <div className="relative group/img h-[85px] w-[95px] rounded-lg border border-border overflow-hidden bg-background">
-                      <img src={card.imageUrl} alt="Card image" className="h-full w-full object-cover" />
+                      <img
+                        src={card.imageUrl}
+                        alt="Card image"
+                        className="h-full w-full object-cover"
+                      />
                       <button
                         type="button"
                         onClick={() => updateCard(originalIndex, 'imageUrl', '')}
@@ -606,14 +615,13 @@ export function StudySetEditorView({
       {/* Import Modal */}
       <Dialog open={showImportDialog} onOpenChange={setShowImportDialog}>
         <DialogContent className="max-w-xl" aria-describedby={undefined}>
-
           <DialogHeader>
             <DialogTitle>Kaarten importeren</DialogTitle>
           </DialogHeader>
           <div className="space-y-3 py-2">
             <p className="text-xs text-muted-foreground">
-              Plak hier je tekst (bijv. gekopieerd uit Excel, Word of Quizlet). Gebruik tabs, komma’s of
-              puntkomma’s om termen en definities te scheiden.
+              Plak hier je tekst (bijv. gekopieerd uit Excel, Word of Quizlet). Gebruik tabs,
+              komma’s of puntkomma’s om termen en definities te scheiden.
             </p>
             <Textarea
               value={importText}
@@ -652,7 +660,9 @@ export function StudySetEditorView({
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowDiagramModal(false)}>Annuleren</Button>
+            <Button variant="outline" onClick={() => setShowDiagramModal(false)}>
+              Annuleren
+            </Button>
             <Button onClick={() => setShowDiagramModal(false)}>Toevoegen</Button>
           </DialogFooter>
         </DialogContent>
@@ -687,12 +697,12 @@ export function StudySetEditorView({
       {/* Clear Confirm Modal */}
       <Dialog open={showClearConfirm} onOpenChange={setShowClearConfirm}>
         <DialogContent className="max-w-md" aria-describedby={undefined}>
-
           <DialogHeader>
             <DialogTitle>Alle kaarten wissen?</DialogTitle>
           </DialogHeader>
           <p className="text-xs text-muted-foreground py-2">
-            Weet je zeker dat je alle ingevulde kaarten wilt wissen? Dit kan niet ongedaan worden gemaakt.
+            Weet je zeker dat je alle ingevulde kaarten wilt wissen? Dit kan niet ongedaan worden
+            gemaakt.
           </p>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowClearConfirm(false)}>

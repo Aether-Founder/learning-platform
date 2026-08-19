@@ -17,7 +17,7 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setMounted(true);
-    
+
     // Lazy load i18n only on client
     import('@/lib/i18n-client')
       .then((module) => {
@@ -47,4 +47,3 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
 
   return <>{children}</>;
 }
-

@@ -592,7 +592,8 @@ function ImportPanel({
       <div className="p-5 space-y-4">
         <p className="text-xs text-muted-foreground">
           {t('lp_import_help_prefix')} <strong>{t('lp_import_tab')}</strong>{' '}
-          {t('lp_import_help_mid')} <strong>{t('lp_import_newline')}</strong> {t('lp_import_help_end')}
+          {t('lp_import_help_mid')} <strong>{t('lp_import_newline')}</strong>{' '}
+          {t('lp_import_help_end')}
         </p>
 
         {/* Separator pickers */}
@@ -1654,8 +1655,7 @@ function Meter({ value }: { value: number }) {
   );
 }
 
-type MainScreen =
-  'home' | 'library' | 'create' | 'folders' | 'study-detail';
+type MainScreen = 'home' | 'library' | 'create' | 'folders' | 'study-detail';
 
 const DEFAULT_PROFILE: UserAccountProfile = {
   username: '',
@@ -1983,7 +1983,10 @@ export function StandaloneLearningPlatform({
               </h1>
               <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
                 {t('lp_review_prompt', undefined, {
-                  n: sets.reduce((sum, s) => sum + s.cards.filter((c) => c.attempts === 0).length, 0),
+                  n: sets.reduce(
+                    (sum, s) => sum + s.cards.filter((c) => c.attempts === 0).length,
+                    0
+                  ),
                   title: sets.length > 0 ? sets[0].title : t('lp_first_set'),
                 })}
               </p>

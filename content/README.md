@@ -5,7 +5,9 @@ This directory contains all learning content organized in a structured JSON file
 ## Architecture Decision: JSON vs Supabase
 
 ### JSON Files (Learning Content)
+
 All learning content is stored in JSON files in this directory:
+
 - **Subjects, chapters, learning sets, quizzes, summaries, practice tests**
 - **Static content that doesn't change per user**
 - **Benefits**:
@@ -18,7 +20,9 @@ All learning content is stored in JSON files in this directory:
   - No database dependency for content delivery
 
 ### Supabase (User-Specific Data)
+
 Supabase is used exclusively for user-specific data:
+
 - **User authentication and profiles**
 - **User progress tracking**
 - **User-created content**
@@ -219,21 +223,25 @@ const learningSet = await loadLearningSet('natuurkunde', 'mechanica', 'krachten-
 ## Organization Principles
 
 ### 1. Hierarchical Structure
+
 - Subjects contain chapters
 - Chapters contain content types (learning sets, quizzes, summaries, practice tests)
 - Each content type is in its own subdirectory
 
 ### 2. ID-Based References
+
 - All IDs are lowercase with hyphens
 - IDs are used for file references and database lookups
 - Chapter.json references content by ID arrays
 
 ### 3. Consistent Naming
+
 - Subject IDs match folder names
 - Chapter IDs match folder names
 - Content IDs match JSON filenames (without .json extension)
 
 ### 4. Scalability
+
 - Adding new subjects: Create new folder under subjects/
 - Adding new chapters: Create new folder under chapters/
 - Adding new content: Create new JSON file in appropriate subdirectory
@@ -300,6 +308,7 @@ node admin-cli/dist/index.js sync-subject natuurkunde
 ## Current Content
 
 ### Natuurkunde (Physics)
+
 - **Chapters**: Mechanica, Thermodynamica, Elektriciteit en Magnetisme
 - **Learning Sets**: Krachten en Beweging, Energie en Werk, Warmte en Temperatuur, Elektrische Stromen
 - **Quizzes**: Mechanica Quiz, Thermodynamica Quiz

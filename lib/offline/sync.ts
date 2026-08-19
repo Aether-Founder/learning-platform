@@ -16,11 +16,14 @@ export class SyncManager {
     });
 
     // Sync every 5 minutes when online
-    setInterval(() => {
-      if (this.isOnline && !this.syncInProgress) {
-        this.syncPendingItems();
-      }
-    }, 5 * 60 * 1000);
+    setInterval(
+      () => {
+        if (this.isOnline && !this.syncInProgress) {
+          this.syncPendingItems();
+        }
+      },
+      5 * 60 * 1000
+    );
   }
 
   static async syncPendingItems(): Promise<void> {
@@ -53,7 +56,9 @@ export class SyncManager {
   }
 
   private static async syncStudySet(studySet: LocalStudySet): Promise<void> {
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) return;
 
     try {
@@ -94,7 +99,9 @@ export class SyncManager {
   }
 
   private static async syncStudySession(session: LocalStudySession): Promise<void> {
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) return;
 
     try {
@@ -174,4 +181,3 @@ export class SyncManager {
     return this.isOnline;
   }
 }
-

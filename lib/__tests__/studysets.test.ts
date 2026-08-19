@@ -133,9 +133,7 @@ describe('studysets', () => {
       const set = createStudySet(userId, 'Legacy');
       const now = new Date().toISOString();
       db.prepare('UPDATE study_sets SET terms = ? WHERE id = ?').run(
-        JSON.stringify([
-          { id: 'l1', term: 'old', definition: 'legacy', createdAt: now },
-        ]),
+        JSON.stringify([{ id: 'l1', term: 'old', definition: 'legacy', createdAt: now }]),
         set.id
       );
       const cards = getStudyCardsByStudySetId(set.id);

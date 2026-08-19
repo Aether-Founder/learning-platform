@@ -10,7 +10,13 @@ import { Plus, Edit, Trash2, Save, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog';
 
 const supabase = browserClient as any;
 
@@ -158,10 +164,7 @@ export default function AdminLessonsPage() {
         ) : (
           <div className="space-y-4">
             {lessons.map((lesson) => (
-              <div
-                key={lesson.id}
-                className="rounded-lg border border-border bg-card p-6"
-              >
+              <div key={lesson.id} className="rounded-lg border border-border bg-card p-6">
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0 flex-1">
                     <h3 className="font-display text-lg font-semibold">{lesson.title}</h3>
@@ -173,18 +176,10 @@ export default function AdminLessonsPage() {
                     </div>
                   </div>
                   <div className="flex gap-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleEdit(lesson)}
-                    >
+                    <Button variant="outline" size="sm" onClick={() => handleEdit(lesson)}>
                       <Edit className="h-4 w-4" />
                     </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleDelete(lesson.id)}
-                    >
+                    <Button variant="outline" size="sm" onClick={() => handleDelete(lesson.id)}>
                       <Trash2 className="h-4 w-4" />
                     </Button>
                   </div>
@@ -198,9 +193,7 @@ export default function AdminLessonsPage() {
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>
-              {editingLesson ? 'Les Bewerken' : 'Nieuwe Les'}
-            </DialogTitle>
+            <DialogTitle>{editingLesson ? 'Les Bewerken' : 'Nieuwe Les'}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div>

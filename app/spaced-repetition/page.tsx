@@ -3,11 +3,26 @@
 import { useState, useEffect } from 'react';
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Clock, Calendar, TrendingUp, CheckCircle, XCircle, RotateCcw, Play, Plus } from 'lucide-react';
+import {
+  Clock,
+  Calendar,
+  TrendingUp,
+  CheckCircle,
+  XCircle,
+  RotateCcw,
+  Play,
+  Plus,
+} from 'lucide-react';
 import { supabase as browserClient } from '@/lib/supabase/client';
 
 const supabase = browserClient as any;
@@ -49,7 +64,9 @@ export default function SpacedRepetitionPage() {
   }, []);
 
   const fetchItems = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) return;
 
     const { data, error } = await supabase
@@ -67,7 +84,9 @@ export default function SpacedRepetitionPage() {
   };
 
   const handleAddItem = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) return;
 
     const { data, error } = await supabase
@@ -103,15 +122,16 @@ export default function SpacedRepetitionPage() {
   };
 
   const today = new Date().toISOString().split('T')[0];
-  
-  const filteredItems = filter === 'today' 
-    ? items.filter(item => item.next_review === today)
-    : filter === 'upcoming'
-    ? items.filter(item => item.next_review > today)
-    : items;
 
-  const dueToday = items.filter(item => item.next_review === today);
-  const upcoming = items.filter(item => item.next_review > today);
+  const filteredItems =
+    filter === 'today'
+      ? items.filter((item) => item.next_review === today)
+      : filter === 'upcoming'
+        ? items.filter((item) => item.next_review > today)
+        : items;
+
+  const dueToday = items.filter((item) => item.next_review === today);
+  const upcoming = items.filter((item) => item.next_review > today);
 
   const startReview = () => {
     if (dueToday.length > 0) {
@@ -123,13 +143,13 @@ export default function SpacedRepetitionPage() {
 
   const handleRating = async (rating: number) => {
     if (!currentItem) return;
-    
+
     setUserRating(rating);
-    
+
     // Calculate new interval based on SM-2 algorithm
     let newInterval: number;
     let newEase = currentItem.ease;
-    
+
     if (rating === 0) {
       newInterval = 1; // Failed - review tomorrow
       newEase = Math.max(1.3, newEase - 0.2);
@@ -142,12 +162,12 @@ export default function SpacedRepetitionPage() {
       newInterval = currentItem.interval * currentItem.ease * 1.3; // Easy - much longer
       newEase = newEase + 0.1;
     }
-    
+
     newInterval = Math.round(newInterval);
-    
+
     const nextReviewDate = new Date();
     nextReviewDate.setDate(nextReviewDate.getDate() + newInterval);
-    
+
     // Update in database
     const { error } = await supabase
       .from('spaced_repetition_items')
@@ -165,9 +185,9 @@ export default function SpacedRepetitionPage() {
       console.error('Failed to update item:', error);
     } else {
       await fetchItems();
-      
+
       // Move to next item
-      const remainingDue = items.filter(item => item.next_review === today);
+      const remainingDue = items.filter((item) => item.next_review === today);
       if (remainingDue.length > 0) {
         setCurrentItem(remainingDue[0]);
         setShowAnswer(false);
@@ -205,7 +225,7 @@ export default function SpacedRepetitionPage() {
         <PageHeader
           eyebrow="Spaced Repetition"
           title="Review Sessie"
-          description={`${dueToday.filter(i => i.next_review === today).length} items te herhalen`}
+          description={`${dueToday.filter((i) => i.next_review === today).length} items te herhalen`}
         />
 
         <div className="mt-10 max-w-3xl mx-auto">
@@ -333,9 +353,17 @@ export default function SpacedRepetitionPage() {
                 <span className="text-sm text-muted-foreground">Gemiddelde score</span>
               </div>
               <p className="font-display text-2xl font-semibold">
-                {items.length > 0 
-                  ? Math.round((items.reduce((sum, i) => sum + (i.times_correct / Math.max(1, i.times_reviewed)), 0) / items.length) * 100)
-                  : 0}%
+                {items.length > 0
+                  ? Math.round(
+                      (items.reduce(
+                        (sum, i) => sum + i.times_correct / Math.max(1, i.times_reviewed),
+                        0
+                      ) /
+                        items.length) *
+                        100
+                    )
+                  : 0}
+                %
               </p>
             </div>
             <div className="rounded-xl border border-border bg-card p-5">
@@ -406,7 +434,7 @@ export default function SpacedRepetitionPage() {
             <Clock className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
             <h2 className="font-display text-xl font-semibold mb-2">Geen items gevonden</h2>
             <p className="text-sm text-muted-foreground">
-              {filter === 'today' 
+              {filter === 'today'
                 ? 'Je hebt geen items die vandaag herhaald moeten worden. Goed gedaan!'
                 : 'Geen items in deze categorie.'}
             </p>
@@ -428,7 +456,13 @@ export default function SpacedRepetitionPage() {
                       <span>•</span>
                       <span>Next: {item.next_review}</span>
                       <span>•</span>
-                      <span>Score: {item.times_reviewed > 0 ? Math.round((item.times_correct / item.times_reviewed) * 100) : 0}%</span>
+                      <span>
+                        Score:{' '}
+                        {item.times_reviewed > 0
+                          ? Math.round((item.times_correct / item.times_reviewed) * 100)
+                          : 0}
+                        %
+                      </span>
                       <span>•</span>
                       <span>Ease: {item.ease.toFixed(2)}</span>
                     </div>
@@ -452,8 +486,8 @@ export default function SpacedRepetitionPage() {
           <h2 className="font-display text-xl font-semibold mb-4">Over het Algoritme</h2>
           <div className="space-y-4 text-sm text-muted-foreground">
             <p>
-              Dit systeem gebruikt een aangepaste SM-2 (SuperMemo 2) algoritme voor spaced repetition. 
-              Het algoritme past de herhaalintervallen aan op basis van je prestaties.
+              Dit systeem gebruikt een aangepaste SM-2 (SuperMemo 2) algoritme voor spaced
+              repetition. Het algoritme past de herhaalintervallen aan op basis van je prestaties.
             </p>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="p-4 rounded-lg bg-secondary/50">
@@ -527,9 +561,7 @@ export default function SpacedRepetitionPage() {
             <Button variant="outline" onClick={() => setShowAddDialog(false)}>
               Annuleren
             </Button>
-            <Button onClick={handleAddItem}>
-              Item toevoegen
-            </Button>
+            <Button onClick={handleAddItem}>Item toevoegen</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

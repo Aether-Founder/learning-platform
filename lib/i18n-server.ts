@@ -18,7 +18,7 @@ const LOCALES_DIR = path.join(process.cwd(), 'public/locales');
 export async function getServerT(language: Language = DEFAULT_LANGUAGE): Promise<ServerT> {
   const lang = (LANGUAGES as readonly string[]).includes(language) ? language : DEFAULT_LANGUAGE;
   let dict: Translation = {};
-  
+
   try {
     const content = await fs.readFile(path.join(LOCALES_DIR, `${lang}.json`), 'utf-8');
     dict = JSON.parse(content);
@@ -37,4 +37,8 @@ export async function getServerT(language: Language = DEFAULT_LANGUAGE): Promise
   };
 }
 
-export type ServerT = (id: string, fallback?: string, params?: Record<string, string | number>) => string;
+export type ServerT = (
+  id: string,
+  fallback?: string,
+  params?: Record<string, string | number>
+) => string;

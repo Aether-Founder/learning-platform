@@ -46,9 +46,9 @@ describe('srs', () => {
       expect(isDue({ suspended: true }, now)).toBe(false);
     });
     it('returns false when buriedUntil is in the future', () => {
-      expect(
-        isDue({ suspended: false, buriedUntil: new Date('2026-02-01T00:00:00Z') }, now)
-      ).toBe(false);
+      expect(isDue({ suspended: false, buriedUntil: new Date('2026-02-01T00:00:00Z') }, now)).toBe(
+        false
+      );
     });
     it('returns true when no nextReviewAt set', () => {
       expect(isDue({ suspended: false }, now)).toBe(true);

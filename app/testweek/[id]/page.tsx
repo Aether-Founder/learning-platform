@@ -140,7 +140,9 @@ export default function TestWeekDashboardPage() {
         <Card>
           <CardHeader>
             <CardTitle>{t('testweekdetail_subjects')}</CardTitle>
-            <CardDescription>{t('testweekdetail_subjects_desc', undefined, { n: testWeek.subjects.length })}</CardDescription>
+            <CardDescription>
+              {t('testweekdetail_subjects_desc', undefined, { n: testWeek.subjects.length })}
+            </CardDescription>
           </CardHeader>
           <CardContent>
             {testWeek.subjects.length === 0 ? (
@@ -182,9 +184,7 @@ export default function TestWeekDashboardPage() {
                   <div className="bg-primary h-2 rounded-full" style={{ width: '0%' }} />
                 </div>
               </div>
-              <p className="text-sm text-muted-foreground">
-                {t('testweekdetail_progress_hint')}
-              </p>
+              <p className="text-sm text-muted-foreground">{t('testweekdetail_progress_hint')}</p>
             </div>
           </CardContent>
         </Card>

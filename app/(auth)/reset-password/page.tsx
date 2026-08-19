@@ -55,12 +55,9 @@ export default function ResetPasswordPage() {
             </div>
             <h1 className="font-display text-3xl font-semibold">{t('reset_success_title')}</h1>
             <p className="mt-2 text-sm text-muted-foreground">
-              {t('reset_success_text')}{' '}
-              <span className="font-medium text-foreground">{email}</span>
+              {t('reset_success_text')} <span className="font-medium text-foreground">{email}</span>
             </p>
-            <p className="mt-4 text-xs text-muted-foreground">
-              {t('reset_success_helper')}
-            </p>
+            <p className="mt-4 text-xs text-muted-foreground">{t('reset_success_helper')}</p>
           </div>
 
           <div className="mt-8 flex flex-col gap-3">
@@ -87,9 +84,7 @@ export default function ResetPasswordPage() {
       <div className="w-full max-w-md">
         <div className="text-center">
           <h1 className="font-display text-4xl font-semibold">{t('reset_title')}</h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            {t('reset_subtitle')}
-          </p>
+          <p className="mt-2 text-sm text-muted-foreground">{t('reset_subtitle')}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-6">

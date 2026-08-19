@@ -3,7 +3,19 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { ChevronDown, Search, Settings, User, Moon, Sun, Plus, FileText, FilePlus2, BookOpen, Menu } from 'lucide-react';
+import {
+  ChevronDown,
+  Search,
+  Settings,
+  User,
+  Moon,
+  Sun,
+  Plus,
+  FileText,
+  FilePlus2,
+  BookOpen,
+  Menu,
+} from 'lucide-react';
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { useUser, useUserProfile } from '@/hooks/useAuth';
 import { useTranslation } from '@/lib/useTranslation';
@@ -28,13 +40,13 @@ export function SearchField({
   const { t } = useTranslation();
   const [inner, setInner] = useState('');
   const [mounted, setMounted] = useState(false);
-  
+
   useEffect(() => {
     setMounted(true);
   }, []);
 
   const val = value ?? inner;
-  
+
   if (!mounted) {
     return (
       <div className={'relative ' + className}>
@@ -42,7 +54,7 @@ export function SearchField({
       </div>
     );
   }
-  
+
   return (
     <div className={'relative ' + className}>
       <Search
@@ -85,7 +97,7 @@ function MoreMenu({ items }: { items: Array<{ href: string; label: string }> }) 
   const ref = useOutside<HTMLDivElement>(() => {});
   const pathname = usePathname();
   const { t } = useTranslation();
-  
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -125,7 +137,7 @@ function BijhoudenMenu({ items }: { items: Array<{ href: string; label: string }
   const [mounted, setMounted] = useState(false);
   const ref = useOutside<HTMLDivElement>(() => {});
   const pathname = usePathname();
-  
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -164,7 +176,7 @@ function QuickCreateMenu() {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const ref = useOutside<HTMLDivElement>(() => setOpen(false));
-  
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -190,13 +202,14 @@ function QuickCreateMenu() {
             onClick={() => setOpen(false)}
             className="flex items-center gap-2 rounded-[6px] px-3 py-2 text-xs transition-colors hover:bg-secondary hover:text-foreground text-muted-foreground"
           >
-            <FilePlus2 className="h-4 w-4" />
-            + Voeg je eerste leerlijst toe
+            <FilePlus2 className="h-4 w-4" />+ Voeg je eerste leerlijst toe
           </Link>
           <button
             type="button"
             onClick={async () => {
-              const { data: { user } } = await (await import('@/lib/supabase/client')).supabase.auth.getUser();
+              const {
+                data: { user },
+              } = await (await import('@/lib/supabase/client')).supabase.auth.getUser();
               if (user) {
                 const { useWorkspaceStore } = await import('@/store/useWorkspaceStore');
                 const workspace = useWorkspaceStore.getState();
@@ -240,13 +253,16 @@ function UserMenu() {
 
   const getInitials = () => {
     const name = profile?.full_name || profile?.username || user?.email || 'U';
-    return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+    return name
+      .split(' ')
+      .map((n) => n[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
   };
 
   if (!mounted) {
-    return (
-      <div className="h-9 w-9 rounded-full border border-border bg-muted" />
-    );
+    return <div className="h-9 w-9 rounded-full border border-border bg-muted" />;
   }
 
   return (
@@ -320,23 +336,31 @@ export function AppShell({
   const [overflowItems, setOverflowItems] = useState<Array<{ href: string; label: string }>>([]);
   const navRef = useRef<HTMLDivElement>(null);
   const [navWidth, setNavWidth] = useState(0);
-  
+
   useEffect(() => {
     setMounted(true);
   }, []);
 
   const visiblePages = getVisiblePages();
-  const allNav = useMemo(() => visiblePages.map((page) => ({
-    href: PAGE_HREFS[page],
-    label: PAGE_LABELS[page],
-  })), [visiblePages, PAGE_HREFS, PAGE_LABELS]);
+  const allNav = useMemo(
+    () =>
+      visiblePages.map((page) => ({
+        href: PAGE_HREFS[page],
+        label: PAGE_LABELS[page],
+      })),
+    [visiblePages, PAGE_HREFS, PAGE_LABELS]
+  );
 
-  const hiddenNav = useMemo(() => Object.entries(visibility)
-    .filter(([key, visible]) => !visible)
-    .map(([key]) => ({
-      href: PAGE_HREFS[key as NavPage],
-      label: PAGE_LABELS[key as NavPage],
-    })), [visibility, PAGE_HREFS, PAGE_LABELS]);
+  const hiddenNav = useMemo(
+    () =>
+      Object.entries(visibility)
+        .filter(([key, visible]) => !visible)
+        .map(([key]) => ({
+          href: PAGE_HREFS[key as NavPage],
+          label: PAGE_LABELS[key as NavPage],
+        })),
+    [visibility, PAGE_HREFS, PAGE_LABELS]
+  );
 
   // Disable overflow calculation to show all visible items as buttons
   useEffect(() => {
@@ -372,7 +396,7 @@ export function AppShell({
     );
   }
 
-  const visibleNav = allNav.filter(item => !overflowItems.some(oi => oi.href === item.href));
+  const visibleNav = allNav.filter((item) => !overflowItems.some((oi) => oi.href === item.href));
 
   return (
     <div className="min-h-screen bg-background">
@@ -394,7 +418,9 @@ export function AppShell({
                 height={28}
                 className="h-7 w-7 rounded-md object-contain"
               />
-              <span className="font-display text-2xl font-semibold tracking-tight hidden sm:block">{t('brand')}</span>
+              <span className="font-display text-2xl font-semibold tracking-tight hidden sm:block">
+                {t('brand')}
+              </span>
             </Link>
           </div>
 
@@ -404,20 +430,20 @@ export function AppShell({
                 key={item.href}
                 href={item.href}
                 className={`relative px-3 py-2 text-sm font-medium transition-colors hover:text-foreground ${
-                  isActive(item.href)
-                    ? 'text-foreground'
-                    : 'text-muted-foreground'
+                  isActive(item.href) ? 'text-foreground' : 'text-muted-foreground'
                 }`}
               >
                 {item.label}
               </Link>
             ))}
             <div className="group">
-              <BijhoudenMenu items={[
-                { href: PAGE_HREFS.inbox, label: PAGE_LABELS.inbox },
-                { href: PAGE_HREFS.foutenlogboek, label: PAGE_LABELS.foutenlogboek },
-                { href: PAGE_HREFS.planner, label: PAGE_LABELS.planner },
-              ]} />
+              <BijhoudenMenu
+                items={[
+                  { href: PAGE_HREFS.inbox, label: PAGE_LABELS.inbox },
+                  { href: PAGE_HREFS.foutenlogboek, label: PAGE_LABELS.foutenlogboek },
+                  { href: PAGE_HREFS.planner, label: PAGE_LABELS.planner },
+                ]}
+              />
             </div>
             {overflowItems.length > 0 && <MoreMenu items={overflowItems} />}
             <QuickCreateMenu />
@@ -435,26 +461,34 @@ export function AppShell({
         </div>
       </header>
 
-      <main className={fullWidth ? 'w-full px-6 pb-20 md:pb-24' : 'mx-auto max-w-6xl px-6 pb-20 md:pb-24'}>{children}</main>
+      <main
+        className={
+          fullWidth ? 'w-full px-6 pb-20 md:pb-24' : 'mx-auto max-w-6xl px-6 pb-20 md:pb-24'
+        }
+      >
+        {children}
+      </main>
 
       <MobileBottomNav />
 
-      {!hideFooter && <footer className="border-t border-border hidden md:block">
-        <div className="mx-auto flex flex-wrap items-center justify-between gap-3 max-w-6xl px-6 py-8 text-xs text-muted-foreground">
-          <span className="flex items-center gap-2 font-display text-base font-semibold text-foreground">
-            <Image
-              src="/aether-logo.png"
-              alt=""
-              width={20}
-              height={20}
-              className="h-5 w-5 rounded object-contain"
-              aria-hidden="true"
-            />
-            {t('brand')}
-          </span>
-          <span>{t('brand_tagline')}</span>
-        </div>
-      </footer>}
+      {!hideFooter && (
+        <footer className="border-t border-border hidden md:block">
+          <div className="mx-auto flex flex-wrap items-center justify-between gap-3 max-w-6xl px-6 py-8 text-xs text-muted-foreground">
+            <span className="flex items-center gap-2 font-display text-base font-semibold text-foreground">
+              <Image
+                src="/aether-logo.png"
+                alt=""
+                width={20}
+                height={20}
+                className="h-5 w-5 rounded object-contain"
+                aria-hidden="true"
+              />
+              {t('brand')}
+            </span>
+            <span>{t('brand_tagline')}</span>
+          </div>
+        </footer>
+      )}
     </div>
   );
 }
@@ -473,12 +507,16 @@ export function PageHeader({
   fullWidth?: boolean;
 }) {
   return (
-    <section className={`flex flex-wrap items-center justify-start gap-6 border-b border-border py-10 ${fullWidth ? 'mx-auto max-w-6xl px-6' : 'px-6'}`}>
+    <section
+      className={`flex flex-wrap items-center justify-start gap-6 border-b border-border py-10 ${fullWidth ? 'mx-auto max-w-6xl px-6' : 'px-6'}`}
+    >
       <div className="max-w-2xl text-left">
         {eyebrow && (
           <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">{eyebrow}</p>
         )}
-        <h1 className="mt-3 font-display text-4xl font-semibold leading-[1.1] max-w-[480px]:text-[1.75rem] max-w-[480px]:leading-[1.2]">{title}</h1>
+        <h1 className="mt-3 font-display text-4xl font-semibold leading-[1.1] max-w-[480px]:text-[1.75rem] max-w-[480px]:leading-[1.2]">
+          {title}
+        </h1>
         {description && (
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{description}</p>
         )}

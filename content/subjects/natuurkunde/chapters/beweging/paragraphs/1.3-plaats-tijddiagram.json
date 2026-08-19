@@ -44,10 +44,7 @@
     }
   ],
   "learningGoals": {
-    "R": [
-      "Helling",
-      "Raaklijn"
-    ],
+    "R": ["Helling", "Raaklijn"],
     "T1": "Ik kan uit een \\((x,t)\\)-diagram de gemiddelde snelheid in een interval bepalen en de snelheid op een tijdstip bepalen met een raaklijn.",
     "T2": "Ik kan uit een \\((x,t)\\)-diagram het bijbehorende \\((v,t)\\)-diagram afleiden.",
     "I": "Ik kan uitleggen waarom de helling van de grafiek in een \\((x,t)\\)-diagram gelijk is aan de snelheid."

@@ -2,7 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { AppShell, PageHeader } from '@/components/AppShell';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -56,7 +62,9 @@ export default function CijfersPage() {
   }, []);
 
   const fetchGrades = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) return;
 
     const { data, error } = await supabase
@@ -74,7 +82,9 @@ export default function CijfersPage() {
   };
 
   const handleCreateGrade = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) return;
 
     const { data, error } = await supabase
@@ -124,7 +134,7 @@ export default function CijfersPage() {
     if (error) {
       console.error('Failed to update grade:', error);
     } else if (data) {
-      setGrades(grades.map(g => g.id === editingGrade.id ? data : g));
+      setGrades(grades.map((g) => (g.id === editingGrade.id ? data : g)));
       setShowDialog(false);
       setEditingGrade(null);
       resetForm();
@@ -138,7 +148,7 @@ export default function CijfersPage() {
     if (error) {
       console.error('Failed to delete grade:', error);
     } else {
-      setGrades(grades.filter(g => g.id !== gradeId));
+      setGrades(grades.filter((g) => g.id !== gradeId));
     }
   };
 
@@ -188,12 +198,12 @@ export default function CijfersPage() {
       };
     }
 
-    const allGrades = grades.map(g => g.grade);
+    const allGrades = grades.map((g) => g.grade);
     const average = allGrades.reduce((a, b) => a + b, 0) / allGrades.length;
     const highest = Math.max(...allGrades);
     const lowest = Math.min(...allGrades);
-    const insufficient = allGrades.filter(g => g < 5.5).length;
-    const subjects = new Set(grades.map(g => g.subject_name)).size;
+    const insufficient = allGrades.filter((g) => g < 5.5).length;
+    const subjects = new Set(grades.map((g) => g.subject_name)).size;
 
     return {
       average: average.toFixed(1),
@@ -207,18 +217,19 @@ export default function CijfersPage() {
   const stats = calculateStats();
 
   // Filter grades by period
-  const filteredGrades = period === 0 
-    ? grades 
-    : grades.filter(g => g.period === period);
+  const filteredGrades = period === 0 ? grades : grades.filter((g) => g.period === period);
 
   // Group by subject
-  const gradesBySubject = filteredGrades.reduce((acc, grade) => {
-    if (!acc[grade.subject_name]) {
-      acc[grade.subject_name] = [];
-    }
-    acc[grade.subject_name].push(grade);
-    return acc;
-  }, {} as Record<string, Grade[]>);
+  const gradesBySubject = filteredGrades.reduce(
+    (acc, grade) => {
+      if (!acc[grade.subject_name]) {
+        acc[grade.subject_name] = [];
+      }
+      acc[grade.subject_name].push(grade);
+      return acc;
+    },
+    {} as Record<string, Grade[]>
+  );
 
   const viewLabels: Record<View, string> = {
     vakken: t('grades_tab_subjects'),
@@ -270,7 +281,9 @@ export default function CijfersPage() {
               type="button"
               onClick={() => setPeriod(p)}
               className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
-                period === p ? 'bg-secondary text-foreground' : 'text-muted-foreground hover:bg-secondary/50'
+                period === p
+                  ? 'bg-secondary text-foreground'
+                  : 'text-muted-foreground hover:bg-secondary/50'
               }`}
             >
               {p === 0 ? t('grades_all') : `P${p}`}
@@ -281,12 +294,18 @@ export default function CijfersPage() {
 
       <div className="grid gap-4 border-b border-border pb-8 sm:grid-cols-4">
         <Panel>
-          <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">{t('grades_subjects')}</p>
+          <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+            {t('grades_subjects')}
+          </p>
           <p className="mt-1 font-display text-3xl font-semibold">{stats.subjectCount}</p>
         </Panel>
         <Panel>
-          <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">{t('grades_highest')}</p>
-          <p className="mt-1 font-display text-3xl font-semibold tabular-nums">{stats.highest || '-,-'}</p>
+          <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+            {t('grades_highest')}
+          </p>
+          <p className="mt-1 font-display text-3xl font-semibold tabular-nums">
+            {stats.highest || '-,-'}
+          </p>
           <p className="mt-1 text-xs text-muted-foreground">
             {stats.highest && parseFloat(stats.highest) >= 7 ? (
               <span className="flex items-center gap-1 text-green-600">
@@ -298,8 +317,12 @@ export default function CijfersPage() {
           </p>
         </Panel>
         <Panel>
-          <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">{t('grades_lowest')}</p>
-          <p className="mt-1 font-display text-3xl font-semibold tabular-nums">{stats.lowest || '-,-'}</p>
+          <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+            {t('grades_lowest')}
+          </p>
+          <p className="mt-1 font-display text-3xl font-semibold tabular-nums">
+            {stats.lowest || '-,-'}
+          </p>
           <p className="mt-1 text-xs text-muted-foreground">
             {stats.lowest && parseFloat(stats.lowest) < 5.5 ? (
               <span className="flex items-center gap-1 text-red-600">
@@ -337,32 +360,47 @@ export default function CijfersPage() {
               <tbody className="divide-y divide-border">
                 {Object.entries(gradesBySubject).length === 0 ? (
                   <tr>
-                    <td colSpan={7} className="px-5 py-10 text-center text-sm text-muted-foreground">
+                    <td
+                      colSpan={7}
+                      className="px-5 py-10 text-center text-sm text-muted-foreground"
+                    >
                       {t('grades_empty')}
                     </td>
                   </tr>
                 ) : (
                   Object.entries(gradesBySubject).map(([subjectName, subjectGrades]) => {
-                    const subjectAvg = subjectGrades.reduce((sum, g) => sum + g.grade * g.weight, 0) / 
-                                       subjectGrades.reduce((sum, g) => sum + g.weight, 0);
-                    const targetAvg = subjectGrades
-                      .filter(g => g.target_grade)
-                      .reduce((sum, g) => sum + (g.target_grade || 0), 0) / 
-                      subjectGrades.filter(g => g.target_grade).length || 0;
+                    const subjectAvg =
+                      subjectGrades.reduce((sum, g) => sum + g.grade * g.weight, 0) /
+                      subjectGrades.reduce((sum, g) => sum + g.weight, 0);
+                    const targetAvg =
+                      subjectGrades
+                        .filter((g) => g.target_grade)
+                        .reduce((sum, g) => sum + (g.target_grade || 0), 0) /
+                        subjectGrades.filter((g) => g.target_grade).length || 0;
                     const progress = targetAvg ? ((subjectAvg / targetAvg) * 100).toFixed(0) : null;
 
                     return (
                       <tr key={subjectName} className="hover:bg-secondary/50">
                         <td className="px-5 py-4 font-medium">{subjectName}</td>
-                        <td className="px-5 py-4 text-muted-foreground">{subjectGrades[0].teacher_name || '-'}</td>
-                        <td className="px-5 py-4 text-muted-foreground">{subjectGrades.length} {t('grades_count', undefined, { n: subjectGrades.length, m: subjectGrades.length })}</td>
+                        <td className="px-5 py-4 text-muted-foreground">
+                          {subjectGrades[0].teacher_name || '-'}
+                        </td>
+                        <td className="px-5 py-4 text-muted-foreground">
+                          {subjectGrades.length}{' '}
+                          {t('grades_count', undefined, {
+                            n: subjectGrades.length,
+                            m: subjectGrades.length,
+                          })}
+                        </td>
                         <td className="px-5 py-4">
                           {progress !== null ? (
                             <div className="flex items-center gap-2">
                               <div className="h-2 w-24 overflow-hidden rounded-full bg-secondary">
                                 <div
                                   className="h-full rounded-full bg-primary"
-                                  style={{ width: `${Math.min(100, Math.max(0, Number(progress)))}%` }}
+                                  style={{
+                                    width: `${Math.min(100, Math.max(0, Number(progress)))}%`,
+                                  }}
                                 />
                               </div>
                               <span className="text-xs">{progress}%</span>
@@ -371,10 +409,20 @@ export default function CijfersPage() {
                             '-'
                           )}
                         </td>
-                        <td className="px-5 py-4 text-right">{targetAvg ? targetAvg.toFixed(1) : '-'}</td>
-                        <td className="px-5 py-4 text-right font-medium">{subjectAvg.toFixed(1)}</td>
+                        <td className="px-5 py-4 text-right">
+                          {targetAvg ? targetAvg.toFixed(1) : '-'}
+                        </td>
+                        <td className="px-5 py-4 text-right font-medium">
+                          {subjectAvg.toFixed(1)}
+                        </td>
                         <td className="px-5 py-4">
-                          <Button variant="ghost" size="sm" onClick={() => {/* TODO: Open subject detail */}}>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => {
+                              /* TODO: Open subject detail */
+                            }}
+                          >
                             {t('grades_open')}
                           </Button>
                         </td>
@@ -405,7 +453,10 @@ export default function CijfersPage() {
               <tbody className="divide-y divide-border">
                 {filteredGrades.length === 0 ? (
                   <tr>
-                    <td colSpan={8} className="px-5 py-10 text-center text-sm text-muted-foreground">
+                    <td
+                      colSpan={8}
+                      className="px-5 py-10 text-center text-sm text-muted-foreground"
+                    >
                       {t('grades_empty')}
                     </td>
                   </tr>
@@ -413,10 +464,14 @@ export default function CijfersPage() {
                   filteredGrades.map((grade) => (
                     <tr key={grade.id} className="hover:bg-secondary/50">
                       <td className="px-5 py-4 font-medium">{grade.subject_name}</td>
-                      <td className="px-5 py-4 text-muted-foreground">{grade.teacher_name || '-'}</td>
+                      <td className="px-5 py-4 text-muted-foreground">
+                        {grade.teacher_name || '-'}
+                      </td>
                       <td className="px-5 py-4">{grade.test_name}</td>
                       <td className="px-5 py-4 text-muted-foreground">
-                        {grade.test_date ? new Date(grade.test_date).toLocaleDateString('nl-NL') : '-'}
+                        {grade.test_date
+                          ? new Date(grade.test_date).toLocaleDateString('nl-NL')
+                          : '-'}
                       </td>
                       <td className="px-5 py-4">
                         {grade.period ? <Badge>P{grade.period}</Badge> : '-'}
@@ -424,14 +479,20 @@ export default function CijfersPage() {
                       <td className="px-5 py-4 text-right">{grade.weight}</td>
                       <td className="px-5 py-4 text-right font-medium">
                         <div className="flex items-center justify-end gap-2">
-                          <span className={`px-2 py-0.5 rounded text-xs font-medium ${
-                            grade.grade >= 7 ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
-                            grade.grade >= 5.5 ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400' :
-                            'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
-                          }`}>
+                          <span
+                            className={`px-2 py-0.5 rounded text-xs font-medium ${
+                              grade.grade >= 7
+                                ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+                                : grade.grade >= 5.5
+                                  ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400'
+                                  : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                            }`}
+                          >
                             {grade.grade >= 7 ? 'Groen' : grade.grade >= 5.5 ? 'Oranje' : 'Rood'}
                           </span>
-                          <span className={grade.grade < 5.5 ? 'text-red-600' : ''}>{grade.grade.toFixed(1)}</span>
+                          <span className={grade.grade < 5.5 ? 'text-red-600' : ''}>
+                            {grade.grade.toFixed(1)}
+                          </span>
                         </div>
                       </td>
                       <td className="px-5 py-4">
@@ -461,31 +522,46 @@ export default function CijfersPage() {
         {view === 'periodes' && (
           <div className="grid gap-6 md:grid-cols-2">
             {[1, 2, 3, 4].map((p) => {
-              const periodGrades = grades.filter(g => g.period === p);
+              const periodGrades = grades.filter((g) => g.period === p);
               if (periodGrades.length === 0) return null;
-              
-              const periodAvg = periodGrades.reduce((sum, g) => sum + g.grade * g.weight, 0) / 
-                               periodGrades.reduce((sum, g) => sum + g.weight, 0);
-              
+
+              const periodAvg =
+                periodGrades.reduce((sum, g) => sum + g.grade * g.weight, 0) /
+                periodGrades.reduce((sum, g) => sum + g.weight, 0);
+
               return (
                 <div key={p} className="rounded-lg border border-border p-6">
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="font-display text-xl font-semibold">{t('grades_period_row', undefined, { p })}</h3>
-                    <Badge>{periodGrades.length} {t('grades_count', undefined, { n: periodGrades.length, m: periodGrades.length })}</Badge>
+                    <h3 className="font-display text-xl font-semibold">
+                      {t('grades_period_row', undefined, { p })}
+                    </h3>
+                    <Badge>
+                      {periodGrades.length}{' '}
+                      {t('grades_count', undefined, {
+                        n: periodGrades.length,
+                        m: periodGrades.length,
+                      })}
+                    </Badge>
                   </div>
                   <div className="space-y-2">
                     {periodGrades.map((grade) => (
                       <div key={grade.id} className="flex items-center justify-between text-sm">
                         <span className="text-muted-foreground">{grade.subject_name}</span>
                         <div className="flex items-center gap-2">
-                          <span className={`px-2 py-0.5 rounded text-xs font-medium ${
-                            grade.grade >= 7 ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
-                            grade.grade >= 5.5 ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400' :
-                            'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
-                          }`}>
+                          <span
+                            className={`px-2 py-0.5 rounded text-xs font-medium ${
+                              grade.grade >= 7
+                                ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+                                : grade.grade >= 5.5
+                                  ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400'
+                                  : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                            }`}
+                          >
                             {grade.grade >= 7 ? 'Groen' : grade.grade >= 5.5 ? 'Oranje' : 'Rood'}
                           </span>
-                          <span className={`font-medium ${grade.grade < 5.5 ? 'text-red-600' : ''}`}>
+                          <span
+                            className={`font-medium ${grade.grade < 5.5 ? 'text-red-600' : ''}`}
+                          >
                             {grade.grade.toFixed(1)}
                           </span>
                         </div>
@@ -495,24 +571,24 @@ export default function CijfersPage() {
                   <div className="mt-4 pt-4 border-t border-border">
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-muted-foreground">{t('grades_average')}</span>
-                      <span className="font-display text-2xl font-semibold">{periodAvg.toFixed(1)}</span>
+                      <span className="font-display text-2xl font-semibold">
+                        {periodAvg.toFixed(1)}
+                      </span>
                     </div>
                   </div>
                 </div>
               );
             })}
-            {[1, 2, 3, 4].every(p => grades.filter(g => g.period === p).length === 0) && (
-              <p className="col-span-2 text-center text-sm text-muted-foreground">{t('grades_empty')}</p>
+            {[1, 2, 3, 4].every((p) => grades.filter((g) => g.period === p).length === 0) && (
+              <p className="col-span-2 text-center text-sm text-muted-foreground">
+                {t('grades_empty')}
+              </p>
             )}
           </div>
         )}
       </div>
 
-      <Button 
-        className="fixed bottom-8 right-8 shadow-lg" 
-        size="lg"
-        onClick={openCreateDialog}
-      >
+      <Button className="fixed bottom-8 right-8 shadow-lg" size="lg" onClick={openCreateDialog}>
         <Plus className="mr-2 h-4 w-4" />
         {t('grades_add')}
       </Button>

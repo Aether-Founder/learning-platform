@@ -1,4 +1,9 @@
-import { loadSubject, loadChapters, type Subject as JsonSubject, type Chapter } from '@/lib/content-loader';
+import {
+  loadSubject,
+  loadChapters,
+  type Subject as JsonSubject,
+  type Chapter,
+} from '@/lib/content-loader';
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Folder, FileText } from 'lucide-react';
@@ -18,16 +23,12 @@ type Subject = {
   due_count: number;
 };
 
-export default async function SubjectDetailPage({
-  params,
-}: {
-  params: { subjectId: string };
-}) {
+export default async function SubjectDetailPage({ params }: { params: { subjectId: string } }) {
   const subjectId = params.subjectId;
-  
+
   // Load subject from JSON
   const subject = await loadSubject(subjectId);
-  
+
   // Use subject data if available, otherwise use subjectId as fallback
   const subjectName = subject?.name || subjectId.charAt(0).toUpperCase() + subjectId.slice(1);
   const subjectDescription = subject?.description || '';
@@ -37,21 +38,15 @@ export default async function SubjectDetailPage({
 
   return (
     <AppShell fullWidth>
-      <PageHeader 
-        title={subjectName}
-        description={subjectDescription}
-        fullWidth
-      />
-      
+      <PageHeader title={subjectName} description={subjectDescription} fullWidth />
+
       <div className="space-y-6">
         {/* Filesystem-like Content Structure */}
         <div className="border border-border rounded-lg overflow-hidden">
           <div className="bg-muted/50 px-4 py-2 border-b border-border">
-            <span className="text-sm text-muted-foreground">
-              {chapters.length} items
-            </span>
+            <span className="text-sm text-muted-foreground">{chapters.length} items</span>
           </div>
-          
+
           <div className="divide-y divide-border">
             {chapters.map((chapter) => (
               <Link
@@ -62,7 +57,9 @@ export default async function SubjectDetailPage({
                 <Folder className="h-5 w-5 text-primary" />
                 <div className="flex-1 min-w-0">
                   <div className="font-medium truncate">{chapter.title}</div>
-                  <div className="text-sm text-muted-foreground truncate">{chapter.description}</div>
+                  <div className="text-sm text-muted-foreground truncate">
+                    {chapter.description}
+                  </div>
                 </div>
               </Link>
             ))}

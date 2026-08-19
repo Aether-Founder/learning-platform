@@ -69,12 +69,7 @@
     }
   ],
   "learningGoals": {
-    "R": [
-      "Gemiddelde versnelling",
-      "Versnelling",
-      "Vrije val",
-      "Valversnelling"
-    ],
+    "R": ["Gemiddelde versnelling", "Versnelling", "Vrije val", "Valversnelling"],
     "T1": "Ik kan rekenen met versnelling.",
     "T2": "Ik kan berekeningen maken waarbij ik verschillende formules voor beweging combineer.",
     "I": "Ik kan redeneren met de formules voor beweging."

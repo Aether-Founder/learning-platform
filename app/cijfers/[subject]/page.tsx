@@ -41,7 +41,10 @@ export default function SubjectGradesPage() {
       <PageHeader
         eyebrow={t('grades_title')}
         title={subject.name}
-        description={t('grades_subject_desc', undefined, { teacher: subject.teacher, target: fmt(subject.target) })}
+        description={t('grades_subject_desc', undefined, {
+          teacher: subject.teacher,
+          target: fmt(subject.target),
+        })}
         action={
           <div className="text-right">
             <p className="font-display text-5xl font-semibold leading-none tabular-nums">

@@ -13,18 +13,18 @@ export async function POST(request: NextRequest) {
 
     // Simulate AI question generation (in production, this would call an AI service)
     // For now, generate simple questions based on content analysis
-    const sentences = content.split(/[.!?]+/).filter(s => s.trim().length > 20);
+    const sentences = content.split(/[.!?]+/).filter((s) => s.trim().length > 20);
     const questions: Array<{ question: string; answer: string }> = [];
 
     // Generate up to 5 questions from the content
     const numQuestions = Math.min(5, Math.floor(sentences.length / 2));
-    
+
     for (let i = 0; i < numQuestions; i++) {
       const sentenceIndex = i * 2;
       if (sentences[sentenceIndex]) {
         const sentence = sentences[sentenceIndex].trim();
-        const words = sentence.split(' ').filter(w => w.length > 4);
-        
+        const words = sentence.split(' ').filter((w) => w.length > 4);
+
         if (words.length > 0) {
           const keyword = words[Math.floor(Math.random() * words.length)];
           questions.push({
@@ -39,16 +39,14 @@ export async function POST(request: NextRequest) {
     while (questions.length < 3) {
       questions.push({
         question: `Wat is het belangrijkste concept in ${subject || 'deze tekst'}?`,
-        answer: 'Dit is een gegenereerd antwoord. In productie zou een AI service een relevant antwoord genereren op basis van de inhoud.',
+        answer:
+          'Dit is een gegenereerd antwoord. In productie zou een AI service een relevant antwoord genereren op basis van de inhoud.',
       });
     }
 
     return NextResponse.json({ questions });
   } catch (error) {
     console.error('Error generating questions:', error);
-    return NextResponse.json(
-      { error: 'Failed to generate questions' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to generate questions' }, { status: 500 });
   }
 }

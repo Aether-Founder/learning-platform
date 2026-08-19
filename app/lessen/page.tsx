@@ -4,7 +4,16 @@ import { useState, useEffect } from 'react';
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { supabase as browserClient } from '@/lib/supabase/client';
 import { useTranslation } from '@/lib/useTranslation';
-import { ChevronRight, ChevronDown, BookOpen, Video, FileText, Code, CheckCircle, Lock } from 'lucide-react';
+import {
+  ChevronRight,
+  ChevronDown,
+  BookOpen,
+  Video,
+  FileText,
+  Code,
+  CheckCircle,
+  Lock,
+} from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
@@ -75,7 +84,7 @@ export default function LessenPage() {
       ];
 
       const loadedLessons: Lesson[] = [];
-      
+
       for (const file of lessonFiles) {
         try {
           const response = await fetch(`/content/${file}`);
@@ -128,10 +137,7 @@ export default function LessenPage() {
       case 'text':
         return (
           <div className="prose prose-sm dark:prose-invert max-w-none">
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm, remarkMath]}
-              rehypePlugins={[rehypeKatex]}
-            >
+            <ReactMarkdown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]}>
               {block.content || ''}
             </ReactMarkdown>
           </div>
@@ -144,10 +150,12 @@ export default function LessenPage() {
             {block.intro && <p className="text-sm text-muted-foreground">{block.intro}</p>}
             <div className="space-y-3">
               {block.questions?.map((question) => {
-                const answer = sectionAnswers?.find(a => a.questionId === question.id);
+                const answer = sectionAnswers?.find((a) => a.questionId === question.id);
                 return (
                   <div key={question.id} className="border-l-2 border-border pl-4">
-                    <p className="font-medium text-sm">{question.number}. {question.text}</p>
+                    <p className="font-medium text-sm">
+                      {question.number}. {question.text}
+                    </p>
                     {showAnswers && answer && (
                       <div className="mt-2 p-3 bg-secondary rounded-md">
                         <p className="text-sm text-muted-foreground mb-1">Antwoord:</p>
@@ -227,8 +235,12 @@ export default function LessenPage() {
             >
               ← Terug naar lessen
             </button>
-            <h1 className="font-display text-2xl font-semibold">{selectedLesson.siteMetadata.title}</h1>
-            <p className="text-sm text-muted-foreground mt-1">{selectedLesson.siteMetadata.description}</p>
+            <h1 className="font-display text-2xl font-semibold">
+              {selectedLesson.siteMetadata.title}
+            </h1>
+            <p className="text-sm text-muted-foreground mt-1">
+              {selectedLesson.siteMetadata.description}
+            </p>
           </div>
         </div>
 

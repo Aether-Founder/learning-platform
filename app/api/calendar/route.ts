@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   let requestBody: any = {};
   let userId = 'local-user';
-  
+
   try {
     requestBody = await request.json();
   } catch {
@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
 
     const insert = createCalendarEventInsert(user.id, requestBody);
     const { data, error } = await client.from('calendar_events').insert(insert).select().single();
-    
+
     if (error || !data) {
       console.warn('Calendar DB insert warning (returning local event object):', error);
       const mockId = 'cal-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7);

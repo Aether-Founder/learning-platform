@@ -97,7 +97,16 @@ describe('homework', () => {
       undefined,
       undefined
     );
-    const updated = await updateHomework(hw.id, 'Nieuwe titel', undefined, 'Natuurkunde', undefined, undefined, 'completed', undefined);
+    const updated = await updateHomework(
+      hw.id,
+      'Nieuwe titel',
+      undefined,
+      'Natuurkunde',
+      undefined,
+      undefined,
+      'completed',
+      undefined
+    );
     expect(updated?.title).toBe('Nieuwe titel');
     expect(updated?.subject).toBe('Natuurkunde');
     expect(updated?.status).toBe('completed');
@@ -143,7 +152,16 @@ describe('homework', () => {
       undefined,
       undefined
     );
-    await updateHomework(a.id, undefined, undefined, undefined, undefined, undefined, 'completed', undefined);
+    await updateHomework(
+      a.id,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      'completed',
+      undefined
+    );
     const pending = await getPendingHomework(userId);
     expect(pending).toHaveLength(1);
     expect(pending[0].title).toBe('B');

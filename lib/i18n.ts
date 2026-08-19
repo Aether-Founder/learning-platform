@@ -1,7 +1,4 @@
-import {
-  DEFAULT_LANGUAGE,
-  type Language,
-} from './i18n-config';
+import { DEFAULT_LANGUAGE, type Language } from './i18n-config';
 
 export type { Language };
 

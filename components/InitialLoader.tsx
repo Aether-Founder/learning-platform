@@ -12,11 +12,7 @@ export function InitialLoader() {
   if (isMounted) return null;
 
   return (
-    <div
-      id="initial-loader"
-      className="initial-loader"
-      aria-hidden="true"
-    >
+    <div id="initial-loader" className="initial-loader" aria-hidden="true">
       <div className="initial-loader__logo">
         <img src="/aether-logo.png" alt="" className="initial-loader__image" />
         <div className="reflection-overlay">

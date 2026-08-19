@@ -3,16 +3,40 @@
 import { useState, useEffect } from 'react';
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Brain, MessageSquare, CheckCircle, XCircle, ArrowRight, RefreshCw, Plus } from 'lucide-react';
+import {
+  Brain,
+  MessageSquare,
+  CheckCircle,
+  XCircle,
+  ArrowRight,
+  RefreshCw,
+  Plus,
+} from 'lucide-react';
 import { supabase as browserClient } from '@/lib/supabase/client';
 
 const supabase = browserClient as any;
 
-type QuestionType = 'open' | 'multiple-choice' | 'cloze' | 'flashcard' | 'step-by-step' | 'diagram' | 'translate' | 'code' | 'error-detection' | 'method-choice';
+type QuestionType =
+  | 'open'
+  | 'multiple-choice'
+  | 'cloze'
+  | 'flashcard'
+  | 'step-by-step'
+  | 'diagram'
+  | 'translate'
+  | 'code'
+  | 'error-detection'
+  | 'method-choice';
 
 type Question = {
   id: string;
@@ -63,7 +87,9 @@ export default function ActiveRecallPage() {
   }, []);
 
   const fetchQuestions = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) return;
 
     const { data, error } = await supabase
@@ -81,10 +107,14 @@ export default function ActiveRecallPage() {
   };
 
   const handleAddQuestion = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) return;
 
-    const optiesArray = formData.opties ? formData.opties.split(',').map(o => o.trim()) : undefined;
+    const optiesArray = formData.opties
+      ? formData.opties.split(',').map((o) => o.trim())
+      : undefined;
 
     const { data, error } = await supabase
       .from('active_recall_questions')
@@ -120,7 +150,7 @@ export default function ActiveRecallPage() {
 
   const startQuestion = (type: QuestionType) => {
     setSelectedType(type);
-    const filteredQuestions = questions.filter(q => q.type === type);
+    const filteredQuestions = questions.filter((q) => q.type === type);
     const question = filteredQuestions.length > 0 ? filteredQuestions[0] : questions[0];
     setCurrentQuestion(question || null);
     setUserAnswer('');
@@ -129,22 +159,23 @@ export default function ActiveRecallPage() {
 
   const checkAnswer = () => {
     if (!currentQuestion) return;
-    
+
     let isCorrect = false;
     if (currentQuestion.type === 'multiple-choice' || currentQuestion.type === 'method-choice') {
       isCorrect = userAnswer === currentQuestion.correct_antwoord;
     } else {
       isCorrect = userAnswer.toLowerCase().includes(currentQuestion.correct_antwoord.toLowerCase());
     }
-    
+
     setShowAnswer(true);
-    setTotalAnswered(prev => prev + 1);
-    if (isCorrect) setScore(prev => prev + 1);
+    setTotalAnswered((prev) => prev + 1);
+    if (isCorrect) setScore((prev) => prev + 1);
   };
 
   const nextQuestion = () => {
-    const typeQuestions = questions.filter(q => q.type === selectedType);
-    const nextIndex = (typeQuestions.findIndex(q => q.id === currentQuestion?.id) + 1) % typeQuestions.length;
+    const typeQuestions = questions.filter((q) => q.type === selectedType);
+    const nextIndex =
+      (typeQuestions.findIndex((q) => q.id === currentQuestion?.id) + 1) % typeQuestions.length;
     setCurrentQuestion(typeQuestions[nextIndex] || null);
     setUserAnswer('');
     setShowAnswer(false);
@@ -198,7 +229,7 @@ export default function ActiveRecallPage() {
                       <div className="min-w-0 flex-1">
                         <p className="font-medium">{type.label}</p>
                         <p className="text-xs text-muted-foreground mt-1">
-                          {questions.filter(q => q.type === type.id).length} vragen
+                          {questions.filter((q) => q.type === type.id).length} vragen
                         </p>
                       </div>
                       <ArrowRight className="h-4 w-4 text-muted-foreground shrink-0" />
@@ -229,8 +260,9 @@ export default function ActiveRecallPage() {
           <h2 className="font-display text-xl font-semibold mb-4">Over Active Recall</h2>
           <div className="space-y-4 text-sm text-muted-foreground">
             <p>
-              Active recall is een leertechniek waarbij je actief informatie uit je geheugen haalt zonder deze eerst te herlezen. 
-              Dit is veel effectiever dan passief herlezen omdat het je hersenen dwingt om de informatie actief op te halen en te versterken.
+              Active recall is een leertechniek waarbij je actief informatie uit je geheugen haalt
+              zonder deze eerst te herlezen. Dit is veel effectiever dan passief herlezen omdat het
+              je hersenen dwingt om de informatie actief op te halen en te versterken.
             </p>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="p-4 rounded-lg bg-secondary/50">
@@ -272,7 +304,7 @@ export default function ActiveRecallPage() {
       <PageHeader
         eyebrow="Leermodule"
         title="Active Recall"
-        description={`Vraagtype: ${QUESTION_TYPES.find(t => t.id === selectedType)?.label}`}
+        description={`Vraagtype: ${QUESTION_TYPES.find((t) => t.id === selectedType)?.label}`}
         action={
           <Button variant="outline" onClick={resetSession}>
             <RefreshCw className="mr-2 h-4 w-4" />
@@ -289,8 +321,8 @@ export default function ActiveRecallPage() {
               Score: {score}/{totalAnswered}
             </span>
             <div className="w-32 h-2 bg-secondary rounded-full overflow-hidden">
-              <div 
-                className="h-full bg-primary transition-all" 
+              <div
+                className="h-full bg-primary transition-all"
                 style={{ width: totalAnswered > 0 ? `${(score / totalAnswered) * 100}%` : '0%' }}
               />
             </div>
@@ -311,7 +343,9 @@ export default function ActiveRecallPage() {
 
             <h2 className="text-xl font-semibold mb-6">{currentQuestion.vraag}</h2>
 
-            {(currentQuestion.type === 'multiple-choice' || currentQuestion.type === 'method-choice') && currentQuestion.opties ? (
+            {(currentQuestion.type === 'multiple-choice' ||
+              currentQuestion.type === 'method-choice') &&
+            currentQuestion.opties ? (
               <div className="space-y-3 mb-6">
                 {currentQuestion.opties.map((optie, index) => (
                   <button
@@ -343,21 +377,29 @@ export default function ActiveRecallPage() {
 
             {showAnswer ? (
               <div className="space-y-4">
-                <div className={`p-4 rounded-lg ${
-                  userAnswer.toLowerCase().includes(currentQuestion.correct_antwoord.toLowerCase())
-                    ? 'bg-green-500/10 border border-green-500/30'
-                    : 'bg-red-500/10 border border-red-500/30'
-                }`}>
+                <div
+                  className={`p-4 rounded-lg ${
+                    userAnswer
+                      .toLowerCase()
+                      .includes(currentQuestion.correct_antwoord.toLowerCase())
+                      ? 'bg-green-500/10 border border-green-500/30'
+                      : 'bg-red-500/10 border border-red-500/30'
+                  }`}
+                >
                   <p className="font-medium mb-2">
-                    {userAnswer.toLowerCase().includes(currentQuestion.correct_antwoord.toLowerCase())
+                    {userAnswer
+                      .toLowerCase()
+                      .includes(currentQuestion.correct_antwoord.toLowerCase())
                       ? '✓ Correct!'
                       : '✗ Niet helemaal correct'}
                   </p>
                   <p className="text-sm">
-                    <span className="font-medium">Jouw antwoord:</span> {userAnswer || '(geen antwoord)'}
+                    <span className="font-medium">Jouw antwoord:</span>{' '}
+                    {userAnswer || '(geen antwoord)'}
                   </p>
                   <p className="text-sm">
-                    <span className="font-medium">Correct antwoord:</span> {currentQuestion.correct_antwoord}
+                    <span className="font-medium">Correct antwoord:</span>{' '}
+                    {currentQuestion.correct_antwoord}
                   </p>
                 </div>
 
@@ -386,9 +428,7 @@ export default function ActiveRecallPage() {
             <p className="text-sm text-muted-foreground mb-4">
               Er zijn geen vragen van dit type beschikbaar. Voeg nieuwe vragen toe om te beginnen.
             </p>
-            <Button onClick={() => setSelectedType(null)}>
-              Terug naar overzicht
-            </Button>
+            <Button onClick={() => setSelectedType(null)}>Terug naar overzicht</Button>
           </div>
         )}
       </div>
@@ -406,7 +446,13 @@ export default function ActiveRecallPage() {
 }
 
 // Add Question Dialog
-function AddQuestionDialog({ open, onOpenChange, onAdd, formData, setFormData }: {
+function AddQuestionDialog({
+  open,
+  onOpenChange,
+  onAdd,
+  formData,
+  setFormData,
+}: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onAdd: () => void;
@@ -500,9 +546,7 @@ function AddQuestionDialog({ open, onOpenChange, onAdd, formData, setFormData }:
           <Button variant="outline" onClick={() => onOpenChange(false)}>
             Annuleren
           </Button>
-          <Button onClick={onAdd}>
-            Vraag toevoegen
-          </Button>
+          <Button onClick={onAdd}>Vraag toevoegen</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

@@ -4,9 +4,17 @@ const DUTCH_TIMEZONES: readonly string[] = ['Europe/Amsterdam', 'Europe/Brussels
 const DUTCH_REGIONS: readonly string[] = ['NL', 'BE'];
 
 const RUSSIAN_TIMEZONES: readonly string[] = [
-  'Europe/Moscow', 'Europe/Kaliningrad', 'Europe/Samara', 'Europe/Yekaterinburg',
-  'Asia/Omsk', 'Asia/Krasnoyarsk', 'Asia/Irkutsk', 'Asia/Yakutsk',
-  'Asia/Vladivostok', 'Asia/Magadan', 'Asia/Kamchatka'
+  'Europe/Moscow',
+  'Europe/Kaliningrad',
+  'Europe/Samara',
+  'Europe/Yekaterinburg',
+  'Asia/Omsk',
+  'Asia/Krasnoyarsk',
+  'Asia/Irkutsk',
+  'Asia/Yakutsk',
+  'Asia/Vladivostok',
+  'Asia/Magadan',
+  'Asia/Kamchatka',
 ];
 const RUSSIAN_REGIONS: readonly string[] = ['RU', 'BY', 'KZ', 'KG', 'TJ', 'UZ'];
 
@@ -14,25 +22,58 @@ const CHINESE_TIMEZONES: readonly string[] = ['Asia/Shanghai', 'Asia/Hong_Kong',
 const CHINESE_REGIONS: readonly string[] = ['CN', 'HK', 'TW', 'SG', 'MO'];
 
 const FRENCH_TIMEZONES: readonly string[] = [
-  'Europe/Paris', 'Europe/Monaco', 'Africa/Algiers', 'Africa/Tunis',
-  'Africa/Casablanca', 'Indian/Reunion', 'Pacific/Noumea'
+  'Europe/Paris',
+  'Europe/Monaco',
+  'Africa/Algiers',
+  'Africa/Tunis',
+  'Africa/Casablanca',
+  'Indian/Reunion',
+  'Pacific/Noumea',
 ];
 const FRENCH_REGIONS: readonly string[] = ['FR', 'MC', 'DZ', 'TN', 'MA', 'RE', 'NC'];
 
 const SPANISH_TIMEZONES: readonly string[] = [
-  'Europe/Madrid', 'Atlantic/Canary', 'America/Mexico_City', 'America/Bogota',
-  'America/Lima', 'America/Buenos_Aires', 'America/Santiago'
+  'Europe/Madrid',
+  'Atlantic/Canary',
+  'America/Mexico_City',
+  'America/Bogota',
+  'America/Lima',
+  'America/Buenos_Aires',
+  'America/Santiago',
 ];
 const SPANISH_REGIONS: readonly string[] = ['ES', 'MX', 'CO', 'PE', 'AR', 'CL', 'VE'];
 
 const ARABIC_TIMEZONES: readonly string[] = [
-  'Asia/Riyadh', 'Asia/Dubai', 'Asia/Kuwait', 'Asia/Qatar', 'Asia/Bahrain',
-  'Africa/Cairo', 'Africa/Tripoli', 'Asia/Baghdad', 'Asia/Amman'
+  'Asia/Riyadh',
+  'Asia/Dubai',
+  'Asia/Kuwait',
+  'Asia/Qatar',
+  'Asia/Bahrain',
+  'Africa/Cairo',
+  'Africa/Tripoli',
+  'Asia/Baghdad',
+  'Asia/Amman',
 ];
-const ARABIC_REGIONS: readonly string[] = ['SA', 'AE', 'KW', 'QA', 'BH', 'EG', 'LY', 'IQ', 'JO', 'MA', 'DZ', 'TN'];
+const ARABIC_REGIONS: readonly string[] = [
+  'SA',
+  'AE',
+  'KW',
+  'QA',
+  'BH',
+  'EG',
+  'LY',
+  'IQ',
+  'JO',
+  'MA',
+  'DZ',
+  'TN',
+];
 
 const GERMAN_TIMEZONES: readonly string[] = [
-  'Europe/Berlin', 'Europe/Vienna', 'Europe/Zurich', 'Europe/Brussels'
+  'Europe/Berlin',
+  'Europe/Vienna',
+  'Europe/Zurich',
+  'Europe/Brussels',
 ];
 const GERMAN_REGIONS: readonly string[] = ['DE', 'AT', 'CH', 'LI'];
 
@@ -46,7 +87,9 @@ const HINDI_TIMEZONES: readonly string[] = ['Asia/Kolkata', 'Asia/Dhaka'];
 const HINDI_REGIONS: readonly string[] = ['IN', 'BD', 'NP', 'LK'];
 
 const PORTUGUESE_TIMEZONES: readonly string[] = [
-  'Europe/Lisbon', 'America/Sao_Paulo', 'America/Lisbon'
+  'Europe/Lisbon',
+  'America/Sao_Paulo',
+  'America/Lisbon',
 ];
 const PORTUGUESE_REGIONS: readonly string[] = ['PT', 'BR'];
 
@@ -82,7 +125,7 @@ export function detectLanguageFromLocation(): Language {
     }
 
     const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    
+
     // Check German
     if (timeZone && GERMAN_TIMEZONES.includes(timeZone)) {
       return 'de';
@@ -176,9 +219,7 @@ export function detectLanguageFromLocation(): Language {
     // Check browser language regions
     const regions = navigator.languages?.length
       ? new Set(
-          navigator.languages
-            .map((locale) => locale.split('-')[1]?.toUpperCase())
-            .filter(Boolean)
+          navigator.languages.map((locale) => locale.split('-')[1]?.toUpperCase()).filter(Boolean)
         )
       : new Set<string>();
 
@@ -240,7 +281,28 @@ export function detectLanguageFromLocation(): Language {
     // Check browser language codes directly
     for (const lang of navigator.languages || []) {
       const code = lang.split('-')[0].toLowerCase();
-      if (['de', 'ja', 'ko', 'hi', 'pt', 'it', 'tr', 'id', 'vi', 'th', 'pl', 'uk', 'ru', 'zh', 'fr', 'es', 'ar', 'nl'].includes(code)) {
+      if (
+        [
+          'de',
+          'ja',
+          'ko',
+          'hi',
+          'pt',
+          'it',
+          'tr',
+          'id',
+          'vi',
+          'th',
+          'pl',
+          'uk',
+          'ru',
+          'zh',
+          'fr',
+          'es',
+          'ar',
+          'nl',
+        ].includes(code)
+      ) {
         return code as Language;
       }
     }

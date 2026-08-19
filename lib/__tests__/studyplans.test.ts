@@ -41,13 +41,7 @@ describe('studyplans', () => {
   });
 
   it('gets by id and lists per user/testweek', async () => {
-    const plan = await createStudyPlan(
-      userId,
-      testWeekId,
-      'Plan A',
-      new Date(),
-      new Date()
-    );
+    const plan = await createStudyPlan(userId, testWeekId, 'Plan A', new Date(), new Date());
     const other = await createTestUser({ email: 'plan-other@test.local' });
     const otherWeek = createTestWeek(other.user.id, 'TW', '2026-02-01', '2026-02-05');
     await createStudyPlan(other.user.id, otherWeek.id, 'Plan B', new Date(), new Date());

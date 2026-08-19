@@ -1,11 +1,13 @@
 # Admin Portal Security Guide
 
 ## Overview
+
 The admin portal is located at `/admin` and provides a GUI for managing platform content, viewing analytics, and controlling various administrative functions. This guide explains how to securely access and configure the admin portal.
 
 ## Current Security Implementation
 
 ### Authentication Method
+
 The admin portal uses secure server-side authentication via API route:
 
 1. **Server-Side Authentication** (Maximum security)
@@ -20,13 +22,16 @@ The admin portal uses secure server-side authentication via API route:
 ### Required Environment Variables
 
 #### For Local Development (.env.local)
+
 ```env
 ADMIN_EMAIL=your-email@example.com
 ADMIN_PASSWORD=your-secure-admin-password
 ```
 
 #### For Vercel Deployment
+
 Set these in your Vercel project settings:
+
 - `ADMIN_EMAIL` - Your admin email address
 - `ADMIN_PASSWORD` - Your admin password
 
@@ -49,12 +54,14 @@ Set these in your Vercel project settings:
 ### Setting Up Environment Variables
 
 #### Local Development
+
 1. Copy `ENV_EXAMPLE.txt` to `.env.local` in your project root
 2. Replace the placeholder values with your actual email and password
 3. Wrap password in quotes if it contains special characters like `#`
 4. Restart your development server
 
 #### Vercel Deployment
+
 1. Go to your Vercel project dashboard
 2. Navigate to Settings → Environment Variables
 3. Add the two required variables with your values
@@ -66,6 +73,7 @@ Set these in your Vercel project settings:
 ### Step 1: Set Up Environment Variables (Required)
 
 #### Local Development
+
 1. Create or edit `.env.local` file in your project root
 2. Add the required environment variables:
    ```env
@@ -77,6 +85,7 @@ Set these in your Vercel project settings:
 5. Restart your development server
 
 #### Vercel Deployment
+
 1. Go to your Vercel project dashboard
 2. Navigate to Settings → Environment Variables
 3. Add the following variables:
@@ -106,6 +115,7 @@ The admin portal is currently hidden from the navbar by default. To make it acce
 ### Step 1: Set Up Environment Variables
 
 #### Local Development
+
 1. Create or edit `.env.local` file in your project root
 2. Add the required environment variables:
    ```env
@@ -116,6 +126,7 @@ The admin portal is currently hidden from the navbar by default. To make it acce
 4. Restart your development server
 
 #### Vercel Deployment
+
 1. Go to your Vercel project dashboard
 2. Navigate to Settings → Environment Variables
 3. Add the following variables:
@@ -139,16 +150,21 @@ The admin portal is currently hidden from the navbar by default. To make it acce
    ```
 
 ### Method 1: Direct URL (Recommended)
+
 Simply navigate to: `https://your-domain.com/admin`
 
 ### Method 2: Through Navbar
+
 If you've made admin visible in the navbar:
+
 1. Click on "Admin" in the navigation bar
 2. Enter your admin email and password
 3. You'll be authenticated via the secure API route
 
 ### Method 3: Through Existing Admin Pages
+
 The admin portal links to existing admin pages:
+
 - `/admin/analytics` - User analytics and statistics
 - `/admin/artisan` - Artisan AI queue management
 - `/admin/lessons` - Lesson content management
@@ -169,6 +185,7 @@ The admin portal links to existing admin pages:
 **Location**: `app/api/admin/auth/route.ts`
 
 **Security Features**:
+
 - Server-side only execution
 - Environment variable validation
 - No credential exposure to browser
@@ -176,6 +193,7 @@ The admin portal links to existing admin pages:
 - Secure HTTP POST method
 
 **Request Format**:
+
 ```json
 {
   "email": "admin@example.com",
@@ -184,6 +202,7 @@ The admin portal links to existing admin pages:
 ```
 
 **Response Format** (Success):
+
 ```json
 {
   "success": true,
@@ -192,6 +211,7 @@ The admin portal links to existing admin pages:
 ```
 
 **Response Format** (Error):
+
 ```json
 {
   "error": "Invalid credentials"
@@ -201,7 +221,9 @@ The admin portal links to existing admin pages:
 ## Security Best Practices
 
 ### Current Implementation
+
 The current implementation provides maximum security:
+
 - **Server-side only authentication** via API route
 - **Both credentials server-side only** - no `NEXT_PUBLIC_` prefix
 - **Zero client-side exposure** - credentials never reach the browser
@@ -212,11 +234,13 @@ The current implementation provides maximum security:
 ### Why This Approach is More Secure
 
 **Previous approach** (with `NEXT_PUBLIC_ADMIN_EMAIL`):
+
 - Email was exposed in browser bundle
 - Anyone could inspect and see the admin email
 - Lower security but better UX
 
 **Current approach** (both server-side):
+
 - No credentials ever exposed to browser
 - Maximum security possible
 - Slightly less convenient (requires manual login)
@@ -225,13 +249,17 @@ The current implementation provides maximum security:
 ### Additional Security Measures for Production
 
 #### 2. Session Management
+
 Implement proper session management:
+
 - Use secure HTTP-only cookies
 - Set appropriate session timeouts
 - Implement CSRF protection
 
 #### 4. IP Whitelisting (Optional)
+
 Restrict admin access to specific IP addresses:
+
 ```typescript
 const ALLOWED_IPS = ['your-ip-address', 'office-ip'];
 
@@ -242,7 +270,9 @@ function isIPAllowed(request: NextRequest) {
 ```
 
 #### 5. Audit Logging
+
 Log all admin actions for security monitoring:
+
 ```typescript
 async function logAdminAction(action: string, userId: string) {
   await supabase.from('admin_audit_log').insert({
@@ -268,14 +298,18 @@ async function logAdminAction(action: string, userId: string) {
 ## Troubleshooting
 
 ### Issue: Can't access admin portal
+
 **Solution:**
+
 - Navigate to `/admin` directly
 - Enter both admin email and password
 - Ensure both environment variables are set correctly
 - Check the API route is working (`/api/admin/auth`)
 
 ### Issue: Getting "Invalid credentials" error
+
 **Solution:**
+
 - Verify `ADMIN_EMAIL` environment variable matches exactly what you enter
 - Verify `ADMIN_PASSWORD` environment variable matches exactly what you enter
 - Check for extra spaces or typos in both variables
@@ -283,20 +317,26 @@ async function logAdminAction(action: string, userId: string) {
 - Wrap password in quotes if it contains special characters
 
 ### Issue: Getting "Admin credentials not configured" error
+
 **Solution:**
+
 - Ensure both `ADMIN_EMAIL` and `ADMIN_PASSWORD` are set
 - Check your `.env.local` file for local development
 - Verify Vercel environment variables for production
 - Restart your development server after changing variables
 
 ### Issue: Admin link not visible in navbar
+
 **Solution:**
+
 - Check `hooks/useNavbarPreferences.ts`
 - Ensure `admin: true` in `DEFAULT_VISIBILITY`
 - Refresh the page to apply changes
 
 ### Issue: Environment variables not loading
+
 **Solution:**
+
 - Ensure `.env.local` file is in the project root
 - Check that variable names are exactly correct (case-sensitive)
 - Verify no typos in variable names
@@ -304,7 +344,9 @@ async function logAdminAction(action: string, userId: string) {
 - For Vercel, check environment variable names in project settings
 
 ### Issue: API authentication failing
+
 **Solution:**
+
 - Check that the API route file exists at `app/api/admin/auth/route.ts`
 - Verify the API route is properly deployed on Vercel
 - Check server logs for API route errors
@@ -315,16 +357,19 @@ async function logAdminAction(action: string, userId: string) {
 The admin portal allows adding global content via JSON. To ensure security:
 
 ### JSON Validation
+
 - All JSON is validated against schemas before submission
 - Invalid JSON is rejected with error messages
 - Only properly formatted content is accepted
 
 ### Database Permissions
+
 - Ensure your Supabase setup has proper RLS (Row Level Security)
 - Admin operations should have appropriate permissions
 - Consider creating a separate admin role in Supabase
 
 ### Content Moderation
+
 - Review all added content before making it live
 - Implement content approval workflow if needed
 - Regular audit of added content
@@ -356,12 +401,14 @@ Consider implementing these for better security:
 ## Quick Setup Guide
 
 ### For Local Development
+
 1. Copy `ENV_EXAMPLE.txt` to `.env.local`
 2. Fill in your actual email and password
 3. Restart development server
 4. Navigate to `/admin`
 
 ### For Vercel Deployment
+
 1. Go to Vercel project Settings → Environment Variables
 2. Add `NEXT_PUBLIC_ADMIN_EMAIL` with your email
 3. Add `ADMIN_PASSWORD` with a strong password
@@ -371,6 +418,7 @@ Consider implementing these for better security:
 ## Support
 
 If you encounter security issues or need help with admin portal configuration:
+
 - Check the configuration error screen for missing variables
 - Verify environment variables are set correctly
 - Check the application logs for error messages
@@ -380,6 +428,7 @@ If you encounter security issues or need help with admin portal configuration:
 ---
 
 **⚠️ Important Security Notice:**
+
 - Never commit `.env.local` file to version control
 - Use strong, unique passwords for `ADMIN_PASSWORD`
 - Never share your admin credentials

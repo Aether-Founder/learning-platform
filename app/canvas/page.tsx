@@ -36,7 +36,9 @@ export default function CanvasPage() {
   useEffect(() => {
     // Initialize or load canvas
     const initCanvas = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       if (!user) return;
 
       // Try to load existing canvas or create new one

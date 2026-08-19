@@ -3,7 +3,16 @@
 import { useState, useEffect } from 'react';
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { Button } from '@/components/ui/button';
-import { Clock, CheckCircle, XCircle, Brain, Target, AlertTriangle, TrendingUp, RotateCcw } from 'lucide-react';
+import {
+  Clock,
+  CheckCircle,
+  XCircle,
+  Brain,
+  Target,
+  AlertTriangle,
+  TrendingUp,
+  RotateCcw,
+} from 'lucide-react';
 import { supabase as browserClient } from '@/lib/supabase/client';
 
 const supabase = browserClient as any;
@@ -44,9 +53,7 @@ export default function DailyQuizPage() {
   }, []);
 
   const fetchQuestions = async () => {
-    const { data, error } = await supabase
-      .from('daily_quiz_questions')
-      .select('*');
+    const { data, error } = await supabase.from('daily_quiz_questions').select('*');
 
     if (error) {
       console.error('Failed to fetch questions:', error);
@@ -57,7 +64,9 @@ export default function DailyQuizPage() {
   };
 
   const fetchPreviousSessions = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) return;
 
     const { data, error } = await supabase
@@ -75,12 +84,14 @@ export default function DailyQuizPage() {
   };
 
   const startQuiz = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) return;
 
     // Shuffle questions and pick 10
     const shuffledQuestions = [...questions].sort(() => Math.random() - 0.5).slice(0, 10);
-    
+
     setSession({
       vragen: shuffledQuestions,
       currentIndex: 0,
@@ -137,27 +148,27 @@ export default function DailyQuizPage() {
   const finishQuiz = async () => {
     if (!session) return;
 
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) return;
 
     const endTime = new Date();
     const durationSeconds = Math.round((endTime.getTime() - session.startTime.getTime()) / 1000);
     const correctCount = Array.from(session.scores.values()).filter(Boolean).length;
 
-    const { error } = await supabase
-      .from('daily_quiz_sessions')
-      .insert({
-        user_id: user.id,
-        quiz_date: new Date().toISOString().split('T')[0],
-        questions: session.vragen,
-        answers: Object.fromEntries(session.antwoorden),
-        scores: Object.fromEntries(session.scores),
-        correct_count: correctCount,
-        total_questions: session.vragen.length,
-        started_at: session.startTime,
-        ended_at: endTime,
-        duration_seconds: durationSeconds,
-      });
+    const { error } = await supabase.from('daily_quiz_sessions').insert({
+      user_id: user.id,
+      quiz_date: new Date().toISOString().split('T')[0],
+      questions: session.vragen,
+      answers: Object.fromEntries(session.antwoorden),
+      scores: Object.fromEntries(session.scores),
+      correct_count: correctCount,
+      total_questions: session.vragen.length,
+      started_at: session.startTime,
+      ended_at: endTime,
+      duration_seconds: durationSeconds,
+    });
 
     if (error) {
       console.error('Failed to save session:', error);
@@ -180,10 +191,14 @@ export default function DailyQuizPage() {
 
   const getDifficultyColor = (moeilijkheid: string) => {
     switch (moeilijkheid) {
-      case 'makkelijk': return 'bg-green-500/10 text-green-600';
-      case 'gemiddeld': return 'bg-yellow-500/10 text-yellow-600';
-      case 'moeilijk': return 'bg-red-500/10 text-red-600';
-      default: return 'bg-gray-500/10 text-gray-600';
+      case 'makkelijk':
+        return 'bg-green-500/10 text-green-600';
+      case 'gemiddeld':
+        return 'bg-yellow-500/10 text-yellow-600';
+      case 'moeilijk':
+        return 'bg-red-500/10 text-red-600';
+      default:
+        return 'bg-gray-500/10 text-gray-600';
     }
   };
 
@@ -208,7 +223,8 @@ export default function DailyQuizPage() {
               <Brain className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
               <h2 className="font-display text-xl font-semibold mb-2">Geen vragen beschikbaar</h2>
               <p className="text-sm text-muted-foreground mb-4">
-                Er zijn nog geen quizvragen toegevoegd. Voeg vragen toe via de database om te beginnen.
+                Er zijn nog geen quizvragen toegevoegd. Voeg vragen toe via de database om te
+                beginnen.
               </p>
             </div>
           ) : (
@@ -236,12 +252,15 @@ export default function DailyQuizPage() {
                           <div>
                             <p className="font-medium">{session.quiz_date}</p>
                             <p className="text-sm text-muted-foreground">
-                              {session.correct_count}/{session.total_questions} correct ({Math.round((session.correct_count / session.total_questions) * 100)}%)
+                              {session.correct_count}/{session.total_questions} correct (
+                              {Math.round((session.correct_count / session.total_questions) * 100)}
+                              %)
                             </p>
                           </div>
                           <div className="text-right">
                             <p className="text-sm text-muted-foreground">
-                              {Math.floor(session.duration_seconds / 60)}m {session.duration_seconds % 60}s
+                              {Math.floor(session.duration_seconds / 60)}m{' '}
+                              {session.duration_seconds % 60}s
                             </p>
                           </div>
                         </div>
@@ -259,7 +278,7 @@ export default function DailyQuizPage() {
 
   if (completed) {
     const correctCount = Array.from(session.scores.values()).filter(Boolean).length;
-    const totalTime = session.endTime 
+    const totalTime = session.endTime
       ? Math.round((session.endTime.getTime() - session.startTime.getTime()) / 60000)
       : 0;
 
@@ -297,7 +316,9 @@ export default function DailyQuizPage() {
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">Gemiddeld per vraag</p>
-                <p className="font-display text-2xl font-semibold">{Math.round(totalTime / 10)} sec</p>
+                <p className="font-display text-2xl font-semibold">
+                  {Math.round(totalTime / 10)} sec
+                </p>
               </div>
             </div>
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary">
@@ -333,7 +354,9 @@ export default function DailyQuizPage() {
                       <div className="flex items-center gap-2">
                         <span className="text-sm font-medium">Vraag {index + 1}</span>
                         <span className="text-xs text-muted-foreground">{vraag.vak}</span>
-                        <span className={`px-2 py-0.5 rounded text-xs ${getDifficultyColor(vraag.moeilijkheid)}`}>
+                        <span
+                          className={`px-2 py-0.5 rounded text-xs ${getDifficultyColor(vraag.moeilijkheid)}`}
+                        >
                           {vraag.moeilijkheid}
                         </span>
                       </div>
@@ -347,7 +370,9 @@ export default function DailyQuizPage() {
                     <div className="grid gap-2 sm:grid-cols-2 text-sm">
                       <div>
                         <p className="text-muted-foreground mb-1">Jouw antwoord:</p>
-                        <p className={isCorrect ? 'text-green-600' : 'text-red-600'}>{userAnswer}</p>
+                        <p className={isCorrect ? 'text-green-600' : 'text-red-600'}>
+                          {userAnswer}
+                        </p>
                       </div>
                       <div>
                         <p className="text-muted-foreground mb-1">Correct antwoord:</p>
@@ -389,8 +414,8 @@ export default function DailyQuizPage() {
             <span className="text-sm font-medium">{Math.round(progress)}%</span>
           </div>
           <div className="h-2 bg-secondary rounded-full overflow-hidden">
-            <div 
-              className="h-full bg-primary transition-all duration-300" 
+            <div
+              className="h-full bg-primary transition-all duration-300"
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -399,7 +424,9 @@ export default function DailyQuizPage() {
         {/* Question Card */}
         <div className="rounded-xl border border-border bg-card p-8">
           <div className="mb-4 flex items-center gap-2">
-            <span className={`px-2 py-1 rounded text-xs ${getDifficultyColor(currentQuestion.moeilijkheid)}`}>
+            <span
+              className={`px-2 py-1 rounded text-xs ${getDifficultyColor(currentQuestion.moeilijkheid)}`}
+            >
               {currentQuestion.moeilijkheid}
             </span>
             <span className="text-sm text-muted-foreground">{currentQuestion.type}</span>
@@ -407,7 +434,8 @@ export default function DailyQuizPage() {
 
           <h2 className="text-xl font-semibold mb-6">{currentQuestion.vraag}</h2>
 
-          {(currentQuestion.type === 'multiple-choice' || currentQuestion.type === 'true-false') && currentQuestion.opties ? (
+          {(currentQuestion.type === 'multiple-choice' || currentQuestion.type === 'true-false') &&
+          currentQuestion.opties ? (
             <div className="space-y-3 mb-6">
               {currentQuestion.opties.map((optie, index) => (
                 <button
@@ -417,7 +445,7 @@ export default function DailyQuizPage() {
                     userAnswer === optie
                       ? 'border-primary bg-primary/10'
                       : 'border-border hover:border-foreground/30 hover:bg-secondary/50'
-                    } ${showAnswer && optie === currentQuestion.correct_antwoord ? 'border-green-500 bg-green-500/10' : ''}`}
+                  } ${showAnswer && optie === currentQuestion.correct_antwoord ? 'border-green-500 bg-green-500/10' : ''}`}
                   disabled={showAnswer}
                 >
                   <span className="font-medium mr-2">{String.fromCharCode(65 + index)}.</span>
@@ -439,21 +467,25 @@ export default function DailyQuizPage() {
 
           {showAnswer ? (
             <div className="space-y-4">
-              <div className={`p-4 rounded-lg ${
-                userAnswer.toLowerCase().includes(currentQuestion.correct_antwoord.toLowerCase())
-                  ? 'bg-green-500/10 border border-green-500/30'
-                  : 'bg-red-500/10 border border-red-500/30'
-              }`}>
+              <div
+                className={`p-4 rounded-lg ${
+                  userAnswer.toLowerCase().includes(currentQuestion.correct_antwoord.toLowerCase())
+                    ? 'bg-green-500/10 border border-green-500/30'
+                    : 'bg-red-500/10 border border-red-500/30'
+                }`}
+              >
                 <p className="font-medium mb-2">
                   {userAnswer.toLowerCase().includes(currentQuestion.correct_antwoord.toLowerCase())
                     ? '✓ Correct!'
                     : '✗ Niet helemaal correct'}
                 </p>
                 <p className="text-sm">
-                  <span className="font-medium">Jouw antwoord:</span> {userAnswer || '(geen antwoord)'}
+                  <span className="font-medium">Jouw antwoord:</span>{' '}
+                  {userAnswer || '(geen antwoord)'}
                 </p>
                 <p className="text-sm">
-                  <span className="font-medium">Correct antwoord:</span> {currentQuestion.correct_antwoord}
+                  <span className="font-medium">Correct antwoord:</span>{' '}
+                  {currentQuestion.correct_antwoord}
                 </p>
               </div>
 
@@ -465,7 +497,9 @@ export default function DailyQuizPage() {
               )}
 
               <Button onClick={nextQuestion} className="w-full">
-                {session.currentIndex < session.vragen.length - 1 ? 'Volgende vraag' : 'Bekijk resultaten'}
+                {session.currentIndex < session.vragen.length - 1
+                  ? 'Volgende vraag'
+                  : 'Bekijk resultaten'}
                 <Target className="ml-2 h-4 w-4" />
               </Button>
             </div>

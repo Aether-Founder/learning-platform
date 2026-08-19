@@ -7,12 +7,29 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog';
 import { supabase as browserClient } from '@/lib/supabase/client';
 import { useTranslation } from '@/lib/useTranslation';
 import { useTheme } from 'next-themes';
 import { useNavbarPreferences } from '@/hooks/useNavbarPreferences';
-import { Upload, Check, X, Save, RotateCcw, User, Palette, Layout, BarChart3, Shield } from 'lucide-react';
+import {
+  Upload,
+  Check,
+  X,
+  Save,
+  RotateCcw,
+  User,
+  Palette,
+  Layout,
+  BarChart3,
+  Shield,
+} from 'lucide-react';
 
 const supabase = browserClient as any;
 
@@ -21,7 +38,13 @@ type SettingsSection = 'profile' | 'appearance' | 'navigation' | 'statistics' | 
 export default function InstellingenPage() {
   const { t, currentLanguage, changeLanguage } = useTranslation();
   const { theme, setTheme } = useTheme();
-  const { visibility, toggleVisibility, resetToDefaults, PAGE_LABELS, loading: navLoading } = useNavbarPreferences();
+  const {
+    visibility,
+    toggleVisibility,
+    resetToDefaults,
+    PAGE_LABELS,
+    loading: navLoading,
+  } = useNavbarPreferences();
   const [activeSection, setActiveSection] = useState<SettingsSection>('profile');
   const [user, setUser] = useState<any>(null);
   const [profile, setProfile] = useState<any>(null);
@@ -36,7 +59,10 @@ export default function InstellingenPage() {
   const [avatarPreview, setAvatarPreview] = useState('');
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
-  const [saveMessage, setSaveMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [saveMessage, setSaveMessage] = useState<{
+    type: 'success' | 'error';
+    text: string;
+  } | null>(null);
   const [gamificationEnabled, setGamificationEnabled] = useState(false);
   const [showPasswordDialog, setShowPasswordDialog] = useState(false);
   const [passwordForm, setPasswordForm] = useState({
@@ -50,7 +76,9 @@ export default function InstellingenPage() {
   }, []);
 
   const fetchUserProfile = async () => {
-    const { data: { user: authUser } } = await supabase.auth.getUser();
+    const {
+      data: { user: authUser },
+    } = await supabase.auth.getUser();
     if (!authUser) return;
 
     setUser(authUser);
@@ -100,9 +128,9 @@ export default function InstellingenPage() {
 
       if (uploadError) throw uploadError;
 
-      const { data: { publicUrl } } = supabase.storage
-        .from('avatars')
-        .getPublicUrl(filePath);
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from('avatars').getPublicUrl(filePath);
 
       setAvatarUrl(publicUrl);
       setAvatarPreview(publicUrl);
@@ -154,7 +182,7 @@ export default function InstellingenPage() {
       if (error) throw error;
 
       setSaveMessage({ type: 'success', text: 'Instellingen opgeslagen!' });
-      
+
       // Update local state
       setProfile({
         ...profile,
@@ -176,7 +204,13 @@ export default function InstellingenPage() {
   };
 
   const getInitials = () => {
-    if (name) return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+    if (name)
+      return name
+        .split(' ')
+        .map((n) => n[0])
+        .join('')
+        .toUpperCase()
+        .slice(0, 2);
     if (username) return username.slice(0, 2).toUpperCase();
     return '??';
   };
@@ -322,9 +356,9 @@ export default function InstellingenPage() {
                 <div className="flex items-start gap-6">
                   <div className="relative">
                     {avatarPreview ? (
-                      <img 
-                        src={avatarPreview} 
-                        alt="Avatar" 
+                      <img
+                        src={avatarPreview}
+                        alt="Avatar"
                         className="h-24 w-24 rounded-full object-cover border-2 border-border"
                       />
                     ) : (
@@ -358,28 +392,33 @@ export default function InstellingenPage() {
                           <Upload className="mr-2 h-4 w-4" />
                           {uploading ? 'Uploaden...' : 'Uploaden'}
                         </Button>
-                        <Button onClick={() => { setAvatarFile(null); setAvatarPreview(avatarUrl); }} variant="outline" size="sm">
+                        <Button
+                          onClick={() => {
+                            setAvatarFile(null);
+                            setAvatarPreview(avatarUrl);
+                          }}
+                          variant="outline"
+                          size="sm"
+                        >
                           Annuleren
                         </Button>
                       </div>
                     )}
-                    <p className="text-xs text-muted-foreground">
-                      PNG, JPG of GIF. Max 2MB.
-                    </p>
+                    <p className="text-xs text-muted-foreground">PNG, JPG of GIF. Max 2MB.</p>
                   </div>
                 </div>
 
                 {/* Basic Info */}
                 <div className="grid gap-4 md:grid-cols-2">
                   <Field label={t('settings_name')}>
-                    <Input 
+                    <Input
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="Je volledige naam"
                     />
                   </Field>
                   <Field label="Gebruikersnaam">
-                    <Input 
+                    <Input
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
                       placeholder="Gebruikersnaam"
@@ -399,43 +438,43 @@ export default function InstellingenPage() {
                 {/* School Info */}
                 <div className="grid gap-4 md:grid-cols-2">
                   <Field label={t('settings_class')}>
-                    <Input 
-                  value={classLevel}
-                  onChange={(e) => setClassLevel(e.target.value)}
-                  placeholder="Bijv. VWO 4"
-                />
-              </Field>
-              <Field label={t('settings_profile')}>
-                <select 
-                  className={inputClass}
-                  value={track}
-                  onChange={(e) => setTrack(e.target.value)}
-                >
-                  <option value="">Kies een profiel</option>
-                  <option value="nt">{t('settings_track_nt')}</option>
-                  <option value="ng">{t('settings_track_ng')}</option>
-                  <option value="em">{t('settings_track_em')}</option>
-                  <option value="cm">{t('settings_track_cm')}</option>
-                </select>
-              </Field>
-            </div>
+                    <Input
+                      value={classLevel}
+                      onChange={(e) => setClassLevel(e.target.value)}
+                      placeholder="Bijv. VWO 4"
+                    />
+                  </Field>
+                  <Field label={t('settings_profile')}>
+                    <select
+                      className={inputClass}
+                      value={track}
+                      onChange={(e) => setTrack(e.target.value)}
+                    >
+                      <option value="">Kies een profiel</option>
+                      <option value="nt">{t('settings_track_nt')}</option>
+                      <option value="ng">{t('settings_track_ng')}</option>
+                      <option value="em">{t('settings_track_em')}</option>
+                      <option value="cm">{t('settings_track_cm')}</option>
+                    </select>
+                  </Field>
+                </div>
 
-            <Field label="Schooljaar">
-              <Input 
-                value={gradeYear}
-                onChange={(e) => setGradeYear(e.target.value)}
-                placeholder="Bijv. 2024-2025"
-              />
-            </Field>
-          </div>
-        </Panel>
+                <Field label="Schooljaar">
+                  <Input
+                    value={gradeYear}
+                    onChange={(e) => setGradeYear(e.target.value)}
+                    placeholder="Bijv. 2024-2025"
+                  />
+                </Field>
+              </div>
+            </Panel>
           )}
 
           {activeSection === 'appearance' && (
             <Panel title={t('settings_preferences')}>
               <div className="space-y-4">
                 <Field label={t('settings_theme')}>
-                  <select 
+                  <select
                     className={inputClass}
                     value={theme}
                     onChange={(e) => setTheme(e.target.value as 'light' | 'dark' | 'system')}
@@ -446,7 +485,7 @@ export default function InstellingenPage() {
                   </select>
                 </Field>
                 <Field label={t('settings_language')}>
-                  <select 
+                  <select
                     className={inputClass}
                     value={currentLanguage}
                     onChange={(e) => changeLanguage(e.target.value as any)}
@@ -486,7 +525,8 @@ export default function InstellingenPage() {
                     </label>
                   </div>
                   <p className="text-xs text-zinc-600 mt-1">
-                    Verdiene punten voor studeren en behoud een leer-streak. Kan op elk moment worden uitgeschakeld.
+                    Verdiene punten voor studeren en behoud een leer-streak. Kan op elk moment
+                    worden uitgeschakeld.
                   </p>
                 </Field>
               </div>
@@ -497,7 +537,8 @@ export default function InstellingenPage() {
             <Panel title="Navigatiebalk">
               <div className="space-y-4">
                 <p className="text-sm text-muted-foreground">
-                  Kies welke pagina's in de navigatiebalk worden weergegeven. Verborgen pagina's zijn nog steeds toegankelijk via andere routes.
+                  Kies welke pagina's in de navigatiebalk worden weergegeven. Verborgen pagina's
+                  zijn nog steeds toegankelijk via andere routes.
                 </p>
                 <div className="grid gap-3 md:grid-cols-2">
                   {Object.entries(PAGE_LABELS).map(([key, label]) => (
@@ -512,12 +553,7 @@ export default function InstellingenPage() {
                     </label>
                   ))}
                 </div>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={resetToDefaults}
-                  className="mt-2"
-                >
+                <Button variant="outline" size="sm" onClick={resetToDefaults} className="mt-2">
                   <RotateCcw className="mr-2 h-4 w-4" />
                   Standaard instellingen herstellen
                 </Button>
@@ -547,21 +583,12 @@ export default function InstellingenPage() {
             <Panel title="Account">
               <div className="space-y-4">
                 <Field label="E-mail">
-                  <Input 
-                    type="email" 
-                    value={user?.email || ''}
-                    disabled
-                    className="bg-muted"
-                  />
+                  <Input type="email" value={user?.email || ''} disabled className="bg-muted" />
                   <p className="text-xs text-muted-foreground mt-1">
                     E-mail kan niet worden gewijzigd.
                   </p>
                 </Field>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => setShowPasswordDialog(true)}
-                >
+                <Button variant="outline" size="sm" onClick={() => setShowPasswordDialog(true)}>
                   Wachtwoord wijzigen
                 </Button>
               </div>
@@ -572,18 +599,20 @@ export default function InstellingenPage() {
           {activeSection !== 'statistics' && (
             <div className="flex items-center justify-between mt-6">
               {saveMessage && (
-                <div className={`flex items-center gap-2 text-sm ${
-                  saveMessage.type === 'success' ? 'text-green-600' : 'text-red-600'
-                }`}>
-                  {saveMessage.type === 'success' ? <Check className="h-4 w-4" /> : <X className="h-4 w-4" />}
+                <div
+                  className={`flex items-center gap-2 text-sm ${
+                    saveMessage.type === 'success' ? 'text-green-600' : 'text-red-600'
+                  }`}
+                >
+                  {saveMessage.type === 'success' ? (
+                    <Check className="h-4 w-4" />
+                  ) : (
+                    <X className="h-4 w-4" />
+                  )}
                   {saveMessage.text}
                 </div>
               )}
-              <Button 
-                onClick={handleSave}
-                disabled={loading}
-                className="ml-auto"
-              >
+              <Button onClick={handleSave} disabled={loading} className="ml-auto">
                 <Save className="mr-2 h-4 w-4" />
                 {loading ? 'Opslaan...' : t('settings_save')}
               </Button>
@@ -615,7 +644,9 @@ export default function InstellingenPage() {
                 id="confirm-password"
                 type="password"
                 value={passwordForm.confirmPassword}
-                onChange={(e) => setPasswordForm({ ...passwordForm, confirmPassword: e.target.value })}
+                onChange={(e) =>
+                  setPasswordForm({ ...passwordForm, confirmPassword: e.target.value })
+                }
                 placeholder="Typ opnieuw"
               />
             </div>

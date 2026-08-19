@@ -5,21 +5,27 @@ import Link from 'next/link';
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
-import { 
-  LayoutDashboard, 
-  BookOpen, 
-  FolderOpen, 
-  FileText, 
-  Target, 
+import {
+  LayoutDashboard,
+  BookOpen,
+  FolderOpen,
+  FileText,
+  Target,
   Brain,
   Plus,
   CheckCircle,
   AlertCircle,
   ChevronRight,
-  Lock
+  Lock,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { supabase as browserClient } from '@/lib/supabase/client';
@@ -50,7 +56,7 @@ const contentExamples: Record<ContentType, ContentExample> = {
   "description": "string (required) - Beschrijving van het vak",
   "color": "string (optional) - Hex kleur code",
   "icon": "string (optional) - Icon naam"
-}`
+}`,
   },
   chapter: {
     title: 'Hoofdstuk',
@@ -66,7 +72,7 @@ const contentExamples: Record<ContentType, ContentExample> = {
   "title": "string (required) - Titel van het hoofdstuk",
   "description": "string (required) - Beschrijving",
   "order": "number (optional) - Volgorde nummer"
-}`
+}`,
   },
   learningset: {
     title: 'Leerset',
@@ -98,7 +104,7 @@ const contentExamples: Record<ContentType, ContentExample> = {
   "cards[].front": "string (required) - Vraag",
   "cards[].back": "string (required) - Antwoord",
   "cards[].source_text": "string (optional) - Bron tekst"
-}`
+}`,
   },
   quiz: {
     title: 'Quiz',
@@ -141,7 +147,7 @@ const contentExamples: Record<ContentType, ContentExample> = {
   "questions[].correct_answer": "number (optional) - Index van correct antwoord",
   "questions[].model_answer": "string (optional) - Model antwoord voor open vragen",
   "questions[].explanation": "string (optional) - Uitleg van het antwoord"
-}`
+}`,
   },
   summary: {
     title: 'Samenvatting',
@@ -161,7 +167,7 @@ const contentExamples: Record<ContentType, ContentExample> = {
   "content": "string (required) - Inhoud (kan markdown bevatten)",
   "tags": "array (optional) - Array van tags",
   "difficulty": "string (optional) - 'beginner', 'intermediate', of 'advanced'"
-}`
+}`,
   },
   'practice-test': {
     title: 'Oefentoets',
@@ -196,8 +202,8 @@ const contentExamples: Record<ContentType, ContentExample> = {
   "questions[].options": "array (optional) - Opties",
   "questions[].correct_answer": "number (optional) - Correct antwoord index",
   "questions[].points": "number (required) - Punten voor deze vraag"
-}`
-  }
+}`,
+  },
 };
 
 const adminSections = [
@@ -206,22 +212,22 @@ const adminSections = [
     description: 'Bekijk gebruikersstatistieken en activiteit',
     icon: LayoutDashboard,
     href: '/admin/analytics',
-    color: 'text-blue-500'
+    color: 'text-blue-500',
   },
   {
     title: 'Artisan',
     description: 'Beheer Artisan AI verwerkingswachtrij',
     icon: BookOpen,
     href: '/admin/artisan',
-    color: 'text-purple-500'
+    color: 'text-purple-500',
   },
   {
     title: 'Lessen',
     description: 'Beheer lesinhoud en structuur',
     icon: FileText,
     href: '/admin/lessons',
-    color: 'text-green-500'
-  }
+    color: 'text-green-500',
+  },
 ];
 
 export default function AdminPortal() {
@@ -297,7 +303,7 @@ export default function AdminPortal() {
             color: parsedJson.color || '#3b82f6',
             icon: parsedJson.icon || 'book',
             user_id: null, // Global content
-            mastery: 0
+            mastery: 0,
           };
           break;
         case 'chapter':
@@ -306,7 +312,7 @@ export default function AdminPortal() {
             subject_id: parsedJson.subject_id,
             title: parsedJson.title,
             description: parsedJson.description,
-            order: parsedJson.order || 0
+            order: parsedJson.order || 0,
           };
           break;
         case 'learningset':
@@ -316,7 +322,7 @@ export default function AdminPortal() {
             name: parsedJson.title,
             description: parsedJson.description,
             subject_id: parsedJson.subject_id,
-            chapter_id: parsedJson.chapter_id
+            chapter_id: parsedJson.chapter_id,
           };
           break;
         case 'quiz':
@@ -327,7 +333,7 @@ export default function AdminPortal() {
             title: parsedJson.title,
             description: parsedJson.description,
             questions: parsedJson.questions,
-            user_id: null // Global content
+            user_id: null, // Global content
           };
           break;
         case 'summary':
@@ -339,7 +345,7 @@ export default function AdminPortal() {
             content: parsedJson.content,
             tags: parsedJson.tags || [],
             difficulty: parsedJson.difficulty || 'intermediate',
-            user_id: null // Global content
+            user_id: null, // Global content
           };
           break;
         case 'practice-test':
@@ -352,16 +358,12 @@ export default function AdminPortal() {
             duration_minutes: parsedJson.duration_minutes,
             passing_score: parsedJson.passing_score,
             questions: parsedJson.questions,
-            user_id: null // Global content
+            user_id: null, // Global content
           };
           break;
       }
 
-      const { data, error } = await supabase
-        .from(tableName)
-        .insert([insertData])
-        .select()
-        .single();
+      const { data, error } = await supabase.from(tableName).insert([insertData]).select().single();
 
       if (error) throw error;
 
@@ -371,12 +373,10 @@ export default function AdminPortal() {
           deck_id: data.id,
           front: card.front,
           back: card.back,
-          source_text: card.source_text || null
+          source_text: card.source_text || null,
         }));
 
-        const { error: cardsError } = await supabase
-          .from('cards')
-          .insert(cards);
+        const { error: cardsError } = await supabase.from('cards').insert(cards);
 
         if (cardsError) throw cardsError;
       }
@@ -409,17 +409,14 @@ export default function AdminPortal() {
               <Lock className="w-6 h-6 text-primary" />
               <h1 className="text-2xl font-bold text-foreground">Admin Portal</h1>
             </div>
-            
+
             <div className="space-y-4">
               <p className="text-sm text-muted-foreground">
                 Voer je admin credentials in om toegang te krijgen tot de admin portal.
               </p>
               <form onSubmit={handleLogin} className="space-y-4">
                 <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-foreground mb-2"
-                  >
+                  <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
                     Admin Email
                   </label>
                   <Input
@@ -543,7 +540,7 @@ export default function AdminPortal() {
               {selectedContentType && contentExamples[selectedContentType].title} Toevoegen
             </DialogTitle>
           </DialogHeader>
-          
+
           {selectedContentType && (
             <div className="space-y-4 py-4">
               {/* Documentation */}
@@ -580,17 +577,14 @@ export default function AdminPortal() {
           )}
 
           <DialogFooter>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               onClick={() => setShowContentModal(false)}
               disabled={isSubmitting}
             >
               Annuleren
             </Button>
-            <Button 
-              onClick={handleSubmitContent}
-              disabled={isSubmitting || !jsonInput.trim()}
-            >
+            <Button onClick={handleSubmitContent} disabled={isSubmitting || !jsonInput.trim()}>
               {isSubmitting ? 'Toevoegen...' : 'Toevoegen'}
             </Button>
           </DialogFooter>

@@ -87,7 +87,12 @@ describe('classes', () => {
     expect(await getAssignmentsByClass(cls.id)).toHaveLength(1);
     expect((await getAssignmentById(assignment.id))?.description).toBe('Maak hoofdstuk 2');
 
-    const updated = await updateAssignment(assignment.id, 'Opdracht 1 herzien', undefined, undefined);
+    const updated = await updateAssignment(
+      assignment.id,
+      'Opdracht 1 herzien',
+      undefined,
+      undefined
+    );
     expect(updated?.title).toBe('Opdracht 1 herzien');
     expect(await getAssignmentById('ghost')).toBeNull();
 

@@ -6,7 +6,13 @@ import { AppShell, PageHeader } from '@/components/AppShell';
 import { useUser } from '@/hooks/useAuth';
 import { supabase } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -74,7 +80,7 @@ export default function SubjectDetailPage() {
   const [chapterOpen, setChapterOpen] = useState(false);
   const [testOpen, setTestOpen] = useState(false);
   const [gradeOpen, setGradeOpen] = useState(false);
-  
+
   const [editForm, setEditForm] = useState({
     name: '',
     code: '',
@@ -135,7 +141,8 @@ export default function SubjectDetailPage() {
         // Load chapters with topics and mastery
         const { data: chaptersData } = await supabase
           .from('subject_chapters')
-          .select(`
+          .select(
+            `
             id,
             name,
             number,
@@ -151,17 +158,19 @@ export default function SubjectDetailPage() {
                 next_review_at
               )
             )
-          `)
+          `
+          )
           .eq('subject_id', params.id)
           .order('number');
 
         if (chaptersData) {
           const processedChapters = chaptersData.map((chapter: any) => ({
             ...chapter,
-            topics: chapter.subject_topics?.map((topic: any) => ({
-              ...topic,
-              mastery: topic.mastery_tracking?.[0],
-            })) || [],
+            topics:
+              chapter.subject_topics?.map((topic: any) => ({
+                ...topic,
+                mastery: topic.mastery_tracking?.[0],
+              })) || [],
           }));
           setChapters(processedChapters);
         }
@@ -246,7 +255,8 @@ export default function SubjectDetailPage() {
       // Reload chapters
       const { data } = await supabase
         .from('subject_chapters')
-        .select(`
+        .select(
+          `
           id,
           name,
           number,
@@ -262,17 +272,19 @@ export default function SubjectDetailPage() {
               next_review_at
             )
           )
-        `)
+        `
+        )
         .eq('subject_id', subject.id)
         .order('number');
 
       if (data) {
         const processedChapters = data.map((chapter: any) => ({
           ...chapter,
-          topics: chapter.subject_topics?.map((topic: any) => ({
-            ...topic,
-            mastery: topic.mastery_tracking?.[0],
-          })) || [],
+          topics:
+            chapter.subject_topics?.map((topic: any) => ({
+              ...topic,
+              mastery: topic.mastery_tracking?.[0],
+            })) || [],
         }));
         setChapters(processedChapters);
       }
@@ -350,8 +362,8 @@ export default function SubjectDetailPage() {
   const calculateAverageMastery = () => {
     let total = 0;
     let count = 0;
-    chapters.forEach(chapter => {
-      chapter.topics?.forEach(topic => {
+    chapters.forEach((chapter) => {
+      chapter.topics?.forEach((topic) => {
         if (topic.mastery?.mastery_percentage !== undefined) {
           total += topic.mastery.mastery_percentage;
           count++;
@@ -446,7 +458,7 @@ export default function SubjectDetailPage() {
             <span className="text-sm text-muted-foreground">Aankomende toetsen</span>
           </div>
           <p className="font-display text-2xl font-semibold">
-            {tests.filter(t => new Date(t.test_date) >= new Date()).length}
+            {tests.filter((t) => new Date(t.test_date) >= new Date()).length}
           </p>
           <p className="text-xs text-muted-foreground mt-1">Totaal {tests.length}</p>
         </div>
@@ -472,27 +484,39 @@ export default function SubjectDetailPage() {
           </Button>
         </div>
         {chapters.length === 0 ? (
-          <p className="text-sm text-muted-foreground">Nog geen hoofdstukken. Voeg je eerste hoofdstuk toe.</p>
+          <p className="text-sm text-muted-foreground">
+            Nog geen hoofdstukken. Voeg je eerste hoofdstuk toe.
+          </p>
         ) : (
           <div className="space-y-3">
             {chapters.map((chapter) => (
               <div key={chapter.id} className="border border-border rounded-lg p-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <span className="text-sm font-medium text-muted-foreground">H{chapter.number}</span>
+                    <span className="text-sm font-medium text-muted-foreground">
+                      H{chapter.number}
+                    </span>
                     <span className="font-medium">{chapter.name}</span>
                   </div>
-                  <Link href={`/vakken/${subject.id}/${chapter.id}`} className="text-sm text-primary hover:underline">
+                  <Link
+                    href={`/vakken/${subject.id}/${chapter.id}`}
+                    className="text-sm text-primary hover:underline"
+                  >
                     Details
                   </Link>
                 </div>
                 {chapter.topics && chapter.topics.length > 0 && (
                   <div className="mt-3 space-y-2">
                     {chapter.topics.map((topic) => (
-                      <div key={topic.id} className="flex items-center justify-between text-sm p-2 rounded bg-secondary/50">
+                      <div
+                        key={topic.id}
+                        className="flex items-center justify-between text-sm p-2 rounded bg-secondary/50"
+                      >
                         <span className="text-muted-foreground">{topic.name}</span>
                         {topic.mastery && (
-                          <span className="text-xs text-muted-foreground">{topic.mastery.mastery_percentage}%</span>
+                          <span className="text-xs text-muted-foreground">
+                            {topic.mastery.mastery_percentage}%
+                          </span>
                         )}
                       </div>
                     ))}
@@ -518,7 +542,10 @@ export default function SubjectDetailPage() {
         ) : (
           <div className="space-y-3">
             {tests.map((test) => (
-              <div key={test.id} className="flex items-center justify-between p-3 rounded-lg border border-border">
+              <div
+                key={test.id}
+                className="flex items-center justify-between p-3 rounded-lg border border-border"
+              >
                 <div>
                   <p className="font-medium">{test.title}</p>
                   <p className="text-xs text-muted-foreground">
@@ -546,7 +573,10 @@ export default function SubjectDetailPage() {
         ) : (
           <div className="space-y-3">
             {grades.map((grade) => (
-              <div key={grade.id} className="flex items-center justify-between p-3 rounded-lg border border-border">
+              <div
+                key={grade.id}
+                className="flex items-center justify-between p-3 rounded-lg border border-border"
+              >
                 <div>
                   <p className="font-medium">{grade.grade}</p>
                   <p className="text-xs text-muted-foreground">
@@ -563,23 +593,43 @@ export default function SubjectDetailPage() {
       {/* Edit Subject Dialog */}
       <Dialog open={editOpen} onOpenChange={setEditOpen}>
         <DialogContent aria-describedby={undefined}>
-          <DialogHeader><DialogTitle>Vak bewerken</DialogTitle></DialogHeader>
+          <DialogHeader>
+            <DialogTitle>Vak bewerken</DialogTitle>
+          </DialogHeader>
           <form onSubmit={updateSubject} className="space-y-4">
             <div>
               <Label htmlFor="edit-name">Vaknaam</Label>
-              <Input id="edit-name" value={editForm.name} onChange={(e) => setEditForm({ ...editForm, name: e.target.value })} required />
+              <Input
+                id="edit-name"
+                value={editForm.name}
+                onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
+                required
+              />
             </div>
             <div>
               <Label htmlFor="edit-code">Code</Label>
-              <Input id="edit-code" value={editForm.code} onChange={(e) => setEditForm({ ...editForm, code: e.target.value })} />
+              <Input
+                id="edit-code"
+                value={editForm.code}
+                onChange={(e) => setEditForm({ ...editForm, code: e.target.value })}
+              />
             </div>
             <div>
               <Label htmlFor="edit-teacher">Docent</Label>
-              <Input id="edit-teacher" value={editForm.teacher} onChange={(e) => setEditForm({ ...editForm, teacher: e.target.value })} />
+              <Input
+                id="edit-teacher"
+                value={editForm.teacher}
+                onChange={(e) => setEditForm({ ...editForm, teacher: e.target.value })}
+              />
             </div>
             <div>
               <Label htmlFor="edit-relevance">Examenrelevantie</Label>
-              <select id="edit-relevance" value={editForm.exam_relevance} onChange={(e) => setEditForm({ ...editForm, exam_relevance: e.target.value })} className="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm">
+              <select
+                id="edit-relevance"
+                value={editForm.exam_relevance}
+                onChange={(e) => setEditForm({ ...editForm, exam_relevance: e.target.value })}
+                className="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
+              >
                 <option value="laag">Laag</option>
                 <option value="normaal">Normaal</option>
                 <option value="hoog">Hoog</option>
@@ -587,10 +637,16 @@ export default function SubjectDetailPage() {
             </div>
             <div>
               <Label htmlFor="edit-description">Beschrijving</Label>
-              <Textarea id="edit-description" value={editForm.description} onChange={(e) => setEditForm({ ...editForm, description: e.target.value })} />
+              <Textarea
+                id="edit-description"
+                value={editForm.description}
+                onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
+              />
             </div>
             <DialogFooter>
-              <Button type="button" variant="outline" onClick={() => setEditOpen(false)}>Annuleren</Button>
+              <Button type="button" variant="outline" onClick={() => setEditOpen(false)}>
+                Annuleren
+              </Button>
               <Button type="submit">Opslaan</Button>
             </DialogFooter>
           </form>
@@ -600,22 +656,43 @@ export default function SubjectDetailPage() {
       {/* Add Chapter Dialog */}
       <Dialog open={chapterOpen} onOpenChange={setChapterOpen}>
         <DialogContent aria-describedby={undefined}>
-          <DialogHeader><DialogTitle>Hoofdstuk toevoegen</DialogTitle></DialogHeader>
+          <DialogHeader>
+            <DialogTitle>Hoofdstuk toevoegen</DialogTitle>
+          </DialogHeader>
           <form onSubmit={addChapter} className="space-y-4">
             <div>
               <Label htmlFor="chapter-name">Naam</Label>
-              <Input id="chapter-name" value={chapterForm.name} onChange={(e) => setChapterForm({ ...chapterForm, name: e.target.value })} required />
+              <Input
+                id="chapter-name"
+                value={chapterForm.name}
+                onChange={(e) => setChapterForm({ ...chapterForm, name: e.target.value })}
+                required
+              />
             </div>
             <div>
               <Label htmlFor="chapter-number">Nummer</Label>
-              <Input id="chapter-number" type="number" value={chapterForm.number} onChange={(e) => setChapterForm({ ...chapterForm, number: parseInt(e.target.value) })} required />
+              <Input
+                id="chapter-number"
+                type="number"
+                value={chapterForm.number}
+                onChange={(e) =>
+                  setChapterForm({ ...chapterForm, number: parseInt(e.target.value) })
+                }
+                required
+              />
             </div>
             <div>
               <Label htmlFor="chapter-description">Beschrijving</Label>
-              <Textarea id="chapter-description" value={chapterForm.description} onChange={(e) => setChapterForm({ ...chapterForm, description: e.target.value })} />
+              <Textarea
+                id="chapter-description"
+                value={chapterForm.description}
+                onChange={(e) => setChapterForm({ ...chapterForm, description: e.target.value })}
+              />
             </div>
             <DialogFooter>
-              <Button type="button" variant="outline" onClick={() => setChapterOpen(false)}>Annuleren</Button>
+              <Button type="button" variant="outline" onClick={() => setChapterOpen(false)}>
+                Annuleren
+              </Button>
               <Button type="submit">Toevoegen</Button>
             </DialogFooter>
           </form>
@@ -625,30 +702,62 @@ export default function SubjectDetailPage() {
       {/* Add Test Dialog */}
       <Dialog open={testOpen} onOpenChange={setTestOpen}>
         <DialogContent aria-describedby={undefined}>
-          <DialogHeader><DialogTitle>Toets toevoegen</DialogTitle></DialogHeader>
+          <DialogHeader>
+            <DialogTitle>Toets toevoegen</DialogTitle>
+          </DialogHeader>
           <form onSubmit={addTest} className="space-y-4">
             <div>
               <Label htmlFor="test-title">Titel</Label>
-              <Input id="test-title" value={testForm.title} onChange={(e) => setTestForm({ ...testForm, title: e.target.value })} required />
+              <Input
+                id="test-title"
+                value={testForm.title}
+                onChange={(e) => setTestForm({ ...testForm, title: e.target.value })}
+                required
+              />
             </div>
             <div>
               <Label htmlFor="test-date">Datum</Label>
-              <Input id="test-date" type="date" value={testForm.test_date} onChange={(e) => setTestForm({ ...testForm, test_date: e.target.value })} required />
+              <Input
+                id="test-date"
+                type="date"
+                value={testForm.test_date}
+                onChange={(e) => setTestForm({ ...testForm, test_date: e.target.value })}
+                required
+              />
             </div>
             <div>
               <Label htmlFor="test-weight">Gewicht</Label>
-              <Input id="test-weight" type="number" value={testForm.weight_factor} onChange={(e) => setTestForm({ ...testForm, weight_factor: parseInt(e.target.value) })} />
+              <Input
+                id="test-weight"
+                type="number"
+                value={testForm.weight_factor}
+                onChange={(e) =>
+                  setTestForm({ ...testForm, weight_factor: parseInt(e.target.value) })
+                }
+              />
             </div>
             <div>
               <Label htmlFor="test-required">Benodigd cijfer</Label>
-              <Input id="test-required" type="number" step="0.1" value={testForm.required_grade} onChange={(e) => setTestForm({ ...testForm, required_grade: e.target.value })} />
+              <Input
+                id="test-required"
+                type="number"
+                step="0.1"
+                value={testForm.required_grade}
+                onChange={(e) => setTestForm({ ...testForm, required_grade: e.target.value })}
+              />
             </div>
             <div>
               <Label htmlFor="test-notes">Notities</Label>
-              <Textarea id="test-notes" value={testForm.notes} onChange={(e) => setTestForm({ ...testForm, notes: e.target.value })} />
+              <Textarea
+                id="test-notes"
+                value={testForm.notes}
+                onChange={(e) => setTestForm({ ...testForm, notes: e.target.value })}
+              />
             </div>
             <DialogFooter>
-              <Button type="button" variant="outline" onClick={() => setTestOpen(false)}>Annuleren</Button>
+              <Button type="button" variant="outline" onClick={() => setTestOpen(false)}>
+                Annuleren
+              </Button>
               <Button type="submit">Toevoegen</Button>
             </DialogFooter>
           </form>
@@ -658,26 +767,54 @@ export default function SubjectDetailPage() {
       {/* Add Grade Dialog */}
       <Dialog open={gradeOpen} onOpenChange={setGradeOpen}>
         <DialogContent aria-describedby={undefined}>
-          <DialogHeader><DialogTitle>Cijfer toevoegen</DialogTitle></DialogHeader>
+          <DialogHeader>
+            <DialogTitle>Cijfer toevoegen</DialogTitle>
+          </DialogHeader>
           <form onSubmit={addGrade} className="space-y-4">
             <div>
               <Label htmlFor="grade-value">Cijfer</Label>
-              <Input id="grade-value" type="number" step="0.1" min="1" max="10" value={gradeForm.grade} onChange={(e) => setGradeForm({ ...gradeForm, grade: e.target.value })} required />
+              <Input
+                id="grade-value"
+                type="number"
+                step="0.1"
+                min="1"
+                max="10"
+                value={gradeForm.grade}
+                onChange={(e) => setGradeForm({ ...gradeForm, grade: e.target.value })}
+                required
+              />
             </div>
             <div>
               <Label htmlFor="grade-date">Datum</Label>
-              <Input id="grade-date" type="date" value={gradeForm.test_date} onChange={(e) => setGradeForm({ ...gradeForm, test_date: e.target.value })} required />
+              <Input
+                id="grade-date"
+                type="date"
+                value={gradeForm.test_date}
+                onChange={(e) => setGradeForm({ ...gradeForm, test_date: e.target.value })}
+                required
+              />
             </div>
             <div>
               <Label htmlFor="grade-weight">Gewicht</Label>
-              <Input id="grade-weight" type="number" value={gradeForm.weight} onChange={(e) => setGradeForm({ ...gradeForm, weight: parseInt(e.target.value) })} />
+              <Input
+                id="grade-weight"
+                type="number"
+                value={gradeForm.weight}
+                onChange={(e) => setGradeForm({ ...gradeForm, weight: parseInt(e.target.value) })}
+              />
             </div>
             <div>
               <Label htmlFor="grade-notes">Notities</Label>
-              <Textarea id="grade-notes" value={gradeForm.notes} onChange={(e) => setGradeForm({ ...gradeForm, notes: e.target.value })} />
+              <Textarea
+                id="grade-notes"
+                value={gradeForm.notes}
+                onChange={(e) => setGradeForm({ ...gradeForm, notes: e.target.value })}
+              />
             </div>
             <DialogFooter>
-              <Button type="button" variant="outline" onClick={() => setGradeOpen(false)}>Annuleren</Button>
+              <Button type="button" variant="outline" onClick={() => setGradeOpen(false)}>
+                Annuleren
+              </Button>
               <Button type="submit">Toevoegen</Button>
             </DialogFooter>
           </form>

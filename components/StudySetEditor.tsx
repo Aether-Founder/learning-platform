@@ -18,8 +18,12 @@ interface StudySetEditorProps {
   onSave: (studySet: Omit<StudySet, 'id'>) => Promise<void>;
 }
 
-export function StudySetEditor({ isOpen, onClose, studySet, onSave: _onSave }: StudySetEditorProps) {
-
+export function StudySetEditor({
+  isOpen,
+  onClose,
+  studySet,
+  onSave: _onSave,
+}: StudySetEditorProps) {
   if (!isOpen) return null;
 
   return (

@@ -58,7 +58,9 @@ export default async function AIContentPage({ params }: { params: { page: string
     return (
       <div>
         <h1>{t('content_not_found', 'Content Not Found')}</h1>
-        <p>{t('content_file_missing', 'The content file "{page}.json" does not exist.', { page })}</p>
+        <p>
+          {t('content_file_missing', 'The content file "{page}.json" does not exist.', { page })}
+        </p>
       </div>
     );
   }
@@ -71,7 +73,11 @@ export default async function AIContentPage({ params }: { params: { page: string
   return (
     <div>
       <h1>{t('ai_title', 'AI Content')}</h1>
-      <p>{t('ai_ingested', 'The content file "{page}.json" is ingested into the text below.', { page })}</p>
+      <p>
+        {t('ai_ingested', 'The content file "{page}.json" is ingested into the text below.', {
+          page,
+        })}
+      </p>
       <pre style={{ whiteSpace: 'pre-wrap' }}>{jsonToHtml(jsonData)}</pre>
     </div>
   );

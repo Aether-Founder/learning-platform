@@ -96,9 +96,7 @@ describe('term-filters', () => {
     });
 
     it('applies roundLength limit', () => {
-      const many = Array.from({ length: 10 }, (_, i) =>
-        makeTerm({ id: `m${i}`, reviewCount: 0 })
-      );
+      const many = Array.from({ length: 10 }, (_, i) => makeTerm({ id: `m${i}`, reviewCount: 0 }));
       const result = filterPlayableTerms(many, { ...defaultStudySettings, roundLength: 3 });
       expect(result).toHaveLength(3);
     });
@@ -117,7 +115,10 @@ describe('term-filters', () => {
 
   describe('prioritizeTermsForExam', () => {
     it('returns terms unchanged when exam is far away', () => {
-      const terms = [makeTerm({ masteryStatus: 'mastered' }), makeTerm({ masteryStatus: 'review' })];
+      const terms = [
+        makeTerm({ masteryStatus: 'mastered' }),
+        makeTerm({ masteryStatus: 'review' }),
+      ];
       const exam = new Date(Date.now() + 10 * 86400000);
       expect(prioritizeTermsForExam(terms, exam)).toHaveLength(2);
     });

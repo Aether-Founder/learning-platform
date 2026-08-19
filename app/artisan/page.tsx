@@ -5,7 +5,16 @@ import { AppShell, PageHeader } from '@/components/AppShell';
 import { Button } from '@/components/ui/button';
 import { useDropzone } from 'react-dropzone';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShieldCheck, Scan, Clock, Upload, CheckCircle, AlertCircle, ArrowRight, Sparkles } from 'lucide-react';
+import {
+  ShieldCheck,
+  Scan,
+  Clock,
+  Upload,
+  CheckCircle,
+  AlertCircle,
+  ArrowRight,
+  Sparkles,
+} from 'lucide-react';
 import { supabase as browserClient } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
 
@@ -28,7 +37,7 @@ const INTAKE_STEPS: IntakeStep[] = [
   },
   {
     icon: <Scan className="h-8 w-8 text-foreground" />,
-    title: 'Pagina\'s en concepten scannen',
+    title: "Pagina's en concepten scannen",
     description: 'We identificeren de hoofdstukken.',
   },
   {
@@ -101,7 +110,9 @@ export default function ArtisanPage() {
             setResultDeckId(payload.new.result_deck_id);
             setState('COMPLETED');
           } else if (newStatus === 'failed') {
-            setError('De Artisan kon je bestand niet lezen. Probeer een duidelijkere scan of een ander formaat.');
+            setError(
+              'De Artisan kon je bestand niet lezen. Probeer een duidelijkere scan of een ander formaat.'
+            );
             setState('ERROR');
           }
         }
@@ -120,7 +131,9 @@ export default function ArtisanPage() {
     // Check file size (50MB limit)
     const maxSize = 50 * 1024 * 1024;
     if (file.size > maxSize) {
-      setError('Dit manuscript is te dik voor de werkplaats (max 50MB). Splits het op in hoofdstukken.');
+      setError(
+        'Dit manuscript is te dik voor de werkplaats (max 50MB). Splits het op in hoofdstukken.'
+      );
       setState('ERROR');
       return;
     }
@@ -128,7 +141,9 @@ export default function ArtisanPage() {
     setState('UPLOADING');
     setUploadProgress(0);
 
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) return;
 
     const fileExt = file.name.split('.').pop();
@@ -183,7 +198,8 @@ export default function ArtisanPage() {
     }
 
     // Validate YouTube URL
-    const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+    const youtubeRegex =
+      /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
     if (!youtubeRegex.test(youtubeUrl)) {
       setError('Voer een geldige YouTube URL in.');
       setState('ERROR');
@@ -193,7 +209,9 @@ export default function ArtisanPage() {
     setState('UPLOADING');
     setUploadProgress(50);
 
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) return;
 
     // Insert into artisan_queue with YouTube URL
@@ -253,7 +271,6 @@ export default function ArtisanPage() {
         description="De Meester van Flashcard Creatie"
       />
       <div className="mt-10 max-w-4xl mx-auto">
-
         {/* State Machine */}
         <AnimatePresence mode="wait">
           {state === 'IDLE' && (
@@ -305,8 +322,8 @@ export default function ArtisanPage() {
                     Geef je studiemateriaal aan de Artisan
                   </h2>
                   <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
-                    Wij lezen, analyseren en smeden de perfecte flashcards. Omdat kwaliteit tijd kost,
-                    nemen we maximaal 24 uur de tijd voor je meesterwerk.
+                    Wij lezen, analyseren en smeden de perfecte flashcards. Omdat kwaliteit tijd
+                    kost, nemen we maximaal 24 uur de tijd voor je meesterwerk.
                   </p>
                   <div className="text-sm text-muted-foreground">
                     Accepteert: PDF, JPG, PNG, DOCX (max 50MB)
@@ -380,33 +397,34 @@ export default function ArtisanPage() {
               className="bg-background rounded-2xl p-8 border border-border"
             >
               <AnimatePresence mode="wait">
-                {INTAKE_STEPS.map((step, index) => (
-                  currentStep === index && (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, x: 50 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -50 }}
-                      className="text-center"
-                    >
-                      <div className="flex justify-center mb-6">{step.icon}</div>
-                      <h2 className="font-display text-2xl font-semibold mb-4 text-foreground">
-                        {step.title}
-                      </h2>
-                      <p className="text-muted-foreground">{step.description}</p>
-                      <div className="flex justify-center gap-2 mt-6">
-                        {[0, 1, 2].map((i) => (
-                          <div
-                            key={i}
-                            className={`w-2 h-2 rounded-full ${
-                              i <= currentStep ? 'bg-primary' : 'bg-secondary'
-                            }`}
-                          />
-                        ))}
-                      </div>
-                    </motion.div>
-                  )
-                ))}
+                {INTAKE_STEPS.map(
+                  (step, index) =>
+                    currentStep === index && (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -50 }}
+                        className="text-center"
+                      >
+                        <div className="flex justify-center mb-6">{step.icon}</div>
+                        <h2 className="font-display text-2xl font-semibold mb-4 text-foreground">
+                          {step.title}
+                        </h2>
+                        <p className="text-muted-foreground">{step.description}</p>
+                        <div className="flex justify-center gap-2 mt-6">
+                          {[0, 1, 2].map((i) => (
+                            <div
+                              key={i}
+                              className={`w-2 h-2 rounded-full ${
+                                i <= currentStep ? 'bg-primary' : 'bg-secondary'
+                              }`}
+                            />
+                          ))}
+                        </div>
+                      </motion.div>
+                    )
+                )}
               </AnimatePresence>
             </motion.div>
           )}
@@ -425,13 +443,10 @@ export default function ArtisanPage() {
                   In de Werkplaats
                 </h2>
                 <p className="text-muted-foreground max-w-lg mx-auto mb-6">
-                  Je materiaal is veilig aangekomen in de werkplaats. We sturen je een notificatie zodra
-                  je flashcards gesmeed zijn. Je kunt dit scherm sluiten.
+                  Je materiaal is veilig aangekomen in de werkplaats. We sturen je een notificatie
+                  zodra je flashcards gesmeed zijn. Je kunt dit scherm sluiten.
                 </p>
-                <Button
-                  variant="outline"
-                  onClick={resetState}
-                >
+                <Button variant="outline" onClick={resetState}>
                   Sluiten
                 </Button>
               </div>
@@ -456,9 +471,7 @@ export default function ArtisanPage() {
                   flashcards gesmeed.
                 </p>
                 {resultDeckId && (
-                  <Button
-                    onClick={() => router.push(`/leersets/${resultDeckId}`)}
-                  >
+                  <Button onClick={() => router.push(`/leersets/${resultDeckId}`)}>
                     Bekijk je Leerset
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>

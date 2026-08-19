@@ -224,7 +224,9 @@ export default function RegisterPage() {
                     setFormData((prev) => ({ ...prev, showPassword: !prev.showPassword }))
                   }
                   className="absolute right-2 top-0 mt-2.5 h-6 w-6 flex items-center justify-center text-sm rounded-md hover:bg-secondary/50"
-                  aria-label={t(formData.showPassword ? 'login_hide_password' : 'login_show_password')}
+                  aria-label={t(
+                    formData.showPassword ? 'login_hide_password' : 'login_show_password'
+                  )}
                 >
                   {formData.showPassword ? (
                     <EyeOff className="h-4 w-4 text-muted-foreground" />
@@ -264,9 +266,9 @@ export default function RegisterPage() {
                     }))
                   }
                   className="absolute right-2 top-0 mt-2.5 h-6 w-6 flex items-center justify-center text-sm rounded-md hover:bg-secondary/50"
-                  aria-label={
-                    t(formData.showConfirmPassword ? 'login_hide_password' : 'login_show_password')
-                  }
+                  aria-label={t(
+                    formData.showConfirmPassword ? 'login_hide_password' : 'login_show_password'
+                  )}
                 >
                   {formData.showConfirmPassword ? (
                     <EyeOff className="h-4 w-4 text-muted-foreground" />

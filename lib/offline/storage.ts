@@ -83,7 +83,7 @@ export class OfflineStorage {
   static async saveStudySet(studySet: LocalStudySet): Promise<string> {
     studySet.sync_status = 'pending';
     studySet.updated_at = new Date().toISOString();
-    
+
     const id = await db.studySets.put(studySet);
     return id.toString();
   }
@@ -103,7 +103,7 @@ export class OfflineStorage {
   static async saveNote(note: LocalNote): Promise<string> {
     note.sync_status = 'pending';
     note.updated_at = new Date().toISOString();
-    
+
     const id = await db.notes.put(note);
     return id.toString();
   }
@@ -123,7 +123,7 @@ export class OfflineStorage {
   static async saveTask(task: LocalTask): Promise<string> {
     task.sync_status = 'pending';
     task.updated_at = new Date().toISOString();
-    
+
     const id = await db.tasks.put(task);
     return id.toString();
   }
@@ -142,7 +142,7 @@ export class OfflineStorage {
 
   static async saveStudySession(session: LocalStudySession): Promise<string> {
     session.sync_status = 'pending';
-    
+
     const id = await db.studySessions.put(session);
     return id.toString();
   }
@@ -167,7 +167,11 @@ export class OfflineStorage {
     return { studySets, notes, tasks, studySessions };
   }
 
-  static async markAsSynced(table: 'studySets' | 'notes' | 'tasks' | 'studySessions', localId: string, remoteId: string): Promise<void> {
+  static async markAsSynced(
+    table: 'studySets' | 'notes' | 'tasks' | 'studySessions',
+    localId: string,
+    remoteId: string
+  ): Promise<void> {
     await db[table].update(localId, { sync_status: 'synced' as const, remote_id: remoteId });
   }
 

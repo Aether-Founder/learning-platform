@@ -7,9 +7,9 @@
 import { useEffect, useState } from 'react';
 import { useUser } from './useAuth';
 
-export type NavPage = 
+export type NavPage =
   | 'dashboard'
-  | 'subjects' 
+  | 'subjects'
   | 'decks'
   | 'notes'
   | 'groups'
@@ -100,7 +100,7 @@ export function useNavbarPreferences() {
   const toggleVisibility = (page: NavPage) => {
     const newVisibility = { ...visibility, [page]: !visibility[page] };
     setVisibility(newVisibility);
-    
+
     const key = user ? `navbar-visibility:${user.id}` : 'navbar-visibility:guest';
     try {
       localStorage.setItem(key, JSON.stringify(newVisibility));

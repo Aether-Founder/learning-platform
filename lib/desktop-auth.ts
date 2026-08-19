@@ -1,6 +1,6 @@
 /**
  * Desktop Authentication Utilities for Tauri
- * 
+ *
  * Integrates Supabase authentication with Tauri's secure storage
  * for desktop app session management
  */
@@ -30,7 +30,7 @@ export async function storeSession(session: AuthSession): Promise<void> {
     localStorage.setItem('auth_session', JSON.stringify(session));
     return;
   }
-  
+
   try {
     await invoke('auth_store_session', { session: JSON.stringify(session) });
   } catch (error) {
@@ -49,7 +49,7 @@ export async function getSession(): Promise<AuthSession | null> {
     const stored = localStorage.getItem('auth_session');
     return stored ? JSON.parse(stored) : null;
   }
-  
+
   try {
     const session = await invoke<string>('auth_get_session');
     return session ? JSON.parse(session) : null;
@@ -70,7 +70,7 @@ export async function clearSession(): Promise<void> {
     localStorage.removeItem('auth_session');
     return;
   }
-  
+
   try {
     await invoke('auth_clear_session');
   } catch (error) {
@@ -137,7 +137,7 @@ export async function signUp(email: string, password: string, username: string, 
  */
 export async function signOut() {
   await supabase.auth.signOut();
-  
+
   if (isDesktopApp()) {
     await clearSession();
   }

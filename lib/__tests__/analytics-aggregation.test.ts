@@ -1,5 +1,9 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { getUserAnalytics, getAggregatedAnalytics, getSubjectAnalytics } from '@/lib/analytics-aggregation';
+import {
+  getUserAnalytics,
+  getAggregatedAnalytics,
+  getSubjectAnalytics,
+} from '@/lib/analytics-aggregation';
 import { createTestUser } from '@/test-utils/auth';
 import { createStudySet, addStudyCard } from '@/lib/studysets';
 import { createHomework } from '@/lib/homework';

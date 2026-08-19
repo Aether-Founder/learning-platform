@@ -3,7 +3,13 @@
 import { useState, useEffect } from 'react';
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 import { Download, Trash2, CheckCircle, Clock, AlertCircle, Hammer } from 'lucide-react';
 import { supabase as browserClient } from '@/lib/supabase/client';
@@ -43,9 +49,13 @@ export default function AdminArtisanPage() {
   const [processing, setProcessing] = useState(false);
 
   const stats = {
-    pending: queue.filter(i => i.status === 'pending').length,
-    processing: queue.filter(i => i.status === 'processing').length,
-    completedToday: queue.filter(i => i.status === 'completed' && new Date(i.updated_at).toDateString() === new Date().toDateString()).length,
+    pending: queue.filter((i) => i.status === 'pending').length,
+    processing: queue.filter((i) => i.status === 'processing').length,
+    completedToday: queue.filter(
+      (i) =>
+        i.status === 'completed' &&
+        new Date(i.updated_at).toDateString() === new Date().toDateString()
+    ).length,
   };
 
   useEffect(() => {
@@ -55,10 +65,12 @@ export default function AdminArtisanPage() {
   const fetchQueue = async () => {
     const { data, error } = await supabase
       .from('artisan_queue')
-      .select(`
+      .select(
+        `
         *,
         users!user_id (email)
-      `)
+      `
+      )
       .in('status', ['pending', 'processing'])
       .order('created_at', { ascending: false });
 
@@ -66,10 +78,12 @@ export default function AdminArtisanPage() {
       console.error('Failed to fetch queue:', error);
       toast.error('Kon wachtrij niet laden');
     } else if (data) {
-      setQueue(data.map((item: any) => ({
-        ...item,
-        user_email: item.users?.email,
-      })));
+      setQueue(
+        data.map((item: any) => ({
+          ...item,
+          user_email: item.users?.email,
+        }))
+      );
     }
     setLoading(false);
   };
@@ -156,16 +170,14 @@ export default function AdminArtisanPage() {
       }
 
       // Insert cards
-      const cards = validatedFlashcards.map(card => ({
+      const cards = validatedFlashcards.map((card) => ({
         deck_id: deckData.id,
         front: card.front,
         back: card.back,
         source_text: card.source_text || null,
       }));
 
-      const { error: cardsError } = await supabase
-        .from('cards')
-        .insert(cards);
+      const { error: cardsError } = await supabase.from('cards').insert(cards);
 
       if (cardsError) {
         toast.error('Kon kaarten niet toevoegen');
@@ -231,11 +243,7 @@ export default function AdminArtisanPage() {
 
   return (
     <AppShell>
-      <PageHeader
-        eyebrow="Admin"
-        title="De Werkplaats"
-        description="Artisan wachtrij beheer"
-      />
+      <PageHeader eyebrow="Admin" title="De Werkplaats" description="Artisan wachtrij beheer" />
 
       <div className="mt-10 space-y-6">
         {/* Stats */}
@@ -274,9 +282,7 @@ export default function AdminArtisanPage() {
           <div className="rounded-xl border border-dashed border-border p-10 text-center">
             <Clock className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
             <h2 className="font-display text-xl font-semibold mb-2">Wachtrij is leeg</h2>
-            <p className="text-sm text-muted-foreground">
-              Geen items om te verwerken.
-            </p>
+            <p className="text-sm text-muted-foreground">Geen items om te verwerken.</p>
           </div>
         ) : (
           <div className="rounded-xl border border-border bg-card overflow-hidden">
@@ -301,19 +307,30 @@ export default function AdminArtisanPage() {
                       <div className="text-sm">{item.file_name}</div>
                     </td>
                     <td className="p-4">
-                      <div className="text-sm text-muted-foreground">{formatFileSize(item.file_size_bytes)}</div>
+                      <div className="text-sm text-muted-foreground">
+                        {formatFileSize(item.file_size_bytes)}
+                      </div>
                     </td>
                     <td className="p-4">
-                      <div className="text-sm text-muted-foreground">{getTimeElapsed(item.created_at)}</div>
+                      <div className="text-sm text-muted-foreground">
+                        {getTimeElapsed(item.created_at)}
+                      </div>
                     </td>
                     <td className="p-4">
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        item.status === 'pending' ? 'bg-yellow-500/10 text-yellow-600' :
-                        item.status === 'processing' ? 'bg-blue-500/10 text-blue-600' :
-                        'bg-green-500/10 text-green-600'
-                      }`}>
-                        {item.status === 'pending' ? 'Wachtend' :
-                         item.status === 'processing' ? 'In Behandeling' : item.status}
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs font-medium ${
+                          item.status === 'pending'
+                            ? 'bg-yellow-500/10 text-yellow-600'
+                            : item.status === 'processing'
+                              ? 'bg-blue-500/10 text-blue-600'
+                              : 'bg-green-500/10 text-green-600'
+                        }`}
+                      >
+                        {item.status === 'pending'
+                          ? 'Wachtend'
+                          : item.status === 'processing'
+                            ? 'In Behandeling'
+                            : item.status}
                       </span>
                     </td>
                     <td className="p-4">
@@ -392,7 +409,8 @@ export default function AdminArtisanPage() {
               />
             </div>
             <p className="text-xs text-muted-foreground">
-              JSON moet een array zijn van objecten met "front", "back", en optioneel "source_text" velden.
+              JSON moet een array zijn van objecten met "front", "back", en optioneel "source_text"
+              velden.
             </p>
           </div>
           <DialogFooter>

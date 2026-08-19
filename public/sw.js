@@ -1,6 +1,6 @@
-# Service Worker for Offline Support (Tauri Preparation)
-# This file registers a service worker for PWA capabilities
-# Prepared for future Tauri desktop app integration
+// Service Worker for Offline Support (Tauri Preparation)
+// This file registers a service worker for PWA capabilities
+// Prepared for future Tauri desktop app integration
 
 self.addEventListener('install', (event) => {
   console.log('Service Worker: Installing...');

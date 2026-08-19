@@ -197,7 +197,7 @@ export function initializeDatabase() {
   `);
 
   ensureColumn('classes', 'description', 'TEXT');
-  ensureColumn('classes', 'updated_at', "TIMESTAMP DEFAULT CURRENT_TIMESTAMP");
+  ensureColumn('classes', 'updated_at', 'TIMESTAMP DEFAULT CURRENT_TIMESTAMP');
 
   // Class students table
   db.exec(`
@@ -280,7 +280,7 @@ export function initializeDatabase() {
   ensureColumn('calendar_events', 'location', 'TEXT');
   ensureColumn('calendar_events', 'reminder_minutes', 'INTEGER');
   ensureColumn('calendar_events', 'recurrence', 'TEXT');
-  ensureColumn('calendar_events', 'updated_at', "TIMESTAMP DEFAULT CURRENT_TIMESTAMP");
+  ensureColumn('calendar_events', 'updated_at', 'TIMESTAMP DEFAULT CURRENT_TIMESTAMP');
 
   // Study plans table
   db.exec(`

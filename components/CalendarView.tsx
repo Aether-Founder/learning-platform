@@ -96,7 +96,12 @@ export function CalendarView({
       <div className="overflow-hidden rounded-2xl border border-blue-300/20 bg-[#09152b] text-blue-100 shadow-xl shadow-blue-950/10">
         <div className="grid grid-cols-7 border-b border-blue-200/15 bg-[#0d1b35]">
           {['ma', 'di', 'wo', 'do', 'vr', 'za', 'zo'].map((dayKey, index) => (
-            <div key={dayKey} className="px-2 py-3 text-[10px] font-medium tracking-[0.16em] text-blue-200/75 sm:px-3">{t(`calendar_dow_${dayKey}`)}</div>
+            <div
+              key={dayKey}
+              className="px-2 py-3 text-[10px] font-medium tracking-[0.16em] text-blue-200/75 sm:px-3"
+            >
+              {t(`calendar_dow_${dayKey}`)}
+            </div>
           ))}
         </div>
         <div className="grid grid-cols-7">
@@ -106,11 +111,38 @@ export function CalendarView({
             const isOutsideMonth = !isSameMonth(day, currentDate);
             const isWeekendDay = isWeekend(day);
             return (
-              <div key={day.toISOString()} onClick={() => onDateClick?.(day)} className={`min-h-[92px] cursor-pointer border-b border-r border-blue-200/15 p-2 transition-colors hover:bg-blue-400/10 sm:min-h-[112px] sm:p-3 ${isToday ? 'bg-blue-400/15' : ''} ${isWeekendDay ? 'bg-[#0a1830]' : ''} ${isOutsideMonth ? 'opacity-35' : ''}`}>
-                <div className="flex items-center justify-between"><span className={`text-xs ${isToday ? 'font-bold text-blue-300' : 'text-blue-100/75'}`}>{format(day, 'd')}</span>{isToday && <span className="h-1.5 w-1.5 rounded-full bg-blue-300" />}</div>
+              <div
+                key={day.toISOString()}
+                onClick={() => onDateClick?.(day)}
+                className={`min-h-[92px] cursor-pointer border-b border-r border-blue-200/15 p-2 transition-colors hover:bg-blue-400/10 sm:min-h-[112px] sm:p-3 ${isToday ? 'bg-blue-400/15' : ''} ${isWeekendDay ? 'bg-[#0a1830]' : ''} ${isOutsideMonth ? 'opacity-35' : ''}`}
+              >
+                <div className="flex items-center justify-between">
+                  <span
+                    className={`text-xs ${isToday ? 'font-bold text-blue-300' : 'text-blue-100/75'}`}
+                  >
+                    {format(day, 'd')}
+                  </span>
+                  {isToday && <span className="h-1.5 w-1.5 rounded-full bg-blue-300" />}
+                </div>
                 <div className="mt-2 space-y-1">
-                  {dayEvents.slice(0, 3).map((event) => <div key={event.id} onClick={(e) => { e.stopPropagation(); onEventClick?.(event); }} className="truncate rounded px-1.5 py-1 text-[9px] font-medium text-blue-50 shadow-sm" style={{ backgroundColor: event.color || '#173b70' }}>{event.title}</div>)}
-                  {dayEvents.length > 3 && <div className="text-[9px] text-blue-200/50">{t('calendar_more', undefined, { n: dayEvents.length - 3 })}</div>}
+                  {dayEvents.slice(0, 3).map((event) => (
+                    <div
+                      key={event.id}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onEventClick?.(event);
+                      }}
+                      className="truncate rounded px-1.5 py-1 text-[9px] font-medium text-blue-50 shadow-sm"
+                      style={{ backgroundColor: event.color || '#173b70' }}
+                    >
+                      {event.title}
+                    </div>
+                  ))}
+                  {dayEvents.length > 3 && (
+                    <div className="text-[9px] text-blue-200/50">
+                      {t('calendar_more', undefined, { n: dayEvents.length - 3 })}
+                    </div>
+                  )}
                 </div>
               </div>
             );
@@ -222,7 +254,9 @@ export function CalendarView({
               </div>
             ))}
             {dayEvents.length === 0 && (
-              <p className="text-muted-foreground text-center py-8">{t('calendar_no_events_day')}</p>
+              <p className="text-muted-foreground text-center py-8">
+                {t('calendar_no_events_day')}
+              </p>
             )}
           </div>
         </div>
@@ -252,7 +286,9 @@ export function CalendarView({
               <div>
                 <div className="font-semibold">{event.title}</div>
                 <div className="text-sm text-muted-foreground">
-                  {format(new Date(event.startDate), 'EEEE d MMMM yyyy HH:mm', { locale: dateLocale })}
+                  {format(new Date(event.startDate), 'EEEE d MMMM yyyy HH:mm', {
+                    locale: dateLocale,
+                  })}
                 </div>
               </div>
               <div

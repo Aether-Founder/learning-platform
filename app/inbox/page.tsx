@@ -27,7 +27,9 @@ export default function InboxPage() {
   }, []);
 
   const fetchItems = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) return;
 
     const { data, error } = await supabase
@@ -47,7 +49,9 @@ export default function InboxPage() {
   const addItem = async () => {
     if (!newItem.trim()) return;
 
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) return;
 
     const { data, error } = await supabase
@@ -69,30 +73,22 @@ export default function InboxPage() {
   };
 
   const toggleComplete = async (id: string, completed: boolean) => {
-    const { error } = await supabase
-      .from('inbox')
-      .update({ completed: !completed })
-      .eq('id', id);
+    const { error } = await supabase.from('inbox').update({ completed: !completed }).eq('id', id);
 
     if (error) {
       console.error('Failed to update item:', error);
     } else {
-      setItems(items.map(item => 
-        item.id === id ? { ...item, completed: !completed } : item
-      ));
+      setItems(items.map((item) => (item.id === id ? { ...item, completed: !completed } : item)));
     }
   };
 
   const deleteItem = async (id: string) => {
-    const { error } = await supabase
-      .from('inbox')
-      .delete()
-      .eq('id', id);
+    const { error } = await supabase.from('inbox').delete().eq('id', id);
 
     if (error) {
       console.error('Failed to delete item:', error);
     } else {
-      setItems(items.filter(item => item.id !== id));
+      setItems(items.filter((item) => item.id !== id));
     }
   };
 
@@ -103,8 +99,8 @@ export default function InboxPage() {
     }
   };
 
-  const activeItems = items.filter(item => !item.completed);
-  const completedItems = items.filter(item => item.completed);
+  const activeItems = items.filter((item) => !item.completed);
+  const completedItems = items.filter((item) => item.completed);
 
   return (
     <AppShell>
@@ -116,7 +112,13 @@ export default function InboxPage() {
 
       <div className="mt-10 max-w-3xl mx-auto">
         {/* Add New Item */}
-        <form onSubmit={(e) => { e.preventDefault(); addItem(); }} className="flex gap-2 mb-8">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            addItem();
+          }}
+          className="flex gap-2 mb-8"
+        >
           <Input
             value={newItem}
             onChange={(e) => setNewItem(e.target.value)}
@@ -149,7 +151,9 @@ export default function InboxPage() {
             {/* Active Items */}
             {activeItems.length > 0 && (
               <div className="mb-8">
-                <h2 className="font-display text-lg font-semibold mb-4">Actief ({activeItems.length})</h2>
+                <h2 className="font-display text-lg font-semibold mb-4">
+                  Actief ({activeItems.length})
+                </h2>
                 <div className="space-y-3">
                   {activeItems.map((item) => (
                     <div
@@ -180,7 +184,9 @@ export default function InboxPage() {
             {/* Completed Items */}
             {completedItems.length > 0 && (
               <div>
-                <h2 className="font-display text-lg font-semibold mb-4">Voltooid ({completedItems.length})</h2>
+                <h2 className="font-display text-lg font-semibold mb-4">
+                  Voltooid ({completedItems.length})
+                </h2>
                 <div className="space-y-3">
                   {completedItems.map((item) => (
                     <div
@@ -193,7 +199,9 @@ export default function InboxPage() {
                       >
                         <Check className="h-3 w-3" />
                       </button>
-                      <p className="flex-1 text-sm line-through text-muted-foreground">{item.content}</p>
+                      <p className="flex-1 text-sm line-through text-muted-foreground">
+                        {item.content}
+                      </p>
                       <Button
                         variant="ghost"
                         size="sm"

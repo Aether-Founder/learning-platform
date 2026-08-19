@@ -3,7 +3,16 @@
 import { useState, useEffect } from 'react';
 import { AppShell, PageHeader } from '@/components/AppShell';
 import { Button } from '@/components/ui/button';
-import { Clock, Flame, Target, AlertTriangle, BookOpen, Brain, TrendingUp, Calendar } from 'lucide-react';
+import {
+  Clock,
+  Flame,
+  Target,
+  AlertTriangle,
+  BookOpen,
+  Brain,
+  TrendingUp,
+  Calendar,
+} from 'lucide-react';
 import Link from 'next/link';
 import { supabase as browserClient } from '@/lib/supabase/client';
 
@@ -61,7 +70,9 @@ export default function VandaagPage() {
   }, []);
 
   const fetchDashboardData = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) return;
 
     try {
@@ -74,10 +85,7 @@ export default function VandaagPage() {
         .limit(100);
 
       // Fetch subjects for mastery
-      const { data: subjects } = await supabase
-        .from('subjects')
-        .select('*')
-        .eq('user_id', user.id);
+      const { data: subjects } = await supabase.from('subjects').select('*').eq('user_id', user.id);
 
       // Fetch spaced repetition items due today
       const today = new Date().toISOString().split('T')[0];
@@ -105,10 +113,14 @@ export default function VandaagPage() {
         .limit(5);
 
       // Calculate stats
-      const totalMinutes = sessions?.reduce((sum: number, s: any) => sum + (s.duration_minutes || 0), 0) || 0;
-      const averageMastery = subjects?.length > 0 
-        ? Math.round(subjects.reduce((sum: number, s: any) => sum + s.mastery, 0) / subjects.length)
-        : 0;
+      const totalMinutes =
+        sessions?.reduce((sum: number, s: any) => sum + (s.duration_minutes || 0), 0) || 0;
+      const averageMastery =
+        subjects?.length > 0
+          ? Math.round(
+              subjects.reduce((sum: number, s: any) => sum + s.mastery, 0) / subjects.length
+            )
+          : 0;
 
       // Calculate weekly minutes
       const now = new Date();
@@ -129,30 +141,34 @@ export default function VandaagPage() {
       const streak = calculateStreak(sessions || []);
 
       // Get subjects in danger (mastery < 60%)
-      const dangerSubjects = subjects
-        ?.filter((s: any) => s.mastery < 60)
-        .map((s: any) => ({
-          id: s.id,
-          name: s.name,
-          mastery: s.mastery,
-          errorCount: errorItems?.filter((e: any) => e.vak === s.name).length || 0,
-        })) || [];
+      const dangerSubjects =
+        subjects
+          ?.filter((s: any) => s.mastery < 60)
+          .map((s: any) => ({
+            id: s.id,
+            name: s.name,
+            mastery: s.mastery,
+            errorCount: errorItems?.filter((e: any) => e.vak === s.name).length || 0,
+          })) || [];
 
       // Get upcoming tests
-      const tests = events?.map((e: any) => {
-        const daysUntil = Math.ceil((new Date(e.event_date).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
-        let status: 'safe' | 'warning' | 'danger' = 'safe';
-        if (daysUntil <= 3) status = 'danger';
-        else if (daysUntil <= 7) status = 'warning';
+      const tests =
+        events?.map((e: any) => {
+          const daysUntil = Math.ceil(
+            (new Date(e.event_date).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)
+          );
+          let status: 'safe' | 'warning' | 'danger' = 'safe';
+          if (daysUntil <= 3) status = 'danger';
+          else if (daysUntil <= 7) status = 'warning';
 
-        return {
-          id: e.id,
-          vak: e.subject_id || 'Algemeen',
-          titel: e.title,
-          datum: e.event_date,
-          status,
-        };
-      }) || [];
+          return {
+            id: e.id,
+            vak: e.subject_id || 'Algemeen',
+            titel: e.title,
+            datum: e.event_date,
+            status,
+          };
+        }) || [];
 
       // Generate recommendations
       const recs: Recommendation[] = [];
@@ -205,14 +221,12 @@ export default function VandaagPage() {
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    
-    const uniqueDays = new Set(
-      sessions.map(s => new Date(s.started_at).toDateString())
-    );
-    
+
+    const uniqueDays = new Set(sessions.map((s) => new Date(s.started_at).toDateString()));
+
     if (uniqueDays.size === 0) return 0;
 
-    const studiedToday = sessions.some(s => {
+    const studiedToday = sessions.some((s) => {
       const date = new Date(s.started_at);
       date.setHours(0, 0, 0, 0);
       return date.getTime() === today.getTime();
@@ -220,7 +234,7 @@ export default function VandaagPage() {
 
     const yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate() - 1);
-    const studiedYesterday = sessions.some(s => {
+    const studiedYesterday = sessions.some((s) => {
       const date = new Date(s.started_at);
       date.setHours(0, 0, 0, 0);
       return date.getTime() === yesterday.getTime();
@@ -230,14 +244,14 @@ export default function VandaagPage() {
 
     let streak = 0;
     const checkDate = studiedToday ? today : yesterday;
-    
+
     while (true) {
-      const hasSession = sessions.some(s => {
+      const hasSession = sessions.some((s) => {
         const date = new Date(s.started_at);
         date.setHours(0, 0, 0, 0);
         return date.getTime() === checkDate.getTime();
       });
-      
+
       if (hasSession) {
         streak++;
         checkDate.setDate(checkDate.getDate() - 1);
@@ -341,7 +355,9 @@ export default function VandaagPage() {
                   <Target className="h-5 w-5 text-blue-500" />
                   <span>Geschatte tijd</span>
                 </div>
-                <span className="font-semibold">{formatMinutes(stats.dueReviews * 2 + stats.dueErrors * 3)}</span>
+                <span className="font-semibold">
+                  {formatMinutes(stats.dueReviews * 2 + stats.dueErrors * 3)}
+                </span>
               </div>
             </div>
           </div>
@@ -352,19 +368,32 @@ export default function VandaagPage() {
               <h2 className="font-display text-xl font-semibold mb-4">Aanstaande toetsen</h2>
               <div className="space-y-3">
                 {upcomingTests.map((test) => {
-                  const daysUntil = Math.ceil((new Date(test.datum).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
+                  const daysUntil = Math.ceil(
+                    (new Date(test.datum).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)
+                  );
                   return (
-                    <div key={test.id} className="flex items-center justify-between py-3 border-b border-border last:border-0">
+                    <div
+                      key={test.id}
+                      className="flex items-center justify-between py-3 border-b border-border last:border-0"
+                    >
                       <div>
                         <p className="font-medium">{test.titel}</p>
                         <p className="text-sm text-muted-foreground">Over {daysUntil} dagen</p>
                       </div>
-                      <span className={`rounded-full px-3 py-1 text-xs font-medium ${
-                        test.status === 'danger' ? 'bg-red-500/10 text-red-600' :
-                        test.status === 'warning' ? 'bg-yellow-500/10 text-yellow-600' :
-                        'bg-green-500/10 text-green-600'
-                      }`}>
-                        {test.status === 'danger' ? 'Gevaar' : test.status === 'warning' ? 'Let op' : 'Veilig'}
+                      <span
+                        className={`rounded-full px-3 py-1 text-xs font-medium ${
+                          test.status === 'danger'
+                            ? 'bg-red-500/10 text-red-600'
+                            : test.status === 'warning'
+                              ? 'bg-yellow-500/10 text-yellow-600'
+                              : 'bg-green-500/10 text-green-600'
+                        }`}
+                      >
+                        {test.status === 'danger'
+                          ? 'Gevaar'
+                          : test.status === 'warning'
+                            ? 'Let op'
+                            : 'Veilig'}
                       </span>
                     </div>
                   );
@@ -379,19 +408,26 @@ export default function VandaagPage() {
               <h2 className="font-display text-xl font-semibold mb-4">Vakken in gevarenzone</h2>
               <div className="space-y-3">
                 {subjectsInDanger.map((subject) => (
-                  <div key={subject.id} className="flex items-center justify-between py-3 border-b border-border last:border-0">
+                  <div
+                    key={subject.id}
+                    className="flex items-center justify-between py-3 border-b border-border last:border-0"
+                  >
                     <div>
                       <p className="font-medium">{subject.name}</p>
-                      <p className="text-sm text-muted-foreground">Meesterschap: {subject.mastery}%</p>
+                      <p className="text-sm text-muted-foreground">
+                        Meesterschap: {subject.mastery}%
+                      </p>
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-24 h-2 bg-secondary rounded-full overflow-hidden">
-                        <div 
-                          className={`h-full ${subject.mastery < 40 ? 'bg-red-500' : subject.mastery < 60 ? 'bg-yellow-500' : 'bg-green-500'}`} 
+                        <div
+                          className={`h-full ${subject.mastery < 40 ? 'bg-red-500' : subject.mastery < 60 ? 'bg-yellow-500' : 'bg-green-500'}`}
                           style={{ width: `${subject.mastery}%` }}
                         />
                       </div>
-                      <span className="text-xs text-muted-foreground">{subject.errorCount} fouten</span>
+                      <span className="text-xs text-muted-foreground">
+                        {subject.errorCount} fouten
+                      </span>
                     </div>
                   </div>
                 ))}
@@ -405,10 +441,19 @@ export default function VandaagPage() {
               <h2 className="font-display text-xl font-semibold mb-4">Aanbevelingen</h2>
               <div className="space-y-3">
                 {recommendations.map((rec) => (
-                  <div key={rec.id} className="flex items-start gap-3 p-3 rounded-lg bg-secondary/50">
-                    {rec.type === 'error' && <AlertTriangle className="h-5 w-5 text-orange-500 shrink-0 mt-0.5" />}
-                    {rec.type === 'calendar' && <Calendar className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />}
-                    {rec.type === 'study' && <BookOpen className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />}
+                  <div
+                    key={rec.id}
+                    className="flex items-start gap-3 p-3 rounded-lg bg-secondary/50"
+                  >
+                    {rec.type === 'error' && (
+                      <AlertTriangle className="h-5 w-5 text-orange-500 shrink-0 mt-0.5" />
+                    )}
+                    {rec.type === 'calendar' && (
+                      <Calendar className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
+                    )}
+                    {rec.type === 'study' && (
+                      <BookOpen className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
+                    )}
                     <div>
                       <p className="font-medium">{rec.title}</p>
                       <p className="text-sm text-muted-foreground">{rec.description}</p>
@@ -429,7 +474,9 @@ export default function VandaagPage() {
                 <Clock className="h-5 w-5 text-primary" />
                 <span className="text-sm text-muted-foreground">Totale tijd</span>
               </div>
-              <p className="font-display text-2xl font-semibold">{formatMinutes(stats.totalMinutes)}</p>
+              <p className="font-display text-2xl font-semibold">
+                {formatMinutes(stats.totalMinutes)}
+              </p>
             </div>
             <div className="rounded-xl border border-border bg-card p-5">
               <div className="flex items-center gap-3 mb-2">
